@@ -1,0 +1,291 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>جزئیات فروشنده | Jorok</title>
+    <meta name="description" content="نمای کلی فروشنده، آمار محصولات، سفارش‌ها، فروش کل و اطلاعات مالی در پنل ادمین." />
+    <meta name="keywords" content="نمای کلی فروشنده, پنل ادمین, آمار فروشنده, اطلاعات فروشنده" />
+    <link rel="canonical" href="https://example.com/admin/seller/overview" />
+
+    <link rel="stylesheet" href="../../../styles/output.css">
+    <link rel="stylesheet" href="../../../styles/admin-common.css">
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="h-[72px] border-b border-[#ececec] bg-white" role="banner">
+        <div class="mx-auto flex h-full max-w-[1536px] items-center justify-between px-4 sm:px-6 lg:px-[60px]">
+            <div class="flex items-center gap-4">
+                <img src="../../../images/logo/Logo.svg" alt="لوگو فروشگاه" />
+                <span class="hidden h-10 w-px bg-[#d9d9d9] sm:block" aria-hidden="true"></span>
+                <nav class="hidden items-center gap-8 md:flex" aria-label="منوی اصلی">
+                    <a href="#" class="flex items-center gap-2 text-[15px] font-medium text-[#2b2b2b]">
+                        <img src="../../../images/Header/home 04.svg" alt="آیکون خانه" /> صفحه اصلی
+                    </a>
+                    <button class="flex items-center gap-2 text-[15px] font-medium text-[#2b2b2b]"
+                        aria-expanded="false">
+                        <img src="../../../images/Header/grid 02.svg" alt="آیکون صفحات" /> صفحات پنل
+                        <img src="../../../images/Header/direction-down 01.svg" alt="باز کردن منو" />
+                    </button>
+                </nav>
+            </div>
+            <div class="flex items-center gap-3 sm:gap-7" dir="ltr">
+                <div class="flex items-center gap-3">
+                    <div class="h-9 w-9 rounded-full bg-[#202020]" role="img" aria-label="آواتار ادمین"></div>
+                    <div class="hidden leading-tight sm:block">
+                        <div class="text-[14px] font-medium text-[#222]">ادمین</div>
+                        <div class="mt-1 text-[11px] font-light text-[#777]">سطح ادمین</div>
+                    </div>
+                </div>
+                <div class="hidden items-center gap-3 sm:flex lg:gap-5">
+                    <button class="grid h-9 w-9 place-items-center rounded-lg hover:bg-[#f7f7f7]" aria-label="اعلان‌ها">
+                        <img src="../../../images/Header/notification.svg" alt="آیکون اعلان" />
+                    </button>
+                    <button class="grid h-9 w-9 place-items-center rounded-lg hover:bg-[#f7f7f7]" aria-label="پیام‌ها">
+                        <img src="../../../images/Header/mail.svg" alt="آیکون پیام" />
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main -->
+    <main class="mx-auto w-full max-w-[1200px] px-4 pb-10 pt-[55px] lg:px-0">
+        <!-- Breadcrumb -->
+        <div class="mb-5 flex items-center gap-2 px-1 text-[13px] text-[#666666]">
+            <img src="../../../images/AdminDashboard/Seller/arrow-right.svg" alt="">
+            <a href="#">داشبورد</a>
+            <img src="../../../images/AdminDashboard/Seller/direction-down 01.svg" class="rotate-90" alt="">
+            <a href="AdminDashboard_Sellers_List.html">فروشندگان</a>
+            <img src="../../../images/AdminDashboard/Seller/direction-down 01.svg" class="rotate-90" alt="">
+            <span class="font-medium text-[#222]">نام کامل فروشگاه</span>
+        </div>
+
+        <!-- Seller Summary -->
+        <section class="relative rounded-[14px] bg-white px-6 py-4 shadow-soft lg:px-8">
+            <div class="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
+                <div class="flex items-center gap-4">
+                    <span class="h-[84px] w-[84px] shrink-0 rounded-full bg-custom-brown"></span>
+                    <div>
+                        <div class="flex flex-wrap items-center gap-3">
+                            <h1 class="text-lg font-bold">نام کامل فروشگاه</h1>
+                            <span id="statusBadge"
+                                class="rounded-[5px] bg-[#dcecff] px-3 py-2 text-[12px] font-medium text-[#2b78c5]">در
+                                انتظار بررسی</span>
+                        </div>
+                        <p class="mt-2 text-[13px] text-[#777]">نام مدیر فروشگاه</p>
+                    </div>
+                </div>
+
+                <div class="flex flex-col gap-4 lg:items-end">
+                    <div class="flex flex-wrap items-center gap-4">
+                        <span id="completionLabel" class="text-[14px] font-semibold text-custom-brown">نیازمند تکمیل
+                            اطلاعات</span>
+                        <button id="rejectBtn" type="button"
+                            class="h-[44px] min-w-[144px] rounded-[7px] border-2 border-[#c93434] bg-white px-5 text-[15px] font-semibold text-[#c93434] transition hover:bg-[#fff3f3]">رد
+                            فروشگاه</button>
+                        <button id="approveBtn" type="button"
+                            class="h-[44px] min-w-[144px] rounded-[7px] bg-[#19aa56] px-5 text-[15px] font-semibold text-white transition hover:bg-[#15994d]">تایید
+                            فروشگاه</button>
+                        <div class="relative">
+                            <button id="moreBtn" type="button"
+                                class="grid h-11 w-8 place-items-center rounded-md hover:bg-[#f5f5f5]"
+                                aria-label="گزینه‌های بیشتر" aria-expanded="false">
+                                <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                                    <circle cx="12" cy="5" r="1.7" />
+                                    <circle cx="12" cy="12" r="1.7" />
+                                    <circle cx="12" cy="19" r="1.7" />
+                                </svg>
+                            </button>
+                            <div id="moreMenu"
+                                class="absolute left-0 top-12 z-20 hidden w-44 overflow-hidden rounded-xl border border-[#e5e5e5] bg-white py-1 shadow-lg">
+                                <button class="w-full px-4 py-2.5 text-right text-[13px] hover:bg-[#f7f7f7]">ویرایش
+                                    اطلاعات</button>
+                                <button class="w-full px-4 py-2.5 text-right text-[13px] hover:bg-[#f7f7f7]">تعلیق
+                                    فروشنده</button>
+                                <button
+                                    class="w-full px-4 py-2.5 text-right text-[13px] text-[#c93434] hover:bg-[#fff4f4]">حذف
+                                    فروشنده</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex flex-wrap gap-x-8 gap-y-2 text-[12px] text-[#777]">
+                        <span>عضویت: ۱۴۰۵/۱۲/۱۲</span>
+                        <span>آخرین فعالیت: ۱۴۰۵/۱۲/۱۲</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tabs -->
+        <nav id="tabsTop" class="nav-scroll mt-[34px] flex overflow-x-auto border-b border-[#cfcfcf]"
+            aria-label="بخش‌های فروشنده">
+            <a href="AdminDashboard_SellerDetail_Overview.html"
+                class="tab-btn active-tab whitespace-nowrap border-b-[3px] border-custom-brown px-6 pb-[13px] text-[15px] font-semibold text-custom-brown">نمای
+                کلی</a>
+            <a href="AdminDashboard_SellerDetail_Info.html"
+                class="tab-btn whitespace-nowrap border-b-2 border-transparent px-6 pb-[13px] text-[15px]">اطلاعات</a>
+            <a href="AdminDashboard_SellerDetail_Products.html"
+                class="tab-btn whitespace-nowrap border-b-2 border-transparent px-6 pb-[13px] text-[15px]">محصولات</a>
+            <a href="AdminDashboard_SellerDetail_Orders.html"
+                class="tab-btn whitespace-nowrap border-b-2 border-transparent px-6 pb-[13px] text-[15px]">سفارش‌ها</a>
+            <a href="AdminDashboard_SellerDetail_Transactions.html"
+                class="tab-btn whitespace-nowrap border-b-2 border-transparent px-6 pb-[13px] text-[15px]">تراکنش‌ها</a>
+            <a href="AdminDashboard_SellerDetail_FinancialBalance.html"
+                class="tab-btn whitespace-nowrap border-b-2 border-transparent px-6 pb-[13px] text-[15px]">موجودی و
+                تسویه</a>
+            <a href="AdminDashboard_SellerDetail_BankAccounts.html"
+                class="tab-btn whitespace-nowrap border-b-2 border-transparent px-6 pb-[13px] text-[15px]">حساب
+                بانکی</a>
+        </nav>
+
+        <!-- Tab content -->
+        <div id="tabContent">
+            <!-- Overview -->
+            <section id="overviewPanel" class="mt-[30px] rounded-[15px] bg-white px-6 py-6 shadow-soft">
+                <div class="grid grid-cols-1 gap-[22px] md:grid-cols-2 lg:grid-cols-3">
+                    <!-- Products -->
+                    <article class="relative min-h-[132px] rounded-[12px] border border-[#cacaca] p-5">
+                        <div class="flex h-full flex-col justify-between">
+                            <div class="flex items-start justify-between gap-4">
+                                <h3 class="text-[16px] text-[#666]">محصولات</h3>
+                                <button
+                                    class="info-btn grid h-8 w-8 place-items-center rounded-[4px] bg-[#f5f5f5] text-custom-brown"
+                                    data-info="تعداد کل محصولات ثبت‌شده فروشنده">
+                                    <img src="../../../images/AdminDashboard/Seller/information.svg" alt="">
+                                </button>
+                            </div>
+                            <div>
+                                <p class="persian-digits text-[25px] font-medium">۱۲۳۷</p>
+                                <div class="mt-5 flex items-center gap-2 text-[12px] text-[#777]">
+                                    <span>۱۲۳ فعال</span><span class="text-custom-brown">•</span><span>۱۲۳ درانتظار
+                                        تایید</span>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Orders -->
+                    <article class="relative min-h-[132px] rounded-[12px] border border-[#cacaca] p-5">
+                        <div class="flex h-full flex-col justify-between">
+                            <div class="flex items-start justify-between gap-4">
+                                <h3 class="text-[16px] text-[#666]">سفارش‌ها</h3>
+                                <button
+                                    class="info-btn grid h-8 w-8 place-items-center rounded-[4px] bg-[#f5f5f5] text-custom-brown"
+                                    data-info="تعداد سفارش‌های ثبت‌شده فروشنده">
+                                    <img src="../../../images/AdminDashboard/Seller/information.svg" alt="">
+                                </button>
+                            </div>
+                            <div>
+                                <p class="persian-digits text-[25px] font-medium">۱۲۳۷</p>
+                                <p class="mt-5 text-[12px] text-[#777]">۱۲۳ جاری</p>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Total sales -->
+                    <article class="relative min-h-[132px] rounded-[12px] border border-[#cacaca] p-5">
+                        <div class="flex h-full flex-col justify-between">
+                            <div class="flex items-start justify-between gap-4">
+                                <h3 class="text-[16px] text-[#666]">فروش کل</h3>
+                                <button
+                                    class="info-btn grid h-8 w-8 place-items-center rounded-[4px] bg-[#f5f5f5] text-custom-brown"
+                                    data-info="مجموع فروش ناخالص فروشنده">
+                                    <img src="../../../images/AdminDashboard/Seller/information.svg" alt="">
+                                </button>
+                            </div>
+                            <div>
+                                <p class="persian-digits text-[21px] font-semibold">۵,۰۰۰,۰۰۰,۰۰۰</p>
+                                <p class="mt-5 text-[12px] text-[#777]">تومان</p>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Reports -->
+                    <article class="relative min-h-[132px] rounded-[12px] border border-[#cacaca] p-5">
+                        <div class="flex h-full flex-col justify-between">
+                            <div class="flex items-start justify-between gap-4">
+                                <h3 class="text-[16px] text-[#666]">گزارش</h3>
+                                <button
+                                    class="info-btn grid h-8 w-8 place-items-center rounded-[4px] bg-[#f5f5f5] text-custom-brown"
+                                    data-info="گزارش‌های ثبت‌شده برای این فروشنده">
+                                    <img src="../../../images/AdminDashboard/Seller/information.svg" alt="">
+                                </button>
+                            </div>
+                            <div>
+                                <p class="persian-digits text-[25px] font-medium">۲</p>
+                                <p class="mt-5 text-[12px] text-[#777]">مورد</p>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Last activity -->
+                    <article class="relative min-h-[132px] rounded-[12px] border border-[#cacaca] p-5">
+                        <div class="flex h-full flex-col justify-between">
+                            <div class="flex items-start justify-between gap-4">
+                                <h3 class="text-[16px] text-[#666]">آخرین فعالیت</h3>
+                                <button
+                                    class="info-btn grid h-8 w-8 place-items-center rounded-[4px] bg-[#f5f5f5] text-custom-brown"
+                                    data-info="آخرین زمان فعالیت ثبت‌شده در پنل">
+                                    <img src="../../../images/AdminDashboard/Seller/information.svg" alt="">
+                                </button>
+                            </div>
+                            <div>
+                                <p class="text-[23px] font-medium">۲ روز پیش</p>
+                                <p class="mt-4 text-[12px] text-[#777]">۱۴۰۵/۱۲/۱۲</p>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Payable -->
+                    <article class="relative min-h-[132px] rounded-[12px] border border-[#cacaca] p-5">
+                        <div class="flex h-full flex-col justify-between">
+                            <div class="flex items-start justify-between gap-4">
+                                <h3 class="text-[16px] text-[#666]">قابل تسویه</h3>
+                                <button
+                                    class="info-btn grid h-8 w-8 place-items-center rounded-[4px] bg-[#f5f5f5] text-custom-brown"
+                                    data-info="مبلغ آماده درخواست تسویه">
+                                    <img src="../../../images/AdminDashboard/Seller/information.svg" alt="">
+                                </button>
+                            </div>
+                            <div>
+                                <p class="persian-digits text-[21px] font-semibold">۵,۰۰۰,۰۰۰,۰۰۰</p>
+                                <p class="mt-5 text-[12px] text-[#777]">تومان</p>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </section>
+
+            <!-- Placeholder for other tabs -->
+            <section id="placeholderPanel"
+                class="mt-[30px] hidden min-h-[330px] rounded-[15px] bg-white p-8 shadow-soft">
+                <div
+                    class="grid h-[270px] place-items-center rounded-xl border border-dashed border-[#d3d3d3] text-center">
+                    <div>
+                        <div
+                            class="mx-auto mb-4 grid h-12 w-12 place-items-center rounded-full bg-[#fbf2ef] text-custom-brown">
+                            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                                stroke-width="1.6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h10" />
+                            </svg>
+                        </div>
+                        <h2 id="placeholderTitle" class="text-lg font-semibold"></h2>
+                        <p class="mt-2 text-sm text-[#777]">محتوای این بخش را می‌توانید به API پروژه متصل کنید.</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Toast -->
+    <div id="toast"
+        class="pointer-events-none fixed bottom-5 left-1/2 z-50 hidden -translate-x-1/2 rounded-xl bg-[#222] px-5 py-3 text-sm text-white shadow-xl">
+    </div>
+
+    <script type="module" src="../../../scripts/AdminDashboard/admin-seller-detail.js"></script>
+</body>
+
+</html>

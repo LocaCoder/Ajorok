@@ -1,0 +1,513 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>فروشندگان | پنل ادمین</title>
+    <!-- سئو -->
+    <meta name="description"
+        content="مدیریت و مشاهده لیست فروشندگان، وضعیت، محصولات، سفارش‌ها و مبلغ قابل تسویه در پنل ادمین." />
+    <meta name="keywords" content="فروشندگان, پنل ادمین, مدیریت فروش, وضعیت فروشنده, تسویه حساب" />
+    <link rel="canonical" href="https://example.com/admin/sellers" />
+    <link rel="stylesheet" href="../../../styles/output.css">
+    <style>
+        .nav-scroll::-webkit-scrollbar {
+            display: none;
+        }
+
+        .nav-scroll {
+            scrollbar-width: none;
+        }
+
+        /* ===== فیلترهای موبایل (اسکرول افقی) ===== */
+        .filter-scroll-wrapper {
+            overflow-x: auto;
+            overflow-y: hidden;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+        }
+
+        .filter-scroll-wrapper::-webkit-scrollbar {
+            display: none;
+        }
+
+        .filter-scroll-wrapper .filter-item {
+            flex-shrink: 0;
+        }
+
+        @media (max-width: 767px) {
+            .filter-scroll-wrapper {
+                flex-wrap: nowrap !important;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .filter-scroll-wrapper {
+                flex-wrap: wrap !important;
+                overflow-x: visible;
+                overflow-y: visible;
+            }
+
+            .filter-scroll-wrapper .filter-item {
+                flex-shrink: 1;
+            }
+        }
+
+        /* ===== پاپ‌آپ موبایل (Bottom Sheet) ===== */
+        @media (max-width: 767px) {
+            .popup-panel.mobile-bottom {
+                position: fixed !important;
+                bottom: 0 !important;
+                left: 0 !important;
+                right: 0 !important;
+                top: auto !important;
+                max-height: 80vh !important;
+                width: 100% !important;
+                max-width: 100% !important;
+                border-radius: 16px 16px 0 0 !important;
+                transform: translateY(100%);
+                transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                box-shadow: 0 -8px 30px rgba(0, 0, 0, 0.12) !important;
+                border: none !important;
+                border-top: 1px solid #e5e5e5 !important;
+                z-index: 100 !important;
+            }
+
+            .popup-panel.mobile-bottom.open {
+                transform: translateY(0);
+            }
+
+            .popup-panel.mobile-bottom .drag-handle {
+                display: block !important;
+                width: 40px;
+                height: 4px;
+                background: #d1d1d1;
+                border-radius: 999px;
+                margin: 10px auto 6px;
+            }
+        }
+    </style>
+</head>
+
+<body class="min-h-screen bg-page text-ink antialiased">
+
+    <!-- Header -->
+    <header class="h-[72px] border-b border-[#ececec] bg-white" role="banner">
+        <div class="mx-auto flex h-full max-w-[1536px] items-center justify-between px-4 sm:px-6 lg:px-[60px]">
+            <div class="flex items-center gap-4">
+                <img src="../../../images/logo/Logo.svg" alt="لوگو فروشگاه" />
+                <span class="hidden h-10 w-px bg-[#d9d9d9] sm:block" aria-hidden="true"></span>
+                <nav class="hidden items-center gap-8 md:flex" aria-label="منوی اصلی">
+                    <a href="#" class="flex items-center gap-2 text-[15px] font-medium text-[#2b2b2b]">
+                        <img src="../../../images/Header/home 04.svg" alt="آیکون خانه" />
+                        صفحه اصلی
+                    </a>
+                    <button class="flex items-center gap-2 text-[15px] font-medium text-[#2b2b2b]"
+                        aria-expanded="false">
+                        <img src="../../../images/Header/grid 02.svg" alt="آیکون صفحات" />
+                        صفحات پنل
+                        <img src="../../../images/Header/direction-down 01.svg" alt="باز کردن منو" />
+                    </button>
+                </nav>
+            </div>
+            <div class="flex items-center gap-3 sm:gap-7" dir="ltr">
+                <div class="flex items-center gap-3">
+                    <div class="h-9 w-9 rounded-full bg-[#202020]" role="img" aria-label="آواتار ادمین"></div>
+                    <div class="hidden leading-tight sm:block">
+                        <div class="text-[14px] font-medium text-[#222]">ادمین</div>
+                        <div class="mt-1 text-[11px] font-light text-[#777]">سطح ادمین</div>
+                    </div>
+                </div>
+                <div class="hidden items-center gap-3 sm:flex lg:gap-5">
+                    <button class="grid h-9 w-9 place-items-center rounded-lg hover:bg-[#f7f7f7]" aria-label="اعلان‌ها">
+                        <img src="../../../images/Header/notification.svg" alt="آیکون اعلان" />
+                    </button>
+                    <button class="grid h-9 w-9 place-items-center rounded-lg hover:bg-[#f7f7f7]" aria-label="پیام‌ها">
+                        <img src="../../../images/Header/mail.svg" alt="آیکون پیام" />
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main -->
+    <main class="mx-auto max-w-[1280px] px-3 pb-20 pt-8 sm:px-6 lg:px-0 lg:pt-[66px]" role="main">
+
+        <!-- مسیر یابی -->
+        <nav class="mb-5 flex items-center gap-1 px-1 text-[13px] text-[#666666]" aria-label="مسیر یابی">
+            <a href="#" class="hover:underline">داشبورد</a>
+            <img class="rotate-90" src="../../../images/AdminDashboard/Seller/direction-down 01.svg" alt="جداکننده"
+                aria-hidden="true" />
+            <span class="font-medium text-[#2e2e2e]" aria-current="page">فروشندگان</span>
+        </nav>
+
+        <!-- هدر بخش -->
+        <section class="mb-6 flex h-[80px] items-center gap-2 rounded-[13px] bg-white px-6 shadow-card sm:px-8">
+            <img src="../../../images/AdminDashboard/Seller/arrow-right.svg" alt="آیکون فروشندگان" />
+            <h1 class="relative pb-2 px-4 text-lg font-medium border-b-[3px] border-custom-brown text-custom-brown">
+                فروشندگان</h1>
+        </section>
+
+        <!-- کارت اصلی -->
+        <section class="rounded-[14px] bg-white px-4 pb-7 pt-5 shadow-card sm:px-6 lg:px-[26px] lg:pt-6"
+            aria-label="لیست فروشندگان">
+
+            <!-- نوار ابزار -->
+            <div class="flex flex-col gap-4 md:flex-row md:items-center" dir="ltr">
+                <button
+                    class="openDrawerBtn hidden md:inline-flex h-[47px] shrink-0 items-center justify-center gap-3 rounded-[8px] border-2 border-custom-brown px-5 text-[15px] text-custom-brown font-medium hover:bg-[#fff8f6]"
+                    aria-label="باز کردن فیلترهای پیشرفته">
+                    <img src="../../../images/AdminDashboard/Seller/filter 06.svg" alt="آیکون فیلتر"
+                        aria-hidden="true" />
+                    <span>فیلتر</span>
+                </button>
+                <label
+                    class="flex h-[47px] min-w-0 flex-1 items-center rounded-[8px] border border-[#a9a9a9] bg-white px-4"
+                    dir="rtl">
+                    <img src="../../../images/AdminDashboard/Seller/RightIcon.svg" alt="آیکون جستجو"
+                        aria-hidden="true" />
+                    <input id="searchInput" type="text"
+                        class="min-h-9 h-full w-full border-0 bg-transparent px-3 text-right text-[14px] outline-none placeholder:text-[#a2a2a2]"
+                        placeholder="جستجو" aria-label="جستجوی فروشندگان" />
+                </label>
+            </div>
+
+            <!-- تب‌ها -->
+            <div id="tabs" dir="rtl"
+                class="font-IRANSansXRegular nav-scroll mt-[34px] flex overflow-x-auto border-b border-[#cfcfcf]"
+                role="tablist" aria-label="وضعیت فروشندگان">
+                <button data-tab="all"
+                    class="tab-btn relative shrink-0 pb-2 px-4 text-custom-brown border-b-[3px] border-custom-brown"
+                    role="tab" aria-selected="true">همه</button>
+                <button data-tab="pending" class="tab-btn shrink-0 pb-2 px-4 text-[#333]" role="tab"
+                    aria-selected="false">درانتظار تایید</button>
+                <button data-tab="active" class="tab-btn shrink-0 pb-2 px-4 text-[#333]" role="tab"
+                    aria-selected="false">فعال</button>
+                <button data-tab="rejected" class="tab-btn shrink-0 pb-2 px-4 text-[#333]" role="tab"
+                    aria-selected="false">رد شده</button>
+                <button data-tab="suspended" class="tab-btn shrink-0 pb-2 px-4 text-[#333]" role="tab"
+                    aria-selected="false">تعلیق شده</button>
+            </div>
+
+            <!-- فیلترهای سریع و شمارنده -->
+            <div
+                class="font-IRANSansXRegular mt-6 flex flex-col gap-4 xl:flex-row xl:items-start xl:justify-between mb-6">
+                <div id="chipBar" class="flex flex-wrap items-center gap-3 filter-scroll-wrapper">
+
+                    <!-- دکمه فیلتر موبایل -->
+                    <div class="filter-item md:hidden">
+                        <button
+                            class="openDrawerBtn inline-flex h-9 items-center justify-center gap-2 rounded-full border border-[#CCCCCC] bg-white px-3 text-[13px] text-[#434343]"
+                            aria-label="باز کردن فیلترهای پیشرفته">
+                            <img src="../../../images/AdminDashboard/Seller/filter 06.svg" alt="آیکون فیلتر"
+                                class="h-4 w-4" />
+                            <span>فیلتر</span>
+                        </button>
+                    </div>
+
+                    <!-- مرتب‌سازی -->
+                    <div class="filter-item relative" data-popup-wrap>
+                        <button data-popup-trigger="sort"
+                            class="filter-chip flex h-9 items-center gap-2 rounded-full border border-[#CCCCCC] bg-white px-3 text-[13px] text-[#434343]"
+                            aria-haspopup="true" aria-expanded="false" aria-controls="popup-sort">
+                            <span id="sortChipLabel">مرتب‌سازی: آخرین ثبت نام</span>
+                            <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                                stroke-width="1.8" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="m6 9 6 6 6-6" />
+                            </svg>
+                        </button>
+                        <div data-popup="sort" id="popup-sort"
+                            class="popup-panel absolute right-0 top-[48px] z-30 hidden w-[350px] max-w-[calc(100vw-32px)] overflow-hidden rounded-[9px] border border-gray-300 bg-white shadow-popup"
+                            role="dialog" aria-label="مرتب‌سازی">
+                            <div class="drag-handle hidden"></div>
+                            <div class="flex h-[57px] items-center justify-between border-b border-line px-6">
+                                <h2 class="text-[18px] font-medium">مرتب‌سازی</h2>
+                                <button data-close-popup aria-label="بستن"
+                                    class="close-dropdown grid h-8 w-8 place-items-center text-[#273444]">
+                                    <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                                        stroke-width="1.7" aria-hidden="true">
+                                        <path stroke-linecap="round" d="M6 6l12 12M18 6 6 18" />
+                                    </svg>
+                                </button>
+                            </div>
+                            <div class="space-y-6 px-6 py-5 text-[15px]">
+                                <label class="flex cursor-pointer items-center gap-4">
+                                    <span class="flex"><input class="peer sr-only" type="radio" name="sort"
+                                            value="latest" checked><span class="radio-ui"></span></span>
+                                    <span>آخرین ثبت نام</span>
+                                </label>
+                                <label class="flex cursor-pointer items-center gap-4">
+                                    <span class="flex"><input class="peer sr-only" type="radio" name="sort"
+                                            value="orders"><span class="radio-ui"></span></span>
+                                    <span>بیشترین سفارش</span>
+                                </label>
+                                <label class="flex cursor-pointer items-center gap-4">
+                                    <span class="flex"><input class="peer sr-only" type="radio" name="sort"
+                                            value="products"><span class="radio-ui"></span></span>
+                                    <span>بیشترین محصول</span>
+                                </label>
+                                <label class="flex cursor-pointer items-center gap-4">
+                                    <span class="flex"><input class="peer sr-only" type="radio" name="sort"
+                                            value="balance"><span class="radio-ui"></span></span>
+                                    <span>بیشترین مبلغ تسویه</span>
+                                </label>
+                            </div>
+                            <div class="flex items-center justify-end border-t border-line px-6 py-4">
+                                <button data-clear-sort class="text-[14px] text-custom-brown">حذف فیلتر</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- نوع فروشنده -->
+                    <div class="filter-item relative" data-popup-wrap>
+                        <button data-popup-trigger="type"
+                            class="filter-chip flex h-9 items-center gap-2 rounded-full border border-[#CCCCCC] bg-white px-3 text-[13px] text-[#434343]"
+                            aria-haspopup="true" aria-expanded="false" aria-controls="popup-type">
+                            <span id="typeChipLabel">نوع فروشنده</span>
+                            <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                                stroke-width="1.8" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="m6 9 6 6 6-6" />
+                            </svg>
+                        </button>
+                        <div data-popup="type" id="popup-type"
+                            class="popup-panel absolute right-0 top-[48px] z-30 hidden w-[350px] max-w-[calc(100vw-32px)] overflow-hidden rounded-[9px] border border-gray-300 bg-white shadow-popup"
+                            role="dialog" aria-label="نوع فروشنده">
+                            <div class="drag-handle hidden"></div>
+                            <div class="flex h-[57px] items-center justify-between border-b border-line px-6">
+                                <h2 class="text-[18px] font-medium">نوع فروشنده</h2>
+                                <button data-close-popup aria-label="بستن"
+                                    class="close-dropdown grid h-8 w-8 place-items-center text-[#273444]">
+                                    <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                                        stroke-width="1.7" aria-hidden="true">
+                                        <path stroke-linecap="round" d="M6 6l12 12M18 6 6 18" />
+                                    </svg>
+                                </button>
+                            </div>
+                            <div class="space-y-5 px-6 py-5 text-[15px] text-[#262626]">
+                                <label class="flex cursor-pointer items-center gap-4">
+                                    <span class="flex"><input class="sr-only quick-filter" type="checkbox"
+                                            data-kind="type" value="حقیقی"><span class="check-ui"></span></span>
+                                    <span>حقیقی</span>
+                                </label>
+                                <label class="flex cursor-pointer items-center gap-4">
+                                    <span class="flex"><input class="sr-only quick-filter" type="checkbox"
+                                            data-kind="type" value="حقوقی"><span class="check-ui"></span></span>
+                                    <span>حقوقی</span>
+                                </label>
+                            </div>
+                            <div class="flex items-center justify-end border-t border-line px-6 py-4">
+                                <button data-clear-kind="type" class="text-[14px] text-custom-brown">حذف فیلتر</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- شهر -->
+                    <div class="filter-item relative" data-popup-wrap>
+                        <button data-popup-trigger="city"
+                            class="filter-chip flex h-9 items-center gap-2 rounded-full border border-gray-300 bg-white px-3 text-[13px] text-[#434343]"
+                            aria-haspopup="true" aria-expanded="false" aria-controls="popup-city">
+                            <span id="cityChipLabel">شهر</span>
+                            <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                                stroke-width="1.8" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="m6 9 6 6 6-6" />
+                            </svg>
+                        </button>
+                        <div data-popup="city" id="popup-city"
+                            class="popup-panel absolute right-0 top-[48px] z-30 hidden w-[350px] max-w-[calc(100vw-32px)] overflow-hidden rounded-[9px] border border-[#a8a8a8] bg-white shadow-popup"
+                            role="dialog" aria-label="انتخاب شهر">
+                            <div class="drag-handle hidden"></div>
+                            <div class="flex h-[57px] items-center justify-between border-b border-line px-6">
+                                <h2 class="text-[18px] font-medium">شهر</h2>
+                                <button data-close-popup aria-label="بستن"
+                                    class="close-dropdown grid h-8 w-8 place-items-center text-[#273444]">
+                                    <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                                        stroke-width="1.7" aria-hidden="true">
+                                        <path stroke-linecap="round" d="M6 6l12 12M18 6 6 18" />
+                                    </svg>
+                                </button>
+                            </div>
+                            <div id="cityList"
+                                class="max-h-[270px] space-y-4 overflow-y-auto px-6 py-4 text-[15px] scrollbar-thin">
+                            </div>
+                            <div class="border-t border-transparent px-3 pb-4">
+                                <label class="flex h-[44px] items-center rounded-[8px] border border-[#9e9e9e] px-3">
+                                    <svg class="h-6 w-6 text-[#9e9e9e]" fill="none" viewBox="0 0 24 24"
+                                        stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                                        <circle cx="11" cy="11" r="7" />
+                                        <path stroke-linecap="round" d="m20 20-3.5-3.5" />
+                                    </svg>
+                                    <input id="citySearchInput"
+                                        class="h-full w-full bg-transparent px-2 text-right text-[14px] outline-none placeholder:text-[#aaa]"
+                                        placeholder="جستجو" aria-label="جستجوی شهر" />
+                                </label>
+                            </div>
+                            <div class="flex items-end justify-end border-t border-line px-6 py-4">
+                                <button data-clear-kind="city" class="text-[14px] text-custom-brown">حذف فیلتر</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- وضعیت -->
+                    <div class="filter-item relative" data-popup-wrap>
+                        <button data-popup-trigger="status"
+                            class="filter-chip flex h-9 items-center gap-2 rounded-full border border-gray-300 bg-white px-3 text-[13px] text-[#434343]"
+                            aria-haspopup="true" aria-expanded="false" aria-controls="popup-status">
+                            <span id="statusChipLabel">وضعیت</span>
+                            <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                                stroke-width="1.8" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="m6 9 6 6 6-6" />
+                            </svg>
+                        </button>
+                        <div data-popup="status" id="popup-status"
+                            class="popup-panel absolute right-0 top-[48px] z-30 hidden w-[350px] max-w-[calc(100vw-32px)] overflow-hidden rounded-[9px] border border-[#a8a8a8] bg-white shadow-popup"
+                            role="dialog" aria-label="انتخاب وضعیت">
+                            <div class="drag-handle hidden"></div>
+                            <div class="flex h-[57px] items-center justify-between border-b border-line px-6">
+                                <h2 class="text-[18px] font-medium">وضعیت</h2>
+                                <button data-close-popup aria-label="بستن"
+                                    class="close-dropdown grid h-8 w-8 place-items-center text-[#273444]">
+                                    <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                                        stroke-width="1.7" aria-hidden="true">
+                                        <path stroke-linecap="round" d="M6 6l12 12M18 6 6 18" />
+                                    </svg>
+                                </button>
+                            </div>
+                            <div id="statusQuickList" class="space-y-5 px-6 py-5 text-[15px]"></div>
+                            <div class="flex items-center justify-end border-t border-line px-6 py-4">
+                                <button data-clear-kind="status" class="text-[14px] text-custom-brown">حذف
+                                    فیلتر</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- تعداد نتایج و صفحه‌بندی -->
+                <div class="flex items-center gap-3 text-[13px] text-[#6c6c6c] xl:pt-1 shrink-0">
+                    <span>تعداد نتایج: <b id="resultCount" class="font-medium text-[#4b4b4b]">۱۳۳</b></span>
+                    <span class="h-6 w-px bg-[#d7d7d7]" aria-hidden="true"></span>
+                    <span>تعداد نمایش</span>
+                    <select id="pageSize"
+                        class="h-8 rounded-[5px] border border-[#cfcfcf] bg-white px-2 text-[12px] outline-none"
+                        aria-label="تعداد نمایش در هر صفحه">
+                        <option value="7">۷</option>
+                        <option value="10" selected>۱۰</option>
+                        <option value="20">۲۰</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- ===== جدول مخصوص دسکتاپ ===== -->
+            <div class="table-wrapper-desktop mt-6">
+                <table class="w-full min-w-[1080px] border-collapse text-right" role="table"
+                    aria-label="لیست فروشندگان">
+                    <thead class="bg-tableHead text-[13px] font-medium text-[#333]">
+                        <tr class="h-[69px]">
+                            <th class="w-[225px] px-8">فروشنده</th>
+                            <th class="w-[110px] px-3">نوع</th>
+                            <th class="w-[95px] px-3">شهر</th>
+                            <th class="w-[145px] px-3">محصولات</th>
+                            <th class="w-[145px] px-3">سفارش‌ها</th>
+                            <th class="w-[185px] px-3">قابل تسویه (تومان)</th>
+                            <th class="w-[155px] px-3">وضعیت</th>
+                            <th class="w-[95px] px-3 text-center">عملیات</th>
+                        </tr>
+                    </thead>
+                    <tbody id="sellerRows" class="text-[13px]"></tbody>
+                </table>
+            </div>
+
+            <!-- ===== کانتینر کارت‌های مخصوص موبایل ===== -->
+            <div id="sellerCardsContainer">
+                <!-- محتوای این بخش توسط جاوا‌اسکریپت پر می‌شود -->
+            </div>
+
+            <!-- حالت خالی بودن لیست -->
+            <div id="emptyState" class="hidden py-16 text-center text-[14px] text-[#777]">فروشنده‌ای با این مشخصات پیدا
+                نشد.</div>
+
+            <!-- صفحه‌بندی -->
+            <div class="mt-6 flex items-center justify-center gap-5 text-[13px]" dir="ltr">
+                <button id="prevPage" class="text-custom-brown opacity-60" aria-label="قبلی">
+                    <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"
+                        aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="m15 18-6-6 6-6" />
+                    </svg>
+                </button>
+                <div id="paginationNumbers" class="flex items-center gap-1"></div>
+                <button id="nextPage" class="text-custom-brown" aria-label="بعدی">
+                    <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"
+                        aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="m9 18 6-6-6-6" />
+                    </svg>
+                </button>
+            </div>
+        </section>
+    </main>
+
+    <!-- filter Box -->
+    <div id="drawerBackdrop" class="fixed inset-0 z-40 hidden bg-black/25" aria-hidden="true"></div>
+    <aside id="filterDrawer"
+        class="fixed bottom-0 right-0 top-0 z-50 w-full max-w-[390px] translate-x-full bg-white shadow-2xl transition-transform duration-200"
+        role="dialog" aria-label="فیلترهای پیشرفته" aria-modal="true">
+        <div class="flex h-full flex-col">
+            <div class="flex h-[48px] items-center justify-between border-b border-line px-6">
+                <h2 class="text-[20px] font-semibold">فیلترها</h2>
+                <div class="flex items-center gap-4">
+                    <button id="clearDrawer" class="text-[14px] text-custom-brown">حذف فیلترها</button>
+                    <button id="closeDrawer" class="grid h-8 w-8 place-items-center text-[#273444]" aria-label="بستن">
+                        <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.7"
+                            aria-hidden="true">
+                            <path stroke-linecap="round" d="M6 6l12 12M18 6 6 18" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            <div class="scrollbar-thin flex-1 overflow-y-auto px-6 py-5">
+                <section>
+                    <h3 class="mb-5 text-[16px] font-semibold">نوع فروشنده</h3>
+                    <div id="drawerTypeList" class="space-y-5 text-[15px]"></div>
+                </section>
+                <div class="my-6 h-px bg-line" aria-hidden="true"></div>
+                <section>
+                    <h3 class="mb-5 text-[16px] font-semibold">وضعیت</h3>
+                    <div id="drawerStatusList" class="space-y-5 text-[15px]"></div>
+                </section>
+                <div class="my-6 h-px bg-line" aria-hidden="true"></div>
+                <section>
+                    <h3 class="mb-5 text-[16px] font-semibold">شهر</h3>
+                    <label class="flex h-[45px] items-center rounded-[8px] border border-[#9e9e9e] px-3">
+                        <svg class="h-6 w-6 text-[#9e9e9e]" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                            stroke-width="1.5" aria-hidden="true">
+                            <circle cx="11" cy="11" r="7" />
+                            <path stroke-linecap="round" d="m20 20-3.5-3.5" />
+                        </svg>
+                        <input id="drawerCitySearch"
+                            class="h-full w-full bg-transparent px-2 text-right text-[14px] outline-none placeholder:text-[#aaa]"
+                            placeholder="جستجو" aria-label="جستجوی شهر" />
+                    </label>
+                    <div id="drawerCityResults" class="mt-4 max-h-[210px] space-y-4 overflow-y-auto text-[15px]"></div>
+                </section>
+            </div>
+            <div class="border-t border-line p-6">
+                <button id="applyDrawer"
+                    class="h-[40px] w-full rounded-[6px] bg-custom-brown text-[15px] font-medium text-white transition">اعمال
+                    فیلتر</button>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Overlay برای پاپ‌آپ موبایل -->
+    <div id="popupOverlay" class="fixed inset-0 hidden bg-black/20" aria-hidden="true"></div>
+
+    <!-- Toast -->
+    <div id="toast"
+        class="fixed bottom-6 left-1/2 z-[999] hidden -translate-x-1/2 rounded-lg bg-[#333] px-6 py-3 text-sm text-white shadow-lg"
+        role="alert" aria-live="polite">
+    </div>
+
+    <!-- ===== جاوااسکریپت ===== -->
+    <script src="../../../scripts/AdminDashboard/admin-sellers.js"></script>
+</body>
+
+</html>

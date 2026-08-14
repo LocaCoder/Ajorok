@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>جزئیات سفارش | Jorok</title>
+    <meta name="description" content="مشاهده جزئیات سفارش، اطلاعات خریدار، خلاصه مالی و وضعیت سفارش در پنل ادمین." />
+    <meta name="keywords" content="جزئیات سفارش, پنل ادمین, مدیریت سفارش, اطلاعات خریدار" />
+    <link rel="canonical" href="https://example.com/admin/order/details" />
+
+    <link rel="stylesheet" href="../../../styles/output.css">
+    <link rel="stylesheet" href="../../../styles/admin-common.css">
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="h-[72px] border-b border-[#ececec] bg-white" role="banner">
+        <div class="mx-auto flex h-full max-w-[1536px] items-center justify-between px-4 sm:px-6 lg:px-[60px]">
+            <div class="flex items-center gap-4">
+                <img src="../../../images/logo/Logo.svg" alt="لوگو فروشگاه" />
+                <span class="hidden h-10 w-px bg-[#d9d9d9] sm:block" aria-hidden="true"></span>
+                <nav class="hidden items-center gap-8 md:flex" aria-label="منوی اصلی">
+                    <a href="#" class="flex items-center gap-2 text-[15px] font-medium text-[#2b2b2b]">
+                        <img src="../../../images/Header/home 04.svg" alt="آیکون خانه" /> صفحه اصلی
+                    </a>
+                    <button class="flex items-center gap-2 text-[15px] font-medium text-[#2b2b2b]"
+                        aria-expanded="false">
+                        <img src="../../../images/Header/grid 02.svg" alt="آیکون صفحات" /> صفحات پنل
+                        <img src="../../../images/Header/direction-down 01.svg" alt="باز کردن منو" />
+                    </button>
+                </nav>
+            </div>
+            <div class="flex items-center gap-3 sm:gap-7" dir="ltr">
+                <div class="flex items-center gap-3">
+                    <div class="h-9 w-9 rounded-full bg-[#202020]" role="img" aria-label="آواتار ادمین"></div>
+                    <div class="hidden leading-tight sm:block">
+                        <div class="text-[14px] font-medium text-[#222]">ادمین</div>
+                        <div class="mt-1 text-[11px] font-light text-[#777]">سطح ادمین</div>
+                    </div>
+                </div>
+                <div class="hidden items-center gap-3 sm:flex lg:gap-5">
+                    <button class="grid h-9 w-9 place-items-center rounded-lg hover:bg-[#f7f7f7]" aria-label="اعلان‌ها">
+                        <img src="../../../images/Header/notification.svg" alt="آیکون اعلان" />
+                    </button>
+                    <button class="grid h-9 w-9 place-items-center rounded-lg hover:bg-[#f7f7f7]" aria-label="پیام‌ها">
+                        <img src="../../../images/Header/mail.svg" alt="آیکون پیام" />
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main -->
+    <main class="mx-auto w-full max-w-[1200px] px-4 pb-20 pt-[50px] lg:px-0" role="main">
+        <!-- Breadcrumb -->
+        <nav class="mb-5 flex items-center gap-3 px-1 text-[13px] text-[#777]" aria-label="مسیر یابی">
+            <a href="#" class="hover:text-custom-brown">داشبورد</a>
+            <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.7"
+                aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="m9 18 6-6-6-6" />
+            </svg>
+            <a href="#" class="hover:text-custom-brown">سفارش‌ها</a>
+            <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.7"
+                aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="m9 18 6-6-6-6" />
+            </svg>
+            <span class="font-medium text-[#222]" aria-current="page">جزئیات سفارش</span>
+            <button type="button" class="mr-auto hover:text-custom-brown" aria-label="بازگشت">
+                <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"
+                    aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 12H5m7-7-7 7 7 7" />
+                </svg>
+            </button>
+        </nav>
+
+        <!-- Order strip -->
+        <section class="rounded-[14px] bg-white px-5 py-5 shadow-soft lg:px-7">
+            <div
+                class="grid gap-5 text-[13px] text-[#555] sm:grid-cols-2 lg:grid-cols-[1fr_1fr_1.3fr_1.5fr_1.2fr_auto] lg:items-center">
+                <div><span class="text-[#777]">شماره سفارش:</span><strong
+                        class="mr-2 font-medium text-[#222]">۱۲۳۴۵۶</strong></div>
+                <div><span class="text-[#777]">تعداد آیتم:</span><strong class="mr-2 font-medium text-[#222]">۶</strong>
+                </div>
+                <div><span class="text-[#777]">تعداد فروشگاه:</span><strong
+                        class="mr-2 font-medium text-[#222]">۲</strong></div>
+                <div><span class="text-[#777]">زمان ثبت:</span><strong class="mr-2 font-medium text-[#222]">شنبه
+                        ۱۴۰۴/۰۴/۰۴ - ۱۳:۵۲</strong></div>
+                <div><span class="text-[#777]">مبلغ کل:</span><strong class="mr-2 font-medium text-[#222]">۱۲,۵۰۰,۰۰۰
+                        تومان</strong></div>
+                <div class="flex items-center justify-end gap-4">
+                    <span id="orderStatusBadge"
+                        class="rounded-[5px] bg-[#dcecff] px-3 py-2 text-[12px] font-medium text-[#2b78c5]">در حال
+                        آماده‌سازی</span>
+                    <div class="relative">
+                        <button id="topMoreBtn" type="button"
+                            class="grid h-9 w-9 place-items-center rounded-md hover:bg-[#f5f5f5]"
+                            aria-label="گزینه‌های سفارش" aria-expanded="false">
+                            <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                <circle cx="12" cy="5" r="1.6" />
+                                <circle cx="12" cy="12" r="1.6" />
+                                <circle cx="12" cy="19" r="1.6" />
+                            </svg>
+                        </button>
+                        <div id="topMoreMenu"
+                            class="absolute left-0 top-11 z-30 hidden w-48 overflow-hidden rounded-xl border border-[#e3e3e3] bg-white py-1 shadow-menu fade-in"
+                            role="menu">
+                            <button data-order-action="completed"
+                                class="w-full px-4 py-2.5 text-right text-[13px] hover:bg-[#f7f7f7]" role="menuitem">ثبت
+                                به‌عنوان تکمیل شده</button>
+                            <button data-order-action="invoice"
+                                class="w-full px-4 py-2.5 text-right text-[13px] hover:bg-[#f7f7f7]"
+                                role="menuitem">دانلود فاکتور</button>
+                            <button data-order-action="cancel"
+                                class="w-full px-4 py-2.5 text-right text-[13px] text-[#c93434] hover:bg-[#fff4f4]"
+                                role="menuitem">لغو سفارش</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Buyer and financial cards -->
+        <div class="mt-6 grid gap-6 lg:grid-cols-2">
+            <!-- Buyer -->
+            <section class="rounded-[14px] bg-white px-6 py-5 shadow-soft">
+                <div class="flex items-center justify-between border-b border-[#d8d8d8] pb-4">
+                    <h2 class="text-[16px] font-semibold">اطلاعات خریدار</h2>
+                    <button id="buyerProfileBtn" type="button"
+                        class="text-[13px] font-medium text-[#2c7bc2] hover:underline">پروفایل خریدار</button>
+                </div>
+                <dl class="mt-4 grid gap-y-5 text-[13px] sm:grid-cols-[95px_1fr]">
+                    <dt class="text-[#777]">نام/شرکت</dt>
+                    <dd class="font-medium">شرکت سازه برتر</dd>
+                    <dt class="text-[#777]">شماره</dt>
+                    <dd dir="ltr" class="text-right">۰۹۱۲۱۲۳۴۵۶۷</dd>
+                    <dt class="text-[#777]">آدرس</dt>
+                    <dd class="leading-7">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ</dd>
+                </dl>
+            </section>
+
+            <!-- Financial -->
+            <section class="rounded-[14px] bg-white px-6 py-5 shadow-soft">
+                <div class="flex items-center justify-between border-b border-[#d8d8d8] pb-4">
+                    <h2 class="text-[16px] font-semibold">خلاصه مالی</h2>
+                    <button id="invoiceBtn" type="button"
+                        class="text-[13px] font-medium text-[#2c7bc2] hover:underline">مشاهده فاکتور</button>
+                </div>
+                <div class="mt-4 space-y-4 text-[13px]">
+                    <div class="flex items-center justify-between"><span class="text-[#777]">جمع اقلام</span><strong
+                            class="font-medium">۱۲,۵۰۰,۰۰۰ تومان</strong></div>
+                    <div class="flex items-center justify-between"><span class="text-[#777]">مالیات</span><strong
+                            class="font-medium">۱۲,۵۰۰,۰۰۰ تومان</strong></div>
+                    <div class="flex items-center justify-between"><span class="text-[#777]">تخفیف</span><strong
+                            class="font-medium">۱۲,۵۰۰,۰۰۰ تومان</strong></div>
+                    <div class="flex items-center justify-between border-t border-[#dedede] pt-4"><span
+                            class="font-medium">جمع کل پرداخت شده</span><strong class="font-semibold">۱۲,۵۰۰,۰۰۰
+                            تومان</strong></div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Seller order sections -->
+        <div id="sellerOrders" class="mt-6 space-y-6"></div>
+    </main>
+
+    <!-- Overlay موبایل -->
+    <div id="mobileOverlay" class="hidden fixed inset-0 z-[99] bg-black/30" aria-hidden="true"></div>
+
+    <!-- Modal -->
+    <div id="modalBackdrop" class="fixed inset-0 z-40 hidden bg-black/30" aria-hidden="true"></div>
+    <div id="modal"
+        class="fixed left-1/2 top-1/2 z-50 hidden w-[calc(100%-32px)] max-w-[520px] -translate-x-1/2 -translate-y-1/2 rounded-2xl bg-white shadow-2xl fade-in"
+        role="dialog" aria-label="جزئیات" aria-modal="true">
+        <div class="flex items-center justify-between border-b px-6 py-4">
+            <h3 id="modalTitle" class="text-[17px] font-bold">عنوان</h3>
+            <button id="closeModal" type="button" class="text-2xl leading-none text-[#555]" aria-label="بستن">×</button>
+        </div>
+        <div id="modalBody" class="px-6 py-6 text-[14px] leading-7 text-[#555]"></div>
+    </div>
+
+    <!-- Toast -->
+    <div id="toast"
+        class="fixed bottom-5 left-1/2 z-[70] hidden -translate-x-1/2 rounded-xl bg-[#222] px-5 py-3 text-sm text-white shadow-xl"
+        role="alert" aria-live="polite"></div>
+
+    <script type="module" src="../../../scripts/AdminDashboard/admin-order-detail.js"></script>
+</body>
+
+</html>

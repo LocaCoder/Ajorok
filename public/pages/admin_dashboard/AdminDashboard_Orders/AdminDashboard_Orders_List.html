@@ -1,0 +1,1383 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>فهرست سفارش‌ها | Jorok</title>
+    <!-- ===== سئو ===== -->
+    <meta name="description" content="مدیریت و مشاهده فهرست سفارش‌ها، وضعیت، مبلغ و تاریخ در پنل ادمین." />
+    <meta name="keywords" content="سفارش‌ها, پنل ادمین, مدیریت سفارش, وضعیت سفارش" />
+    <link rel="canonical" href="https://example.com/admin/orders" />
+    <link rel="stylesheet" href="../../../styles/output.css">
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            -webkit-font-smoothing: antialiased;
+            text-rendering: optimizeLegibility;
+        }
+
+        button,
+        a {
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        button:focus-visible,
+        input:focus-visible,
+        select:focus-visible {
+            outline: 2px solid rgba(170, 73, 56, .24);
+            outline-offset: 2px;
+        }
+
+        input[type="checkbox"],
+        input[type="radio"] {
+            accent-color: #aa4938;
+        }
+
+        .fade-in {
+            animation: fadeIn .16s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-5px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .order-details {
+            display: grid;
+            grid-template-rows: 0fr;
+            transition: grid-template-rows .22s ease;
+        }
+
+        .order-details>div {
+            overflow: hidden;
+        }
+
+        .order-card[data-open="true"] .order-details {
+            grid-template-rows: 1fr;
+        }
+
+        .order-card[data-open="true"] .order-chevron {
+            transform: rotate(180deg);
+        }
+
+        .order-chevron {
+            transition: transform .2s ease;
+        }
+
+        /* ===== استایل چک‌باکس و رادیو ===== */
+        .check-ui,
+        .radio-ui {
+            position: relative;
+            display: inline-grid;
+            place-items: center;
+            width: 21px;
+            height: 21px;
+            flex: 0 0 21px;
+            border: 1px solid #aaa;
+            background: white;
+        }
+
+        .check-ui {
+            border-radius: 5px;
+        }
+
+        .radio-ui {
+            border-radius: 999px;
+        }
+
+        input:checked+.check-ui {
+            border-color: #aa4938;
+            background: #aa4938;
+        }
+
+        input:checked+.check-ui::after {
+            content: '';
+            width: 8px;
+            height: 4px;
+            border-left: 2px solid white;
+            border-bottom: 2px solid white;
+            transform: rotate(-45deg) translateY(-1px);
+        }
+
+        input:checked+.radio-ui {
+            border-color: #aa4938;
+        }
+
+        input:checked+.radio-ui::after {
+            content: '';
+            width: 11px;
+            height: 11px;
+            border-radius: 999px;
+            background: #aa4938;
+        }
+
+        /* ===== نمایش موبایل ===== */
+        .mobile-order-card {
+            display: none;
+        }
+
+        @media (max-width: 767px) {
+            .desktop-header {
+                display: none !important;
+            }
+
+            .mobile-order-card {
+                display: block;
+            }
+
+            .mobile-order-card .order-item {
+                padding: 14px;
+                border-bottom: 1px solid #e5e5e5;
+            }
+
+            .mobile-order-card .order-item:last-child {
+                border-bottom: none;
+            }
+
+            .order-info-row {
+                display: flex;
+                justify-content: space-between;
+                padding: 4px 0;
+                font-size: 13px;
+            }
+
+            .order-info-row .label {
+                color: #777;
+                font-weight: 400;
+            }
+
+            .order-info-row .value {
+                color: #252525;
+                font-weight: 500;
+                text-align: left;
+            }
+        }
+
+        /* ===== فیلترهای موبایل (اسکرول افقی) ===== */
+        .filter-scroll-wrapper {
+            overflow-x: auto;
+            overflow-y: hidden;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+        }
+
+        .filter-scroll-wrapper::-webkit-scrollbar {
+            display: none;
+        }
+
+        .filter-scroll-wrapper .filter-item {
+            flex-shrink: 0;
+        }
+
+        @media (max-width: 767px) {
+            .filter-scroll-wrapper {
+                flex-wrap: nowrap !important;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .filter-scroll-wrapper {
+                flex-wrap: wrap !important;
+                overflow-x: visible;
+                overflow-y: visible;
+            }
+
+            .filter-scroll-wrapper .filter-item {
+                flex-shrink: 1;
+            }
+        }
+
+        /* ===== پاپ‌آپ موبایل (Bottom Sheet) ===== */
+        @media (max-width: 767px) {
+            .dropdown-menu.mobile-bottom {
+                position: fixed !important;
+                bottom: 0 !important;
+                left: 0 !important;
+                right: 0 !important;
+                top: auto !important;
+                max-height: 80vh !important;
+                width: 100% !important;
+                max-width: 100% !important;
+                border-radius: 16px 16px 0 0 !important;
+                transform: translateY(100%);
+                transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                box-shadow: 0 -8px 30px rgba(0, 0, 0, 0.12) !important;
+                border: none !important;
+                border-top: 1px solid #e5e5e5 !important;
+                z-index: 100 !important;
+            }
+
+            .dropdown-menu.mobile-bottom.open {
+                transform: translateY(0);
+            }
+
+            .dropdown-menu.mobile-bottom .drag-handle {
+                display: block !important;
+                width: 40px;
+                height: 4px;
+                background: #d1d1d1;
+                border-radius: 999px;
+                margin: 10px auto 6px;
+            }
+
+            .dropdown-menu.mobile-bottom .close-dropdown {
+                display: none !important;
+            }
+        }
+
+        /* ===== Overlay موبایل ===== */
+        #mobileOverlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.3);
+            z-index: 99;
+            transition: opacity 0.3s ease;
+        }
+
+        #mobileOverlay.show {
+            display: block;
+        }
+
+        /* ===== صفحه‌بندی ===== */
+        .page-btn {
+            transition: all 0.15s ease;
+        }
+
+        .page-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
+        .page-num {
+            transition: all 0.15s ease;
+        }
+
+        .page-num:hover:not(.bg-custom-brown) {
+            background: #f3f3f3;
+        }
+
+        .page-num.bg-custom-brown {
+            color: white;
+        }
+    </style>
+</head>
+
+<body class="font-IRANSansXRegular min-h-screen bg-[#f3f3f3] text-[#252525]">
+
+    <!-- Header -->
+    <header class="h-[72px] border-b border-[#ececec] bg-white" role="banner">
+        <div class="mx-auto flex h-full max-w-[1536px] items-center justify-between px-4 sm:px-6 lg:px-[60px]">
+            <div class="flex items-center gap-4">
+                <img src="../../../images/logo/Logo.svg" alt="لوگو فروشگاه" />
+                <span class="hidden h-10 w-px bg-[#d9d9d9] sm:block" aria-hidden="true"></span>
+                <nav class="hidden items-center gap-8 md:flex" aria-label="منوی اصلی">
+                    <a href="#" class="flex items-center gap-2 text-[15px] font-medium text-[#2b2b2b]">
+                        <img src="../../../images/Header/home 04.svg" alt="آیکون خانه" />
+                        صفحه اصلی
+                    </a>
+                    <button class="flex items-center gap-2 text-[15px] font-medium text-[#2b2b2b]" aria-expanded="false">
+                        <img src="../../../images/Header/grid 02.svg" alt="آیکون صفحات" />
+                        صفحات پنل
+                        <img src="../../../images/Header/direction-down 01.svg" alt="باز کردن منو" />
+                    </button>
+                </nav>
+            </div>
+            <div class="flex items-center gap-3 sm:gap-7" dir="ltr">
+                <div class="flex items-center gap-3">
+                    <div class="h-9 w-9 rounded-full bg-[#202020]" role="img" aria-label="آواتار ادمین"></div>
+                    <div class="hidden leading-tight sm:block">
+                        <div class="text-[14px] font-medium text-[#222]">ادمین</div>
+                        <div class="mt-1 text-[11px] font-light text-[#777]">سطح ادمین</div>
+                    </div>
+                </div>
+                <div class="hidden items-center gap-3 sm:flex lg:gap-5">
+                    <button class="grid h-9 w-9 place-items-center rounded-lg hover:bg-[#f7f7f7]" aria-label="اعلان‌ها">
+                        <img src="../../../images/Header/notification.svg" alt="آیکون اعلان" />
+                    </button>
+                    <button class="grid h-9 w-9 place-items-center rounded-lg hover:bg-[#f7f7f7]" aria-label="پیام‌ها">
+                        <img src="../../../images/Header/mail.svg" alt="آیکون پیام" />
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main -->
+    <main class="mx-auto w-full max-w-[1200px] px-4 pb-20 pt-[54px] lg:px-0" role="main">
+
+        <!-- Breadcrumb -->
+        <nav class="mb-5 flex items-center gap-3 px-1 text-[13px] text-[#777]" aria-label="مسیر یابی">
+            <a href="#" class="hover:text-brand-500">داشبورد</a>
+            <span aria-hidden="true">‹</span>
+            <span class="font-medium text-[#222]" aria-current="page">سفارش‌ها</span>
+        </nav>
+
+        <!-- Page title -->
+        <section class="rounded-[14px] bg-white px-6 py-[22px] shadow-soft lg:px-7">
+            <div class="flex items-center justify-between">
+                <button type="button" class="text-[#222]" aria-label="بازگشت">
+                    <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"
+                        aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M19 12H5m7-7-7 7 7 7" />
+                    </svg>
+                </button>
+                <h1 class="border-b-2 border-brand-500 px-5 pb-3 text-[17px] font-semibold text-brand-500">سفارش‌ها</h1>
+            </div>
+        </section>
+
+        <!-- Orders -->
+        <section class="mt-[26px] rounded-[14px] bg-white px-6 py-6 shadow-soft lg:px-7">
+
+            <!-- Search -->
+            <div class="flex flex-col-reverse gap-3 md:flex-row md:items-center">
+                <div class="relative flex-1">
+                    <input id="searchInput" type="search" placeholder="جست‌وجو" aria-label="جستجوی سفارش‌ها"
+                        class="h-[46px] w-full rounded-[8px] border border-[#a8a8a8] pr-4 pl-12 text-[14px] placeholder:text-[#a1a1a1] focus:border-brand-500" />
+                    <svg class="pointer-events-none absolute left-4 top-1/2 h-6 w-6 -translate-y-1/2 text-[#9b9b9b]"
+                        fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                        <circle cx="11" cy="11" r="7" />
+                        <path stroke-linecap="round" d="m16.5 16.5 4 4" />
+                    </svg>
+                </div>
+                <button id="filterBtn" type="button"
+                    class="flex h-[46px] min-w-[105px] items-center justify-center gap-3 rounded-[8px] border border-brand-500 bg-white px-4 text-[14px] font-medium text-brand-500 hover:bg-brand-50">
+                    <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.7"
+                        aria-hidden="true">
+                        <path stroke-linecap="round" d="M4 7h8m4 0h4M4 17h4m4 0h8M12 4v6m-4 4v6m8-10v6" />
+                        <circle cx="12" cy="7" r="1.5" />
+                        <circle cx="8" cy="17" r="1.5" />
+                        <circle cx="16" cy="13" r="1.5" />
+                    </svg>
+                    فیلتر
+                </button>
+            </div>
+
+            <!-- Controls -->
+            <div class="mt-6 flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+                <div class="flex flex-wrap items-center gap-3 filter-scroll-wrapper py-2">
+                    <!-- Sort -->
+                    <div class="filter-item relative">
+                        <button data-dropdown="sortMenu"
+                            class="dropdown-trigger flex h-[39px] min-w-[160px] items-center justify-between gap-2 rounded-full border border-[#c9c9c9] bg-white px-4 text-[13px] whitespace-nowrap hover:border-brand-500">
+                            <span id="sortLabel" class="truncate max-w-[100px]">مرتب‌سازی: جدیدترین</span>
+                            <svg class="h-4 w-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                                stroke-width="1.8" aria-hidden="true">
+                                <path stroke-linecap="round" d="m6 9 6 6 6-6" />
+                            </svg>
+                        </button>
+                        <div id="sortMenu"
+                            class="dropdown-menu absolute right-0 top-[48px] z-30 hidden w-[350px] max-w-[calc(100vw-32px)] overflow-hidden rounded-[9px] border border-gray-300 bg-white shadow-popup"
+                            role="dialog" aria-label="مرتب‌سازی">
+                            <div class="drag-handle hidden"></div>
+                            <div class="flex h-[57px] items-center justify-between border-b border-line px-6">
+                                <h2 class="text-[18px] font-medium">مرتب‌سازی</h2>
+                                <button data-close-popup aria-label="بستن"
+                                    class="close-dropdown grid h-8 w-8 place-items-center text-[#273444]">
+                                    <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                                        stroke-width="1.7" aria-hidden="true">
+                                        <path stroke-linecap="round" d="M6 6l12 12M18 6 6 18" />
+                                    </svg>
+                                </button>
+                            </div>
+                            <div class="space-y-6 px-6 py-5 text-[15px]">
+                                <label class="flex cursor-pointer items-center gap-4">
+                                    <span class="flex"><input class="peer sr-only" type="radio" name="sort"
+                                            value="newest" checked><span class="radio-ui"></span></span>
+                                    <span>جدیدترین سفارش</span>
+                                </label>
+                                <label class="flex cursor-pointer items-center gap-4">
+                                    <span class="flex"><input class="peer sr-only" type="radio" name="sort"
+                                            value="oldest"><span class="radio-ui"></span></span>
+                                    <span>قدیمی‌ترین سفارش</span>
+                                </label>
+                                <label class="flex cursor-pointer items-center gap-4">
+                                    <span class="flex"><input class="peer sr-only" type="radio" name="sort"
+                                            value="highest"><span class="radio-ui"></span></span>
+                                    <span>بیشترین مبلغ</span>
+                                </label>
+                                <label class="flex cursor-pointer items-center gap-4">
+                                    <span class="flex"><input class="peer sr-only" type="radio" name="sort"
+                                            value="lowest"><span class="radio-ui"></span></span>
+                                    <span>کمترین مبلغ</span>
+                                </label>
+                                <label class="flex cursor-pointer items-center gap-4">
+                                    <span class="flex"><input class="peer sr-only" type="radio" name="sort"
+                                            value="stores"><span class="radio-ui"></span></span>
+                                    <span>بیشترین تعداد فروشگاه</span>
+                                </label>
+                            </div>
+                            <div class="flex items-center justify-end border-t border-line px-6 py-4">
+                                <button data-clear-sort class="text-[14px] text-custom-brown">حذف فیلتر</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Store Count -->
+                    <div class="filter-item relative">
+                        <button data-dropdown="storeCountMenu"
+                            class="dropdown-trigger flex h-[39px] min-w-[110px] items-center justify-between gap-2 rounded-full border border-[#c9c9c9] bg-white px-4 text-[13px] whitespace-nowrap hover:border-brand-500">
+                            تعداد فروشگاه
+                            <svg class="h-4 w-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                                stroke-width="1.8" aria-hidden="true">
+                                <path stroke-linecap="round" d="m6 9 6 6 6-6" />
+                            </svg>
+                        </button>
+                        <div id="storeCountMenu"
+                            class="dropdown-menu absolute right-0 top-[48px] z-30 hidden w-[350px] max-w-[calc(100vw-32px)] overflow-hidden rounded-[9px] border border-gray-300 bg-white shadow-popup"
+                            role="dialog" aria-label="تعداد فروشگاه">
+                            <div class="drag-handle hidden"></div>
+                            <div class="flex h-[57px] items-center justify-between border-b border-line px-6">
+                                <h2 class="text-[18px] font-medium">تعداد فروشگاه</h2>
+                                <button data-close-popup aria-label="بستن"
+                                    class="close-dropdown grid h-8 w-8 place-items-center text-[#273444]">
+                                    <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                                        stroke-width="1.7" aria-hidden="true">
+                                        <path stroke-linecap="round" d="M6 6l12 12M18 6 6 18" />
+                                    </svg>
+                                </button>
+                            </div>
+                            <div class="space-y-6 px-6 py-5 text-[15px]">
+                                <label class="flex cursor-pointer items-center justify-between">
+                                    <span>یک فروشگاه</span>
+                                    <span class="flex"><input data-store-count value="1" type="checkbox"
+                                            class="sr-only"><span class="check-ui"></span></span>
+                                </label>
+                                <label class="flex cursor-pointer items-center justify-between">
+                                    <span>دو فروشگاه</span>
+                                    <span class="flex"><input data-store-count value="2" type="checkbox"
+                                            class="sr-only"><span class="check-ui"></span></span>
+                                </label>
+                                <label class="flex cursor-pointer items-center justify-between">
+                                    <span>سه فروشگاه و بیشتر</span>
+                                    <span class="flex"><input data-store-count value="3" type="checkbox"
+                                            class="sr-only"><span class="check-ui"></span></span>
+                                </label>
+                            </div>
+                            <div class="flex items-center justify-end border-t border-line px-6 py-4">
+                                <button data-clear="storeCount" class="text-[14px] text-custom-brown">حذف فیلتر</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Status -->
+                    <div class="filter-item relative">
+                        <button data-dropdown="statusMenu"
+                            class="dropdown-trigger flex h-[39px] min-w-[100px] items-center justify-between gap-2 rounded-full border border-[#c9c9c9] bg-white px-4 text-[13px] whitespace-nowrap hover:border-brand-500">
+                            وضعیت
+                            <svg class="h-4 w-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                                stroke-width="1.8" aria-hidden="true">
+                                <path stroke-linecap="round" d="m6 9 6 6 6-6" />
+                            </svg>
+                        </button>
+                        <div id="statusMenu"
+                            class="dropdown-menu absolute right-0 top-[48px] z-30 hidden w-[350px] max-w-[calc(100vw-32px)] overflow-hidden rounded-[9px] border border-gray-300 bg-white shadow-popup"
+                            role="dialog" aria-label="وضعیت سفارش">
+                            <div class="drag-handle hidden"></div>
+                            <div class="flex h-[57px] items-center justify-between border-b border-line px-6">
+                                <h2 class="text-[18px] font-medium">وضعیت سفارش</h2>
+                                <button data-close-popup aria-label="بستن"
+                                    class="close-dropdown grid h-8 w-8 place-items-center text-[#273444]">
+                                    <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                                        stroke-width="1.7" aria-hidden="true">
+                                        <path stroke-linecap="round" d="M6 6l12 12M18 6 6 18" />
+                                    </svg>
+                                </button>
+                            </div>
+                            <div class="space-y-6 px-6 py-5 text-[15px]">
+                                <label class="flex cursor-pointer items-center justify-between">
+                                    <span>در حال آماده‌سازی</span>
+                                    <span class="flex"><input data-status-filter value="preparing" type="checkbox"
+                                            class="sr-only"><span class="check-ui"></span></span>
+                                </label>
+                                <label class="flex cursor-pointer items-center justify-between">
+                                    <span>منتظر</span>
+                                    <span class="flex"><input data-status-filter value="waiting" type="checkbox"
+                                            class="sr-only"><span class="check-ui"></span></span>
+                                </label>
+                                <label class="flex cursor-pointer items-center justify-between">
+                                    <span>تکمیل شده</span>
+                                    <span class="flex"><input data-status-filter value="completed" type="checkbox"
+                                            class="sr-only"><span class="check-ui"></span></span>
+                                </label>
+                            </div>
+                            <div class="flex items-center justify-end border-t border-line px-6 py-4">
+                                <button data-clear="status" class="text-[14px] text-custom-brown">حذف فیلتر</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Date -->
+                    <div class="filter-item relative">
+                        <button data-dropdown="dateMenu"
+                            class="dropdown-trigger flex h-[39px] min-w-[100px] items-center justify-between gap-2 rounded-full border border-[#c9c9c9] bg-white px-4 text-[13px] whitespace-nowrap hover:border-brand-500">
+                            بازه زمانی
+                            <svg class="h-4 w-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                                stroke-width="1.8" aria-hidden="true">
+                                <path stroke-linecap="round" d="m6 9 6 6 6-6" />
+                            </svg>
+                        </button>
+                        <div id="dateMenu"
+                            class="dropdown-menu absolute right-0 top-[48px] z-30 hidden w-[350px] max-w-[calc(100vw-32px)] overflow-hidden rounded-[9px] border border-gray-300 bg-white shadow-popup"
+                            role="dialog" aria-label="بازه زمانی">
+                            <div class="drag-handle hidden"></div>
+                            <div class="flex h-[57px] items-center justify-between border-b border-line px-6">
+                                <h2 class="text-[18px] font-medium">بازه زمانی سفارش</h2>
+                                <button data-close-popup aria-label="بستن"
+                                    class="close-dropdown grid h-8 w-8 place-items-center text-[#273444]">
+                                    <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                                        stroke-width="1.7" aria-hidden="true">
+                                        <path stroke-linecap="round" d="M6 6l12 12M18 6 6 18" />
+                                    </svg>
+                                </button>
+                            </div>
+                            <div class="space-y-4 px-6 py-5 text-[15px]">
+                                <label class="block">
+                                    <span class="mb-2 block text-[#555]">از تاریخ</span>
+                                    <input id="dateFrom" type="text" placeholder="۱۴۰۴/۰۱/۰۱"
+                                        class="h-11 w-full rounded-lg border border-[#c9c9c9] px-3" />
+                                </label>
+                                <label class="block">
+                                    <span class="mb-2 block text-[#555]">تا تاریخ</span>
+                                    <input id="dateTo" type="text" placeholder="۱۴۰۴/۱۲/۲۹"
+                                        class="h-11 w-full rounded-lg border border-[#c9c9c9] px-3" />
+                                </label>
+                                <div class="flex gap-2 pt-2">
+                                    <button id="applyDateFilter"
+                                        class="h-10 flex-1 rounded-lg bg-brand-500 text-white hover:bg-brand-600">اعمال</button>
+                                    <button id="clearDateFilter"
+                                        class="h-10 flex-1 rounded-lg border border-brand-500 text-brand-500 hover:bg-brand-50">حذف
+                                        فیلتر</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-3 text-[12px] text-[#777] shrink-0">
+                    <span>تعداد نتایج: <strong id="resultCount" class="font-normal text-[#555]">۱۲۳</strong></span>
+                    <span class="h-5 w-px bg-[#d0d0d0]" aria-hidden="true"></span>
+                    <label class="flex items-center gap-2">تعداد نمایش
+                        <select id="pageSize"
+                            class="h-8 rounded-[5px] border border-[#c9c9c9] bg-white px-2 text-[12px]"
+                            aria-label="تعداد نمایش در هر صفحه">
+                            <option value="5">۵</option>
+                            <option value="10" selected>۱۰</option>
+                            <option value="20">۲۰</option>
+                            <option value="50">۵۰</option>
+                        </select>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Desktop header -->
+            <div
+                class="mt-6 hidden min-w-[1000px] grid-cols-[1.15fr_1.3fr_.65fr_.65fr_1.25fr_.85fr_.7fr] rounded-[7px] bg-[#f3f3f3] px-5 py-4 text-[12px] text-[#444] lg:grid desktop-header">
+                <div>شماره سفارش</div>
+                <div class="text-center">زمان ثبت</div>
+                <div class="text-center">تعداد فروشگاه</div>
+                <div class="text-center">تعداد آیتم</div>
+                <div class="text-center">مبلغ کل (تومان)</div>
+                <div class="text-center">وضعیت</div>
+                <div class="text-center">عملیات</div>
+            </div>
+
+            <!-- Desktop orders -->
+            <div id="ordersList" class="mt-3 space-y-3 desktop-orders"></div>
+
+            <!-- Mobile orders -->
+            <div id="mobileOrdersList" class="mobile-order-card mt-3 space-y-3"></div>
+
+            <div id="emptyState" class="hidden py-16 text-center text-sm text-[#777]">سفارشی مطابق جست‌وجو یا فیلترهای
+                انتخابی پیدا نشد.</div>
+
+            <!-- Pagination -->
+            <div class="mt-7 flex items-center justify-center gap-2 text-[13px]" dir="ltr">
+                <button id="prevPage"
+                    class="page-btn text-custom-brown h-8 w-8 rounded-full hover:bg-gray-100 flex items-center justify-center"
+                    aria-label="قبلی">
+                    <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"
+                        aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+                    </svg>
+                </button>
+                <div id="paginationNumbers" class="flex items-center gap-1"></div>
+                <button id="nextPage"
+                    class="page-btn text-custom-brown h-8 w-8 rounded-full hover:bg-gray-100 flex items-center justify-center"
+                    aria-label="بعدی">
+                    <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"
+                        aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+                    </svg>
+                </button>
+            </div>
+        </section>
+    </main>
+
+    <!-- Filter drawer -->
+    <div id="drawerBackdrop" class="fixed inset-0 z-40 hidden bg-black/25" aria-hidden="true"></div>
+    <aside id="filterDrawer"
+        class="fixed bottom-0 right-0 top-0 z-50 w-full max-w-[390px] translate-x-full bg-white shadow-2xl transition-transform duration-200"
+        role="dialog" aria-label="فیلترها" aria-modal="true">
+        <div class="flex h-full flex-col">
+            <header class="flex items-center justify-between border-b px-6 py-4">
+                <h2 class="text-[18px] font-bold">فیلترها</h2>
+                <div class="flex items-center gap-5">
+                    <button id="clearAllFilters" class="text-[14px] text-brand-500">حذف فیلترها</button>
+                    <button id="closeDrawer" class="text-2xl leading-none" aria-label="بستن">×</button>
+                </div>
+            </header>
+
+            <div class="flex-1 overflow-y-auto px-6 py-6">
+                <section>
+                    <h3 class="mb-5 font-semibold">وضعیت سفارش</h3>
+                    <div class="space-y-5 text-[14px]">
+                        <label class="flex cursor-pointer items-center justify-between">
+                            <span>در حال آماده‌سازی</span>
+                            <span class="flex"><input data-drawer-status value="preparing" type="checkbox"
+                                    class="sr-only"><span class="check-ui"></span></span>
+                        </label>
+                        <label class="flex cursor-pointer items-center justify-between">
+                            <span>منتظر</span>
+                            <span class="flex"><input data-drawer-status value="waiting" type="checkbox"
+                                    class="sr-only"><span class="check-ui"></span></span>
+                        </label>
+                        <label class="flex cursor-pointer items-center justify-between">
+                            <span>تکمیل شده</span>
+                            <span class="flex"><input data-drawer-status value="completed" type="checkbox"
+                                    class="sr-only"><span class="check-ui"></span></span>
+                        </label>
+                    </div>
+                </section>
+
+                <hr class="my-7" />
+
+                <section>
+                    <h3 class="mb-5 font-semibold">تعداد فروشگاه</h3>
+                    <div class="space-y-5 text-[14px]">
+                        <label class="flex cursor-pointer items-center justify-between">
+                            <span>یک فروشگاه</span>
+                            <span class="flex"><input data-drawer-store-count value="1" type="checkbox"
+                                    class="sr-only"><span class="check-ui"></span></span>
+                        </label>
+                        <label class="flex cursor-pointer items-center justify-between">
+                            <span>دو فروشگاه</span>
+                            <span class="flex"><input data-drawer-store-count value="2" type="checkbox"
+                                    class="sr-only"><span class="check-ui"></span></span>
+                        </label>
+                        <label class="flex cursor-pointer items-center justify-between">
+                            <span>سه فروشگاه و بیشتر</span>
+                            <span class="flex"><input data-drawer-store-count value="3" type="checkbox"
+                                    class="sr-only"><span class="check-ui"></span></span>
+                        </label>
+                    </div>
+                </section>
+
+                <hr class="my-7" />
+
+                <section>
+                    <h3 class="mb-5 font-semibold">بازه مبلغ</h3>
+                    <div class="grid grid-cols-2 gap-3">
+                        <label>
+                            <span class="mb-2 block text-[13px] text-[#666]">از مبلغ</span>
+                            <input id="drawerMinAmount" inputmode="numeric" placeholder="۰"
+                                class="h-11 w-full rounded-lg border border-[#c9c9c9] px-3 text-[14px]" />
+                        </label>
+                        <label>
+                            <span class="mb-2 block text-[13px] text-[#666]">تا مبلغ</span>
+                            <input id="drawerMaxAmount" inputmode="numeric" placeholder="۵۰۰,۰۰۰,۰۰۰"
+                                class="h-11 w-full rounded-lg border border-[#c9c9c9] px-3 text-[14px]" />
+                        </label>
+                    </div>
+                </section>
+            </div>
+
+            <footer class="border-t bg-white p-6">
+                <button id="applyDrawerFilters"
+                    class="h-12 w-full rounded-[7px] bg-brand-500 text-[15px] font-medium text-white hover:bg-brand-600">اعمال
+                    فیلتر</button>
+            </footer>
+        </div>
+    </aside>
+
+    <!-- Overlay مخصوص موبایل برای پاپ‌آپ‌های Bottom Sheet -->
+    <div id="mobileOverlay" class="hidden fixed inset-0 z-[99] bg-black/30" aria-hidden="true"></div>
+
+    <!-- Toast -->
+    <div id="toast"
+        class="fixed bottom-5 left-1/2 z-[70] hidden -translate-x-1/2 rounded-xl bg-[#222] px-5 py-3 text-sm text-white shadow-xl"
+        role="alert" aria-live="polite"></div>
+
+    <script>
+        (function () {
+            'use strict';
+
+            const toFa = value => String(value).replace(/\d/g, d => '۰۱۲۳۴۵۶۷۸۹'[d]);
+            const money = value => typeof value === 'number' ? toFa(value.toLocaleString('en-US')) : value;
+
+            const statusMeta = {
+                preparing: { label: 'در حال آماده‌سازی', classes: 'bg-[#dcecff] text-[#2b78c5]' },
+                waiting: { label: 'منتظر', classes: 'bg-[#fff0d8] text-[#d98b15]' },
+                completed: { label: 'تکمیل شده', classes: 'bg-[#dcf6e8] text-[#16864a]' },
+            };
+
+            const orders = [
+                { id: 1, orderNo: '۱۲۳۳۴۵۶۷۸۹', date: '۱۴۰۴/۰۴/۰۴', time: '۱۳:۵۲', storeCount: 1, itemCount: 1, total: 5000000000, status: 'preparing', stores: [] },
+                { id: 2, orderNo: '۱۲۳۳۴۵۶۷۸۹', date: '۱۴۰۴/۰۴/۰۴', time: '۱۳:۵۲', storeCount: 1, itemCount: 1, total: 5000000000, status: 'preparing', stores: [] },
+                { id: 3, orderNo: '۱۲۳۳۴۵۶۷۸۹', date: '۱۴۰۴/۰۴/۰۴', time: '۱۳:۵۲', storeCount: 1, itemCount: 1, total: 5000000000, status: 'preparing', stores: [] },
+                { id: 4, orderNo: '۱۲۳۳۴۵۶۷۸۹', date: '۱۴۰۴/۰۴/۰۴', time: '۱۳:۵۲', storeCount: 1, itemCount: 3, total: 5000000000, status: 'preparing', stores: [{ storeName: 'نام کامل فروشگاه', amount: 5000000000, itemCount: 3, status: 'preparing', products: [{ row: 1, title: 'عنوان محصول', price: 5000000000, quantity: 123456789, unit: 'کیلوگرم' }, { row: 2, title: 'عنوان محصول', price: 5000000000, quantity: 123456789, unit: 'کیلوگرم' }, { row: 3, title: 'عنوان محصول', price: 5000000000, quantity: 123456789, unit: 'کیلوگرم' }] }] },
+                { id: 5, orderNo: '۱۲۳۳۴۵۶۷۸۹', date: '۱۴۰۴/۰۴/۰۴', time: '۱۳:۵۲', storeCount: 1, itemCount: 1, total: 5000000000, status: 'preparing', stores: [] },
+                { id: 6, orderNo: '۱۲۳۳۴۵۶۷۸۹', date: '۱۴۰۴/۰۴/۰۴', time: '۱۳:۵۲', storeCount: 2, itemCount: 5, total: 5000000000, status: 'waiting', stores: [{ storeName: 'نام کامل فروشگاه', amount: 5000000000, itemCount: 3, status: 'completed', products: [{ row: 1, title: 'عنوان محصول', price: 5000000000, quantity: 123456789, unit: 'کیلوگرم' }, { row: 2, title: 'عنوان محصول', price: 5000000000, quantity: 123456789, unit: 'کیلوگرم' }, { row: 3, title: 'عنوان محصول', price: 5000000000, quantity: 123456789, unit: 'کیلوگرم' }] }, { storeName: 'نام کامل فروشگاه', amount: 5000000000, itemCount: 2, status: 'preparing', products: [{ row: 1, title: 'عنوان محصول', price: 5000000000, quantity: 123456789, unit: 'کیلوگرم' }, { row: 2, title: 'عنوان محصول', price: 5000000000, quantity: 123456789, unit: 'کیلوگرم' }] }] },
+                { id: 7, orderNo: '۱۲۳۳۴۵۶۷۸۹', date: '۱۴۰۴/۰۴/۰۴', time: '۱۳:۵۲', storeCount: 1, itemCount: 1, total: 5000000000, status: 'preparing', stores: [] },
+                { id: 8, orderNo: '۱۲۳۳۴۵۶۷۸۹', date: '۱۴۰۴/۰۴/۰۴', time: '۱۳:۵۲', storeCount: 1, itemCount: 1, total: 5000000000, status: 'preparing', stores: [] },
+            ];
+
+            const state = {
+                query: '',
+                sort: 'newest',
+                statuses: new Set(),
+                storeCounts: new Set(),
+                minAmount: null,
+                maxAmount: null,
+                currentPage: 1,
+                pageSize: 10
+            };
+
+            // ===== ابزارها =====
+            const $ = (s, root = document) => root.querySelector(s);
+            const $$ = (s, root = document) => [...root.querySelectorAll(s)];
+
+            let toastTimer = null;
+
+            function showToast(message) {
+                const toast = $('#toast');
+                if (!toast) return;
+                toast.textContent = message;
+                toast.classList.remove('hidden');
+                clearTimeout(toastTimer);
+                toastTimer = setTimeout(() => toast.classList.add('hidden'), 2200);
+            }
+
+            // ===== تشخیص موبایل =====
+            function isMobile() {
+                return window.innerWidth < 768;
+            }
+
+            // ===== مدیریت پاپ‌آپ‌های موبایل (Bottom Sheet) =====
+            const mobileOverlay = document.getElementById('mobileOverlay');
+            let activeMobileMenu = null;
+
+            function openMobileMenu(menuId) {
+                closeMobileMenu();
+                const menu = document.getElementById(menuId);
+                if (!menu) return;
+
+                document.querySelectorAll('.dropdown-menu').forEach(m => {
+                    if (m.id !== menuId) m.classList.add('hidden');
+                });
+
+                if (isMobile()) {
+                    menu.classList.add('mobile-bottom');
+                    menu.classList.remove('hidden');
+                    if (mobileOverlay) {
+                        mobileOverlay.classList.add('show');
+                        mobileOverlay.style.display = 'block';
+                    }
+                    document.body.classList.add('overflow-hidden');
+
+                    requestAnimationFrame(() => {
+                        menu.classList.add('open');
+                    });
+                    activeMobileMenu = menuId;
+                } else {
+                    menu.classList.remove('mobile-bottom', 'open');
+                    menu.classList.remove('hidden');
+                }
+            }
+
+            function closeMobileMenu() {
+                if (activeMobileMenu) {
+                    const menu = document.getElementById(activeMobileMenu);
+                    if (menu) {
+                        menu.classList.remove('open');
+                        setTimeout(() => {
+                            menu.classList.add('hidden');
+                            menu.classList.remove('mobile-bottom');
+                        }, 300);
+                    }
+                    if (mobileOverlay) {
+                        mobileOverlay.classList.remove('show');
+                        mobileOverlay.style.display = 'none';
+                    }
+                    document.body.classList.remove('overflow-hidden');
+                    activeMobileMenu = null;
+                }
+            }
+
+            // ===== فیلتر و رندر =====
+            function getFilteredOrders() {
+                let data = [...orders];
+
+                if (state.query.trim()) {
+                    const query = state.query.trim();
+                    data = data.filter(order =>
+                        order.orderNo.includes(query) ||
+                        String(order.total).includes(query) ||
+                        order.stores.some(store => store.storeName.includes(query))
+                    );
+                }
+
+                if (state.statuses.size) {
+                    data = data.filter(order => state.statuses.has(order.status));
+                }
+
+                if (state.storeCounts.size) {
+                    data = data.filter(order => {
+                        if (order.storeCount >= 3 && state.storeCounts.has('3')) return true;
+                        return state.storeCounts.has(String(order.storeCount));
+                    });
+                }
+
+                if (state.minAmount !== null) {
+                    data = data.filter(order => order.total >= state.minAmount);
+                }
+                if (state.maxAmount !== null) {
+                    data = data.filter(order => order.total <= state.maxAmount);
+                }
+
+                if (state.sort === 'oldest') data.reverse();
+                else if (state.sort === 'highest') data.sort((a, b) => b.total - a.total);
+                else if (state.sort === 'lowest') data.sort((a, b) => a.total - b.total);
+                else if (state.sort === 'stores') data.sort((a, b) => b.storeCount - a.storeCount);
+
+                return data;
+            }
+
+            function getPaginatedData(data) {
+                const start = (state.currentPage - 1) * state.pageSize;
+                const end = start + state.pageSize;
+                return data.slice(start, end);
+            }
+
+            function renderPagination(totalPages) {
+                let html = '';
+                const current = state.currentPage;
+                const maxVisible = 5;
+                let startPage = Math.max(1, current - Math.floor(maxVisible / 2));
+                let endPage = Math.min(totalPages, startPage + maxVisible - 1);
+                if (endPage - startPage < maxVisible - 1) {
+                    startPage = Math.max(1, endPage - maxVisible + 1);
+                }
+                if (startPage > 1) {
+                    html += `<button class="page-num h-8 w-8 rounded-full text-center text-[13px]" data-page="1">1</button>`;
+                    if (startPage > 2) html += `<span class="h-8 w-8 text-center text-[13px]">...</span>`;
+                }
+                for (let i = startPage; i <= endPage; i++) {
+                    const active = i === current ? 'bg-custom-brown text-white' : 'hover:bg-gray-100';
+                    html += `<button class="page-num h-8 w-8 rounded-full text-center text-[13px] ${active}" data-page="${i}">${i}</button>`;
+                }
+                if (endPage < totalPages) {
+                    if (endPage < totalPages - 1) html += `<span class="h-8 w-8 text-center text-[13px]">...</span>`;
+                    html += `<button class="page-num h-8 w-8 rounded-full text-center text-[13px]" data-page="${totalPages}">${totalPages}</button>`;
+                }
+                const paginationNumbers = document.getElementById('paginationNumbers');
+                if (paginationNumbers) {
+                    paginationNumbers.innerHTML = html || `<span class="text-sm text-gray-400">صفحه ۱</span>`;
+                }
+
+                $$('.page-num').forEach(btn => {
+                    btn.addEventListener('click', function () {
+                        const page = parseInt(this.dataset.page, 10);
+                        if (!isNaN(page) && page !== state.currentPage) {
+                            state.currentPage = page;
+                            renderOrders();
+                        }
+                    });
+                });
+            }
+
+            function productsTable(products) {
+                return `
+                    <div class="mt-4 overflow-x-auto rounded-[7px] border border-[#d8d8d8]">
+                        <table class="w-full min-w-[760px] border-collapse text-[12px]">
+                            <thead class="bg-[#f3f3f3] text-[#444]">
+                                <tr class="h-[42px]">
+                                    <th class="w-[60px] px-3 text-right font-medium">ردیف</th>
+                                    <th class="px-3 text-right font-medium">نام محصول</th>
+                                    <th class="w-[155px] px-3 text-center font-medium">قیمت</th>
+                                    <th class="w-[155px] px-3 text-center font-medium">مقدار سفارش</th>
+                                    <th class="w-[100px] px-3 text-center font-medium">واحد</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${products.map(product => `
+                                    <tr class="h-[44px] border-t border-[#dedede]">
+                                        <td class="px-3">${toFa(product.row)}</td>
+                                        <td class="px-3">${product.title}</td>
+                                        <td class="px-3 text-center">${money(product.price)}</td>
+                                        <td class="px-3 text-center">${toFa(product.quantity)}</td>
+                                        <td class="px-3 text-center">${product.unit}</td>
+                                    </tr>
+                                `).join('')}
+                            </tbody>
+                        </table>
+                    </div>
+                `;
+            }
+
+            function storeSection(store, index) {
+                const status = statusMeta[store.status];
+                return `
+                    <section class="${index ? 'mt-5 border-t border-[#bdbdbd] pt-5' : ''}">
+                        <div class="grid gap-3 text-[12px] text-[#555] md:grid-cols-4">
+                            <div><span class="text-[#777]">نام فروشگاه:</span> <strong class="mr-1 font-medium text-[#222]">${store.storeName}</strong></div>
+                            <div><span class="text-[#777]">تعداد آیتم:</span> <strong class="mr-1 font-medium text-[#222]">${toFa(store.itemCount)}</strong></div>
+                            <div><span class="text-[#777]">مبلغ (تومان):</span> <strong class="mr-1 font-medium text-[#222]">${money(store.amount)}</strong></div>
+                            <div class="flex items-center gap-2">
+                                <span class="text-[#777]">وضعیت سفارش:</span>
+                                <span class="rounded px-3 py-2 text-[11px] font-medium ${status.classes}">${status.label}</span>
+                            </div>
+                        </div>
+                        ${productsTable(store.products)}
+                    </section>
+                `;
+            }
+
+            function orderCard(order) {
+                const status = statusMeta[order.status];
+                return `
+                    <article class="order-card overflow-hidden rounded-[7px] border border-[#d3d3d3] bg-white" data-order-id="${order.id}" data-open="false">
+                        <button type="button" class="order-toggle grid w-full gap-4 px-5 py-4 text-right lg:grid-cols-[1.15fr_1.3fr_.65fr_.65fr_1.25fr_.85fr_.7fr_.35fr] lg:items-center">
+                            <div><span class="mb-1 block text-[11px] text-[#888] lg:hidden">شماره سفارش</span><span>${order.orderNo}</span></div>
+                            <div class="text-right lg:text-center"><span class="mb-1 block text-[11px] text-[#888] lg:hidden">زمان ثبت</span><span>${order.date}</span><span class="block">${order.time}</span></div>
+                            <div class="text-right lg:text-center"><span class="mb-1 block text-[11px] text-[#888] lg:hidden">تعداد فروشگاه</span><span>${toFa(order.storeCount)}</span></div>
+                            <div class="text-right lg:text-center"><span class="mb-1 block text-[11px] text-[#888] lg:hidden">تعداد آیتم</span><span>${toFa(order.itemCount)}</span></div>
+                            <div class="text-right lg:text-center"><span class="mb-1 block text-[11px] text-[#888] lg:hidden">مبلغ کل</span><span>${money(order.total)}</span></div>
+                            <div class="text-right lg:text-center"><span class="mb-1 block text-[11px] text-[#888] lg:hidden">وضعیت</span><span class="inline-flex rounded px-3 py-2 text-[11px] font-medium ${status.classes}">${status.label}</span></div>
+                            <div class="text-right lg:text-center"><span class="mb-1 block text-[11px] text-[#888] lg:hidden">عملیات</span><span class="font-medium text-brand-500">مشاهده</span></div>
+                            <div class="flex items-center justify-end"><svg class="order-chevron h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" d="m6 9 6 6 6-6"/></svg></div>
+                        </button>
+                        <div class="order-details">
+                            <div>
+                                ${order.stores.length ? `<div class="border-t border-[#d6d6d6] bg-[#fafafa] px-6 py-5">${order.stores.map((store, index) => storeSection(store, index)).join('')}</div>` : `<div class="border-t border-[#d6d6d6] bg-[#fafafa] px-6 py-5 text-center text-[13px] text-[#777]">جزئیات این سفارش در حال حاضر ثبت نشده است.</div>`}
+                            </div>
+                        </div>
+                    </article>
+                `;
+            }
+
+            function mobileOrderCard(order) {
+                const status = statusMeta[order.status];
+                return `
+                    <div class="order-item border border-[#d3d3d3] rounded-[7px] p-4 bg-white">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="font-semibold">${order.orderNo}</span>
+                            <span class="inline-flex rounded px-2 py-1 text-[10px] font-medium ${status.classes}">${status.label}</span>
+                        </div>
+                        <div class="grid grid-cols-2 gap-1">
+                            <div class="order-info-row"><span class="label">تاریخ:</span><span class="value">${order.date}</span></div>
+                            <div class="order-info-row"><span class="label">زمان:</span><span class="value">${order.time}</span></div>
+                            <div class="order-info-row"><span class="label">فروشگاه:</span><span class="value">${toFa(order.storeCount)}</span></div>
+                            <div class="order-info-row"><span class="label">آیتم:</span><span class="value">${toFa(order.itemCount)}</span></div>
+                            <div class="order-info-row col-span-2"><span class="label">مبلغ کل:</span><span class="value">${money(order.total)} تومان</span></div>
+                        </div>
+                        <div class="mt-3 text-center"><span class="text-brand-500 font-medium text-[13px]">مشاهده جزئیات</span></div>
+                    </div>
+                `;
+            }
+
+            function renderOrders() {
+                const filtered = getFilteredOrders();
+                const totalItems = filtered.length;
+                const totalPages = Math.ceil(totalItems / state.pageSize) || 1;
+                if (state.currentPage > totalPages) state.currentPage = totalPages;
+                const paginated = getPaginatedData(filtered);
+
+                // ===== Desktop =====
+                const ordersList = document.getElementById('ordersList');
+                if (ordersList) {
+                    ordersList.innerHTML = paginated.map(orderCard).join('');
+                    document.querySelectorAll('.order-toggle').forEach(toggle => {
+                        toggle.addEventListener('click', () => {
+                            const card = toggle.closest('.order-card');
+                            const isOpen = card.dataset.open === 'true';
+                            card.dataset.open = String(!isOpen);
+                        });
+                    });
+                }
+
+                // ===== Mobile =====
+                const mobileList = document.getElementById('mobileOrdersList');
+                if (mobileList) {
+                    if (paginated.length) {
+                        mobileList.innerHTML = paginated.map(mobileOrderCard).join('');
+                        mobileList.classList.remove('hidden');
+                    } else {
+                        mobileList.innerHTML = '';
+                        mobileList.classList.add('hidden');
+                    }
+                }
+
+                // ===== Empty State =====
+                const emptyState = document.getElementById('emptyState');
+                if (emptyState) {
+                    emptyState.classList.toggle('hidden', paginated.length > 0);
+                }
+
+                // ===== Result Count =====
+                const resultCount = document.getElementById('resultCount');
+                if (resultCount) {
+                    const hasFilters = state.query || state.statuses.size || state.storeCounts.size || state.minAmount !== null || state.maxAmount !== null;
+                    resultCount.textContent = hasFilters ? toFa(totalItems) : '۱۲۳';
+                }
+
+                // ===== Pagination =====
+                renderPagination(totalPages);
+
+                const prevPage = document.getElementById('prevPage');
+                const nextPage = document.getElementById('nextPage');
+                if (prevPage) {
+                    prevPage.disabled = state.currentPage <= 1;
+                    prevPage.classList.toggle('opacity-40', state.currentPage <= 1);
+                }
+                if (nextPage) {
+                    nextPage.disabled = state.currentPage >= totalPages;
+                    nextPage.classList.toggle('opacity-40', state.currentPage >= totalPages);
+                }
+            }
+
+            // ===== همگام‌سازی فیلترها =====
+            function syncFilters() {
+                $$('[data-status-filter]').forEach(el => el.checked = state.statuses.has(el.value));
+                $$('[data-drawer-status]').forEach(el => el.checked = state.statuses.has(el.value));
+                $$('[data-store-count]').forEach(el => el.checked = state.storeCounts.has(el.value));
+                $$('[data-drawer-store-count]').forEach(el => el.checked = state.storeCounts.has(el.value));
+            }
+
+            // ===== مدیریت منوها =====
+            function closeMenus(except) {
+                $$('.dropdown-menu').forEach(menu => {
+                    if (menu.id !== except) menu.classList.add('hidden');
+                });
+            }
+
+            // ===== رویدادها =====
+            // Dropdown triggers
+            document.querySelectorAll('.dropdown-trigger').forEach(btn => {
+                btn.addEventListener('click', function (e) {
+                    e.stopPropagation();
+                    const id = this.dataset.dropdown;
+                    const menu = document.getElementById(id);
+                    if (!menu) return;
+
+                    if (isMobile() && menu.classList.contains('open')) {
+                        closeMobileMenu();
+                        return;
+                    }
+
+                    document.querySelectorAll('.dropdown-menu').forEach(m => {
+                        if (m.id !== id) {
+                            m.classList.add('hidden');
+                            m.classList.remove('open', 'mobile-bottom');
+                        }
+                    });
+
+                    if (isMobile()) {
+                        openMobileMenu(id);
+                    } else {
+                        menu.classList.remove('mobile-bottom', 'open');
+                        menu.classList.toggle('hidden');
+                    }
+                });
+            });
+
+            // Close dropdown buttons
+            document.querySelectorAll('.close-dropdown').forEach(btn => {
+                btn.addEventListener('click', function () {
+                    if (isMobile()) {
+                        closeMobileMenu();
+                    } else {
+                        this.closest('.dropdown-menu').classList.add('hidden');
+                    }
+                });
+            });
+
+            // Overlay موبایل
+            if (mobileOverlay) {
+                mobileOverlay.addEventListener('click', function () {
+                    closeMobileMenu();
+                });
+            }
+
+            // Clear sort
+            document.querySelector('[data-clear-sort]')?.addEventListener('click', function () {
+                state.sort = 'newest';
+                document.querySelector('input[name="sort"][value="newest"]')?.setAttribute('checked', 'checked');
+                state.currentPage = 1;
+                const labels = {
+                    newest: 'مرتب‌سازی: جدیدترین سفارش',
+                    oldest: 'مرتب‌سازی: قدیمی‌ترین سفارش',
+                    highest: 'مرتب‌سازی: بیشترین مبلغ',
+                    lowest: 'مرتب‌سازی: کمترین مبلغ',
+                    stores: 'مرتب‌سازی: بیشترین تعداد فروشگاه',
+                };
+                const sortLabel = document.getElementById('sortLabel');
+                if (sortLabel) sortLabel.textContent = labels[state.sort];
+                renderOrders();
+                if (isMobile()) {
+                    closeMobileMenu();
+                } else {
+                    this.closest('.dropdown-menu')?.classList.add('hidden');
+                }
+                showToast('مرتب‌سازی به حالت پیش‌فرض بازگشت.');
+            });
+
+            // Sort radios
+            $$('input[name="sort"]').forEach(r => {
+                r.addEventListener('change', function () {
+                    state.sort = this.value;
+                    state.currentPage = 1;
+                    const labels = {
+                        newest: 'مرتب‌سازی: جدیدترین سفارش',
+                        oldest: 'مرتب‌سازی: قدیمی‌ترین سفارش',
+                        highest: 'مرتب‌سازی: بیشترین مبلغ',
+                        lowest: 'مرتب‌سازی: کمترین مبلغ',
+                        stores: 'مرتب‌سازی: بیشترین تعداد فروشگاه',
+                    };
+                    const sortLabel = document.getElementById('sortLabel');
+                    if (sortLabel) sortLabel.textContent = labels[state.sort];
+                    if (isMobile()) closeMobileMenu();
+                    renderOrders();
+                });
+            });
+
+            // Status filters
+            $$('[data-status-filter]').forEach(el => {
+                el.addEventListener('change', function () {
+                    const set = state.statuses;
+                    if (this.checked) set.add(this.value);
+                    else set.delete(this.value);
+                    state.currentPage = 1;
+                    syncFilters();
+                    renderOrders();
+                });
+            });
+
+            // Store count filters
+            $$('[data-store-count]').forEach(el => {
+                el.addEventListener('change', function () {
+                    const set = state.storeCounts;
+                    if (this.checked) set.add(this.value);
+                    else set.delete(this.value);
+                    state.currentPage = 1;
+                    syncFilters();
+                    renderOrders();
+                });
+            });
+
+            // Clear filters
+            document.querySelector('[data-clear="status"]')?.addEventListener('click', function () {
+                state.statuses.clear();
+                state.currentPage = 1;
+                syncFilters();
+                renderOrders();
+                if (isMobile()) closeMobileMenu();
+                showToast('فیلتر وضعیت پاک شد.');
+            });
+
+            document.querySelector('[data-clear="storeCount"]')?.addEventListener('click', function () {
+                state.storeCounts.clear();
+                state.currentPage = 1;
+                syncFilters();
+                renderOrders();
+                if (isMobile()) closeMobileMenu();
+                showToast('فیلتر تعداد فروشگاه پاک شد.');
+            });
+
+            // Search with debounce
+            let searchTimeout = null;
+            const searchInput = document.getElementById('searchInput');
+            if (searchInput) {
+                searchInput.addEventListener('input', function () {
+                    clearTimeout(searchTimeout);
+                    searchTimeout = setTimeout(() => {
+                        state.query = this.value;
+                        state.currentPage = 1;
+                        renderOrders();
+                    }, 300);
+                });
+            }
+
+            // Date filters
+            document.getElementById('applyDateFilter')?.addEventListener('click', function () {
+                if (isMobile()) closeMobileMenu();
+                document.getElementById('dateMenu')?.classList.add('hidden');
+                showToast('بازه زمانی سفارش اعمال شد.');
+            });
+
+            document.getElementById('clearDateFilter')?.addEventListener('click', function () {
+                const dateFrom = document.getElementById('dateFrom');
+                const dateTo = document.getElementById('dateTo');
+                if (dateFrom) dateFrom.value = '';
+                if (dateTo) dateTo.value = '';
+                if (isMobile()) closeMobileMenu();
+                document.getElementById('dateMenu')?.classList.add('hidden');
+                showToast('فیلتر بازه زمانی حذف شد.');
+            });
+
+            // Drawer
+            const drawer = document.getElementById('filterDrawer');
+            const drawerBackdrop = document.getElementById('drawerBackdrop');
+
+            function openDrawer() {
+                syncFilters();
+                if (drawer) drawer.classList.remove('translate-x-full');
+                if (drawerBackdrop) drawerBackdrop.classList.remove('hidden');
+                document.body.classList.add('overflow-hidden');
+            }
+
+            function closeDrawer() {
+                if (drawer) drawer.classList.add('translate-x-full');
+                if (drawerBackdrop) drawerBackdrop.classList.add('hidden');
+                document.body.classList.remove('overflow-hidden');
+            }
+
+            document.getElementById('filterBtn')?.addEventListener('click', openDrawer);
+            document.getElementById('closeDrawer')?.addEventListener('click', closeDrawer);
+            if (drawerBackdrop) drawerBackdrop.addEventListener('click', closeDrawer);
+
+            document.getElementById('clearAllFilters')?.addEventListener('click', function () {
+                $$('[data-drawer-status], [data-drawer-store-count]').forEach(input => input.checked = false);
+                const drawerMin = document.getElementById('drawerMinAmount');
+                const drawerMax = document.getElementById('drawerMaxAmount');
+                if (drawerMin) drawerMin.value = '';
+                if (drawerMax) drawerMax.value = '';
+                state.statuses.clear();
+                state.storeCounts.clear();
+                state.minAmount = null;
+                state.maxAmount = null;
+                state.currentPage = 1;
+                renderOrders();
+                showToast('همه فیلترها پاک شدند.');
+            });
+
+            document.getElementById('applyDrawerFilters')?.addEventListener('click', function () {
+                state.statuses = new Set([...$$('[data-drawer-status]:checked')].map(input => input.value));
+                state.storeCounts = new Set([...$$('[data-drawer-store-count]:checked')].map(input => input.value));
+
+                const min = document.getElementById('drawerMinAmount')?.value.replace(/[^\d]/g, '') || '';
+                const max = document.getElementById('drawerMaxAmount')?.value.replace(/[^\d]/g, '') || '';
+                state.minAmount = min ? Number(min) : null;
+                state.maxAmount = max ? Number(max) : null;
+                state.currentPage = 1;
+
+                syncFilters();
+                renderOrders();
+                closeDrawer();
+                showToast('فیلترها اعمال شدند.');
+            });
+
+            // دکمه‌های صفحه‌بندی
+            document.getElementById('prevPage')?.addEventListener('click', function () {
+                if (state.currentPage > 1) {
+                    state.currentPage--;
+                    renderOrders();
+                }
+            });
+
+            document.getElementById('nextPage')?.addEventListener('click', function () {
+                const totalItems = getFilteredOrders().length;
+                const totalPages = Math.ceil(totalItems / state.pageSize) || 1;
+                if (state.currentPage < totalPages) {
+                    state.currentPage++;
+                    renderOrders();
+                }
+            });
+
+            // تغییر تعداد نمایش
+            document.getElementById('pageSize')?.addEventListener('change', function () {
+                state.pageSize = parseInt(this.value, 10);
+                state.currentPage = 1;
+                renderOrders();
+            });
+
+            // کلیک بیرون
+            document.addEventListener('click', function (e) {
+                if (!isMobile()) {
+                    if (!e.target.closest('.dropdown-trigger') && !e.target.closest('.dropdown-menu')) {
+                        document.querySelectorAll('.dropdown-menu').forEach(menu => {
+                            menu.classList.add('hidden');
+                        });
+                    }
+                }
+            });
+
+            // Escape
+            document.addEventListener('keydown', function (e) {
+                if (e.key === 'Escape') {
+                    if (isMobile()) {
+                        closeMobileMenu();
+                    } else {
+                        document.querySelectorAll('.dropdown-menu').forEach(menu => {
+                            menu.classList.add('hidden');
+                        });
+                    }
+                    closeDrawer();
+                }
+            });
+
+            // ===== همگام‌سازی با تغییر اندازه صفحه =====
+            let resizeTimer = null;
+            window.addEventListener('resize', function () {
+                clearTimeout(resizeTimer);
+                resizeTimer = setTimeout(() => {
+                    if (!isMobile() && activeMobileMenu) {
+                        closeMobileMenu();
+                    }
+                }, 200);
+            });
+
+            // ===== مقداردهی اولیه =====
+            renderOrders();
+
+            // ===== داده‌های ساختاریافته =====
+            const script = document.createElement('script');
+            script.type = 'application/ld+json';
+            script.textContent = JSON.stringify({
+                "@context": "https://schema.org",
+                "@type": "BreadcrumbList",
+                "itemListElement": [{
+                    "@type": "ListItem",
+                    "position": 1,
+                    "name": "داشبورد",
+                    "item": "https://example.com/admin"
+                }, {
+                    "@type": "ListItem",
+                    "position": 2,
+                    "name": "سفارش‌ها",
+                    "item": "https://example.com/admin/orders"
+                }]
+            });
+            document.head.appendChild(script);
+
+        })();
+    </script>
+</body>
+
+</html>

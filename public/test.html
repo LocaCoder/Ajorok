@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>123456</title>
+    <link rel="stylesheet" href="./styles/output.css">
+    <style>
+
+    </style>
+</head>
+
+<body class="bg-white p-4">
+
+    <div class="seller-card" data-id="${seller.id}">
+        <div class="card-header">
+            <div class="card-status">
+                <span class="${meta.className}">${meta.label}</span>
+            </div>
+            <div class="card-store">
+                <div class="avatar"></div>
+                <div>
+                    <div class="store-name">${seller.store}</div>
+                    <div class="manager-name">${
+                        seller.manager
+                        }</div>
+                </div>
+            </div>
+        </div>
+        <div class="card-divider"></div>
+        <div class="grid col-span-2">
+            <div class="col right"><span class="label">نوع: </span>${
+                seller.type
+                }</div>
+            <div class="col left"><span class="label">شهر: </span>${
+                seller.city
+                }</div>
+            <div class="col right"><span class="label">محصولات: </span>${money(
+                seller.products
+                )}</div>
+            <div class="col left"><span class="label">سفارش‌ها: </span>${money(
+                seller.orders
+                )}</div>
+            <div class="card-balance">
+                <span class="label">قابل تسویه: </span>${money(
+                seller.balance
+                )} تومان
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

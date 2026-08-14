@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="fa">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>صفحه محصول - دقیق</title>
+    <link rel="stylesheet" href="../../styles/output.css">
+</head>
+
+<body dir="rtl" class="font-IRANSansXRegular bg-[#F7F7F7] text-[#262626]">
+
+    <div class="min-h-screen">
+
+        <header class="bg-white">
+            <div class="container font-IRANSansXMedium hidden md:flex items-center justify-between min-h-20">
+                <div class="flex-center gap-6">
+                    <div class="border-l border-custom-gray pl-6">
+                        <img src="../../images/ShopDashboard/top/Logo.svg" alt="">
+                    </div>
+                    <button class="flex-center gap-1">
+                        <img src="../../images/ShopDashboard/top/menu-line-horizontal.svg" alt="">
+                        <span>دسته‌بندی</span>
+                    </button>
+                </div>
+                <div class="flex-center gap-6">
+                    <div class="flex-center gap-2">
+                        <a href="">سبد خرید</a>
+                        <img src="../../images/ShopDashboard/top/shopping basket 03.svg" alt="">
+                    </div>
+                    <div class="flex-center gap-2">
+                        <a href="">حساب من</a>
+                        <img src="../../images/ShopDashboard/top/user-circle.svg" alt="">
+                    </div>
+                </div>
+            </div>
+        </header>
+        <!-- Main -->
+        <div class="container mx-auto py-10">
+
+            <!-- Title Box -->
+
+            <div
+                class="bg-white rounded-2xl h-24 flex items-center justify-end px-10 shadow-sm border border-[#EFEFEF]">
+
+                <div class="flex items-center gap-6">
+
+                    <svg class="w-6 h-6"></svg>
+
+                    <div>
+
+                        <h2 class="text-lg font-bold text-[#9C4639] border-b-[3px] border-[#9C4639] pb-3">
+                            مدیریت سفارش‌ها
+                        </h2>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- Card -->
+
+            <div class="mt-8 bg-white rounded-2xl border border-[#EFEFEF] shadow-sm p-8">
+
+                <!-- Search -->
+
+                <div class="flex gap-4">
+
+                    <button
+                        class="w-[130px] h-14 rounded-xl border border-[#9C4639] text-[#9C4639] flex items-center justify-center gap-3 hover:bg-[#9C4639] hover:text-white transition">
+
+                        <svg class="w-5 h-5"></svg>
+
+                        <span class="font-medium">
+                            فیلتر
+                        </span>
+
+                    </button>
+
+
+                    <div class="relative flex-1">
+
+                        <input type="text" placeholder="جستجو"
+                            class="w-full h-14 rounded-xl border border-[#D8D8D8] pr-14 pl-6 outline-none focus:border-[#9C4639]">
+
+                        <svg class="absolute right-5 top-1/2 -translate-y-1/2 w-6 h-6 text-gray-400"></svg>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Tabs -->
+
+                <div class="flex justify-start gap-14 mt-10 border-b border-[#ECECEC]">
+
+                    <button class="pb-4 border-b-[3px] border-[#9C4639] text-[#9C4639] font-semibold">
+
+                        تمام سفارش‌ها
+
+                    </button>
+
+                    <button class="pb-4 text-[#262626] hover:text-[#9C4639]">
+
+                        در انتظار بررسی
+
+                    </button>
+
+                    <button class="pb-4 text-[#262626] hover:text-[#9C4639]">
+
+                        در حال آماده‌سازی
+
+                    </button>
+
+                    <button class="pb-4 text-[#262626] hover:text-[#9C4639]">
+
+                        تکمیل شده
+
+                    </button>
+
+                </div>
+                <!-- Filters -->
+
+                <div class="flex items-center justify-between mt-8">
+
+                    <div class="flex items-center gap-4">
+
+                        <!-- Sort -->
+
+                        <button
+                            class="h-11 px-6 rounded-full border border-[#E0E0E0] flex items-center gap-3 hover:border-[#9C4639] transition">
+
+                            <span>
+                                مرتب‌سازی: جدیدترین
+                            </span>
+
+                            <svg class="w-4 h-4"></svg>
+
+                        </button>
+
+
+
+                        <!-- Date -->
+
+                        <button
+                            class="h-11 px-6 rounded-full border border-[#E0E0E0] flex items-center gap-3 hover:border-[#9C4639] transition">
+
+                            <span>
+                                بازه زمانی ثبت
+                            </span>
+
+                            <svg class="w-4 h-4"></svg>
+
+                        </button>
+
+
+
+                        <!-- Shipping -->
+
+                        <button
+                            class="h-11 px-6 rounded-full border border-[#E0E0E0] flex items-center gap-3 hover:border-[#9C4639] transition">
+
+                            <span>
+                                روش تحویل
+                            </span>
+
+                            <svg class="w-4 h-4"></svg>
+
+                        </button>
+
+
+
+                        <!-- Category -->
+
+                        <button
+                            class="h-11 px-6 rounded-full border border-[#E0E0E0] flex items-center gap-3 hover:border-[#9C4639] transition">
+
+                            <span>
+                                دسته
+                            </span>
+
+                            <svg class="w-4 h-4"></svg>
+
+                        </button>
+
+                    </div>
+                    <div class="flex items-center gap-3">
+
+                        <span class="text-sm text-[#666]">
+                            تعداد نتایج: ۱۳۳
+                        </span>
+
+                        <div class="w-px h-5 bg-[#E0E0E0]"></div>
+
+                        <span class="text-sm text-[#666]">
+                            تعداد نمایش
+                        </span>
+
+                        <button
+                            class="h-10 px-4 rounded-lg border border-[#E0E0E0] flex items-center gap-2 hover:border-[#9C4639]">
+
+                            ۱۵
+
+                            <svg class="w-4 h-4"></svg>
+
+                        </button>
+
+                    </div>
+                </div>
+
+
+                <!-- Table Header -->
+
+                <div
+                    class="mt-8 grid grid-cols-7 bg-[#F7F7F7] border border-[#E0E0E0] rounded-xl h-14 items-center text-center text-[14px] font-medium">
+
+                    <div>
+                        تصویر
+                    </div>
+
+                    <div>
+                        عنوان محصول
+                    </div>
+
+                    <div>
+                        زمان ثبت سفارش
+                    </div>
+
+                    <div>
+                        شماره سفارش
+                    </div>
+
+                    <div>
+                        قیمت (تومان)
+                    </div>
+
+                    <div>
+                        مقدار سفارش
+                    </div>
+
+                    <div>
+                        وضعیت
+                    </div>
+
+                </div>
+
+
+
+                <!-- Orders -->
+
+                <div class="mt-6 space-y-5">
+
+                    <!-- Order -->
+
+                    <div class="border border-[#E0E0E0] rounded-2xl p-6 hover:shadow-md transition">
+
+                        <div class="grid grid-cols-7 items-center text-center">
+
+                            <!-- Image -->
+
+                            <div class="flex justify-center">
+
+                                <img src="/static/images/product.png" class="w-24 h-24 rounded-lg object-cover">
+
+                            </div>
+
+                            <!-- Title -->
+
+                            <div class="leading-9">
+
+                                <p>عنوان محصول عنوان محصول</p>
+
+                                <p>عنوان محصول عنوان محصول</p>
+
+                                <p>عنوان محصول</p>
+
+                            </div>
+
+                            <!-- Date -->
+
+                            <div class="leading-8">
+
+                                <p>شنبه ۱۴۰۴/۰۴/۰۴</p>
+
+                                <p>۱۳:۵۲</p>
+
+                            </div>
+
+                            <!-- Order -->
+
+                            <div>
+
+                                ۱۲۳۴۶۵
+
+                            </div>
+
+                            <!-- Price -->
+
+                            <div>
+
+                                ۱۲،۵۰۰،۰۰۰
+
+                            </div>
+
+                            <!-- Qty -->
+
+                            <div>
+
+                                ۵۵۵۵۱۱۱ واحد
+
+                            </div>
+
+                            <!-- Status -->
+
+                            <div>
+
+                                <span
+                                    class="inline-flex items-center justify-center bg-[#D9E8FC] text-[#1570EF] rounded-md px-4 py-2 text-sm font-medium">
+
+                                    در حال آماده‌سازی
+
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <!-- Order -->
+
+                    <div class="border border-[#E0E0E0] rounded-2xl p-6 hover:shadow-md transition">
+
+                        <div class="grid grid-cols-7 items-center text-center">
+
+                            <div class="flex justify-center">
+
+                                <img src="/static/images/product.png" class="w-24 h-24 rounded-lg object-cover">
+
+                            </div>
+
+                            <div class="leading-9">
+
+                                <p>عنوان محصول عنوان محصول</p>
+
+                                <p>عنوان محصول عنوان محصول</p>
+
+                                <p>عنوان محصول</p>
+
+                            </div>
+
+                            <div class="leading-8">
+
+                                <p>شنبه ۱۴۰۴/۰۴/۰۴</p>
+
+                                <p>۱۳:۵۲</p>
+
+                            </div>
+
+                            <div>
+
+                                ۱۲۳۴۶۵
+
+                            </div>
+
+                            <div>
+
+                                ۱۲،۵۰۰،۰۰۰
+
+                            </div>
+
+                            <div>
+
+                                ۵۵۵۵۱۱۱ واحد
+
+                            </div>
+
+                            <div>
+
+                                <span
+                                    class="inline-flex items-center justify-center bg-[#D9E8FC] text-[#1570EF] rounded-md px-4 py-2 text-sm font-medium">
+
+                                    در حال آماده‌سازی
+
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- Order With Multiple Products -->
+
+                    <div class="border border-[#E0E0E0] rounded-2xl p-6">
+
+                        <!-- Product -->
+
+                        <div class="grid grid-cols-7 items-center text-center pb-6">
+
+                            <div class="flex justify-center">
+
+                                <img src="/static/images/product.png" class="w-24 h-24 rounded-lg object-cover">
+
+                            </div>
+
+                            <div class="leading-9">
+
+                                <p>عنوان محصول عنوان محصول</p>
+
+                                <p>عنوان محصول عنوان محصول</p>
+
+                                <p>عنوان محصول</p>
+
+                            </div>
+
+                            <div class="leading-8">
+
+                                <p>شنبه ۱۴۰۴/۰۴/۰۴</p>
+
+                                <p>۱۳:۵۲</p>
+
+                            </div>
+
+                            <div>
+
+                                ۱۲۳۴۶۵
+
+                            </div>
+
+                            <div>
+
+                                ۱۲،۵۰۰،۰۰۰
+
+                            </div>
+
+                            <div>
+
+                                ۵۵۵۵۱۱۱ واحد
+
+                            </div>
+
+                            <div>
+
+                                <span
+                                    class="inline-flex items-center justify-center bg-[#D9E8FC] text-[#1570EF] rounded-md px-4 py-2 text-sm font-medium">
+
+                                    در حال آماده‌سازی
+
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+
+                        <div class="border-t border-[#E0E0E0] my-2"></div>
+
+
+
+                        <!-- Product -->
+
+                        <div class="grid grid-cols-7 items-center text-center pt-6">
+
+                            <div class="flex justify-center">
+
+                                <img src="/static/images/product.png" class="w-24 h-24 rounded-lg object-cover">
+
+                            </div>
+
+                            <div class="leading-9">
+
+                                <p>عنوان محصول عنوان محصول</p>
+
+                                <p>عنوان محصول عنوان محصول</p>
+
+                                <p>عنوان محصول</p>
+
+                            </div>
+
+                            <div class="leading-8">
+
+                                <p>-</p>
+
+                                <p>-</p>
+
+                            </div>
+
+                            <div>
+
+                                -
+
+                            </div>
+
+                            <div>
+
+                                ۱۲،۵۰۰،۰۰۰
+
+                            </div>
+
+                            <div>
+
+                                ۵۵۵۵۱۱۱ واحد
+
+                            </div>
+
+                            <div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- Order -->
+
+                    <div class="border border-[#E0E0E0] rounded-2xl p-6 hover:shadow-md transition">
+
+                        <div class="grid grid-cols-7 items-center text-center">
+
+                            <div class="flex justify-center">
+
+                                <img src="/static/images/product.png" class="w-24 h-24 rounded-lg object-cover">
+
+                            </div>
+
+                            <div class="leading-9">
+
+                                <p>عنوان محصول عنوان محصول</p>
+
+                                <p>عنوان محصول عنوان محصول</p>
+
+                                <p>عنوان محصول</p>
+
+                            </div>
+
+                            <div class="leading-8">
+
+                                <p>شنبه ۱۴۰۴/۰۴/۰۴</p>
+
+                                <p>۱۳:۵۲</p>
+
+                            </div>
+
+                            <div>
+
+                                ۱۲۳۴۶۵
+
+                            </div>
+
+                            <div>
+
+                                ۱۲،۵۰۰،۰۰۰
+
+                            </div>
+
+                            <div>
+
+                                ۵۵۵۵۱۱۱ واحد
+
+                            </div>
+
+                            <div>
+
+                                <span
+                                    class="inline-flex items-center justify-center bg-[#D9E8FC] text-[#1570EF] rounded-md px-4 py-2 text-sm font-medium">
+
+                                    در حال آماده‌سازی
+
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- Order -->
+
+                    <div class="border border-[#E0E0E0] rounded-2xl p-6 hover:shadow-md transition">
+
+                        <div class="grid grid-cols-7 items-center text-center">
+
+                            <div class="flex justify-center">
+
+                                <img src="/static/images/product.png" class="w-24 h-24 rounded-lg object-cover">
+
+                            </div>
+
+                            <div class="leading-9">
+
+                                <p>عنوان محصول عنوان محصول</p>
+
+                                <p>عنوان محصول عنوان محصول</p>
+
+                                <p>عنوان محصول</p>
+
+                            </div>
+
+                            <div class="leading-8">
+
+                                <p>شنبه ۱۴۰۴/۰۴/۰۴</p>
+
+                                <p>۱۳:۵۲</p>
+
+                            </div>
+
+                            <div>
+
+                                ۱۲۳۴۶۵
+
+                            </div>
+
+                            <div>
+
+                                ۱۲،۵۰۰،۰۰۰
+
+                            </div>
+
+                            <div>
+
+                                ۵۵۵۵۱۱۱ واحد
+
+                            </div>
+
+                            <div>
+
+                                <span
+                                    class="inline-flex items-center justify-center bg-[#D9E8FC] text-[#1570EF] rounded-md px-4 py-2 text-sm font-medium">
+
+                                    در حال آماده‌سازی
+
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Pagination -->
+
+                <div class="mt-10 flex items-center justify-center gap-4">
+
+                    <!-- Prev -->
+
+                    <button
+                        class="w-10 h-10 flex items-center justify-center rounded-full text-[#9C4639] hover:bg-[#F4F4F4] transition">
+
+                        <svg class="w-5 h-5"></svg>
+
+                    </button>
+
+                    <!-- Page -->
+
+                    <button class="w-10 h-10 rounded-full bg-[#9C4639] text-white font-medium">
+
+                        ۱
+
+                    </button>
+
+                    <button class="w-10 h-10 rounded-full hover:bg-[#F4F4F4] transition">
+
+                        ۲
+
+                    </button>
+
+                    <button class="w-10 h-10 rounded-full hover:bg-[#F4F4F4] transition">
+
+                        ۳
+
+                    </button>
+
+                    <button class="w-10 h-10 rounded-full hover:bg-[#F4F4F4] transition">
+
+                        ۴
+
+                    </button>
+
+                    <span class="px-2 text-gray-500">
+                        ...
+                    </span>
+
+                    <button class="w-10 h-10 rounded-full hover:bg-[#F4F4F4] transition">
+
+                        ۹
+
+                    </button>
+
+                    <!-- Next -->
+
+                    <button
+                        class="w-10 h-10 flex items-center justify-center rounded-full text-[#9C4639] hover:bg-[#F4F4F4] transition">
+
+                        <svg class="w-5 h-5 rotate-180"></svg>
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>

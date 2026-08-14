@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ثبت مجصول</title>
+    <link rel="stylesheet" href="styles/output.css">
+    <style>
+
+    </style>
+</head>
+
+<body class="bg-[#F2F2F2]">
+    <svg class="hidden">
+        <symbol id="exit" width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M21.6575 10.3438L10.3438 21.6575M21.6575 21.6575L10.3438 10.3438" stroke="#28303F"
+                stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+        </symbol>
+        <symbol id="plus" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 6V18M18 12L6 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round" />
+        </symbol>
+        <symbol id="right_pag" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M14 16L18 12M18 12L14 8M18 12L6 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                stroke-linejoin="round" />
+        </symbol>
+    </svg>
+    <header class="bg-white">
+        <div class="container font-IRANSansXMedium hidden md:flex items-center justify-between min-h-20">
+            <div class="flex-center gap-6">
+                <div class="border-l border-custom-gray pl-6">
+                    <img src="images/ShopDashboard/top/Logo.svg" alt="">
+                </div>
+                <button class="flex-center gap-1">
+                    <img src="images/ShopDashboard/top/menu-line-horizontal.svg" alt="">
+                    <span>دسته‌بندی</span>
+                </button>
+            </div>
+            <div class="flex-center gap-6">
+                <div class="flex-center gap-2">
+                    <a href="">سبد خرید</a>
+                    <img src="images/ShopDashboard/top/shopping basket 03.svg" alt="">
+                </div>
+                <div class="flex-center gap-2">
+                    <a href="">حساب من</a>
+                    <img src="images/ShopDashboard/top/user-circle.svg" alt="">
+                </div>
+            </div>
+        </div>
+    </header>
+    <main class="container mt-0 md:mt-12">
+        <!-- header of main -->
+        <div class=" font-IRANSansXMedium flex items-center justify-between bg-white px-6 pt-3 pb-4 rounded-xl">
+            <div class="hidden md:block border-b-[3px] border-custom-brown py-2.5 px-4">
+                <span class="px-4 py-2.5 ">ثبت محصول جدید</span>
+            </div>
+            <a href="" class="flex md:hidden items-center gap-1 mb-3">
+                <svg class="size-6">
+                    <use href="#right_pag"></use>
+                </svg>
+                <p class="text-lg font-IRANSansXMedium">ثبت محصول جدید</p>
+            </a>
+            <a href="" class="text-sm hidden md:block">بازگشت به داشبورد</a>
+        </div>
+        <!-- form -->
+        <div
+            class="container font-IRANSansXRegular bg-white text-[#262626] md:px-28 lg:px-36 xl:px-60 py-14 mt-8 rounded-xl">
+            <form action="" class="grid grid-cols-1 lg:grid-cols-2 gap-8 px-5" novalidate>
+                <div class="relative flex flex-col gap-1 lg:col-span-2">
+                    <label>جست‌وجوی محصول مورد نظر</label>
+                    <input id="postalCode" class="shop-input w-full px-3 border rounded py-3" type="text"
+                        placeholder="نام محصول را وارد کنید تا دسته مناسب پیشنهاد شود">
+                </div>
+                <div class="relative lg:col-span-2">
+                    <label>دسته <span class="text-red-500">*</span></label>
+                    <div
+                        class="shop-input category-field w-full flex items-center justify-between pr-3 pl-10 border rounded py-3 cursor-pointer">
+                        <span class="text-gray-400">نام محصول را وارد کنید تا دسته مناسب پیشنهاد شود</span>
+                        <svg class="size-6">
+                            <use href="#"></use>
+                        </svg>
+                    </div>
+                    <svg class="error-icon hidden absolute left-3 top-1/2 -translate-y-1/3 size-6 text-red-500" fill="none">
+                        <use href="#error"></use>
+                    </svg>
+                    <p class="error-msg hidden text-sm text-red-500 mt-1">این فیلذ اجباری میباشد. </p>
+                </div>
+                <!-- category-modal -->
+                <div id="category-modal"
+                    class=" font-IRANSansXRegular fixed inset-0  z-50 flex items-end justify-center">
+                    <div id="category-box" class=" bg-white py-4">
+                        <div class="flex items-center justify-between border-b pb-6 mb-6 px-6 pt-6">
+                            <h2 class="text-xl font-bold">انتخاب دسته</h2>
+                            <button type="button" id="category-close-btn"
+                                class="text-gray-500 hover:text-gray-700 text-xl">
+                                <svg class="size-8">
+                                    <use href="#exit">
+                                </svg>
+                            </button>
+                        </div>
+
+                        <div class="px-6">
+                            <input id="category-search" type="text" placeholder="جست‌وجوی شاخه"
+                                class="w-full border px-3 py-2 rounded-md mb-6">
+                            <div id="category-list" class="max-h-60 overflow-auto cursor-grab"
+                                style="scrollbar-width: none;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="relative">
+                    <label for="branch">شاخه <span class="text-red-500">*</span></label>
+                    <div
+                        class="branch-field shop-input w-full flex items-center justify-between pr-3 pl-10 border rounded py-3 cursor-pointer">
+                        <span class="text-gray-400">یکی از شاخه‌ها را انتخاب کنید</span>
+                        <svg class="size-6">
+                            <use href="#"></use>
+                        </svg>
+                    </div>
+                    <svg class="error-icon hidden absolute left-3 top-1/2 -translate-y-1/3 size-6 text-red-500" fill="none">
+                        <use href="#error"></use>
+                    </svg>
+                    <p class="error-msg hidden text-sm text-red-500 mt-1">این فیلذ اجباری میباشد. </p>
+                </div>
+                <!-- branch-modal -->
+                <div id="branch-modal"
+                    class=" font-IRANSansXRegular  fixed inset-0  z-50 flex items-end justify-center">
+                    <div id="branch-box" class=" bg-white py-4">
+                        <div class="flex items-center justify-between border-b pb-6 mb-6 px-6 pt-6">
+                            <h2 class="text-xl font-bold">انتخاب شاخه</h2>
+                            <button type="button" id="branch-close-btn"
+                                class="text-gray-500 hover:text-gray-700 text-xl">
+                                <svg class="size-8">
+                                    <use href="#exit">
+                                </svg>
+                            </button>
+                        </div>
+
+                        <div class="px-6">
+                            <input id="branch-search" type="text" placeholder="جست‌وجوی شاخه"
+                                class="w-full border px-3 py-2 rounded-md mb-6">
+                            <div id="branch-list" class="max-h-60 overflow-auto cursor-grab"
+                                style="scrollbar-width: none;">
+                                <div
+                                    class="px-3 py-4 hover:bg-gray-100 cursor-pointer rounded-2xl flex justify-between items-center">
+                                    <span>دیگر (شاخه شما در لیست نیست)</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- create brach -->
+                <div id="custom-modal" class=" font-IRANSansXRegular fixed inset-0 z-50 flex items-end justify-center">
+                    <div id="custom-branch-box" class=" bg-white py-8 px-7">
+                        <div class="flex items-center justify-between border-b pb-6 mb-6">
+                            <h2 class="text-xl font-bold">انتخاب شاخه</h2>
+                            <button type="button" id="custom-branch-close-btn"
+                                class="text-gray-500 hover:text-gray-700 text-xl">
+                                <svg class="size-8">
+                                    <use href="#exit">
+                                </svg>
+                            </button>
+                        </div>
+
+                        <div class="mb-6">
+                            <label class="block text-sm font-medium mb-2">شاخه مورد نظر خود را وارد نمایید.</label>
+
+                            <input required id="custom-branch-input" class="shop-input w-full px-3 border rounded py-3"
+                                type="text" placeholder="شاخه">
+                        </div>
+
+                        <div class="mt-6 flex justify-center gap-4 w-full">
+                            <button id="confirm-btn" type="button"
+                                class="w-1/2 py-2 rounded-md text-gray-400 bg-[#F5EDEB] ">
+                                ثبت شاخه
+                            </button>
+                            <button id="back-to-list-btn"  class="w-1/2 py-2 rounded-md border border-[#999999] text-gray-700 " type="button">
+                                بازگشت به لیست
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <!-- subcategory -->
+                <div class="relative">
+                    <label for="subcategory">زیرمجموعه <span class="text-red-500">*</span></label>
+                    <div
+                        class="shop-input subcategory-field w-full flex items-center justify-between pr-3 pl-10 border rounded py-3 cursor-pointer">
+                        <span class="text-gray-400">یکی از زیرمجموعه‌ها را انتخاب کنید</span>
+                        <svg class="size-6">
+                            <use href="#"></use>
+                        </svg>
+                    </div>
+                    <svg class="error-icon hidden absolute left-3 top-1/2 -translate-y-1/3 size-6 text-red-500" fill="none">
+                        <use href="#error"></use>
+                    </svg>
+                    <p class="error-msg hidden text-sm text-red-500 mt-1">این فیلذ اجباری میباشد. </p>
+                </div>
+                <!-- subcategory-modal -->
+                <div id="subcategory-modal" class=" font-IRANSansXRegular  fixed inset-0  z-50 flex items-end justify-center">
+                    <div id="subcategory-box" class=" bg-white py-4">
+                        <div class="flex items-center justify-between border-b pb-6 mb-6 px-6 pt-6">
+                            <h2 class="text-xl font-bold">انتخاب زیرمجموعه</h2>
+                            <button type="button" id="subcategory-close-btn" class="text-gray-500 hover:text-gray-700 text-xl">
+                                <svg class="size-8">
+                                    <use href="#exit">
+                                </svg>
+                            </button>
+                        </div>
+                
+                        <div class="px-6">
+                            <input id="subcategory-search" type="text" placeholder="جست‌وجوی زیرمجموعه"
+                                class="w-full border px-3 py-2 rounded-md mb-6">
+                            <div id="subcategory-list" class="max-h-60 overflow-auto cursor-grab" style="scrollbar-width: none;">
+                                <div class="px-3 py-4 hover:bg-gray-100 cursor-pointer rounded-2xl flex justify-between items-center">
+                                    <span>دیگر (زیرمجموعه شما در لیست نیست)</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- create subcategory -->
+                <div id="custom-subcategory-modal" class=" font-IRANSansXRegular fixed inset-0 z-50 flex items-end justify-center">
+                    <div id="custom-subcategory-box" class=" bg-white py-8 px-7">
+                        <div class="flex items-center justify-between border-b pb-6 mb-6">
+                            <h2 class="text-xl font-bold">انتخاب زیرمجموعه</h2>
+                            <button type="button" id="custom-subcategory-close-btn" class="text-gray-500 hover:text-gray-700 text-xl">
+                                <svg class="size-8">
+                                    <use href="#exit">
+                                </svg>
+                            </button>
+                        </div>
+                
+                        <div class="mb-6">
+                            <label class="block text-sm font-medium mb-2">زیرمجموعه مورد نظر خود را وارد نمایید.</label>
+                
+                            <input required id="custom-subcategory-input" class="shop-input w-full px-3 border rounded py-3" type="text"
+                                placeholder="زیرمجموعه">
+                        </div>
+                
+                        <div class="mt-6 flex justify-center gap-4 w-full">
+                            <button id="confirm-btn" type="button" class="w-1/2 py-2 rounded-md text-gray-400 bg-[#F5EDEB] ">
+                                ثبت زیرمجموعه
+                            </button>
+                            <button id="back-to-list-btn" class="w-1/2 py-2 rounded-md border border-[#999999] text-gray-700 "
+                                type="button">
+                                بازگشت به لیست
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="relative">
+                    <label for="unit">واحد <span class="text-red-500">*</span></label>
+                    <div
+                        class="shop-input unit-field w-full flex items-center justify-between pr-3 pl-10 border rounded py-3 cursor-pointer">
+                        <span class="text-gray-400">واحد قیمت را انتخاب کنید</span>
+                        <svg class="size-6">
+                            <use href="#"></use>
+                        </svg>
+                    </div>
+                    <svg class="error-icon hidden absolute left-3 top-1/2 -translate-y-1/3 size-6 text-red-500" fill="none">
+                        <use href="#error"></use>
+                    </svg>
+                    <p class="error-msg hidden text-sm text-red-500 mt-1">این فیلذ اجباری میباشد. </p>
+                </div>
+                <!-- unit Model 1-->
+                <div id="unit-modal" class="font-IRANSansXRegular fixed inset-0 z-50">
+                    <div id="unit-box" class="bg-white px-6 w-full  md:min-w-[750px] md:min-h-20">
+                        <div class="border-b border-gray-300 py-6">
+                            <p>انتخاب واحد قیمت گذاری</p>
+                            <span class="text-sm text-gray-500 mt-2 text-nowrap">قیمت این محصول براساس واحدی که انتخاب می‌کنید محاسبه
+                                می‌شود.</span>
+                        </div>
+                        <div class="border-b border-gray-300 pt-6 pb-8">
+                            <p>واحد‌های پیشنهادی برای این دسته:</p>
+                            <div class="flex items-center gap-3 mt-6">
+                                <label class="relative cursor-pointer">
+                                    <input type="radio" name="unit" class="absolute opacity-0 peer" checked>
+                                    <span
+                                        class="block px-6 py-2 rounded-full border border-gray-300 text-gray-800 peer-checked:bg-custom-brown peer-checked:text-white peer-checked:border-custom-brown">
+                                        مترمربع
+                                    </span>
+                                </label>
+                
+                                <label class="relative cursor-pointer">
+                                    <input type="radio" name="unit" class="absolute opacity-0 peer">
+                                    <span
+                                        class="block px-6 py-2 rounded-full border border-gray-300 text-gray-800 peer-checked:bg-custom-brown peer-checked:text-white peer-checked:border-custom-brown">
+                                        باکس
+                                    </span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between py-6 flex-wrap gap-4">
+                            <p class="text-gray-500 text-sm">
+                                واحد قیمت = <span>مترمربع</span>. قیمت به ازای هر <span>مترمربع</span> محاسبه می‌شود.
+                            </p>
+                            <div class="w-full md:w-auto flex items-center gap-2.5 text-sm">
+                                <button type="button" id="unit-close-btn"
+                                    class="w-1/3 md:w-auto border border-[#D22121] text-[#D22121] px-4 py-2 rounded-md">انصراف</button>
+                                <button type="button" class="w-2/3 md:w-auto bg-custom-brown text-white text-nowrap px-4 py-2 rounded-md">تایید و
+                                    ذخیره</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- unit Model 2-->
+                <!-- <div id="unit-modal" class="font-IRANSansXRegular fixed inset-0 z-50">
+                    <div id="unit-box" class="bg-white px-6 w-full md:min-w-[750px] md:min-h-20">
+                        <div class="w-full border-b border-gray-300 py-6">
+                            <p>انتخاب واحد قیمت گذاری</p>
+                            <span class="text-sm text-gray-500 mt-2 text-nowrap">قیمت این محصول براساس واحدی که انتخاب می‌کنید محاسبه
+                                می‌شود.</span>
+                        </div>
+                        <div class="w-full border-b border-gray-300 pt-6 pb-8">
+                            <p>واحد‌های پیشنهادی برای این دسته:</p>
+                            <div class="flex items-center gap-3 mt-6">
+                                <label class="relative cursor-pointer">
+                                    <input type="radio" name="unit" class="absolute opacity-0 peer" checked>
+                                    <span
+                                        class="block px-6 py-2 rounded-full border border-gray-300 text-gray-800 peer-checked:bg-custom-brown peer-checked:text-white peer-checked:border-custom-brown">
+                                        کیسه
+                                    </span>
+                                </label>
+                
+                                <label class="relative cursor-pointer">
+                                    <input type="radio" name="unit" class="absolute opacity-0 peer">
+                                    <span
+                                        class="block px-6 py-2 rounded-full border border-gray-300 text-gray-800 peer-checked:bg-custom-brown peer-checked:text-white peer-checked:border-custom-brown">
+                                        کیلوگرم
+                                    </span>
+                                </label>
+                                <label class="relative cursor-pointer">
+                                    <input type="radio" name="unit" class="absolute opacity-0 peer">
+                                    <span
+                                        class="block px-6 py-2 rounded-full border border-gray-300 text-gray-800 peer-checked:bg-custom-brown peer-checked:text-white peer-checked:border-custom-brown">
+                                        تن
+                                    </span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="w-full flex items-center justify-between py-6 flex-wrap md:flex-nowrap gap-6">
+                            <p class="text-gray-500 text-sm text-nowrap">
+                                واحد قیمت = <span>مترمربع</span>. قیمت به ازای هر <span>مترمربع</span> محاسبه می‌شود.
+                            </p>
+                            <div class="hidden">
+                                <label for="maximumOrder">متراژ در هر باکس (مترمربع)</label>
+                                <input required id="postalCode" class="shop-input w-full pr-4 pl-10 border rounded py-3" type="text"
+                                    placeholder="مثال: 50">
+                                <svg class="error-icon hidden absolute left-3 top-1/2 -translate-y-1/3 size-6 text-red-500" fill="none">
+                                    <use href="#error"></use>
+                                </svg>
+                                <p class="error-msg hidden text-sm text-red-500 mt-1">این فیلذ اجباری میباشد. </p>
+                            </div>
+                            <div class="w-full md:w-auto flex items-center gap-2.5 text-sm child:py-2.5 child:px-4 child:rounded-md">
+                                <button type="button" id="unit-close-btn" href="" class="w-1/3 md:w-auto border border-[#D22121] text-[#D22121]">انصراف</button>
+                                <button type="button" href="" class="w-2/3 md:w-auto bg-custom-brown text-white text-nowrap">تایید و ذخیره</button>
+                            </div>
+                        </div>
+                    </div>
+                </div> -->
+                <div class="relative">
+                    <label for="inventory">موجودی <span class="text-red-500">*</span></label>
+                    <input required id="postalCode" class="shop-input w-full pr-3 pl-10 border rounded py-3" type="text"
+                        placeholder="تعداد موجودی براساس واحد را وارد نمایید.">
+                    <svg class="error-icon hidden absolute left-3 top-1/2 -translate-y-1/3 size-6 text-red-500"
+                        fill="none">
+                        <use href="#error"></use>
+                    </svg>
+                    <p class="error-msg hidden text-sm text-red-500 mt-1">این فیلذ اجباری میباشد. </p>
+                </div>
+                <div class="relative">
+                    <label for="minimumoOrder">حداقل سفارش <span class="text-red-500">*</span></label>
+                    <input required id="postalCode" class="shop-input w-full pr-3 pl-10 border rounded py-3" type="text"
+                        placeholder="حداقل سفارش را وارد کنید">
+                    <svg class="error-icon hidden absolute left-3 top-1/2 -translate-y-1/3 size-6 text-red-500"
+                        fill="none">
+                        <use href="#error"></use>
+                    </svg>
+                    <p class="error-msg hidden text-sm text-red-500 mt-1">این فیلذ اجباری میباشد. </p>
+                </div>
+                <div class="relative">
+                    <label for="maximumOrder">حداکثر سفارش <span class="text-red-500">*</span></label>
+                    <input required id="postalCode" class="shop-input w-full pr-3 pl-10 border rounded py-3" type="text"
+                        placeholder="حداکثر سفارش را وارد کنید">
+                    <svg class="error-icon hidden absolute left-3 top-1/2 -translate-y-1/3 size-6 text-red-500"
+                        fill="none">
+                        <use href="#error"></use>
+                    </svg>
+                    <p class="error-msg hidden text-sm text-red-500 mt-1">این فیلذ اجباری میباشد. </p>
+                </div>
+                <div class="relative lg:col-span-2">
+                    <label for="price">قیمت (به تومان بر اساس واحد) <span class="text-red-500">*</span></label>
+                    <input required id="postalCode" class="shop-input w-full pr-3 pl-10 border rounded py-3" type="text"
+                        placeholder="قیمت مورد نظر را به ازای هر واحد انتخاب شده به تومان وارد کنید.">
+                    <svg class="error-icon hidden absolute left-3 top-1/2 -translate-y-1/3 size-6 text-red-500"
+                        fill="none">
+                        <use href="#error"></use>
+                    </svg>
+                    <p class="error-msg hidden text-sm text-red-500 mt-1">این فیلذ اجباری میباشد. </p>
+                    <div>
+
+                    </div>
+                </div>
+                <div class="relative lg:col-span-2">
+                    <label for="adTitle">عنوان آگهی <span class="text-red-500">*</span></label>
+                    <input required id="postalCode" class="shop-input w-full pr-3 pl-10 border rounded py-3" type="text"
+                        placeholder="عنوان آگهی را وارد نمایید.">
+                    <svg class="error-icon hidden absolute left-3 top-1/2 -translate-y-1/3 size-6 text-red-500"
+                        fill="none">
+                        <use href="#error"></use>
+                    </svg>
+                    <p class="error-msg hidden text-sm text-red-500 mt-1">این فیلذ اجباری میباشد. </p>
+                </div>
+                <div class="relative lg:col-span-2">
+                    <label for="address">آدرس پستی <span class="text-red-500">*</span></label>
+                    <textarea required id="address" class="shop-input h-[165px]" placeholder="عنوان ورودی"></textarea>
+                    <!-- آیکون خطا (در حالت عادی مخفی) -->
+                    <svg class="error-icon hidden absolute left-3 top-11 size-6 text-red-500" fill="none">
+                        <use href="#error"></use>
+                    </svg>
+                    <p class="error-msg hidden text-sm text-red-500 mt-1">آدرس پستی را وارد کنید.</p>
+                </div>
+                <div class="relative lg:col-span-2">
+                    <label for="">تصاویر محصول</label>
+                    <div class="flex items-start gap-4 mt-3 flex-wrap">
+                        <!-- باکس آپلود -->
+                        <div class="flex flex-col items-center justify-center text-custom-brown size-[105px] sm:size-[115px] md:size-[135px] border-[1px] border-[#999999] rounded-lg cursor-pointer relative shrink-0 overflow-hidden"
+                            id="rightBox">
+                            <div id="rightInitial"
+                                class="flex flex-col items-center gap-3 w-full h-full text-xs md:text-base p-4 md:pt-7">
+                                <svg class="size-10 md:size-12 text-[#666666]">
+                                    <use href="#plus"></use>
+                                </svg>
+                                <span>افزودن تصویر</span>
+                            </div>
+                            <input type="file" class="absolute inset-0 opacity-0 cursor-pointer" id="rightInput" accept="image/*"
+                                multiple>
+                        </div>
+                
+                        <!-- محل نمایش عکس‌ها (در موبایل داخل باکس میره، در دسکتاپ بیرون میمونه) -->
+                        <div id="rightPreview" dir="ltr" class="flex items-center gap-2 flex-wrap"></div>
+                    </div>
+                    <svg class="error-icon hidden absolute left-3 top-1/2 -translate-y-1/3 size-6 text-red-500" fill="none">
+                        <use href="#error"></use>
+                    </svg>
+                    <p class="error-msg hidden text-sm text-red-500 mt-1">این فیلذ اجباری میباشد. </p>
+                </div>
+                <div class="relative lg:col-span-2">
+                    <button id="submit-form-btn"
+                        class="w-full py-3 rounded-md transition-all duration-300 bg-[#F5EDEB] text-[#CCCCCC] ">
+                        تایید
+                    </button>
+                </div>
+                <!-- if form accept -->
+                <div id="accept-modal" class=" font-IRANSansXRegular  fixed inset-0  z-50 flex items-end justify-center ">
+                    <div id="accept-box" class=" flex flex-col items-center gap-8 bg-white py-6 px-6">
+                        <img src="images/product_creation/Group.svg" alt="">
+                        <p class="text-center text-gray-800">شاخه شما ثبت گردید. تیم آجرک شاخه پیشنهادی را بررسی می‌کند و در صورت تأیید،
+                            به لیست دسته‌بندی‌ها اضافه خواهد شد.</p>
+                        <div class="w-full flex items-center gap-4 text-sm child:py-2.5 child:px-4 child:rounded-md">
+                            <a href="product_creation.html" class="w-full text-center border border-custom-brown text-custom-brown">ثبت
+                                محصول جدید</a>
+                            <a href="shop_dashboard.html" class="w-full text-center bg-custom-brown text-white text-nowrap">داشبورد
+                                فروشگاه</a>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </main>
+    <script src="scripts/product_creation.js"></script>
+</body>
+
+</html>

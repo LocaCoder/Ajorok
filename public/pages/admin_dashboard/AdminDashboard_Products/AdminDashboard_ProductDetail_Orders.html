@@ -1,0 +1,1203 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>سفارش‌های محصول مدیریت | Jorok</title>
+    <!-- ===== سئو ===== -->
+    <meta name="description" content="مدیریت و مشاهده سفارش‌های محصول، وضعیت، مبلغ و تاریخ در پنل ادمین." />
+    <meta name="keywords" content="سفارش‌های محصول, پنل ادمین, مدیریت سفارش, وضعیت سفارش" />
+    <link rel="canonical" href="https://example.com/admin/product/orders" />
+    <link rel="stylesheet" href="../../../styles/output.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Vazirmatn', 'IRANSansX', 'Tahoma', 'Arial', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#fbf2ef',
+                            100: '#f3ddd7',
+                            500: '#aa4938',
+                            600: '#943b2e',
+                        },
+                    },
+                    boxShadow: {
+                        soft: '0 1px 2px rgba(0,0,0,.025)',
+                        menu: '0 12px 32px rgba(0,0,0,.12)',
+                    },
+                },
+            },
+        };
+    </script>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            -webkit-font-smoothing: antialiased;
+            text-rendering: optimizeLegibility;
+        }
+
+        button,
+        a {
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        button:focus-visible,
+        input:focus-visible,
+        select:focus-visible {
+            outline: 2px solid rgba(170, 73, 56, .24);
+            outline-offset: 2px;
+        }
+
+        .hide-scrollbar {
+            scrollbar-width: none;
+        }
+
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .fade-in {
+            animation: fadeIn .16s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-5px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .tab-active {
+            color: #aa4938;
+            border-color: #aa4938;
+            font-weight: 600;
+        }
+
+        /* ===== استایل چک‌باکس و رادیو ===== */
+        .check-ui,
+        .radio-ui {
+            position: relative;
+            display: inline-grid;
+            place-items: center;
+            width: 21px;
+            height: 21px;
+            flex: 0 0 21px;
+            border: 1px solid #aaa;
+            background: white;
+        }
+
+        .check-ui {
+            border-radius: 5px;
+        }
+
+        .radio-ui {
+            border-radius: 999px;
+        }
+
+        input:checked+.check-ui {
+            border-color: #aa4938;
+            background: #aa4938;
+        }
+
+        input:checked+.check-ui::after {
+            content: '';
+            width: 8px;
+            height: 4px;
+            border-left: 2px solid white;
+            border-bottom: 2px solid white;
+            transform: rotate(-45deg) translateY(-1px);
+        }
+
+        input:checked+.radio-ui {
+            border-color: #aa4938;
+        }
+
+        input:checked+.radio-ui::after {
+            content: '';
+            width: 11px;
+            height: 11px;
+            border-radius: 999px;
+            background: #aa4938;
+        }
+
+        /* ===== جدول موبایل با اسکرول ===== */
+        @media (max-width: 767px) {
+            .orders-table-wrapper {
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            .orders-table-wrapper table {
+                min-width: 850px;
+            }
+        }
+
+        /* ===== فیلترهای موبایل (اسکرول افقی) ===== */
+        .filter-scroll-wrapper {
+            overflow-x: auto;
+            overflow-y: hidden;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+        }
+
+        .filter-scroll-wrapper::-webkit-scrollbar {
+            display: none;
+        }
+
+        .filter-scroll-wrapper .filter-item {
+            flex-shrink: 0;
+        }
+
+        @media (max-width: 767px) {
+            .filter-scroll-wrapper {
+                flex-wrap: nowrap !important;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .filter-scroll-wrapper {
+                flex-wrap: wrap !important;
+                overflow-x: visible;
+                overflow-y: visible;
+            }
+
+            .filter-scroll-wrapper .filter-item {
+                flex-shrink: 1;
+            }
+        }
+
+        /* ===== پاپ‌آپ موبایل (Bottom Sheet) ===== */
+        @media (max-width: 767px) {
+            .dropdown-menu.mobile-bottom {
+                position: fixed !important;
+                bottom: 0 !important;
+                left: 0 !important;
+                right: 0 !important;
+                top: auto !important;
+                max-height: 80vh !important;
+                width: 100% !important;
+                max-width: 100% !important;
+                border-radius: 16px 16px 0 0 !important;
+                transform: translateY(100%);
+                transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                box-shadow: 0 -8px 30px rgba(0, 0, 0, 0.12) !important;
+                border: none !important;
+                border-top: 1px solid #e5e5e5 !important;
+                z-index: 100 !important;
+            }
+
+            .dropdown-menu.mobile-bottom.open {
+                transform: translateY(0);
+            }
+
+            .dropdown-menu.mobile-bottom .drag-handle {
+                display: block !important;
+                width: 40px;
+                height: 4px;
+                background: #d1d1d1;
+                border-radius: 999px;
+                margin: 10px auto 6px;
+            }
+
+            .dropdown-menu.mobile-bottom .close-dropdown {
+                display: none !important;
+            }
+        }
+
+        /* ===== Overlay موبایل ===== */
+        #mobileOverlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.3);
+            z-index: 99;
+            transition: opacity 0.3s ease;
+        }
+
+        #mobileOverlay.show {
+            display: block;
+        }
+
+        /* ===== صفحه‌بندی ===== */
+        .page-btn {
+            transition: all 0.15s ease;
+        }
+
+        .page-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
+        .page-num {
+            transition: all 0.15s ease;
+        }
+
+        .page-num:hover:not(.bg-custom-brown) {
+            background: #f3f3f3;
+        }
+
+        .page-num.bg-custom-brown {
+            color: white;
+        }
+    </style>
+</head>
+
+<body class="font-IRANSansXRegular min-h-screen bg-[#f3f3f3] text-[#252525]">
+
+    <!-- Header -->
+    <header class="h-[72px] border-b border-[#ececec] bg-white" role="banner">
+        <div class="mx-auto flex h-full max-w-[1536px] items-center justify-between px-4 sm:px-6 lg:px-[60px]">
+            <div class="flex items-center gap-4">
+                <img src="../../../images/logo/Logo.svg" alt="لوگو فروشگاه" />
+                <span class="hidden h-10 w-px bg-[#d9d9d9] sm:block" aria-hidden="true"></span>
+                <nav class="hidden items-center gap-8 md:flex" aria-label="منوی اصلی">
+                    <a href="#" class="flex items-center gap-2 text-[15px] font-medium text-[#2b2b2b]">
+                        <img src="../../../images/Header/home 04.svg" alt="آیکون خانه" />
+                        صفحه اصلی
+                    </a>
+                    <button class="flex items-center gap-2 text-[15px] font-medium text-[#2b2b2b]" aria-expanded="false">
+                        <img src="../../../images/Header/grid 02.svg" alt="آیکون صفحات" />
+                        صفحات پنل
+                        <img src="../../../images/Header/direction-down 01.svg" alt="باز کردن منو" />
+                    </button>
+                </nav>
+            </div>
+            <div class="flex items-center gap-3 sm:gap-7" dir="ltr">
+                <div class="flex items-center gap-3">
+                    <div class="h-9 w-9 rounded-full bg-[#202020]" role="img" aria-label="آواتار ادمین"></div>
+                    <div class="hidden leading-tight sm:block">
+                        <div class="text-[14px] font-medium text-[#222]">ادمین</div>
+                        <div class="mt-1 text-[11px] font-light text-[#777]">سطح ادمین</div>
+                    </div>
+                </div>
+                <div class="hidden items-center gap-3 sm:flex lg:gap-5">
+                    <button class="grid h-9 w-9 place-items-center rounded-lg hover:bg-[#f7f7f7]" aria-label="اعلان‌ها">
+                        <img src="../../../images/Header/notification.svg" alt="آیکون اعلان" />
+                    </button>
+                    <button class="grid h-9 w-9 place-items-center rounded-lg hover:bg-[#f7f7f7]" aria-label="پیام‌ها">
+                        <img src="../../../images/Header/mail.svg" alt="آیکون پیام" />
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main -->
+    <main class="mx-auto w-full max-w-[1200px] px-4 pb-20 pt-[54px] lg:px-0" role="main">
+
+        <!-- Breadcrumb -->
+        <nav class="mb-5 flex items-center gap-3 px-1 text-[13px] text-[#777]" aria-label="مسیر یابی">
+            <a href="#" class="hover:text-custom-brown">داشبورد</a>
+            <span aria-hidden="true">‹</span>
+            <a href="#" class="hover:text-custom-brown">فروشندگان</a>
+            <span aria-hidden="true">‹</span>
+            <a href="#" class="hover:text-custom-brown">نام کامل فروشگاه</a>
+            <span aria-hidden="true">‹</span>
+            <span class="font-medium text-[#222]" aria-current="page">نام محصول</span>
+
+            <button type="button" class="mr-auto hover:text-custom-brown" aria-label="بازگشت">
+                <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"
+                    aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 12H5m7-7-7 7 7 7" />
+                </svg>
+            </button>
+        </nav>
+
+        <!-- Product summary -->
+        <section class="rounded-[14px] bg-white px-6 py-[16px] shadow-soft lg:px-7">
+            <div class="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
+                <div class="flex items-center gap-4">
+                    <span class="h-[76px] w-[76px] shrink-0 rounded-[6px] bg-custom-brown" role="img"
+                        aria-label="تصویر محصول"></span>
+                    <div class="max-w-[560px]">
+                        <h1 class="text-[16px] font-semibold leading-7">عنوان محصول عنوان محصول عنوان محصول</h1>
+                        <p class="mt-2 text-[13px] text-[#777]">نام فروشگاه: <strong class="font-medium text-[#222]">نام
+                                کامل فروشگاه</strong></p>
+                    </div>
+                </div>
+
+                <div class="flex flex-wrap items-center gap-4">
+                    <span id="stockBadge"
+                        class="rounded-[5px] bg-[#dcecff] px-3 py-2 text-[12px] font-medium text-[#2b78c5]">موجود</span>
+                    <span id="publishBadge"
+                        class="rounded-[5px] bg-[#dcf6e8] px-3 py-2 text-[12px] font-medium text-[#16864a]">منتشر</span>
+                    <button id="rejectProductBtn" type="button"
+                        class="h-[44px] min-w-[122px] rounded-[7px] border-2 border-[#d12d2d] bg-white px-5 text-[15px] font-semibold text-[#d12d2d] transition hover:bg-[#fff3f3]">رد
+                        محصول</button>
+                    <button id="approveProductBtn" type="button"
+                        class="h-[44px] min-w-[122px] rounded-[7px] bg-[#19aa56] px-5 text-[15px] font-semibold text-white transition hover:bg-[#15994d]">تایید
+                        محصول</button>
+                    <div class="relative">
+                        <button id="topMoreBtn" type="button"
+                            class="grid h-11 w-8 place-items-center rounded-md hover:bg-[#f5f5f5]"
+                            aria-label="گزینه‌های بیشتر" aria-expanded="false">
+                            <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                <circle cx="12" cy="5" r="1.6" />
+                                <circle cx="12" cy="12" r="1.6" />
+                                <circle cx="12" cy="19" r="1.6" />
+                            </svg>
+                        </button>
+                        <div id="topMoreMenu"
+                            class="absolute left-0 top-12 z-30 hidden w-48 overflow-hidden rounded-xl border border-[#e3e3e3] bg-white py-1 shadow-menu fade-in"
+                            role="menu">
+                            <button data-action="edit"
+                                class="w-full px-4 py-2.5 text-right text-[13px] hover:bg-[#f7f7f7]"
+                                role="menuitem">ویرایش محصول</button>
+                            <button data-action="archive"
+                                class="w-full px-4 py-2.5 text-right text-[13px] hover:bg-[#f7f7f7]"
+                                role="menuitem">بایگانی محصول</button>
+                            <button data-action="delete"
+                                class="w-full px-4 py-2.5 text-right text-[13px] text-[#c93434] hover:bg-[#fff4f4]"
+                                role="menuitem">حذف محصول</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tabs -->
+        <nav class="mt-[25px] flex justify-end border-b border-[#cfcfcf]" aria-label="بخش‌های محصول">
+            <a href="AdminDashboard_ProductDetail_Info.html"
+                class="border-b-2 border-transparent px-6 pb-[12px] text-[15px]">اطلاعات</a>
+            <a href="AdminDashboard_ProductDetail_Orders.html"
+                class="tab-active border-b-2 px-6 pb-[12px] text-[15px]">سفارش‌ها</a>
+            <button id="reviewsTabBtn" class="border-b-2 border-transparent px-6 pb-[12px] text-[15px]">نظرات</button>
+        </nav>
+
+        <!-- Orders card -->
+        <section class="mt-[26px] rounded-[14px] bg-white px-6 py-6 shadow-soft lg:px-8">
+
+            <!-- ===== فیلترهای اسکرول‌شونده موبایل ===== -->
+            <div class="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
+                <h2 class="text-[19px] font-semibold">سفارش‌ها</h2>
+                <div class="flex items-end gap-5">
+                    <div class="flex flex-wrap items-center gap-3 filter-scroll-wrapper">
+                        <!-- Sort -->
+                        <div class="filter-item relative">
+                            <button data-dropdown="sortMenu"
+                                class="dropdown-trigger flex h-9 min-w-[150px] items-center justify-between gap-2 rounded-full border border-[#c9c9c9] bg-white px-4 text-[13px] whitespace-nowrap hover:border-custom-brown">
+                                <span id="sortLabel" class="truncate max-w-[90px]">مرتب‌سازی: جدیدترین</span>
+                                <svg class="h-4 w-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                                    stroke-width="1.8" aria-hidden="true">
+                                    <path stroke-linecap="round" d="m6 9 6 6 6-6" />
+                                </svg>
+                            </button>
+                            <div id="sortMenu"
+                                class="dropdown-menu absolute right-0 top-[48px] z-30 hidden w-[350px] max-w-[calc(100vw-32px)] overflow-hidden rounded-[9px] border border-gray-300 bg-white shadow-popup"
+                                role="dialog" aria-label="مرتب‌سازی">
+                                <div class="drag-handle hidden"></div>
+                                <div class="flex h-[57px] items-center justify-between border-b border-line px-6">
+                                    <h2 class="text-[18px] font-medium">مرتب‌سازی</h2>
+                                    <button data-close-popup aria-label="بستن"
+                                        class="close-dropdown grid h-8 w-8 place-items-center text-[#273444]">
+                                        <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                                            stroke-width="1.7" aria-hidden="true">
+                                            <path stroke-linecap="round" d="M6 6l12 12M18 6 6 18" />
+                                        </svg>
+                                    </button>
+                                </div>
+                                <div class="space-y-6 px-6 py-5 text-[15px]">
+                                    <label class="flex cursor-pointer items-center gap-4">
+                                        <span class="flex"><input class="peer sr-only" type="radio" name="sort"
+                                                value="newest" checked><span class="radio-ui"></span></span>
+                                        <span>جدیدترین سفارش</span>
+                                    </label>
+                                    <label class="flex cursor-pointer items-center gap-4">
+                                        <span class="flex"><input class="peer sr-only" type="radio" name="sort"
+                                                value="oldest"><span class="radio-ui"></span></span>
+                                        <span>قدیمی‌ترین سفارش</span>
+                                    </label>
+                                    <label class="flex cursor-pointer items-center gap-4">
+                                        <span class="flex"><input class="peer sr-only" type="radio" name="sort"
+                                                value="highest"><span class="radio-ui"></span></span>
+                                        <span>بیشترین مبلغ</span>
+                                    </label>
+                                    <label class="flex cursor-pointer items-center gap-4">
+                                        <span class="flex"><input class="peer sr-only" type="radio" name="sort"
+                                                value="lowest"><span class="radio-ui"></span></span>
+                                        <span>کمترین مبلغ</span>
+                                    </label>
+                                </div>
+                                <div class="flex items-center justify-end border-t border-line px-6 py-4">
+                                    <button data-clear-sort class="text-[14px] text-custom-brown">حذف فیلتر</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Status -->
+                        <div class="filter-item relative">
+                            <button data-dropdown="statusMenu"
+                                class="dropdown-trigger flex h-9 min-w-[110px] items-center justify-between gap-2 rounded-full border border-[#c9c9c9] bg-white px-4 text-[13px] whitespace-nowrap hover:border-custom-brown">
+                                وضعیت سفارش
+                                <svg class="h-4 w-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                                    stroke-width="1.8" aria-hidden="true">
+                                    <path stroke-linecap="round" d="m6 9 6 6 6-6" />
+                                </svg>
+                            </button>
+                            <div id="statusMenu"
+                                class="dropdown-menu absolute right-0 top-[48px] z-30 hidden w-[350px] max-w-[calc(100vw-32px)] overflow-hidden rounded-[9px] border border-gray-300 bg-white shadow-popup"
+                                role="dialog" aria-label="وضعیت سفارش">
+                                <div class="drag-handle hidden"></div>
+                                <div class="flex h-[57px] items-center justify-between border-b border-line px-6">
+                                    <h2 class="text-[18px] font-medium">وضعیت سفارش</h2>
+                                    <button data-close-popup aria-label="بستن"
+                                        class="close-dropdown grid h-8 w-8 place-items-center text-[#273444]">
+                                        <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                                            stroke-width="1.7" aria-hidden="true">
+                                            <path stroke-linecap="round" d="M6 6l12 12M18 6 6 18" />
+                                        </svg>
+                                    </button>
+                                </div>
+                                <div class="space-y-6 px-6 py-5 text-[15px]">
+                                    <label class="flex cursor-pointer items-center justify-between">
+                                        <span>در انتظار بررسی</span>
+                                        <span class="flex"><input data-status-filter value="pending" type="checkbox"
+                                                class="sr-only"><span class="check-ui"></span></span>
+                                    </label>
+                                    <label class="flex cursor-pointer items-center justify-between">
+                                        <span>در حال آماده‌سازی</span>
+                                        <span class="flex"><input data-status-filter value="preparing" type="checkbox"
+                                                class="sr-only"><span class="check-ui"></span></span>
+                                    </label>
+                                    <label class="flex cursor-pointer items-center justify-between">
+                                        <span>ارسال شد</span>
+                                        <span class="flex"><input data-status-filter value="sent" type="checkbox"
+                                                class="sr-only"><span class="check-ui"></span></span>
+                                    </label>
+                                    <label class="flex cursor-pointer items-center justify-between">
+                                        <span>لغو شد</span>
+                                        <span class="flex"><input data-status-filter value="canceled" type="checkbox"
+                                                class="sr-only"><span class="check-ui"></span></span>
+                                    </label>
+                                </div>
+                                <div class="flex items-center justify-end border-t border-line px-6 py-4">
+                                    <button data-clear="status" class="text-[14px] text-custom-brown">حذف فیلتر</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Date -->
+                        <div class="filter-item relative">
+                            <button data-dropdown="dateMenu"
+                                class="dropdown-trigger flex h-9 min-w-[110px] items-center justify-between gap-2 rounded-full border border-[#c9c9c9] bg-white px-4 text-[13px] whitespace-nowrap hover:border-custom-brown">
+                                بازه زمانی
+                                <svg class="h-4 w-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                                    stroke-width="1.8" aria-hidden="true">
+                                    <path stroke-linecap="round" d="m6 9 6 6 6-6" />
+                                </svg>
+                            </button>
+                            <div id="dateMenu"
+                                class="dropdown-menu absolute right-0 top-[48px] z-30 hidden w-[350px] max-w-[calc(100vw-32px)] overflow-hidden rounded-[9px] border border-gray-300 bg-white shadow-popup"
+                                role="dialog" aria-label="بازه زمانی">
+                                <div class="drag-handle hidden"></div>
+                                <div class="flex h-[57px] items-center justify-between border-b border-line px-6">
+                                    <h2 class="text-[18px] font-medium">بازه زمانی ثبت</h2>
+                                    <button data-close-popup aria-label="بستن"
+                                        class="close-dropdown grid h-8 w-8 place-items-center text-[#273444]">
+                                        <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                                            stroke-width="1.7" aria-hidden="true">
+                                            <path stroke-linecap="round" d="M6 6l12 12M18 6 6 18" />
+                                        </svg>
+                                    </button>
+                                </div>
+                                <div class="space-y-4 px-6 py-5 text-[15px]">
+                                    <label class="block">
+                                        <span class="mb-2 block text-[#555]">از تاریخ</span>
+                                        <input id="dateFrom" type="text" placeholder="۱۴۰۴/۰۱/۰۱"
+                                            class="h-11 w-full rounded-lg border border-[#c9c9c9] px-3" />
+                                    </label>
+                                    <label class="block">
+                                        <span class="mb-2 block text-[#555]">تا تاریخ</span>
+                                        <input id="dateTo" type="text" placeholder="۱۴۰۴/۱۲/۲۹"
+                                            class="h-11 w-full rounded-lg border border-[#c9c9c9] px-3" />
+                                    </label>
+                                    <div class="flex gap-2 pt-2">
+                                        <button id="applyDateBtn"
+                                            class="h-10 flex-1 rounded-lg bg-custom-brown text-white ">اعمال</button>
+                                        <button id="clearDateBtn"
+                                            class="h-10 flex-1 rounded-lg border border-custom-brown text-custom-brown hover:bg-[#fbf2ef]">حذف
+                                            فیلتر</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Result count & page size -->
+                    <div class="flex flex-col gap-3 text-[12px] text-[#777] sm:flex-row sm:items-center">
+                        <span>تعداد نتایج: <strong id="resultCount" class="font-normal text-[#555]">۱۲۳</strong></span>
+                        <span class="hidden h-5 w-px bg-[#d0d0d0] sm:block" aria-hidden="true"></span>
+                        <label class="flex items-center gap-2">تعداد نمایش
+                            <select id="pageSize"
+                                class="h-8 rounded-[5px] border border-[#c9c9c9] bg-white px-2 text-[12px]"
+                                aria-label="تعداد نمایش در هر صفحه">
+                                <option value="5">۵</option>
+                                <option value="10" selected>۱۰</option>
+                                <option value="20">۲۰</option>
+                                <option value="50">۵۰</option>
+                            </select>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== Table (Responsive - اسکرول در موبایل) ===== -->
+            <div class="mt-1 overflow-x-auto orders-table-wrapper">
+                <table class="w-full min-w-[850px] border-collapse text-[13px]">
+                    <thead>
+                        <tr class="h-[64px] border-b border-[#bfbfbf] text-[#444]">
+                            <th class="px-4 text-right font-medium">شماره سفارش</th>
+                            <th class="px-4 text-center font-medium">تاریخ</th>
+                            <th class="px-4 text-center font-medium">مبلغ (تومان)</th>
+                            <th class="px-4 text-center font-medium">مقدار (واحد)</th>
+                            <th class="px-4 text-center font-medium">وضعیت</th>
+                            <th class="w-[100px] px-4 text-center font-medium"></th>
+                        </tr>
+                    </thead>
+                    <tbody id="ordersBody"></tbody>
+                </table>
+                <div id="emptyState" class="hidden py-16 text-center text-sm text-[#777]">سفارشی مطابق فیلترهای انتخابی
+                    پیدا نشد.</div>
+            </div>
+
+            <!-- Pagination -->
+            <div class="mt-7 flex items-center justify-center gap-2 text-[13px]" dir="ltr">
+                <button id="prevPage"
+                    class="page-btn text-custom-brown h-8 w-8 rounded-full hover:bg-gray-100 flex items-center justify-center"
+                    aria-label="قبلی">
+                    <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"
+                        aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+                    </svg>
+                </button>
+                <div id="paginationNumbers" class="flex items-center gap-1"></div>
+                <button id="nextPage"
+                    class="page-btn text-custom-brown h-8 w-8 rounded-full hover:bg-gray-100 flex items-center justify-center"
+                    aria-label="بعدی">
+                    <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"
+                        aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+                    </svg>
+                </button>
+            </div>
+        </section>
+    </main>
+
+    <!-- Overlay مخصوص موبایل برای پاپ‌آپ‌های Bottom Sheet -->
+    <div id="mobileOverlay" class="hidden fixed inset-0 z-[99] bg-black/30" aria-hidden="true"></div>
+
+    <!-- Modal -->
+    <div id="modalBackdrop" class="fixed inset-0 z-40 hidden bg-black/30" aria-hidden="true"></div>
+    <section id="modal"
+        class="fixed left-1/2 top-1/2 z-50 hidden w-[calc(100%-32px)] max-w-[520px] -translate-x-1/2 -translate-y-1/2 rounded-2xl bg-white shadow-2xl fade-in"
+        role="dialog" aria-label="جزئیات سفارش" aria-modal="true">
+        <header class="flex items-center justify-between border-b px-6 py-4">
+            <h3 id="modalTitle" class="text-[17px] font-bold">جزئیات سفارش</h3>
+            <button id="closeModal" type="button" class="text-2xl leading-none" aria-label="بستن">×</button>
+        </header>
+        <div id="modalBody" class="px-6 py-6 text-[14px] leading-7 text-[#555]"></div>
+    </section>
+
+    <!-- Toast -->
+    <div id="toast"
+        class="fixed bottom-5 left-1/2 z-[70] hidden -translate-x-1/2 rounded-xl bg-[#222] px-5 py-3 text-sm text-white shadow-xl"
+        role="alert" aria-live="polite"></div>
+
+    <script>
+        (function () {
+            'use strict';
+
+            const statusMeta = {
+                pending: { label: 'در انتظار بررسی', classes: 'bg-[#f7ebe8] text-[#a45040]' },
+                preparing: { label: 'در حال آماده‌سازی', classes: 'bg-[#dcecff] text-[#2b78c5]' },
+                sent: { label: 'ارسال شد', classes: 'bg-[#dcf6e8] text-[#19a55a]' },
+                canceled: { label: 'لغو شد', classes: 'bg-[#fde3e3] text-[#d54242]' },
+            };
+
+            const orders = [
+                { id: 1, orderNo: '۱۲۳۳۴۶۷', date: '۱۴۰۴/۰۴/۰۴', amount: 125000000, quantity: 125, status: 'pending' },
+                { id: 2, orderNo: '۱۲۳۳۴۶۷', date: '۱۴۰۴/۰۴/۰۴', amount: 125000000, quantity: 125, status: 'preparing' },
+                { id: 3, orderNo: '۱۲۳۳۴۶۷', date: '۱۴۰۴/۰۴/۰۴', amount: 125000000, quantity: 125, status: 'preparing' },
+                { id: 4, orderNo: '۱۲۳۳۴۶۷', date: '۱۴۰۴/۰۴/۰۴', amount: 125000000, quantity: 125, status: 'sent' },
+                { id: 5, orderNo: '۱۲۳۳۴۶۷', date: '۱۴۰۴/۰۴/۰۴', amount: 125000000, quantity: 125, status: 'sent' },
+                { id: 6, orderNo: '۱۲۳۳۴۶۷', date: '۱۴۰۴/۰۴/۰۴', amount: 125000000, quantity: 125, status: 'sent' },
+                { id: 7, orderNo: '۱۲۳۳۴۶۷', date: '۱۴۰۴/۰۴/۰۴', amount: 125000000, quantity: 125, status: 'canceled' },
+            ];
+
+            const state = {
+                sort: 'newest',
+                statuses: new Set(),
+                currentPage: 1,
+                pageSize: 10,
+                dateFrom: null,
+                dateTo: null
+            };
+
+            // ===== ابزارها =====
+            const $ = (s, root = document) => root.querySelector(s);
+            const $$ = (s, root = document) => [...root.querySelectorAll(s)];
+
+            const toFa = value => String(value).replace(/\d/g, d => '۰۱۲۳۴۵۶۷۸۹'[d]);
+
+            function money(value) {
+                return toFa(value.toLocaleString('en-US'));
+            }
+
+            let toastTimer = null;
+
+            function showToast(message) {
+                const toast = $('#toast');
+                if (!toast) return;
+                toast.textContent = message;
+                toast.classList.remove('hidden');
+                clearTimeout(toastTimer);
+                toastTimer = setTimeout(() => toast.classList.add('hidden'), 2200);
+            }
+
+            // ===== تشخیص موبایل =====
+            function isMobile() {
+                return window.innerWidth < 768;
+            }
+
+            // ===== مدیریت پاپ‌آپ‌های موبایل (Bottom Sheet) =====
+            const mobileOverlay = document.getElementById('mobileOverlay');
+            let activeMobileMenu = null;
+
+            function openMobileMenu(menuId) {
+                closeMobileMenu();
+                const menu = document.getElementById(menuId);
+                if (!menu) return;
+
+                document.querySelectorAll('.dropdown-menu').forEach(m => {
+                    if (m.id !== menuId) m.classList.add('hidden');
+                });
+
+                if (isMobile()) {
+                    menu.classList.add('mobile-bottom');
+                    menu.classList.remove('hidden');
+                    if (mobileOverlay) {
+                        mobileOverlay.classList.add('show');
+                        mobileOverlay.style.display = 'block';
+                    }
+                    document.body.classList.add('overflow-hidden');
+
+                    requestAnimationFrame(() => {
+                        menu.classList.add('open');
+                    });
+                    activeMobileMenu = menuId;
+                } else {
+                    menu.classList.remove('mobile-bottom', 'open');
+                    menu.classList.remove('hidden');
+                }
+            }
+
+            function closeMobileMenu() {
+                if (activeMobileMenu) {
+                    const menu = document.getElementById(activeMobileMenu);
+                    if (menu) {
+                        menu.classList.remove('open');
+                        setTimeout(() => {
+                            menu.classList.add('hidden');
+                            menu.classList.remove('mobile-bottom');
+                        }, 300);
+                    }
+                    if (mobileOverlay) {
+                        mobileOverlay.classList.remove('show');
+                        mobileOverlay.style.display = 'none';
+                    }
+                    document.body.classList.remove('overflow-hidden');
+                    activeMobileMenu = null;
+                }
+            }
+
+            // ===== فیلتر و رندر =====
+            function getFilteredOrders() {
+                let data = [...orders];
+
+                if (state.statuses.size) {
+                    data = data.filter(order => state.statuses.has(order.status));
+                }
+
+                if (state.sort === 'oldest') data.reverse();
+                if (state.sort === 'highest') data.sort((a, b) => b.amount - a.amount);
+                if (state.sort === 'lowest') data.sort((a, b) => a.amount - b.amount);
+
+                return data;
+            }
+
+            function getPaginatedData(data) {
+                const start = (state.currentPage - 1) * state.pageSize;
+                const end = start + state.pageSize;
+                return data.slice(start, end);
+            }
+
+            function renderPagination(totalPages) {
+                let html = '';
+                const current = state.currentPage;
+                const maxVisible = 5;
+                let startPage = Math.max(1, current - Math.floor(maxVisible / 2));
+                let endPage = Math.min(totalPages, startPage + maxVisible - 1);
+                if (endPage - startPage < maxVisible - 1) {
+                    startPage = Math.max(1, endPage - maxVisible + 1);
+                }
+                if (startPage > 1) {
+                    html += `<button class="page-num h-8 w-8 rounded-full text-center text-[13px]" data-page="1">1</button>`;
+                    if (startPage > 2) html += `<span class="h-8 w-8 text-center text-[13px]">...</span>`;
+                }
+                for (let i = startPage; i <= endPage; i++) {
+                    const active = i === current ? 'bg-custom-brown text-white' : 'hover:bg-gray-100';
+                    html += `<button class="page-num h-8 w-8 rounded-full text-center text-[13px] ${active}" data-page="${i}">${i}</button>`;
+                }
+                if (endPage < totalPages) {
+                    if (endPage < totalPages - 1) html += `<span class="h-8 w-8 text-center text-[13px]">...</span>`;
+                    html += `<button class="page-num h-8 w-8 rounded-full text-center text-[13px]" data-page="${totalPages}">${totalPages}</button>`;
+                }
+                const paginationNumbers = document.getElementById('paginationNumbers');
+                if (paginationNumbers) {
+                    paginationNumbers.innerHTML = html || `<span class="text-sm text-gray-400">صفحه ۱</span>`;
+                }
+
+                $$('.page-num').forEach(btn => {
+                    btn.addEventListener('click', function () {
+                        const page = parseInt(this.dataset.page, 10);
+                        if (!isNaN(page) && page !== state.currentPage) {
+                            state.currentPage = page;
+                            renderOrders();
+                        }
+                    });
+                });
+            }
+
+            function rowTemplate(order) {
+                const meta = statusMeta[order.status];
+
+                return `
+                    <tr class="h-[68px] border-b border-[#d7d7d7] last:border-b-0">
+                        <td class="px-4 text-right">${order.orderNo}</td>
+                        <td class="px-4 text-center">${order.date}</td>
+                        <td class="px-4 text-center">${money(order.amount)}</td>
+                        <td class="px-4 text-center">${toFa(order.quantity)}</td>
+                        <td class="px-4 text-center">
+                            <span class="inline-flex rounded-[4px] px-3 py-2 text-[12px] font-medium ${meta.classes}">${meta.label}</span>
+                        </td>
+                        <td class="px-4 text-center">
+                            <button data-order-id="${order.id}" class="details-btn text-[13px] text-[#777] hover:text-custom-brown">جزئیات</button>
+                        </td>
+                    </tr>
+                `;
+            }
+
+            function renderOrders() {
+                const filtered = getFilteredOrders();
+                const totalItems = filtered.length;
+                const totalPages = Math.ceil(totalItems / state.pageSize) || 1;
+                if (state.currentPage > totalPages) state.currentPage = totalPages;
+                const paginated = getPaginatedData(filtered);
+
+                // ===== Table =====
+                const body = document.getElementById('ordersBody');
+                const emptyState = document.getElementById('emptyState');
+                const table = document.querySelector('table');
+
+                if (body) {
+                    body.innerHTML = paginated.map(rowTemplate).join('');
+                }
+                if (emptyState) {
+                    emptyState.classList.toggle('hidden', paginated.length > 0);
+                }
+                if (table) {
+                    table.classList.toggle('hidden', paginated.length === 0);
+                }
+
+                // ===== تعداد نتایج =====
+                const resultCount = document.getElementById('resultCount');
+                if (resultCount) {
+                    resultCount.textContent = state.statuses.size ? toFa(totalItems) : '۱۲۳';
+                }
+
+                // ===== صفحه‌بندی =====
+                renderPagination(totalPages);
+
+                const prevPage = document.getElementById('prevPage');
+                const nextPage = document.getElementById('nextPage');
+                if (prevPage) {
+                    prevPage.disabled = state.currentPage <= 1;
+                    prevPage.classList.toggle('opacity-40', state.currentPage <= 1);
+                }
+                if (nextPage) {
+                    nextPage.disabled = state.currentPage >= totalPages;
+                    nextPage.classList.toggle('opacity-40', state.currentPage >= totalPages);
+                }
+
+                bindDetailsButtons();
+            }
+
+            // ===== دکمه‌های جزئیات =====
+            function bindDetailsButtons() {
+                $$('.details-btn').forEach(button => {
+                    button.removeEventListener('click', handleDetailsClick);
+                    button.addEventListener('click', handleDetailsClick);
+                });
+            }
+
+            function handleDetailsClick() {
+                const order = orders.find(item => item.id === Number(this.dataset.orderId));
+                if (!order) return;
+                const meta = statusMeta[order.status];
+
+                openModal('جزئیات سفارش', `
+                    <div class="space-y-4">
+                        <div class="flex justify-between"><span>شماره سفارش</span><strong class="text-[#222]">${order.orderNo}</strong></div>
+                        <div class="flex justify-between"><span>تاریخ</span><strong class="text-[#222]">${order.date}</strong></div>
+                        <div class="flex justify-between"><span>مبلغ</span><strong class="text-[#222]">${money(order.amount)} تومان</strong></div>
+                        <div class="flex justify-between"><span>مقدار</span><strong class="text-[#222]">${toFa(order.quantity)} واحد</strong></div>
+                        <div class="flex justify-between items-center"><span>وضعیت</span><span class="rounded px-3 py-2 ${meta.classes}">${meta.label}</span></div>
+                    </div>
+                `);
+            }
+
+            // ===== مودال =====
+            function openModal(title, body) {
+                const modalTitle = document.getElementById('modalTitle');
+                const modalBody = document.getElementById('modalBody');
+                const modalBackdrop = document.getElementById('modalBackdrop');
+                const modal = document.getElementById('modal');
+
+                if (modalTitle) modalTitle.textContent = title;
+                if (modalBody) modalBody.innerHTML = body;
+                if (modalBackdrop) modalBackdrop.classList.remove('hidden');
+                if (modal) modal.classList.remove('hidden');
+                document.body.classList.add('overflow-hidden');
+            }
+
+            function closeModal() {
+                const modalBackdrop = document.getElementById('modalBackdrop');
+                const modal = document.getElementById('modal');
+                if (modalBackdrop) modalBackdrop.classList.add('hidden');
+                if (modal) modal.classList.add('hidden');
+                document.body.classList.remove('overflow-hidden');
+            }
+
+            // ===== همگام‌سازی فیلترها =====
+            function syncFilters() {
+                $$('[data-status-filter]').forEach(el => {
+                    el.checked = state.statuses.has(el.value);
+                });
+            }
+
+            // ===== مدیریت منوها =====
+            function closeMenus(except) {
+                $$('.dropdown-menu').forEach(menu => {
+                    if (menu.id !== except) menu.classList.add('hidden');
+                });
+                const topMoreMenu = document.getElementById('topMoreMenu');
+                if (topMoreMenu) topMoreMenu.classList.add('hidden');
+            }
+
+            // ===== رویدادها =====
+            // Dropdown triggers
+            document.querySelectorAll('.dropdown-trigger').forEach(btn => {
+                btn.addEventListener('click', function (e) {
+                    e.stopPropagation();
+                    const id = this.dataset.dropdown;
+                    const menu = document.getElementById(id);
+                    if (!menu) return;
+
+                    if (isMobile() && menu.classList.contains('open')) {
+                        closeMobileMenu();
+                        return;
+                    }
+
+                    document.querySelectorAll('.dropdown-menu').forEach(m => {
+                        if (m.id !== id) {
+                            m.classList.add('hidden');
+                            m.classList.remove('open', 'mobile-bottom');
+                        }
+                    });
+
+                    if (isMobile()) {
+                        openMobileMenu(id);
+                    } else {
+                        menu.classList.remove('mobile-bottom', 'open');
+                        menu.classList.toggle('hidden');
+                    }
+                });
+            });
+
+            // Close dropdown buttons
+            document.querySelectorAll('.close-dropdown').forEach(btn => {
+                btn.addEventListener('click', function () {
+                    if (isMobile()) {
+                        closeMobileMenu();
+                    } else {
+                        this.closest('.dropdown-menu').classList.add('hidden');
+                    }
+                });
+            });
+
+            // Overlay موبایل
+            if (mobileOverlay) {
+                mobileOverlay.addEventListener('click', function () {
+                    closeMobileMenu();
+                });
+            }
+
+            // Clear sort
+            document.querySelector('[data-clear-sort]')?.addEventListener('click', function () {
+                state.sort = 'newest';
+                document.querySelector('input[name="sort"][value="newest"]')?.setAttribute('checked', 'checked');
+                state.currentPage = 1;
+                const labels = {
+                    newest: 'مرتب‌سازی: جدیدترین سفارش',
+                    oldest: 'مرتب‌سازی: قدیمی‌ترین سفارش',
+                    highest: 'مرتب‌سازی: بیشترین مبلغ',
+                    lowest: 'مرتب‌سازی: کمترین مبلغ',
+                };
+                const sortLabel = document.getElementById('sortLabel');
+                if (sortLabel) sortLabel.textContent = labels[state.sort];
+                renderOrders();
+                if (isMobile()) {
+                    closeMobileMenu();
+                } else {
+                    this.closest('.dropdown-menu')?.classList.add('hidden');
+                }
+                showToast('مرتب‌سازی به حالت پیش‌فرض بازگشت.');
+            });
+
+            // Sort radios
+            $$('input[name="sort"]').forEach(r => {
+                r.addEventListener('change', function () {
+                    state.sort = this.value;
+                    state.currentPage = 1;
+                    const labels = {
+                        newest: 'مرتب‌سازی: جدیدترین سفارش',
+                        oldest: 'مرتب‌سازی: قدیمی‌ترین سفارش',
+                        highest: 'مرتب‌سازی: بیشترین مبلغ',
+                        lowest: 'مرتب‌سازی: کمترین مبلغ',
+                    };
+                    const sortLabel = document.getElementById('sortLabel');
+                    if (sortLabel) sortLabel.textContent = labels[state.sort];
+                    if (isMobile()) closeMobileMenu();
+                    renderOrders();
+                });
+            });
+
+            // Status filters
+            $$('[data-status-filter]').forEach(el => {
+                el.addEventListener('change', function () {
+                    const set = state.statuses;
+                    if (this.checked) set.add(this.value);
+                    else set.delete(this.value);
+                    state.currentPage = 1;
+                    syncFilters();
+                    renderOrders();
+                });
+            });
+
+            // Clear status filter
+            document.querySelector('[data-clear="status"]')?.addEventListener('click', function () {
+                state.statuses.clear();
+                state.currentPage = 1;
+                syncFilters();
+                renderOrders();
+                if (isMobile()) closeMobileMenu();
+                showToast('فیلتر وضعیت پاک شد.');
+            });
+
+            // Date filters
+            document.getElementById('applyDateBtn')?.addEventListener('click', function () {
+                if (isMobile()) closeMobileMenu();
+                document.getElementById('dateMenu')?.classList.add('hidden');
+                showToast('بازه زمانی اعمال شد.');
+            });
+
+            document.getElementById('clearDateBtn')?.addEventListener('click', function () {
+                const dateFrom = document.getElementById('dateFrom');
+                const dateTo = document.getElementById('dateTo');
+                if (dateFrom) dateFrom.value = '';
+                if (dateTo) dateTo.value = '';
+                if (isMobile()) closeMobileMenu();
+                document.getElementById('dateMenu')?.classList.add('hidden');
+                showToast('فیلتر بازه زمانی حذف شد.');
+            });
+
+            // Product actions
+            const publishBadge = document.getElementById('publishBadge');
+
+            document.getElementById('approveProductBtn')?.addEventListener('click', function () {
+                if (publishBadge) {
+                    publishBadge.textContent = 'تایید شده';
+                    publishBadge.className = 'rounded-[5px] bg-[#dcf6e8] px-3 py-2 text-[12px] font-medium text-[#16864a]';
+                }
+                showToast('محصول با موفقیت تایید شد.');
+            });
+
+            document.getElementById('rejectProductBtn')?.addEventListener('click', function () {
+                if (publishBadge) {
+                    publishBadge.textContent = 'رد شده';
+                    publishBadge.className = 'rounded-[5px] bg-[#fde3e3] px-3 py-2 text-[12px] font-medium text-[#c53a3a]';
+                }
+                showToast('محصول رد شد.');
+            });
+
+            // More menu
+            const topMoreBtn = document.getElementById('topMoreBtn');
+            const topMoreMenu = document.getElementById('topMoreMenu');
+
+            if (topMoreBtn) {
+                topMoreBtn.addEventListener('click', function (e) {
+                    e.stopPropagation();
+                    const hidden = topMoreMenu.classList.toggle('hidden');
+                    this.setAttribute('aria-expanded', String(!hidden));
+                });
+            }
+
+            document.querySelectorAll('[data-action]').forEach(button => {
+                button.addEventListener('click', function () {
+                    const action = this.dataset.action;
+
+                    if (action === 'archive') {
+                        if (publishBadge) {
+                            publishBadge.textContent = 'بایگانی شده';
+                            publishBadge.className = 'rounded-[5px] bg-[#eeeeee] px-3 py-2 text-[12px] font-medium text-[#666]';
+                        }
+                        showToast('محصول بایگانی شد.');
+                    } else if (action === 'delete') {
+                        showToast('درخواست حذف محصول ثبت شد.');
+                    } else {
+                        showToast('فرم ویرایش محصول باز شد.');
+                    }
+
+                    if (topMoreMenu) topMoreMenu.classList.add('hidden');
+                });
+            });
+
+            // Reviews tab
+            document.getElementById('reviewsTabBtn')?.addEventListener('click', function () {
+                showToast('تب نظرات انتخاب شد.');
+            });
+
+            // Modal
+            document.getElementById('closeModal')?.addEventListener('click', closeModal);
+            document.getElementById('modalBackdrop')?.addEventListener('click', closeModal);
+
+            // دکمه‌های صفحه‌بندی
+            document.getElementById('prevPage')?.addEventListener('click', function () {
+                if (state.currentPage > 1) {
+                    state.currentPage--;
+                    renderOrders();
+                }
+            });
+
+            document.getElementById('nextPage')?.addEventListener('click', function () {
+                const totalItems = getFilteredOrders().length;
+                const totalPages = Math.ceil(totalItems / state.pageSize) || 1;
+                if (state.currentPage < totalPages) {
+                    state.currentPage++;
+                    renderOrders();
+                }
+            });
+
+            // تغییر تعداد نمایش
+            document.getElementById('pageSize')?.addEventListener('change', function () {
+                state.pageSize = parseInt(this.value, 10);
+                state.currentPage = 1;
+                renderOrders();
+            });
+
+            // کلیک بیرون
+            document.addEventListener('click', function (e) {
+                if (!isMobile()) {
+                    if (!e.target.closest('.dropdown-trigger') && !e.target.closest('.dropdown-menu')) {
+                        document.querySelectorAll('.dropdown-menu').forEach(menu => {
+                            menu.classList.add('hidden');
+                        });
+                    }
+                }
+                if (!e.target.closest('#topMoreBtn') && !e.target.closest('#topMoreMenu')) {
+                    if (topMoreMenu) topMoreMenu.classList.add('hidden');
+                    if (topMoreBtn) topMoreBtn.setAttribute('aria-expanded', 'false');
+                }
+            });
+
+            // Escape
+            document.addEventListener('keydown', function (e) {
+                if (e.key === 'Escape') {
+                    if (isMobile()) {
+                        closeMobileMenu();
+                    } else {
+                        document.querySelectorAll('.dropdown-menu').forEach(menu => {
+                            menu.classList.add('hidden');
+                        });
+                    }
+                    closeModal();
+                    if (topMoreMenu) topMoreMenu.classList.add('hidden');
+                    if (topMoreBtn) topMoreBtn.setAttribute('aria-expanded', 'false');
+                }
+            });
+
+            // ===== همگام‌سازی با تغییر اندازه صفحه =====
+            let resizeTimer = null;
+            window.addEventListener('resize', function () {
+                clearTimeout(resizeTimer);
+                resizeTimer = setTimeout(() => {
+                    if (!isMobile() && activeMobileMenu) {
+                        closeMobileMenu();
+                    }
+                }, 200);
+            });
+
+            // ===== مقداردهی اولیه =====
+            renderOrders();
+
+            // ===== داده‌های ساختاریافته =====
+            const script = document.createElement('script');
+            script.type = 'application/ld+json';
+            script.textContent = JSON.stringify({
+                "@context": "https://schema.org",
+                "@type": "BreadcrumbList",
+                "itemListElement": [{
+                    "@type": "ListItem",
+                    "position": 1,
+                    "name": "داشبورد",
+                    "item": "https://example.com/admin"
+                }, {
+                    "@type": "ListItem",
+                    "position": 2,
+                    "name": "فروشندگان",
+                    "item": "https://example.com/admin/sellers"
+                }, {
+                    "@type": "ListItem",
+                    "position": 3,
+                    "name": "نام کامل فروشگاه",
+                    "item": "https://example.com/admin/seller"
+                }, {
+                    "@type": "ListItem",
+                    "position": 4,
+                    "name": "سفارش‌های محصول",
+                    "item": "https://example.com/admin/product/orders"
+                }]
+            });
+            document.head.appendChild(script);
+
+        })();
+    </script>
+</body>
+
+</html>

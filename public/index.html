@@ -1,0 +1,1184 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>آجروک - بازار آنلاین خانه و ساختمان</title>
+    <link rel="stylesheet" href="styles/output.css" />
+    <style>
+        #megamenu {
+            transition: all 0.3s ease !important;
+        }
+
+        #megamenu.open {
+            opacity: 1 !important;
+            visibility: visible !important;
+            pointer-events: all !important;
+            transform: translateY(0) !important;
+        }
+
+        /* استایل‌های اضافی برای فوتر و دکمه بازگشت */
+        #back-to-top {
+            transition: opacity 0.3s, visibility 0.3s;
+        }
+
+        #back-to-top.visible {
+            opacity: 1 !important;
+            visibility: visible !important;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ============================================
+         SVG SPRITE (همان آیکون‌های قبلی + آیکون clock)
+         ============================================ -->
+    <svg class="hidden">
+        <symbol id="menu_berger" width="32" height="33" viewBox="0 0 32 33" fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+            <path d="M9.33398 11.166H22.6673M9.33398 16.4993H22.6673M9.33398 21.8327H22.6673" stroke="currentColor"
+                stroke-width="1.5" stroke-linecap="round" />
+        </symbol>
+        <symbol id="map" width="20" height="21" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+                d="M17.5 9.57342C17.5 13.6644 12.8125 18.8327 10 18.8327C7.1875 18.8327 2.5 13.6644 2.5 9.57342C2.5 5.48242 5.85786 2.16602 10 2.16602C14.1421 2.16602 17.5 5.48242 17.5 9.57342Z"
+                stroke="currentColor" stroke-width="1.5" />
+            <path
+                d="M12.5 9.66602C12.5 11.0467 11.3807 12.166 10 12.166C8.61929 12.166 7.5 11.0467 7.5 9.66602C7.5 8.2853 8.61929 7.16602 10 7.16602C11.3807 7.16602 12.5 8.2853 12.5 9.66602Z"
+                stroke="currentColor" stroke-width="1.5" />
+        </symbol>
+        <symbol id="chevron" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+            stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+        </symbol>
+        <symbol id="search" width="20" height="21" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+                d="M15.418 15.916L18.3346 18.8327M17.5013 10.0827C17.5013 5.71043 13.9569 2.16602 9.58464 2.16602C5.21238 2.16602 1.66797 5.71043 1.66797 10.0827C1.66797 14.4549 5.21238 17.9993 9.58464 17.9993C13.9569 17.9993 17.5013 14.4549 17.5013 10.0827Z"
+                stroke="#CCCCCC" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+        </symbol>
+        <symbol id="shop" width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+                d="M8.06805 22.5H15.9304C17.7718 22.5 19.3752 21.2429 19.8148 19.4548L21.7812 11.4548C22.4009 8.93408 20.4926 6.5 17.8969 6.5H6.10153C3.50575 6.5 1.59752 8.9341 2.21716 11.4548L4.18369 19.4548C4.62324 21.243 6.2267 22.5 8.06805 22.5Z"
+                stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M3 10.5H21" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+            <path d="M9 2.5L6 6.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                stroke-linejoin="round" />
+            <path d="M15 2.5L18 6.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                stroke-linejoin="round" />
+        </symbol>
+        <symbol id="user" width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+                d="M18.5588 20.0488C17.5654 17.3918 15.0036 15.5 12 15.5C8.99638 15.5 6.4346 17.3918 5.44117 20.0488M18.5588 20.0488C20.6672 18.2154 22 15.5134 22 12.5C22 6.97715 17.5228 2.5 12 2.5C6.47715 2.5 2 6.97715 2 12.5C2 15.5134 3.33285 18.2154 5.44117 20.0488M18.5588 20.0488C16.8031 21.5756 14.5095 22.5 12 22.5C9.49052 22.5 7.19694 21.5756 5.44117 20.0488"
+                stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" />
+            <circle cx="3" cy="3" r="3" transform="matrix(1 0 0 -1 9 12.5)" stroke="currentColor" stroke-width="1.5"
+                stroke-linejoin="round" />
+        </symbol>
+        <symbol id="tick" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M5 13L8.52642 15.8211C9.35374 16.483 10.5536 16.3848 11.2624 15.5973L19 7" stroke="#9C4639"
+                stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+        </symbol>
+        <symbol id="x-mark" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+            stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+        </symbol>
+        <symbol id="fire" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+            stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round"
+                d="M15.362 5.214A8.252 8.252 0 0 1 12 21 8.25 8.25 0 0 1 6.038 7.047 8.287 8.287 0 0 0 9 9.601a8.983 8.983 0 0 1 3.361-6.867 8.21 8.21 0 0 0 3 2.48Z" />
+            <path stroke-linecap="round" stroke-linejoin="round"
+                d="M12 18a3.75 3.75 0 0 0 .495-7.468 5.99 5.99 0 0 0-1.925 3.547 5.975 5.975 0 0 1-2.133-1.001A3.75 3.75 0 0 0 12 18Z" />
+        </symbol>
+        <symbol id="arrow-up-right" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+            stroke-width="1.5" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25" />
+        </symbol>
+        <symbol id="home" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+            stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round"
+                d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
+        </symbol>
+        <symbol id="squares" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+            stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round"
+                d="M3.75 6A2.25 2.25 0 0 1 6 3.75h2.25A2.25 2.25 0 0 1 10.5 6v2.25a2.25 2.25 0 0 1-2.25 2.25H6a2.25 2.25 0 0 1-2.25-2.25V6ZM3.75 15.75A2.25 2.25 0 0 1 6 13.5h2.25a2.25 2.25 0 0 1 2.25 2.25V18a2.25 2.25 0 0 1-2.25 2.25H6A2.25 2.25 0 0 1 3.75 18v-2.25ZM13.5 6a2.25 2.25 0 0 1 2.25-2.25H18A2.25 2.25 0 0 1 20.25 6v2.25A2.25 2.25 0 0 1 18 10.5h-2.25a2.25 2.25 0 0 1-2.25-2.25V6ZM13.5 15.75a2.25 2.25 0 0 1 2.25-2.25H18a2.25 2.25 0 0 1 2.25 2.25V18A2.25 2.25 0 0 1 18 20.25h-2.25A2.25 2.25 0 0 1 13.5 18v-2.25Z" />
+        </symbol>
+        <symbol id="shopping-bag" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+            stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round"
+                d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
+        </symbol>
+        <symbol id="shopping-cart" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+            stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round"
+                d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />
+        </symbol>
+        <symbol id="arrow" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+            stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
+        </symbol>
+        <symbol id="phone" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+            stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round"
+                d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 0 0 2.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 0 1-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 0 0-1.091-.852H4.5A2.25 2.25 0 0 0 2.25 4.5v2.25Z" />
+        </symbol>
+        <symbol id="check-badge" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+            stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round"
+                d="M9 12.75 11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 0 1-1.043 3.296 3.745 3.745 0 0 1-3.296 1.043A3.745 3.745 0 0 1 12 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 0 1-3.296-1.043 3.745 3.745 0 0 1-1.043-3.296A3.745 3.745 0 0 1 3 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 0 1 1.043-3.296 3.746 3.746 0 0 1 3.296-1.043A3.746 3.746 0 0 1 12 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 0 1 3.296 1.043 3.746 3.746 0 0 1 1.043 3.296A3.745 3.745 0 0 1 21 12Z" />
+        </symbol>
+        <symbol id="heart" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+            stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round"
+                d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
+        </symbol>
+        <!-- آیکون clock با استفاده از مسیر ساده -->
+        <symbol id="clock" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+            stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </symbol>
+    </svg>
+
+    <!-- ============================================
+         HEADER - با همان کد قبلی شما
+         ============================================ -->
+    <header class="relative h-screen bg-cover bg-center"
+        style="background-image: url('images/Hero/danist-soh-8Gg2Ne_uTcM-unsplash\ 1.jpg');">
+
+        <!-- Desktop Navigation -->
+        <div id="mainHeader"
+            class="w-full z-50 transition-all duration-300 font-IRANSansXRegular hidden md:flex items-center justify-between py-3 px-10 lg:px-12 xl:px-14">
+            <!-- Left Navigation Group -->
+            <div class="flex items-center md:gap-4 lg:gap-5 xl:gap-6">
+                <!-- Logo -->
+                <div id="logo_header" class="border-l-2 border-[#CCCCCC] md:pl-4 lg:pl-5 xl:pl-6">
+                    <svg id="logo" width="55" height="61" viewBox="0 0 55 61" fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path d="M16.7087 27.2444V11.4785L8.71289 19.4743V27.2444H16.7087Z" fill="#9C4639" />
+                        <path d="M16.7077 31.4824H0V36.2701H16.7077V31.4824Z" fill="#9C4639" />
+                        <path d="M31.3362 27.2445V3.13945L28.1968 0L21.0938 7.103V27.2445H31.3362Z" fill="#9C4639" />
+                        <path d="M31.346 31.4824H21.0938V36.2701H31.346V31.4824Z" fill="#9C4639" />
+                        <path d="M46.3465 27.2442V17.2078L35.9961 6.85742V27.2442H46.3465Z" fill="#9C4639" />
+                        <path d="M54.6464 31.4824H35.9961V36.2701H54.6464V31.4824Z" fill="#9C4639" />
+                        <path
+                            d="M3.98971 54.5664C3.37422 54.5664 2.82467 54.429 2.34107 54.1542C1.86846 53.8795 1.50026 53.5168 1.23648 53.0661C0.972698 52.6045 0.840806 52.0989 0.840806 51.5494C0.840806 51.4505 0.851797 51.2911 0.873779 51.0713C0.906752 50.8405 0.978193 50.4613 1.0881 49.9337C1.19801 49.4062 1.29693 48.9445 1.38486 48.5489L2.83566 48.9281C2.53891 50.17 2.37954 50.9614 2.35756 51.3021C2.34656 51.3571 2.34107 51.4285 2.34107 51.5164C2.34107 51.9121 2.48395 52.2253 2.76972 52.4561C3.05548 52.676 3.46214 52.7859 3.98971 52.7859H9.90833C10.315 52.7859 10.6282 52.7089 10.8481 52.5551C11.0789 52.4012 11.1943 52.1979 11.1943 51.9451C11.1943 51.6263 11.0349 51.3076 10.7162 50.9889L7.30347 47.5597L7.73212 45.5319L13.354 43.0589L13.997 44.6746L9.00157 46.8837L11.8372 49.7854C12.134 50.0821 12.3538 50.4118 12.4967 50.7745C12.6506 51.1372 12.7275 51.5054 12.7275 51.8791C12.7275 52.3517 12.6121 52.7969 12.3813 53.2145C12.1615 53.6212 11.8372 53.9509 11.4086 54.2037C10.9799 54.4455 10.4744 54.5664 9.89184 54.5664H3.98971ZM16.1519 56.9404C16.8993 56.9404 17.4708 56.858 17.8665 56.6932C18.2732 56.5283 18.5534 56.27 18.7073 55.9183C18.8612 55.5776 18.9381 55.1105 18.9381 54.5169H17.2565C16.3003 54.5169 15.5309 54.2312 14.9484 53.6597C14.3659 53.0881 14.0746 52.2913 14.0746 51.2691C14.0746 50.5657 14.2065 49.9282 14.4703 49.3567C14.7451 48.7852 15.1188 48.34 15.5914 48.0213C16.075 47.6916 16.6245 47.5267 17.24 47.5267C17.8995 47.5267 18.471 47.6861 18.9546 48.0048C19.4492 48.3126 19.8284 48.7522 20.0922 49.3237C20.3669 49.8843 20.5043 50.5327 20.5043 51.2691V54.5005C20.5043 55.7864 20.1581 56.8086 19.4657 57.5669C18.7732 58.3363 17.6687 58.721 16.1519 58.721H14.3219V56.9404H16.1519ZM15.6079 51.2362C15.6079 51.7857 15.7397 52.1814 16.0035 52.4232C16.2673 52.654 16.685 52.7694 17.2565 52.7694H18.9381V51.2526C18.9381 50.6262 18.8007 50.1371 18.5259 49.7854C18.2512 49.4336 17.8225 49.2578 17.24 49.2578C16.7124 49.2578 16.3058 49.4391 16.02 49.8018C15.7452 50.1535 15.6079 50.6317 15.6079 51.2362ZM26.4529 49.3402V51.6978C26.4529 52.0934 26.5519 52.3737 26.7497 52.5386C26.9475 52.7034 27.2608 52.7859 27.6894 52.7859H27.9037L28.0027 53.6926L27.9037 54.5664H27.6894C27.1838 54.5664 26.7717 54.4345 26.4529 54.1707C26.42 55.6325 26.0188 56.7536 25.2494 57.534C24.4801 58.3253 23.3865 58.721 21.9686 58.721H20.93V56.9404H21.9686C22.6831 56.9404 23.2546 56.8415 23.6832 56.6437C24.1119 56.4568 24.4196 56.1491 24.6065 55.7205C24.8043 55.3028 24.9032 54.7258 24.9032 53.9894V49.3402H26.4529ZM27.7384 52.7859H31.1675L31.2665 53.6597L31.1675 54.5664H27.7384V52.7859ZM31.0067 52.7859H34.4358L34.5348 53.6597L34.4358 54.5664H31.0067V52.7859ZM34.209 52.7859H36.2368C37.303 52.7859 38.2702 52.621 39.1385 52.2913C40.0067 51.9616 41.0234 51.456 42.1884 50.7745C39.7814 49.8183 38.3581 49.3402 37.9185 49.3402C37.6217 49.3402 37.3854 49.4117 37.2095 49.5545C37.0447 49.6974 36.8853 49.9722 36.7314 50.3789L35.2806 49.9172C35.5444 49.1149 35.9016 48.5269 36.3523 48.1532C36.8139 47.7685 37.3359 47.5762 37.9185 47.5762C38.3251 47.5762 38.9571 47.7355 39.8144 48.0543C40.6717 48.362 41.8807 48.8401 43.4414 49.4886L43.7546 49.6205L44.0844 51.5164L43.4909 51.8791C42.4797 52.5056 41.6444 52.9947 40.9849 53.3464C40.3365 53.6981 39.6111 53.9894 38.8087 54.2202C38.0174 54.451 37.1601 54.5664 36.2368 54.5664H34.209V52.7859ZM38.3636 56.5613H40.1936V58.3748H38.3636V56.5613ZM46.4856 45.1197H48.1342V54.5664H46.4856V45.1197ZM43.7818 44.7075C43.9467 44.0481 44.2544 43.5315 44.7051 43.1578C45.1557 42.7841 45.7602 42.5973 46.5186 42.5973H49.7994V43.9821H46.5186C46.0899 43.9821 45.7602 44.0811 45.5294 44.2789C45.2986 44.4767 45.1172 44.7515 44.9853 45.1032L43.7818 44.7075Z"
+                            fill="#9C4639" />
+                    </svg>
+                </div>
+
+                <!-- Mega Menu Toggle -->
+                <li id="menuToggle" class="menu-item megamenu-link list-none">
+                    <a href="#"
+                        class="font-IRANSansXMedium group menu-item_link flex items-center justify-center text-white">
+                        <svg class="w-8 h-8">
+                            <use href="#menu_berger"></use>
+                        </svg>
+                        دسته بندی ها
+                    </a>
+                    <div id="megamenu" class="megamenu hidden">
+                        <ul class="megamenu_category">
+                            <li class="megamenu_category-item active"><a href="">مصالح و مواد پایه ساختمانی</a><svg
+                                    class="w-5 h-5 rotate-90">
+                                    <use href="#chevron"></use>
+                                </svg></li>
+                            <li class="megamenu_category-item"><a href="">دکوراسیون داخلی و مبلمان</a><svg
+                                    class="w-5 h-5 rotate-90">
+                                    <use href="#chevron"></use>
+                                </svg></li>
+                            <li class="megamenu_category-item"><a href="">کاشی، سرامیک و سرویس بهداشتی</a><svg
+                                    class="w-5 h-5 rotate-90">
+                                    <use href="#chevron"></use>
+                                </svg></li>
+                            <li class="megamenu_category-item"><a href="">درب، پنجره و حفاظ</a><svg
+                                    class="w-5 h-5 rotate-90">
+                                    <use href="#chevron"></use>
+                                </svg></li>
+                            <li class="megamenu_category-item"><a href="">تأسیسات مکانیکی و برقی</a><svg
+                                    class="w-5 h-5 rotate-90">
+                                    <use href="#chevron"></use>
+                                </svg></li>
+                            <li class="megamenu_category-item"><a href="">ابزارآلات و یراق</a><svg
+                                    class="w-5 h-5 rotate-90">
+                                    <use href="#chevron"></use>
+                                </svg></li>
+                            <li class="megamenu_category-item"><a href="">آشپزخانه و تجهیزات مرتبط</a><svg
+                                    class="w-5 h-5 rotate-90">
+                                    <use href="#chevron"></use>
+                                </svg></li>
+                            <li class="megamenu_category-item"><a href="">سنگ، نما و محوطه‌سازی</a><svg
+                                    class="w-5 h-5 rotate-90">
+                                    <use href="#chevron"></use>
+                                </svg></li>
+                            <li class="megamenu_category-item"><a href="">لوازم خانگی</a><svg class="w-5 h-5 rotate-90">
+                                    <use href="#chevron"></use>
+                                </svg></li>
+                            <li class="megamenu_category-item"><a href="">دیگر</a><svg class="w-5 h-5 rotate-90">
+                                    <use href="#chevron"></use>
+                                </svg></li>
+                        </ul>
+                        <div class="megamenu_left">
+                            <a href="shop.html" class="text-custom-brown flex items-center gap-x-0.5 text-sm mb-4">
+                                مشاهده همه
+                                <svg class="size-4 rotate-90">
+                                    <use href="#chevron" />
+                                </svg>
+                            </a>
+                            <ul class="megamenu_left-item active">
+                                <div class="megamenu_left-menu">
+                                    <h2 class="megamenu_left-title">برندهای مختلف :</h2>
+                                    <li><a href="shop.html">گوشی آیفون</a></li>
+                                    <li><a href="shop.html">گوشی سامسونگ</a></li>
+                                    <li><a href="shop.html">گوشی هواووی</a></li>
+                                    <li><a href="shop.html">گوشی شیامی</a></li>
+                                    <li><a href="shop.html">گوشی نوکیا</a></li>
+                                    <li><a href="shop.html">گوشی آنر</a></li>
+                                    <li><a href="shop.html">گوشی آیفون</a></li>
+                                </div>
+                                <div class="megamenu_left-menu">
+                                    <h2 class="megamenu_left-title">گوشی بر اساس قیمت</h2>
+                                    <li><a href="shop.html">گوشی ارزان</a></li>
+                                    <li><a href="shop.html">گوشی موبایل قسطی</a></li>
+                                    <li><a href="shop.html">گوشی تا ۲ میلیون تومان</a></li>
+                                    <li><a href="shop.html">گوشی تا ۵ میلیون تومان</a></li>
+                                    <li><a href="shop.html">گوشی تا ۷ میلیون تومان</a></li>
+                                    <li><a href="shop.html">گوشی تا ۱۵ میلیون تومان</a></li>
+                                    <li><a href="shop.html">گوشی بالای ۱۵ میلیون تومان</a></li>
+                                </div>
+                                <div class="megamenu_left-menu">
+                                    <h2 class="megamenu_left-title">لوازم جانبی موبایل</h2>
+                                    <li><a href="shop.html">شارژر گوشی</a></li>
+                                    <li><a href="shop.html">شارژر وایرلس</a></li>
+                                    <li><a href="shop.html">قاب و کاور گوشی</a></li>
+                                    <li><a href="shop.html">گلس گوشی</a></li>
+                                    <li><a href="shop.html">هولدر گوشی موبایل</a></li>
+                                    <li><a href="shop.html">کابل شارژ و مبدل</a></li>
+                                    <li><a href="shop.html">پاوربانک (شارژر همراه)</a></li>
+                                </div>
+                            </ul>
+                            <ul class="megamenu_left-item">
+                                <div class="megamenu_left-menu">
+                                    <h2 class="megamenu_left-title">برندهای مختلف :</h2>
+                                    <li><a href="shop.html">لپ‌تاپ اپل (MacBook)</a></li>
+                                    <li><a href="shop.html">لپ‌تاپ ایسوس</a></li>
+                                    <li><a href="shop.html">لپ‌تاپ لنوو</a></li>
+                                    <li><a href="shop.html">لپ‌تاپ اچ‌پی</a></li>
+                                    <li><a href="shop.html">لپ‌تاپ دل</a></li>
+                                    <li><a href="shop.html">لپ‌تاپ ام‌اس‌آی</a></li>
+                                    <li><a href="shop.html">لپ‌تاپ ایسر</a></li>
+                                </div>
+                                <div class="megamenu_left-menu">
+                                    <h2 class="megamenu_left-title">لپ‌تاپ بر اساس قیمت</h2>
+                                    <li><a href="shop.html">لپ‌تاپ اقتصادی</a></li>
+                                    <li><a href="shop.html">لپ‌تاپ تا ۱۰ میلیون تومان</a></li>
+                                    <li><a href="shop.html">لپ‌تاپ تا ۲۰ میلیون تومان</a></li>
+                                    <li><a href="shop.html">لپ‌تاپ تا ۳۰ میلیون تومان</a></li>
+                                    <li><a href="shop.html">لپ‌تاپ تا ۵۰ میلیون تومان</a></li>
+                                    <li><a href="shop.html">لپ‌تاپ بالای ۵۰ میلیون تومان</a></li>
+                                </div>
+                                <div class="megamenu_left-menu">
+                                    <h2 class="megamenu_left-title">لوازم جانبی لپ‌تاپ</h2>
+                                    <li><a href="shop.html">کیف و کوله لپ‌تاپ</a></li>
+                                    <li><a href="shop.html">کابل و آداپتور لپ‌تاپ</a></li>
+                                    <li><a href="shop.html">استند و پایه خنک‌کننده</a></li>
+                                    <li><a href="shop.html">ماوس و کیبورد</a></li>
+                                    <li><a href="shop.html">هارد اکسترنال و SSD</a></li>
+                                    <li><a href="shop.html">پد ماوس</a></li>
+                                </div>
+                            </ul>
+                            <ul class="megamenu_left-item">
+                                <div class="megamenu_left-menu">
+                                    <h2 class="megamenu_left-title">برندهای مختلف تبلت</h2>
+                                    <li><a href="shop.html">تبلت اپل (iPad)</a></li>
+                                    <li><a href="shop.html">تبلت سامسونگ</a></li>
+                                    <li><a href="shop.html">تبلت لنوو</a></li>
+                                    <li><a href="shop.html">تبلت مایکروسافت (Surface)</a></li>
+                                    <li><a href="shop.html">تبلت هواوی</a></li>
+                                    <li><a href="shop.html">تبلت شیائومی</a></li>
+                                </div>
+                                <div class="megamenu_left-menu">
+                                    <h2 class="megamenu_left-title">لوازم جانبی تبلت</h2>
+                                    <li><a href="shop.html">کیف و کاور تبلت</a></li>
+                                    <li><a href="shop.html">قلم لمسی</a></li>
+                                    <li><a href="shop.html">کیبورد و استند</a></li>
+                                    <li><a href="shop.html">گلس و محافظ صفحه</a></li>
+                                    <li><a href="shop.html">کابل و شارژر</a></li>
+                                    <li><a href="shop.html">پاوربانک</a></li>
+                                </div>
+                            </ul>
+                            <ul class="megamenu_left-item">
+                                <li>منوی4</li>
+                            </ul>
+                            <ul class="megamenu_left-item">
+                                <li>منوی5</li>
+                            </ul>
+                            <ul class="megamenu_left-item">
+                                <li>منوی6</li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+
+                <!-- Search Box -->
+                <div id="serch_box_header" class="hidden">
+                    <div class="relative z-20">
+                        <div
+                            class="search-btn-open flex gap-x-2 app-border bg-white border border-[#E0E0E0] p-1 rounded-full cursor-pointer md:w-74 lg:w-84 transition-all overflow-hidden">
+                            <svg class="size-6 p-1.5 flex-cente rounded-full w-9 h-9">
+                                <use href="#search" />
+                            </svg>
+                            <input placeholder="جست‌وجو در تمام دسته‌ها ..." type="text">
+                        </div>
+                        <div class="search-modal space-y-4">
+                            <div><span class="flex items-center text-sm gap-x-1 text-gray-600 dark:text-gray-200">
+                                    <p>نتیجه جستجو : <span class="font-DanaMedium text-blue-400">iphone</span></p>
+                                </span>
+                                <ul
+                                    class="pt-4 text-gray-500 dark:text-gray-300 flex flex-col gap-y-4 child:flex-between child:cursor-pointer">
+                                    <li><a href="#" class="flex items-center gap-x-2"><svg class="size-5">
+                                                <use href="#search" />
+                                            </svg> آیفون 14</a><svg class="size-4">
+                                            <use href="#arrow-up-right" />
+                                        </svg></li>
+                                    <li><a href="#" class="flex items-center gap-x-2"><svg class="size-5">
+                                                <use href="#search" />
+                                            </svg> قاب آیفون</a><svg class="size-4">
+                                            <use href="#arrow-up-right" />
+                                        </svg></li>
+                                    <li><a href="#" class="flex items-center gap-x-2"><svg class="size-5">
+                                                <use href="#search" />
+                                            </svg> کاور ایفون 16</a><svg class="size-4">
+                                            <use href="#arrow-up-right" />
+                                        </svg></li>
+                                </ul>
+                            </div>
+                            <div class="pt-4">
+                                <span class="flex items-center gap-x-1 text-sm text-gray-500 dark:text-gray-200"><svg
+                                        class="size-4">
+                                        <use href="#fire" />
+                                    </svg>
+                                    <p>جستجو های پرطرفدار :</p>
+                                </span>
+                                <ul class="w-full flex items-center gap-1.5 mt-3 child:search-modal-list-item">
+                                    <li><a href="#">#آیفون</a></li>
+                                    <li><a href="#">#لپ تاپ</a></li>
+                                    <li><a href="#">#هدفون</a></li>
+                                    <li><a href="#">#هلدر</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Location Selector -->
+                <div id="addres_header" class="hidden relative">
+                    <button class="flex items-center gap-x-1 citylist-open text-white">
+                        <svg class="w-5 h-5">
+                            <use href="#map" />
+                        </svg>
+                        <p class="hidden lg:inline">موقعیت</p>
+                    </button>
+                    <div class="citylist-menu z-50">
+                        <button class="flex bg-gray-200 dark:bg-gray-700 gap-x-1 w-full items-center p-2 rounded-lg">
+                            <svg class="size-6 text-gray-400">
+                                <use href="#search" />
+                            </svg>
+                            <input type="text" class="w-full placeholder:text-gray-400" placeholder="جستجوی شهر...">
+                        </button>
+                        <h2 class="my-3 pr-1.5 font-DanaMedium">شهرهای پرتکرار :</h2>
+                        <ul class="city-list">
+                            <li><a href="#"><svg class="size-5">
+                                        <use href="#map" />
+                                    </svg> تهران</a><svg class="size-4 rotate-90">
+                                    <use href="#chevron" />
+                                </svg></li>
+                            <li><a href="#"><svg class="size-5">
+                                        <use href="#map" />
+                                    </svg> اصفهان</a><svg class="size-4 rotate-90">
+                                    <use href="#chevron" />
+                                </svg></li>
+                            <li><a href="#"><svg class="size-5">
+                                        <use href="#map" />
+                                    </svg> مشهد</a><svg class="size-4 rotate-90">
+                                    <use href="#chevron" />
+                                </svg></li>
+                            <li><a href="#"><svg class="size-5">
+                                        <use href="#map" />
+                                    </svg> شیراز</a><svg class="size-4 rotate-90">
+                                    <use href="#chevron" />
+                                </svg></li>
+                            <li><a href="#"><svg class="size-5">
+                                        <use href="#map" />
+                                    </svg> تبریز</a><svg class="size-4 rotate-90">
+                                    <use href="#chevron" />
+                                </svg></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Navigation -->
+            <div class="flex items-center gap-6 child:gap-1 child:text-[#28303F]">
+                <a id="shopping_cart_header" href="" class="flex-center child:text-white">
+                    <span class="hidden lg:inline">سبد خرید</span>
+                    <svg class="size-6">
+                        <use href="#shop"></use>
+                    </svg>
+                </a>
+                <a href="" class="py-3 px-4 rounded-lg child:text-white bg-custom-brown flex-center">
+                    <span class="text-sm xl:text-base">حساب من</span>
+                    <svg class="size-6">
+                        <use href="#user"></use>
+                    </svg>
+                </a>
+            </div>
+        </div>
+
+        <!-- Hero Content -->
+        <div
+            class="font-IRANSansXRegular relative z-40 flex flex-col items-center justify-center h-full text-center text-white px-4">
+            <h1 class="font-IRANSansXDemiBold text-2xl md:text-4xl mb-10">هر چیزی برای خانه و ساختمان، همین‌جاست.</h1>
+            <div class="w-full max-w-5xl relative main-search-wrapper">
+                <div class="bg-white/15 backdrop-blur border border-white rounded-2xl p-6">
+                    <div class="relative w-full flex items-center gap-2 bg-white rounded-xl p-2 shadow-lg">
+                        <div class="flex items-center gap-3 flex-[2] px-3">
+                            <svg class="size-5 text-gray-400">
+                                <use href="#search"></use>
+                            </svg>
+                            <input id="main-search-input" type="text" placeholder="جستجو در تمام دسته‌ها"
+                                class="font-IRANSansXRegular w-full bg-transparent outline-none text-gray-800 text-sm py-2" />
+                        </div>
+                        <!-- Location Trigger -->
+                        <div id="location-trigger" data-location-trigger
+                            class="flex items-center gap-2 cursor-pointer border-r border-gray-200 px-4 py-2 group">
+                            <svg class="size-5 text-gray-500 group-hover:text-custom-brown">
+                                <use href="#map"></use>
+                            </svg>
+                            <span data-location-label class="text-gray-600 text-sm">موقعیت</span>
+                        </div>
+                        <!-- Location Modal -->
+                        <section id="location-modal"
+                            class="invisible z-50 fixed left-auto right-auto h-auto translate-y-full overflow-hidden rounded-t-2xl bg-white opacity-0 transition-all duration-300 md:bottom-auto md:left-1/2 md:-top-10 md:max-h-[90vh] md:w-[440px] md:-translate-x-1/2 md:rounded-2xl">
+                            <div class="flex items-center justify-between px-6 pb-3 pt-5">
+                                <button id="clear-all-cities" type="button"
+                                    class="invisible text-sm text-[#A74B3F] transition hover:opacity-70">حذف
+                                    همه</button>
+                                <h2 id="location-modal-title" class="font-IRANSansXDemiBold text-lg text-gray-900">
+                                    انتخاب شهر</h2>
+                                <button id="close-location-modal" type="button" aria-label="بستن پنجره"
+                                    class="flex size-8 items-center justify-center rounded-full text-gray-500 transition hover:bg-gray-100">×</button>
+                            </div>
+                            <div class="px-6">
+                                <div class="relative">
+                                    <svg
+                                        class="pointer-events-none absolute right-4 top-1/2 size-5 -translate-y-1/2 text-gray-400">
+                                        <use href="#search"></use>
+                                    </svg>
+                                    <input id="city-search-input" type="search" autocomplete="off"
+                                        placeholder="جست‌وجو در شهرها"
+                                        class="font-IRANSansXRegular w-full rounded-xl border border-gray-300 py-3 pl-4 pr-12 text-sm text-gray-800 outline-none transition placeholder:text-gray-400 focus:border-[#A74B3F] focus:ring-2 focus:ring-[#A74B3F]/10" />
+                                </div>
+                                <div id="selected-cities-wrap"
+                                    class="mt-4 hidden max-h-24 flex-wrap gap-2 overflow-y-auto pb-1"></div>
+                                <p id="city-empty-state" class="hidden py-8 text-center text-sm text-gray-400">شهری با
+                                    این نام پیدا نشد.</p>
+                            </div>
+                            <div id="cities-list"
+                                class="mt-4 max-h-[48vh] overflow-y-auto border-t border-gray-200 px-6">
+                                <div data-city-section class="city-section">
+                                    <h3 class="py-4 font-IRANSansXDemiBold text-sm text-gray-800">انتخاب‌های قبلی</h3>
+                                    <label data-city-item
+                                        class="city-item flex cursor-pointer items-center justify-between border-b border-gray-200 py-3"><span
+                                            class="text-sm text-gray-700">تهران ۱</span><input type="checkbox"
+                                            value="تهران ۱" class="city-checkbox size-5 accent-[#A74B3F]" /></label>
+                                    <label data-city-item
+                                        class="city-item flex cursor-pointer items-center justify-between border-b border-gray-200 py-3"><span
+                                            class="text-sm text-gray-700">تهران ۲</span><input type="checkbox"
+                                            value="تهران ۲" class="city-checkbox size-5 accent-[#A74B3F]" /></label>
+                                    <label data-city-item
+                                        class="city-item flex cursor-pointer items-center justify-between border-b border-gray-200 py-3"><span
+                                            class="text-sm text-gray-700">تهران ۳</span><input type="checkbox"
+                                            value="تهران ۳" class="city-checkbox size-5 accent-[#A74B3F]" /></label>
+                                </div>
+                                <div data-city-section class="city-section">
+                                    <h3 class="py-4 font-IRANSansXDemiBold text-sm text-gray-800">همه شهرها</h3>
+                                    <label data-city-item
+                                        class="city-item flex cursor-pointer items-center justify-between border-b border-gray-200 py-3"><span
+                                            class="text-sm text-gray-700">کل ایران</span><input id="select-all-cities"
+                                            type="checkbox" value="کل ایران"
+                                            class="city-checkbox size-5 accent-[#A74B3F]" /></label>
+                                    <label data-city-item
+                                        class="city-item flex cursor-pointer items-center justify-between border-b border-gray-200 py-3"><span
+                                            class="text-sm text-gray-700">تهران</span><input type="checkbox"
+                                            value="تهران" class="city-checkbox size-5 accent-[#A74B3F]" /></label>
+                                    <label data-city-item
+                                        class="city-item flex cursor-pointer items-center justify-between border-b border-gray-200 py-3"><span
+                                            class="text-sm text-gray-700">کرمان</span><input type="checkbox"
+                                            value="کرمان" class="city-checkbox size-5 accent-[#A74B3F]" /></label>
+                                    <label data-city-item
+                                        class="city-item flex cursor-pointer items-center justify-between border-b border-gray-200 py-3"><span
+                                            class="text-sm text-gray-700">فارس</span><input type="checkbox" value="فارس"
+                                            class="city-checkbox size-5 accent-[#A74B3F]" /></label>
+                                    <label data-city-item
+                                        class="city-item flex cursor-pointer items-center justify-between border-b border-gray-200 py-3"><span
+                                            class="text-sm text-gray-700">مازندران</span><input type="checkbox"
+                                            value="مازندران" class="city-checkbox size-5 accent-[#A74B3F]" /></label>
+                                </div>
+                            </div>
+                            <div class="flex gap-3 border-t border-gray-200 bg-white p-4 md:px-6">
+                                <button id="confirm-cities" type="button" disabled
+                                    class="flex-1 rounded-lg bg-[#A74B3F] py-3 text-sm text-white transition hover:bg-[#913F35] disabled:cursor-not-allowed disabled:bg-[#F3E8E6] disabled:text-white/70">تایید</button>
+                                <button id="cancel-cities" type="button"
+                                    class="flex-1 rounded-lg border border-red-600 py-3 text-sm text-red-600 transition hover:bg-red-50">انصراف</button>
+                            </div>
+                        </section>
+                        <!-- Search Results Dropdown -->
+                        <div id="search-results-dropdown"
+                            class="hidden absolute top-[calc(100%+8px)] right-0 left-0 bg-white rounded-xl shadow-2xl overflow-hidden z-30 text-right">
+                            <div
+                                class="px-4 py-3 border-b border-gray-50 hover:bg-gray-50 cursor-pointer flex items-center gap-2">
+                                <span class="text-sm text-gray-500">جست‌وجوی</span>
+                                <span id="search-query-display"
+                                    class="text-sm font-IRANSansXDemiBold text-custom-brown">«»</span>
+                                <span class="text-sm text-gray-500">در تمام دسته‌ها</span>
+                            </div>
+                            <ul class="flex flex-col">
+                                <li
+                                    class="px-4 py-3 hover:bg-gray-50 cursor-pointer border-b border-gray-50 transition-colors">
+                                    <div class="flex flex-col gap-1"><span
+                                            class="text-sm font-IRANSansXDemiBold text-gray-800">سیمان و
+                                            ملات</span><span class="text-xs text-gray-400">در دسته مصالح و مواد پایه
+                                            ساختمانی</span></div>
+                                </li>
+                                <li
+                                    class="px-4 py-3 hover:bg-gray-50 cursor-pointer border-b border-gray-50 transition-colors">
+                                    <div class="flex flex-col gap-1"><span
+                                            class="text-sm font-IRANSansXDemiBold text-gray-800">سیمان سفید</span><span
+                                            class="text-xs text-gray-400">در دسته مصالح و مواد پایه ساختمانی</span>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation -->
+        <div class="flex justify-center md:hidden">
+            <div>
+                <nav class="absolute top-0 inset-x-0 w-full h-16 px-4 shadow-sm flex items-center justify-between">
+                    <button class="open-menu-mobile flex-center p-2 app-border rounded-full">
+                        <svg class="size-8 text-white">
+                            <use href="#menu_berger" />
+                        </svg>
+                    </button>
+                    <div class="mobile-menu z-50 flex flex-col">
+                        <div class="flex w-full items-center justify-between border-b-normal pb-4">
+                            <a href="index.html" class="text-xl font-MorabbaMedium"><span
+                                    class="text-blue-500">کارین</span> شاپ</a>
+                            <button class="close-menu-mobile"><svg class="size-5 text-gray-500 dark:text-gray-200">
+                                    <use href="#x-mark" />
+                                </svg></button>
+                        </div>
+                        <ul class="flex flex-col gap-y-2 text-gray-800 dark:text-gray-100 mt-4">
+                            <li><span class="open-category mobile-menu-item"><svg class="size-5">
+                                        <use href="#squares" />
+                                    </svg><a href="#">دسته بندی</a></span>
+                                <div class="category-slide">
+                                    <div class="w-full border-b-normal pb-4"><span
+                                            class="close-category-slide flex items-center gap-x-1 cursor-pointer"><svg
+                                                class="size-4">
+                                                <use href="#arrow" />
+                                            </svg> دسته بندی</span></div>
+                                    <ul class="child:flex pt-4 child:cursor-pointer space-y-2">
+                                        <li>
+                                            <div class="relative open-detail-category"><span
+                                                    class="mobile-menu-category-badge">موبایل</span><img
+                                                    src="./images/category/1.webp"
+                                                    class="h-28 w-full object-cover rounded" alt=""></div>
+                                            <div class="detail-category"><span
+                                                    class="close-detail-category flex-center gap-x-1 mx-4 bg-gray-100 dark:bg-gray-900 rounded p-2 cursor-pointer">موبایل<svg
+                                                        class="size-4">
+                                                        <use href="#arrow" />
+                                                    </svg></span>
+                                                <ul
+                                                    class="mt-5 flex flex-col child:py-3 divide-y-2 dark:divide-gray-700 child:px-4">
+                                                    <li><span
+                                                            class="flex group items-center justify-between open-submenu"><a
+                                                                href="#">گوشی‌های هوشمند</a><svg
+                                                                class="size-4 rotate-90">
+                                                                <use href="#chevron" />
+                                                            </svg></span>
+                                                        <ul
+                                                            class="menu-category-submenu child:list-disc child-hover:mr-2 child:transition-all child:duration-300">
+                                                            <li>آیفون</li>
+                                                            <li>سامسونگ</li>
+                                                            <li>شیائومی</li>
+                                                            <li class="text-red-500">پرفروش‌ها</li>
+                                                            <li>نوکیا</li>
+                                                        </ul>
+                                                    </li>
+                                                    <li><span
+                                                            class="flex group items-center justify-between open-submenu"><a
+                                                                href="#">لوازم جانبی</a><svg class="size-4 rotate-90">
+                                                                <use href="#chevron" />
+                                                            </svg></span>
+                                                        <ul
+                                                            class="menu-category-submenu child:list-disc child-hover:mr-2 child:transition-all child:duration-300">
+                                                            <li>قاب موبایل</li>
+                                                            <li>محافظ صفحه</li>
+                                                            <li>پاوربانک</li>
+                                                            <li class="text-red-500">تخفیف‌ها</li>
+                                                            <li>شارژر</li>
+                                                        </ul>
+                                                    </li>
+                                                    <li><span
+                                                            class="flex group items-center justify-between open-submenu"><a
+                                                                href="#">گجت‌های پوشیدنی</a><svg
+                                                                class="size-4 rotate-90">
+                                                                <use href="#chevron" />
+                                                            </svg></span>
+                                                        <ul
+                                                            class="menu-category-submenu child:list-disc child-hover:mr-2 child:transition-all child:duration-300">
+                                                            <li>ساعت هوشمند</li>
+                                                            <li>دستبند هوشمند</li>
+                                                            <li>هدفون بی‌سیم</li>
+                                                            <li class="text-red-500">جدیدترین‌ها</li>
+                                                            <li>هدست</li>
+                                                        </ul>
+                                                    </li>
+                                                    <li><span
+                                                            class="flex group items-center justify-between open-submenu"><a
+                                                                href="#">لوازم مخصوص بازی</a><svg
+                                                                class="size-4 rotate-90">
+                                                                <use href="#chevron" />
+                                                            </svg></span>
+                                                        <ul
+                                                            class="menu-category-submenu child:list-disc child-hover:mr-2 child:transition-all child:duration-300">
+                                                            <li>کنترلر بازی</li>
+                                                            <li>دسته بازی موبایل</li>
+                                                            <li>لوازم جانبی گیمرها</li>
+                                                            <li class="text-red-500">محصولات جدید</li>
+                                                        </ul>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="relative open-detail-category"><span
+                                                    class="mobile-menu-category-badge">لپ تاپ</span><img
+                                                    src="./images/category/2.jpg"
+                                                    class="h-28 w-full object-cover rounded" alt=""></div>
+                                            <div class="detail-category"><span
+                                                    class="close-detail-category flex-center gap-x-1 mx-4 bg-gray-100 dark:bg-gray-900 rounded p-2 cursor-pointer">لپ
+                                                    تاپ<svg class="size-4">
+                                                        <use href="#arrow" />
+                                                    </svg></span>
+                                                <ul
+                                                    class="mt-5 flex flex-col child:py-3 divide-y-2 dark:divide-gray-700 child:px-4">
+                                                    <li><span
+                                                            class="flex group items-center justify-between open-submenu"><a
+                                                                href="#">لپ‌تاپ‌ها</a><svg class="size-4 rotate-90">
+                                                                <use href="#chevron" />
+                                                            </svg></span>
+                                                        <ul
+                                                            class="menu-category-submenu child:list-disc child-hover:mr-2 child:transition-all child:duration-300">
+                                                            <li>ایسر</li>
+                                                            <li>دل</li>
+                                                            <li>اچ‌پی</li>
+                                                            <li class="text-red-500">پرفروش‌ها</li>
+                                                            <li>لنوو</li>
+                                                        </ul>
+                                                    </li>
+                                                    <li><span
+                                                            class="flex group items-center justify-between open-submenu"><a
+                                                                href="#">لوازم جانبی</a><svg class="size-4 rotate-90">
+                                                                <use href="#chevron" />
+                                                            </svg></span>
+                                                        <ul
+                                                            class="menu-category-submenu child:list-disc child-hover:mr-2 child:transition-all child:duration-300">
+                                                            <li>کیبورد</li>
+                                                            <li>ماوس</li>
+                                                            <li>کوله لپ‌تاپ</li>
+                                                            <li class="text-red-500">محصولات تخفیف‌دار</li>
+                                                            <li>پایه خنک‌کننده</li>
+                                                        </ul>
+                                                    </li>
+                                                    <li><span
+                                                            class="flex group items-center justify-between open-submenu"><a
+                                                                href="#">قطعات و تجهیزات</a><svg
+                                                                class="size-4 rotate-90">
+                                                                <use href="#chevron" />
+                                                            </svg></span>
+                                                        <ul
+                                                            class="menu-category-submenu child:list-disc child-hover:mr-2 child:transition-all child:duration-300">
+                                                            <li>هارد اکسترنال</li>
+                                                            <li>رم لپ‌تاپ</li>
+                                                            <li>شارژر لپ‌تاپ</li>
+                                                            <li class="text-red-500">قطعات ویژه</li>
+                                                            <li>کارت گرافیک</li>
+                                                        </ul>
+                                                    </li>
+                                                    <li><span
+                                                            class="flex group items-center justify-between open-submenu"><a
+                                                                href="#">نرم‌افزارها</a><svg class="size-4 rotate-90">
+                                                                <use href="#chevron" />
+                                                            </svg></span>
+                                                        <ul
+                                                            class="menu-category-submenu child:list-disc child-hover:mr-2 child:transition-all child:duration-300">
+                                                            <li>آنتی‌ویروس</li>
+                                                            <li>نرم‌افزارهای اداری</li>
+                                                            <li>نرم‌افزارهای طراحی</li>
+                                                            <li class="text-red-500">جدیدترین نرم‌افزارها</li>
+                                                        </ul>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="relative open-detail-category"><span
+                                                    class="mobile-menu-category-badge">هدفون</span><img
+                                                    src="./images/category/4.webp"
+                                                    class="h-28 w-full object-cover rounded" alt=""></div>
+                                            <div class="detail-category"><span
+                                                    class="close-detail-category flex-center gap-x-1 mx-4 bg-gray-100 dark:bg-gray-900 rounded p-2 cursor-pointer">هدفون<svg
+                                                        class="size-4">
+                                                        <use href="#arrow" />
+                                                    </svg></span>
+                                                <ul
+                                                    class="mt-5 flex flex-col child:py-3 divide-y-2 dark:divide-gray-700 child:px-4">
+                                                    <li><span
+                                                            class="flex group items-center justify-between open-submenu"><a
+                                                                href="#">هدفون‌های بی‌سیم</a><svg
+                                                                class="size-4 rotate-90">
+                                                                <use href="#chevron" />
+                                                            </svg></span>
+                                                        <ul
+                                                            class="menu-category-submenu child:list-disc child-hover:mr-2 child:transition-all child:duration-300">
+                                                            <li>ایرپاد</li>
+                                                            <li>هدفون‌های بلوتوثی</li>
+                                                            <li>هدفون‌های ورزشی</li>
+                                                            <li class="text-red-500">محصولات تخفیف‌دار</li>
+                                                            <li>هدفون‌های نویزگیر</li>
+                                                        </ul>
+                                                    </li>
+                                                    <li><span
+                                                            class="flex group items-center justify-between open-submenu"><a
+                                                                href="#">هدفون‌های باسیم</a><svg
+                                                                class="size-4 rotate-90">
+                                                                <use href="#chevron" />
+                                                            </svg></span>
+                                                        <ul
+                                                            class="menu-category-submenu child:list-disc child-hover:mr-2 child:transition-all child:duration-300">
+                                                            <li>هدفون‌های استودیویی</li>
+                                                            <li>هدفون‌های گیمینگ</li>
+                                                            <li>هدفون‌های اقتصادی</li>
+                                                            <li class="text-red-500">مدل‌های ویژه</li>
+                                                            <li>هدفون‌های حرفه‌ای</li>
+                                                        </ul>
+                                                    </li>
+                                                    <li><span
+                                                            class="flex group items-center justify-between open-submenu"><a
+                                                                href="#">لوازم جانبی هدفون</a><svg
+                                                                class="size-4 rotate-90">
+                                                                <use href="#chevron" />
+                                                            </svg></span>
+                                                        <ul
+                                                            class="menu-category-submenu child:list-disc child-hover:mr-2 child:transition-all child:duration-300">
+                                                            <li>کیس شارژ</li>
+                                                            <li>پد گوش</li>
+                                                            <li>کابل و مبدل</li>
+                                                            <li class="text-red-500">محصولات تخفیف‌دار</li>
+                                                            <li>هولدر هدفون</li>
+                                                        </ul>
+                                                    </li>
+                                                    <li><span
+                                                            class="flex group items-center justify-between open-submenu"><a
+                                                                href="#">برندها</a><svg class="size-4 rotate-90">
+                                                                <use href="#chevron" />
+                                                            </svg></span>
+                                                        <ul
+                                                            class="menu-category-submenu child:list-disc child-hover:mr-2 child:transition-all child:duration-300">
+                                                            <li>سونی</li>
+                                                            <li>بوز</li>
+                                                            <li>جبرا</li>
+                                                            <li class="text-red-500">برندهای تخفیف‌دار</li>
+                                                            <li>انکر</li>
+                                                        </ul>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="relative open-detail-category"><span
+                                                    class="mobile-menu-category-badge">پرفروش ها</span><img
+                                                    src="./images/category/3.webp"
+                                                    class="h-28 w-full object-cover rounded" alt=""></div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li class="mobile-menu-item"><svg class="size-5">
+                                    <use href="#user" />
+                                </svg><a href="dashboard.html">حساب کاربری</a></li>
+                            <li class="mobile-menu-item"><svg class="size-5">
+                                    <use href="#heart" />
+                                </svg><a href="dashboard-favorite.html">علاقه مندی ها</a></li>
+                            <li class="mobile-menu-item"><svg class="size-5">
+                                    <use href="#shopping-cart" />
+                                </svg><a href="shopping-cart.html">سبد خرید</a></li>
+                            <li class="mobile-menu-item"><svg class="size-5">
+                                    <use href="#check-badge" />
+                                </svg><a href="#">دربـاره مـا</a></li>
+                            <li class="mobile-menu-item"><svg class="size-5">
+                                    <use href="#phone" />
+                                </svg><a href="contact-us.html">تـماس بـا مـا</a></li>
+                        </ul>
+                    </div>
+                    <a href="index.html" class="flex flex-col text-center">
+                        <span class="font-IRANSansXBlack text-white text-3xl flex items-center">آجروک</span>
+                    </a>
+                    <div>
+                        <svg class="size-6 text-white">
+                            <use href="#search"></use>
+                        </svg>
+                    </div>
+                </nav>
+            </div>
+            <ul class="w-full bottom-navbar child:h-full child:pt-3 md:hidden">
+                <li class="w-1/5 text-[#333333] font-IRANSansXRegular border-t border-custom-brown"><svg class="size-5">
+                        <use href="#home" />
+                    </svg><a href="index.html">خانه</a></li>
+                <li class="w-1/5"><svg class="size-5">
+                        <use href="#squares" />
+                    </svg><a href="shop.html">فروشگاه</a></li>
+                <li class="w-1/5"><svg class="size-5">
+                        <use href="#shopping-bag" />
+                    </svg><a href="shopping-cart.html">سبد خرید</a></li>
+                <li class="w-1/5"><svg class="size-5">
+                        <use href="#user" />
+                    </svg><a href="dashboard.html">حساب من</a></li>
+                <li class="w-1/5"><svg class="size-5">
+                        <use href="#user" />
+                    </svg><a href="dashboard.html">حساب من</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- ============================================
+         MAIN CONTENT (همان بخش‌های قبلی)
+         ============================================ -->
+    <main class="container mt-32">
+        <!-- بخش دسته‌بندی‌ها -->
+        <section class="category font-IRANSansXMedium flex flex-col justify-center">
+            <div
+                class="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 grid-rows-2 gap-6 child:flex child:flex-col child:gap-y-6 child:items-center child:justify-center child:w-full child:h-40 child:md:h-52 child:lg:h-56 child:bg-[#F5F5F5] child:text-xs child:md:text-sm child:lg:text-base child:rounded-2xl child:p-3">
+                <div><img src="images/category/1.png" alt="درب، پنجره و حفاظ">
+                    <p>درب، پنجره و حفاظ</p>
+                </div>
+                <div><img src="images/category/2.png" alt="کاشی، سرامیک و سرویس بهداشتی">
+                    <p>کاشی، سرامیک و سرویس بهداشتی</p>
+                </div>
+                <div><img src="images/category/3.png" alt="دکوراسیون داخلی و مبلمان">
+                    <p>دکوراسیون داخلی و مبلمان</p>
+                </div>
+                <div><img src="images/category/4.png" alt="مصالح و مواد پایه ساختمانی">
+                    <p>مصالح و مواد پایه ساختمانی</p>
+                </div>
+                <div><img src="images/category/5.png" alt="سنگ، نما و محوطه‌سازی">
+                    <p>سنگ، نما و محوطه‌سازی</p>
+                </div>
+                <div><img src="images/category/6.png" alt="آشپزخانه و تجهیزات مرتبط">
+                    <p>آشپزخانه و تجهیزات مرتبط</p>
+                </div>
+                <div><img src="images/category/7.png" alt="ابزارآلات و یراق">
+                    <p>ابزارآلات و یراق</p>
+                </div>
+                <div><img src="images/category/8.png" alt="تأسیسات مکانیکی و برقی">
+                    <p>تأسیسات مکانیکی و برقی</p>
+                </div>
+            </div>
+            <a href="" class="mx-auto text-[#1570EF] mt-8">مشاهده همه</a>
+        </section>
+
+        <!-- بخش بنر -->
+        <section class="mt-20">
+            <div
+                class="font-IRANSansXRegular w-full lg:h-[540px] bg-[#f5f5f5] rounded-3xl px-5 md:px-16 lg:px-20 py-11">
+                <div class="flex flex-col-reverse lg:flex-row items-center justify-between gap-9 lg:gap-32">
+                    <div class="w-full lg:max-w-xl text-center lg:text-right">
+                        <p class="mb-8 text-xs md:text-sm lg:text-base">بازار آنلاین خانه و ساختمان</p>
+                        <h3 class="font-IRANSansXBold text-lg md:text-xl lg:text-3xl mb-6">یک پلتفرم برای همه نیازهای
+                            ساختمانی و خانگی</h3>
+                        <p class="mb-11 text-sm md:text-base">از مصالح و ابزار گرفته تا کابینت، یخچال و لوازم دست‌دوم؛
+                            اینجا می‌تونی محصولت رو راحت ثبت کنی، در معرض دید هزاران نفر قرار بدی و بدون واسطه با خریدار
+                            واقعی در تماس باشی.</p>
+                        <div class="flex items-center justify-center lg:justify-start gap-5">
+                            <a href=""
+                                class="px-4 py-3 bg-custom-brown rounded-lg text-white text-xs md:text-sm lg:text-base">ثبت
+                                فروشگاه رایگان</a>
+                            <a href=""
+                                class="px-4 py-2.5 border-2 border-custom-brown bg-none rounded-lg text-custom-brown text-xs md:text-sm lg:text-base">مطالعه
+                                بیشتر</a>
+                        </div>
+                    </div>
+                    <div><img src="images/77 1.png" alt="بازار آنلاین خانه و ساختمان"></div>
+                </div>
+                <div class="hidden font-IRANSansXMedium w-full lg:flex items-center justify-between mt-20">
+                    <div class="flex items-center gap-1"><svg class="size-6">
+                            <use href="#tick"></use>
+                        </svg><span>ثبت رایگان فروشگاه</span></div>
+                    <div class="flex items-center gap-1"><svg class="size-6">
+                            <use href="#tick"></use>
+                        </svg><span>نمایش در جستجوها</span></div>
+                    <div class="flex items-center gap-1"><svg class="size-6">
+                            <use href="#tick"></use>
+                        </svg><span>مدیریت ساده آگهی‌ها</span></div>
+                    <div class="flex items-center gap-1"><svg class="size-6">
+                            <use href="#tick"></use>
+                        </svg><span>برای خرد و عمده</span></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- بخش محصولات مشابه -->
+        <div class="w-full mt-20">
+            <div class="flex items-center justify-between mb-4">
+                <h4 class="font-IRANSansXDemiBold text-xl">محصولات مشابه</h4>
+                <a href="" class="font-IRANSansXRegular text-lg">مشاهده همه</a>
+            </div>
+            <div class="font-IRANSansXRegular flex items-center gap-4">
+                <div class="flex flex-col items-center w-1/5 border border-gray-200 rounded-lg pb-4">
+                    <div class="w-full"><img class="w-full rounded-tr-lg rounded-tl-lg h-40"
+                            src="../../images/58bebe61a9e25e2c419610b60987928fbe5b3ad4.jpg" alt=""></div>
+                    <div class="flex flex-col items-start gap-2 text-sm text-gray-500 p-4">
+                        <p class="text-base text-[#090808]">عنوان محصول در این قسمت نوشته می‌شود.</p>
+                        <span>نام فروشگاه نام فروشگاه</span>
+                        <span class="flex items-center gap-1"><svg class="size-3">
+                                <use href="#map"></use>
+                            </svg> تهران</span>
+                    </div>
+                    <div class="mt-4">
+                        <p class="font-IRANSansXMedium text-gray-700 text-left"><span class="text-xs">هر واحد</span> /
+                            <span>12.500.000</span> <span class="text-[10px]">تومان</span></p>
+                    </div>
+                </div>
+                <div class="flex flex-col items-center w-1/5 border border-gray-200 rounded-lg pb-4">
+                    <div class="w-full"><img class="w-full rounded-tr-lg rounded-tl-lg h-40"
+                            src="../../images/58bebe61a9e25e2c419610b60987928fbe5b3ad4.jpg" alt=""></div>
+                    <div class="flex flex-col items-start gap-2 text-sm text-gray-500 p-4">
+                        <p class="text-base text-[#090808]">عنوان محصول در این قسمت نوشته می‌شود.</p>
+                        <span>نام فروشگاه نام فروشگاه</span>
+                        <span class="flex items-center gap-1"><svg class="size-3">
+                                <use href="#map"></use>
+                            </svg> تهران</span>
+                    </div>
+                    <div class="mt-4">
+                        <p class="font-IRANSansXMedium text-gray-700 text-left"><span class="text-xs">هر واحد</span> /
+                            <span>12.500.000</span> <span class="text-[10px]">تومان</span></p>
+                    </div>
+                </div>
+                <div class="flex flex-col items-center w-1/5 border border-gray-200 rounded-lg pb-4">
+                    <div class="w-full"><img class="w-full rounded-tr-lg rounded-tl-lg h-40"
+                            src="../../images/58bebe61a9e25e2c419610b60987928fbe5b3ad4.jpg" alt=""></div>
+                    <div class="flex flex-col items-start gap-2 text-sm text-gray-500 p-4">
+                        <p class="text-base text-[#090808]">عنوان محصول در این قسمت نوشته می‌شود.</p>
+                        <span>نام فروشگاه نام فروشگاه</span>
+                        <span class="flex items-center gap-1"><svg class="size-3">
+                                <use href="#map"></use>
+                            </svg> تهران</span>
+                    </div>
+                    <div class="mt-4">
+                        <p class="font-IRANSansXMedium text-gray-700 text-left"><span class="text-xs">هر واحد</span> /
+                            <span>12.500.000</span> <span class="text-[10px]">تومان</span></p>
+                    </div>
+                </div>
+                <div class="flex flex-col items-center w-1/5 border border-gray-200 rounded-lg pb-4">
+                    <div class="w-full"><img class="w-full rounded-tr-lg rounded-tl-lg h-40"
+                            src="../../images/58bebe61a9e25e2c419610b60987928fbe5b3ad4.jpg" alt=""></div>
+                    <div class="flex flex-col items-start gap-2 text-sm text-gray-500 p-4">
+                        <p class="text-base text-[#090808]">عنوان محصول در این قسمت نوشته می‌شود.</p>
+                        <span>نام فروشگاه نام فروشگاه</span>
+                        <span class="flex items-center gap-1"><svg class="size-3">
+                                <use href="#map"></use>
+                            </svg> تهران</span>
+                    </div>
+                    <div class="mt-4">
+                        <p class="font-IRANSansXMedium text-gray-700 text-left"><span class="text-xs">هر واحد</span> /
+                            <span>12.500.000</span> <span class="text-[10px]">تومان</span></p>
+                    </div>
+                </div>
+                <div class="flex flex-col items-center w-1/5 border border-gray-200 rounded-lg pb-4">
+                    <div class="w-full"><img class="w-full rounded-tr-lg rounded-tl-lg h-40"
+                            src="../../images/58bebe61a9e25e2c419610b60987928fbe5b3ad4.jpg" alt=""></div>
+                    <div class="flex flex-col items-start gap-2 text-sm text-gray-500 p-4">
+                        <p class="text-base text-[#090808]">عنوان محصول در این قسمت نوشته می‌شود.</p>
+                        <span>نام فروشگاه نام فروشگاه</span>
+                        <span class="flex items-center gap-1"><svg class="size-3">
+                                <use href="#map"></use>
+                            </svg> تهران</span>
+                    </div>
+                    <div class="mt-4">
+                        <p class="font-IRANSansXMedium text-gray-700 text-left"><span class="text-xs">هر واحد</span> /
+                            <span>12.500.000</span> <span class="text-[10px]">تومان</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- ============================================
+         OVERLAY (برای مگامنو و مودال‌ها)
+         ============================================ -->
+    <div id="mega_overlay" class="fixed inset-0 bg-black/50 opacity-0 invisible transition-opacity duration-300 z-10">
+    </div>
+    <div id="overlay" class="fixed inset-0 bg-black/50 opacity-0 invisible transition-opacity duration-300 z-10"></div>
+
+    <!-- ============================================
+         FOOTER جدید
+         ============================================ -->
+    <footer class="bg-[#1a1a1a] text-white font-IRANSansXRegular mt-20">
+        <div class="container mx-auto px-4 py-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
+            <!-- ستون ۱: لوگو و توضیحات -->
+            <div class="space-y-4">
+                <div class="flex items-center gap-2">
+                    <svg width="45" height="50" viewBox="0 0 55 61" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M16.7087 27.2444V11.4785L8.71289 19.4743V27.2444H16.7087Z" fill="#9C4639" />
+                        <path d="M16.7077 31.4824H0V36.2701H16.7077V31.4824Z" fill="#9C4639" />
+                        <path d="M31.3362 27.2445V3.13945L28.1968 0L21.0938 7.103V27.2445H31.3362Z" fill="#9C4639" />
+                        <path d="M31.346 31.4824H21.0938V36.2701H31.346V31.4824Z" fill="#9C4639" />
+                        <path d="M46.3465 27.2442V17.2078L35.9961 6.85742V27.2442H46.3465Z" fill="#9C4639" />
+                        <path d="M54.6464 31.4824H35.9961V36.2701H54.6464V31.4824Z" fill="#9C4639" />
+                        <path
+                            d="M3.98971 54.5664C3.37422 54.5664 2.82467 54.429 2.34107 54.1542C1.86846 53.8795 1.50026 53.5168 1.23648 53.0661C0.972698 52.6045 0.840806 52.0989 0.840806 51.5494C0.840806 51.4505 0.851797 51.2911 0.873779 51.0713C0.906752 50.8405 0.978193 50.4613 1.0881 49.9337C1.19801 49.4062 1.29693 48.9445 1.38486 48.5489L2.83566 48.9281C2.53891 50.17 2.37954 50.9614 2.35756 51.3021C2.34656 51.3571 2.34107 51.4285 2.34107 51.5164C2.34107 51.9121 2.48395 52.2253 2.76972 52.4561C3.05548 52.676 3.46214 52.7859 3.98971 52.7859H9.90833C10.315 52.7859 10.6282 52.7089 10.8481 52.5551C11.0789 52.4012 11.1943 52.1979 11.1943 51.9451C11.1943 51.6263 11.0349 51.3076 10.7162 50.9889L7.30347 47.5597L7.73212 45.5319L13.354 43.0589L13.997 44.6746L9.00157 46.8837L11.8372 49.7854C12.134 50.0821 12.3538 50.4118 12.4967 50.7745C12.6506 51.1372 12.7275 51.5054 12.7275 51.8791C12.7275 52.3517 12.6121 52.7969 12.3813 53.2145C12.1615 53.6212 11.8372 53.9509 11.4086 54.2037C10.9799 54.4455 10.4744 54.5664 9.89184 54.5664H3.98971ZM16.1519 56.9404C16.8993 56.9404 17.4708 56.858 17.8665 56.6932C18.2732 56.5283 18.5534 56.27 18.7073 55.9183C18.8612 55.5776 18.9381 55.1105 18.9381 54.5169H17.2565C16.3003 54.5169 15.5309 54.2312 14.9484 53.6597C14.3659 53.0881 14.0746 52.2913 14.0746 51.2691C14.0746 50.5657 14.2065 49.9282 14.4703 49.3567C14.7451 48.7852 15.1188 48.34 15.5914 48.0213C16.075 47.6916 16.6245 47.5267 17.24 47.5267C17.8995 47.5267 18.471 47.6861 18.9546 48.0048C19.4492 48.3126 19.8284 48.7522 20.0922 49.3237C20.3669 49.8843 20.5043 50.5327 20.5043 51.2691V54.5005C20.5043 55.7864 20.1581 56.8086 19.4657 57.5669C18.7732 58.3363 17.6687 58.721 16.1519 58.721H14.3219V56.9404H16.1519ZM15.6079 51.2362C15.6079 51.7857 15.7397 52.1814 16.0035 52.4232C16.2673 52.654 16.685 52.7694 17.2565 52.7694H18.9381V51.2526C18.9381 50.6262 18.8007 50.1371 18.5259 49.7854C18.2512 49.4336 17.8225 49.2578 17.24 49.2578C16.7124 49.2578 16.3058 49.4391 16.02 49.8018C15.7452 50.1535 15.6079 50.6317 15.6079 51.2362ZM26.4529 49.3402V51.6978C26.4529 52.0934 26.5519 52.3737 26.7497 52.5386C26.9475 52.7034 27.2608 52.7859 27.6894 52.7859H27.9037L28.0027 53.6926L27.9037 54.5664H27.6894C27.1838 54.5664 26.7717 54.4345 26.4529 54.1707C26.42 55.6325 26.0188 56.7536 25.2494 57.534C24.4801 58.3253 23.3865 58.721 21.9686 58.721H20.93V56.9404H21.9686C22.6831 56.9404 23.2546 56.8415 23.6832 56.6437C24.1119 56.4568 24.4196 56.1491 24.6065 55.7205C24.8043 55.3028 24.9032 54.7258 24.9032 53.9894V49.3402H26.4529ZM27.7384 52.7859H31.1675L31.2665 53.6597L31.1675 54.5664H27.7384V52.7859ZM31.0067 52.7859H34.4358L34.5348 53.6597L34.4358 54.5664H31.0067V52.7859ZM34.209 52.7859H36.2368C37.303 52.7859 38.2702 52.621 39.1385 52.2913C40.0067 51.9616 41.0234 51.456 42.1884 50.7745C39.7814 49.8183 38.3581 49.3402 37.9185 49.3402C37.6217 49.3402 37.3854 49.4117 37.2095 49.5545C37.0447 49.6974 36.8853 49.9722 36.7314 50.3789L35.2806 49.9172C35.5444 49.1149 35.9016 48.5269 36.3523 48.1532C36.8139 47.7685 37.3359 47.5762 37.9185 47.5762C38.3251 47.5762 38.9571 47.7355 39.8144 48.0543C40.6717 48.362 41.8807 48.8401 43.4414 49.4886L43.7546 49.6205L44.0844 51.5164L43.4909 51.8791C42.4797 52.5056 41.6444 52.9947 40.9849 53.3464C40.3365 53.6981 39.6111 53.9894 38.8087 54.2202C38.0174 54.451 37.1601 54.5664 36.2368 54.5664H34.209V52.7859ZM38.3636 56.5613H40.1936V58.3748H38.3636V56.5613ZM46.4856 45.1197H48.1342V54.5664H46.4856V45.1197ZM43.7818 44.7075C43.9467 44.0481 44.2544 43.5315 44.7051 43.1578C45.1557 42.7841 45.7602 42.5973 46.5186 42.5973H49.7994V43.9821H46.5186C46.0899 43.9821 45.7602 44.0811 45.5294 44.2789C45.2986 44.4767 45.1172 44.7515 44.9853 45.1032L43.7818 44.7075Z"
+                            fill="#9C4639" />
+                    </svg>
+                    <span class="text-2xl font-IRANSansXBlack text-white">آجروک</span>
+                </div>
+                <p class="text-sm text-gray-400 leading-relaxed max-w-xs">اولین و بزرگ‌ترین پلتفرم تخصصی مصالح ساختمانی،
+                    دکوراسیون داخلی و لوازم خانگی در ایران.</p>
+                <div class="flex items-center gap-3 pt-2">
+                    <a href="#"
+                        class="w-9 h-9 rounded-full bg-custom-brown/20 hover:bg-custom-brown/40 flex items-center justify-center transition-colors"
+                        aria-label="اینستاگرام"><span class="text-sm font-bold">I</span></a>
+                    <a href="#"
+                        class="w-9 h-9 rounded-full bg-custom-brown/20 hover:bg-custom-brown/40 flex items-center justify-center transition-colors"
+                        aria-label="تلگرام"><span class="text-sm font-bold">T</span></a>
+                    <a href="#"
+                        class="w-9 h-9 rounded-full bg-custom-brown/20 hover:bg-custom-brown/40 flex items-center justify-center transition-colors"
+                        aria-label="واتساپ"><span class="text-sm font-bold">W</span></a>
+                    <a href="#"
+                        class="w-9 h-9 rounded-full bg-custom-brown/20 hover:bg-custom-brown/40 flex items-center justify-center transition-colors"
+                        aria-label="آپارات"><span class="text-sm font-bold">A</span></a>
+                </div>
+            </div>
+
+            <!-- ستون ۲: لینک‌های سریع -->
+            <div>
+                <h4 class="text-base font-IRANSansXDemiBold mb-4 text-white">دسته‌بندی‌ها</h4>
+                <ul class="space-y-2 text-sm text-gray-400">
+                    <li><a href="#" class="hover:text-custom-brown transition-colors">مصالح و مواد پایه</a></li>
+                    <li><a href="#" class="hover:text-custom-brown transition-colors">دکوراسیون داخلی</a></li>
+                    <li><a href="#" class="hover:text-custom-brown transition-colors">کاشی و سرامیک</a></li>
+                    <li><a href="#" class="hover:text-custom-brown transition-colors">درب و پنجره</a></li>
+                    <li><a href="#" class="hover:text-custom-brown transition-colors">تأسیسات مکانیکی و برقی</a></li>
+                    <li><a href="#" class="hover:text-custom-brown transition-colors">ابزارآلات و یراق</a></li>
+                </ul>
+            </div>
+
+            <!-- ستون ۳: اطلاعات تماس -->
+            <div>
+                <h4 class="text-base font-IRANSansXDemiBold mb-4 text-white">تماس با ما</h4>
+                <ul class="space-y-3 text-sm text-gray-400">
+                    <li class="flex items-center gap-2">
+                        <svg class="size-5 text-custom-brown flex-shrink-0">
+                            <use href="#phone" />
+                        </svg>
+                        <span>۰۲۱-۱۲۳۴۵۶۷۸</span>
+                    </li>
+                    <li class="flex items-center gap-2">
+                        <svg class="size-5 text-custom-brown flex-shrink-0">
+                            <use href="#map" />
+                        </svg>
+                        <span>تهران، خیابان آزادی، پلاک ۱۲</span>
+                    </li>
+                    <li class="flex items-center gap-2">
+                        <svg class="size-5 text-custom-brown flex-shrink-0">
+                            <use href="#tick" />
+                        </svg>
+                        <span>info@ajorok.com</span>
+                    </li>
+                    <li class="flex items-center gap-2">
+                        <svg class="size-5 text-custom-brown flex-shrink-0">
+                            <use href="#clock" />
+                        </svg>
+                        <span>شنبه تا پنجشنبه ۹ الی ۱۸</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- ستون ۴: لینک‌های مفید -->
+            <div>
+                <h4 class="text-base font-IRANSansXDemiBold mb-4 text-white">دسترسی سریع</h4>
+                <ul class="space-y-2 text-sm text-gray-400">
+                    <li><a href="#" class="hover:text-custom-brown transition-colors">درباره ما</a></li>
+                    <li><a href="#" class="hover:text-custom-brown transition-colors">قوانین و مقررات</a></li>
+                    <li><a href="#" class="hover:text-custom-brown transition-colors">سوالات متداول</a></li>
+                    <li><a href="#" class="hover:text-custom-brown transition-colors">همکاری با ما</a></li>
+                    <li><a href="#" class="hover:text-custom-brown transition-colors">تماس با پشتیبانی</a></li>
+                    <li><a href="#" class="hover:text-custom-brown transition-colors">حریم خصوصی</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- نوار پایین (کپی‌رایت) -->
+        <div class="border-t border-gray-800 py-4">
+            <div
+                class="container mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-2 text-sm text-gray-500">
+                <p>© <span id="current-year"></span> تمامی حقوق برای <span
+                        class="text-custom-brown font-IRANSansXDemiBold">آجروک</span> محفوظ است.</p>
+                <p class="text-xs">طراحی و توسعه با ❤️ در تیم آجروک</p>
+            </div>
+        </div>
+
+        <!-- دکمه بازگشت به بالا -->
+        <button id="back-to-top"
+            class="fixed bottom-6 left-6 z-50 w-12 h-12 rounded-full bg-custom-brown text-white shadow-lg flex items-center justify-center transition-all duration-300 opacity-0 invisible hover:bg-[#7a352b] focus:outline-none focus:ring-2 focus:ring-custom-brown/50"
+            aria-label="بازگشت به بالا">
+            <svg class="size-6 rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7-7-7 7" />
+            </svg>
+        </button>
+    </footer>
+
+    <!-- ============================================
+         اسکریپت‌ها
+         ============================================ -->
+    <script src="scripts/index.js"></script>
+    <script src="scripts/header.js"></script>
+
+    <!-- اسکریپت مخصوص فوتر -->
+    <script>
+        // سال جاری
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+
+        // دکمه بازگشت به بالا
+        const backBtn = document.getElementById('back-to-top');
+        window.addEventListener('scroll', function () {
+            if (window.scrollY > 400) {
+                backBtn.classList.add('visible');
+                backBtn.classList.remove('opacity-0', 'invisible');
+            } else {
+                backBtn.classList.remove('visible');
+                backBtn.classList.add('opacity-0', 'invisible');
+            }
+        });
+        backBtn.addEventListener('click', function () {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    </script>
+
+</body>
+
+</html>

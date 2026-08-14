@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>گفتگوها - آجرک (Jorok)</title>
+    <link rel="stylesheet" href="../../styles/output.css">
+
+    <style>
+        body {
+            background-color: #f3f4f6;
+            font-family: 'Vazirmatn', sans-serif;
+        }
+
+        /* Custom Scrollbar for Chat */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #e5e7eb;
+            border-radius: 10px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #d1d5db;
+        }
+
+        /* Modal Animation Classes */
+        .modal-backdrop {
+            transition: opacity 0.3s ease-in-out;
+        }
+
+        .modal-content {
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+    </style>
+</head>
+
+<body class="text-gray-800 text-sm antialiased selection:bg-brand selection:text-white">
+
+    <!-- Header Section -->
+    <header class="bg-white border-b border-gray-100 px-6 py-3 sticky top-0 z-30">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+
+            <!-- Right: Logo & Nav Links -->
+            <div class="flex items-center gap-8">
+                <!-- Jorok Logo Placeholder -->
+                <div class="flex items-center gap-2 cursor-pointer">
+                    <span class="font-black text-2xl tracking-tighter text-gray-900">Jorok</span>
+                    <span class="w-2.5 h-2.5 bg-brand rounded-sm rotate-45 inline-block"></span>
+                </div>
+
+                <nav class="hidden md:flex items-center gap-6 text-xs text-gray-600 font-medium">
+                    <a href="#" class="flex items-center gap-1.5 hover:text-brand transition-colors">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"
+                                d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                        </svg>
+                        صفحه اصلی سایت
+                    </a>
+                    <div class="relative group cursor-pointer">
+                        <button class="flex items-center gap-1 hover:text-brand transition-colors">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"
+                                    d="M4 6h16M4 12h16M4 18h16" />
+                            </svg>
+                            صفحات فروشگاه
+                            <svg class="w-3 h-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </button>
+                    </div>
+                </nav>
+            </div>
+
+            <!-- Left: User Profile & Quick Actions -->
+            <div class="flex items-center gap-5">
+                <button title="اعلان‌ها" class="text-gray-400 hover:text-gray-600 transition-colors relative">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"
+                            d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+                    </svg>
+                </button>
+                <button title="پیام‌ها" class="text-gray-400 hover:text-gray-600 transition-colors">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"
+                            d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                    </svg>
+                </button>
+
+                <div class="flex items-center gap-2.5 pr-2 border-r border-gray-100">
+                    <div
+                        class="w-8 h-8 rounded-full bg-gray-900 flex items-center justify-center text-white font-bold text-xs">
+                        <!-- Avatar -->
+                        👤
+                    </div>
+                    <div class="hidden sm:block text-right leading-tight">
+                        <div class="text-xs font-bold text-gray-800">نام فروشگاه</div>
+                        <div class="text-[10px] text-gray-400">نام فروشنده</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="max-w-7xl mx-auto p-4 sm:p-6 space-y-4">
+
+        <!-- Page Title Bar -->
+        <div class="bg-white rounded-xl p-4 shadow-sm flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <button class="text-gray-500 hover:text-gray-800 transition-colors">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                    </svg>
+                </button>
+                <div class="relative pb-1">
+                    <span class="font-bold text-brand text-base">گفتگوها</span>
+                    <span class="absolute bottom-0 right-0 left-0 h-0.5 bg-brand rounded-full"></span>
+                </div>
+            </div>
+
+            <!-- Demo State Toggle Button (For Testing Active Chat vs Empty State) -->
+            <button onclick="toggleEmptyState()"
+                class="text-[11px] bg-gray-100 hover:bg-gray-200 text-gray-600 px-3 py-1.5 rounded-lg transition-colors font-medium">
+                تغییر حالت (پر / خالی)
+            </button>
+        </div>
+
+        <!-- MAIN VIEW: ACTIVE CHAT SECTION -->
+        <div id="activeChatContainer" class="grid grid-cols-12 gap-4 h-[calc(100vh-210px)] min-h-[580px]">
+
+            <!-- RIGHT COLUMN: Conversations List Sidebar (4 cols on desktop) -->
+            <div
+                class="col-span-12 md:col-span-5 lg:col-span-4 bg-white rounded-2xl shadow-sm border border-gray-100 flex flex-col overflow-hidden">
+
+                <!-- Sidebar Tabs Header -->
+                <div class="flex border-b border-gray-100 px-4 pt-3 text-xs font-bold text-gray-400">
+                    <button id="tabAll" onclick="filterChats('all')"
+                        class="pb-3 px-3 text-brand border-b-2 border-brand transition-all">همه</button>
+                    <button id="tabUnread" onclick="filterChats('unread')"
+                        class="pb-3 px-3 hover:text-gray-600 transition-all">خوانده نشده</button>
+                </div>
+
+                <!-- Chat Cards List -->
+                <div class="flex-1 overflow-y-auto p-3 space-y-2 custom-scrollbar">
+
+                    <!-- Chat Item 1 (Selected/Active) -->
+                    <div class="chat-item unread p-3.5 rounded-xl border border-gray-900 bg-white cursor-pointer relative transition-all shadow-sm"
+                        onclick="selectChat(this)">
+                        <div class="flex items-start justify-between mb-1.5">
+                            <div class="flex items-center gap-2.5">
+                                <div class="relative">
+                                    <div
+                                        class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center text-gray-600 font-bold text-sm">
+                                        👤
+                                    </div>
+                                    <!-- Unread Badge -->
+                                    <span
+                                        class="absolute -top-1 -right-1 w-4 h-4 bg-red-500 text-white text-[9px] font-bold rounded-full flex items-center justify-center border-2 border-white">۲</span>
+                                </div>
+                                <span class="font-bold text-xs text-gray-800">نام کاربر</span>
+                            </div>
+                            <span class="text-[10px] text-gray-400">۱۲ دقیقه پیش</span>
+                        </div>
+                        <p class="text-[11px] text-gray-500 line-clamp-1 pr-12">لورم ایپسوم متن ساختگی با تولید سادگی
+                            نامفهوم از ....</p>
+                    </div>
+
+                    <!-- Chat Item 2 -->
+                    <div class="chat-item unread p-3.5 rounded-xl border border-gray-100 hover:border-gray-300 bg-white cursor-pointer relative transition-all"
+                        onclick="selectChat(this)">
+                        <div class="flex items-start justify-between mb-1.5">
+                            <div class="flex items-center gap-2.5">
+                                <div class="relative">
+                                    <div
+                                        class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center text-gray-600 font-bold text-sm">
+                                        👤
+                                    </div>
+                                    <span
+                                        class="absolute -top-1 -right-1 w-4 h-4 bg-red-500 text-white text-[9px] font-bold rounded-full flex items-center justify-center border-2 border-white">۲</span>
+                                </div>
+                                <span class="font-bold text-xs text-gray-800">نام کاربر</span>
+                            </div>
+                            <span class="text-[10px] text-gray-400">۱۲ دقیقه پیش</span>
+                        </div>
+                        <p class="text-[11px] text-gray-500 line-clamp-1 pr-12">لورم ایپسوم متن ساختگی با تولید سادگی
+                            نامفهوم از ....</p>
+                    </div>
+
+                    <!-- Chat Item 3 (Read) -->
+                    <div class="chat-item read p-3.5 rounded-xl border border-gray-100 hover:border-gray-300 bg-white cursor-pointer relative transition-all"
+                        onclick="selectChat(this)">
+                        <div class="flex items-start justify-between mb-1.5">
+                            <div class="flex items-center gap-2.5">
+                                <div
+                                    class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center text-gray-600 font-bold text-sm">
+                                    👤
+                                </div>
+                                <span class="font-bold text-xs text-gray-800">نام کاربر</span>
+                            </div>
+                            <span class="text-[10px] text-gray-400">۱۲ دقیقه پیش</span>
+                        </div>
+                        <p class="text-[11px] text-gray-500 line-clamp-1 pr-12">لورم ایپسوم متن ساختگی با تولید سادگی
+                            نامفهوم از ....</p>
+                    </div>
+
+                    <!-- Chat Item 4 (Read) -->
+                    <div class="chat-item read p-3.5 rounded-xl border border-gray-100 hover:border-gray-300 bg-white cursor-pointer relative transition-all"
+                        onclick="selectChat(this)">
+                        <div class="flex items-start justify-between mb-1.5">
+                            <div class="flex items-center gap-2.5">
+                                <div
+                                    class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center text-gray-600 font-bold text-sm">
+                                    👤
+                                </div>
+                                <span class="font-bold text-xs text-gray-800">نام کاربر</span>
+                            </div>
+                            <span class="text-[10px] text-gray-400">۱۲ دقیقه پیش</span>
+                        </div>
+                        <p class="text-[11px] text-gray-500 line-clamp-1 pr-12">لورم ایپسوم متن ساختگی با تولید سادگی
+                            نامفهوم از ....</p>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- LEFT COLUMN: Chat Body & Input (8 cols on desktop) -->
+            <div
+                class="col-span-12 md:col-span-7 lg:col-span-8 bg-white rounded-2xl shadow-sm border border-gray-100 flex flex-col justify-between overflow-hidden relative">
+
+                <!-- Chat Window Header -->
+                <div class="px-6 py-3.5 border-b border-gray-100 flex items-center justify-between bg-white z-10">
+                    <div class="flex items-center gap-3">
+                        <div
+                            class="w-9 h-9 rounded-full bg-gray-100 flex items-center justify-center text-gray-600 font-bold text-sm">
+                            👤
+                        </div>
+                        <span class="font-bold text-xs text-gray-800">نام کاربر</span>
+                    </div>
+
+                    <!-- 3-Dots Dropdown Trigger -->
+                    <div class="relative">
+                        <button onclick="toggleThreeDotsMenu(event)"
+                            class="text-gray-400 hover:text-gray-700 p-1 rounded-lg hover:bg-gray-50 transition-colors">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path
+                                    d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z" />
+                            </svg>
+                        </button>
+
+                        <!-- Dropdown Menu -->
+                        <div id="threeDotsMenu"
+                            class="hidden absolute left-0 top-full mt-1 w-40 bg-white rounded-xl shadow-lg border border-gray-100 py-1.5 z-20 transition-all">
+                            <button onclick="openReportModalStep1()"
+                                class="w-full text-right px-4 py-2 text-xs text-gray-700 hover:bg-gray-50 flex items-center justify-between">
+                                <span>گزارش گفتگو</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chat Messages Body -->
+                <div class="flex-1 p-6 overflow-y-auto space-y-5 bg-gray-50/40 custom-scrollbar">
+
+                    <!-- Date Badge -->
+                    <div class="flex justify-center my-2">
+                        <span
+                            class="bg-gray-200/70 text-gray-600 text-[10px] px-3 py-1 rounded-md font-medium">تاریخ</span>
+                    </div>
+
+                    <!-- USER MESSAGE WITH PRODUCT CARD (Image 2) -->
+                    <div class="flex flex-col items-start max-w-[85%] sm:max-w-[70%]">
+                        <div
+                            class="bg-brand-light border border-brand-soft p-3.5 rounded-2xl rounded-tr-none text-xs text-gray-800 space-y-3 shadow-xs">
+
+                            <!-- Product Query Card -->
+                            <div
+                                class="bg-white/80 p-2.5 rounded-xl border border-brand-soft/50 flex gap-3 items-center">
+                                <div class="w-16 h-14 bg-gray-200 rounded-lg overflow-hidden shrink-0 relative">
+                                    <!-- Product Image Mockup -->
+                                    <div class="w-full h-full bg-cover bg-center"
+                                        style="background-image: url('https://images.unsplash.com/photo-1541888946425-d0fbb186a5b3?auto=format&fit=crop&w=200&q=80');">
+                                    </div>
+                                </div>
+                                <div class="space-y-1">
+                                    <h5 class="font-bold text-[11px] text-gray-900 leading-tight">عنوان محصول در این
+                                        قسمت نوشته می‌شود.</h5>
+                                    <div class="text-[10px] text-gray-500">هر واحد <span
+                                            class="font-bold text-gray-800">۱۲,۵۰۰,۰۰۰</span> تومان</div>
+                                </div>
+                            </div>
+
+                            <!-- Text Message -->
+                            <p class="text-xs text-gray-700 leading-relaxed px-1">پیام ارسالی این قسمت نوشته می‌شود.</p>
+
+                            <div class="text-[9px] text-gray-400 text-left pt-1">۱۳:۵۲</div>
+                        </div>
+                    </div>
+
+                    <!-- REGULAR USER MESSAGE (Image 5 - Pinkish Bubble) -->
+                    <div class="flex flex-col items-start max-w-[85%] sm:max-w-[70%]">
+                        <div
+                            class="bg-brand-light border border-brand-soft px-4 py-3 rounded-2xl rounded-tr-none text-xs text-gray-800 shadow-xs">
+                            <p>لورم ایپسوم متن ساختگی با تولید سادگی</p>
+                            <div class="text-[9px] text-gray-400 text-left mt-1">۱۳:۵۲</div>
+                        </div>
+                    </div>
+
+                    <!-- VENDOR REPLY MESSAGE (Image 5 - White Bubble with Checkmarks) -->
+                    <div class="flex flex-col items-end max-w-[85%] sm:max-w-[70%] mr-auto">
+                        <div
+                            class="bg-white border border-gray-200 px-4 py-3 rounded-2xl rounded-tl-none text-xs text-gray-800 shadow-xs">
+                            <p>لورم ایپسوم متن ساختگی با تولید سادگی</p>
+                            <div class="flex items-center justify-end gap-1 text-[9px] text-gray-400 mt-1">
+                                <span>۱۳:۵۲</span>
+                                <!-- Double Check Icon -->
+                                <svg class="w-3.5 h-3.5 text-blue-500" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M5 13l4 4L19 7m-14 6l4 4L19 7" />
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Chat Input Footer Area -->
+                <div class="p-4 bg-white border-t border-gray-100">
+                    <div class="flex items-center gap-3">
+                        <button
+                            class="bg-brand hover:bg-brand-hover text-white font-bold text-xs px-5 py-2.5 rounded-xl transition-all shadow-sm shrink-0">
+                            ارسال پاسخ
+                        </button>
+
+                        <div class="flex-1 relative flex items-center">
+                            <input type="text" placeholder="پیام خود را بنویسید..."
+                                class="w-full bg-gray-50 border border-gray-200 rounded-xl py-2.5 px-4 pl-10 text-xs focus:outline-none focus:border-brand focus:bg-white transition-all">
+                            <!-- Attachment Clip Icon -->
+                            <button title="پیوست فایل"
+                                class="absolute left-3 text-gray-400 hover:text-gray-600 transition-colors">
+                                <svg class="w-5 h-5 rotate-45" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"
+                                        d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- EMPTY STATE VIEW (Hidden by default, Image 1) -->
+        <div id="emptyStateContainer"
+            class="hidden bg-white rounded-2xl p-16 shadow-sm border border-gray-100 flex flex-col items-center justify-center text-center space-y-6 my-auto min-h-[500px]">
+            <div class="relative flex items-center justify-center">
+                <!-- Outer decorative tint -->
+                <div class="w-48 h-48 bg-brand-soft/60 rounded-full flex items-center justify-center relative">
+                    <!-- Paper Plane Vector Illustration -->
+                    <svg class="w-28 h-28 text-brand/30 -rotate-12" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z" />
+                    </svg>
+                    <!-- Center '0' Badge -->
+                    <div
+                        class="absolute w-12 h-12 bg-brand/80 text-white font-bold text-xl rounded-full flex items-center justify-center shadow-md">
+                        ۰
+                    </div>
+                </div>
+                <!-- Decorative subtle circles -->
+                <div class="absolute -top-2 -right-2 w-3 h-3 bg-brand/20 rounded-full"></div>
+                <div class="absolute bottom-4 -left-4 w-2 h-2 bg-brand/30 rounded-full"></div>
+            </div>
+
+            <p class="text-sm font-bold text-gray-700">هنوز پیامی در این بخش وجود ندارد.</p>
+        </div>
+
+    </main>
+
+    <!-- ==================== POP-UPS / MODALS SYSTEM ==================== -->
+
+    <!-- BACKDROP OVERLAY -->
+    <div id="modalBackdrop"
+        class="hidden fixed inset-0 bg-black/40 backdrop-blur-xs z-40 modal-backdrop opacity-0 transition-opacity duration-300"
+        onclick="closeAllModals()"></div>
+
+    <!-- MODAL STEP 1: SELECT REPORT REASON (Image 4) -->
+    <div id="reportModalStep1"
+        class="hidden fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[92%] max-w-md bg-white rounded-2xl shadow-2xl z-50 overflow-hidden modal-content scale-95 opacity-0 transition-all duration-300">
+        <!-- Header -->
+        <div class="px-6 py-4 border-b border-gray-100 flex items-center justify-between">
+            <h3 class="font-bold text-sm text-gray-800">گزارش تخلف در گفتگو</h3>
+            <button onclick="closeAllModals()" class="text-gray-400 hover:text-gray-600 transition-colors">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+        </div>
+
+        <!-- Options List -->
+        <div class="p-4 space-y-1.5 text-xs text-gray-700">
+            <button onclick="selectReportReason('تبلیغات یا پیام‌های ناخواسته (اسپم)')"
+                class="w-full text-right p-3.5 rounded-xl hover:bg-gray-50 flex items-center justify-between group transition-colors">
+                <span>تبلیغات یا پیام‌های ناخواسته (اسپم)</span>
+                <svg class="w-4 h-4 text-gray-400 group-hover:text-gray-700 transition-colors" fill="none"
+                    stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                </svg>
+            </button>
+
+            <button onclick="selectReportReason('توهین، تهدید، مزاحمت یا محتوای نامناسب')"
+                class="w-full text-right p-3.5 rounded-xl hover:bg-gray-50 flex items-center justify-between group transition-colors">
+                <span>توهین، تهدید، مزاحمت یا محتوای نامناسب</span>
+                <svg class="w-4 h-4 text-gray-400 group-hover:text-gray-700 transition-colors" fill="none"
+                    stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                </svg>
+            </button>
+
+            <button onclick="selectReportReason('درخواست اطلاعات محرمانه یا جعل هویت')"
+                class="w-full text-right p-3.5 rounded-xl hover:bg-gray-50 flex items-center justify-between group transition-colors">
+                <span>درخواست اطلاعات محرمانه یا جعل هویت</span>
+                <svg class="w-4 h-4 text-gray-400 group-hover:text-gray-700 transition-colors" fill="none"
+                    stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                </svg>
+            </button>
+
+            <button onclick="selectReportReason('کلاهبرداری یا رفتار مشکوک')"
+                class="w-full text-right p-3.5 rounded-xl hover:bg-gray-50 flex items-center justify-between group transition-colors">
+                <span>کلاهبرداری یا رفتار مشکوک</span>
+                <svg class="w-4 h-4 text-gray-400 group-hover:text-gray-700 transition-colors" fill="none"
+                    stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                </svg>
+            </button>
+
+            <button onclick="selectReportReason('درخواست کارت به کارت یا پرداخت خارج از آجرک')"
+                class="w-full text-right p-3.5 rounded-xl hover:bg-gray-50 flex items-center justify-between group transition-colors">
+                <span>درخواست کارت به کارت یا پرداخت خارج از آجرک</span>
+                <svg class="w-4 h-4 text-gray-400 group-hover:text-gray-700 transition-colors" fill="none"
+                    stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                </svg>
+            </button>
+
+            <button onclick="selectReportReason('دلیل دیگری')"
+                class="w-full text-right p-3.5 rounded-xl hover:bg-gray-50 flex items-center justify-between group transition-colors">
+                <span>دلیل دیگری</span>
+                <svg class="w-4 h-4 text-gray-400 group-hover:text-gray-700 transition-colors" fill="none"
+                    stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <!-- MODAL STEP 2: DETAILS & CONFIRMATION FORM (Image 3) -->
+    <div id="reportModalStep2"
+        class="hidden fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[92%] max-w-md bg-white rounded-2xl shadow-2xl z-50 overflow-hidden modal-content scale-95 opacity-0 transition-all duration-300">
+        <div class="p-6 space-y-5 text-center">
+
+            <!-- Title / Selected Reason Header -->
+            <div class="space-y-1">
+                <h3 class="font-bold text-sm text-gray-800">دلیل گزارش</h3>
+                <p id="selectedReasonTitle" class="text-xs text-gray-500 font-medium">تبلیغات یا پیام‌های ناخواسته
+                    (اسپم)</p>
+            </div>
+
+            <!-- Textarea Field -->
+            <div class="text-right space-y-1.5">
+                <label class="block text-xs font-bold text-gray-700">توضیحات بیشتر</label>
+                <textarea rows="3" placeholder="برای بررسی بهتر، می‌توانید جزئیات بیشتری بنویسید."
+                    class="w-full border border-gray-200 rounded-xl p-3 text-xs focus:outline-none focus:border-brand resize-none transition-all placeholder:text-gray-400"></textarea>
+            </div>
+
+            <!-- Block Checkbox Option -->
+            <label class="flex items-start gap-2.5 text-right cursor-pointer select-none group">
+                <input type="checkbox" class="mt-0.5 rounded border-gray-300 text-brand focus:ring-brand accent-brand">
+                <div class="space-y-0.5">
+                    <span class="text-xs font-bold text-gray-800">این فروشگاه را مسدود کن</span>
+                    <p class="text-[10px] text-gray-400">پس از مسدودکردن، پیام جدیدی از این فروشگاه دریافت نمی‌کنید.</p>
+                </div>
+            </label>
+
+            <!-- Action Buttons -->
+            <div class="grid grid-cols-2 gap-3 pt-2">
+                <button onclick="submitReport()"
+                    class="bg-brand hover:bg-brand-hover text-white font-bold text-xs py-2.5 rounded-xl transition-all shadow-sm">
+                    ثبت گزارش
+                </button>
+                <button onclick="closeAllModals()"
+                    class="border border-brand text-brand hover:bg-brand-light font-bold text-xs py-2.5 rounded-xl transition-all">
+                    انصراف
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // Toggle Demo Empty State
+        function toggleEmptyState() {
+            const activeView = document.getElementById('activeChatContainer');
+            const emptyView = document.getElementById('emptyStateContainer');
+
+            activeView.classList.toggle('hidden');
+            emptyView.classList.toggle('hidden');
+        }
+
+        // Filter Chat List Tabs
+        function filterChats(type) {
+            const tabAll = document.getElementById('tabAll');
+            const tabUnread = document.getElementById('tabUnread');
+            const items = document.querySelectorAll('.chat-item');
+
+            if (type === 'all') {
+                tabAll.className = "pb-3 px-3 text-brand border-b-2 border-brand transition-all";
+                tabUnread.className = "pb-3 px-3 hover:text-gray-600 transition-all";
+                items.forEach(item => item.classList.remove('hidden'));
+            } else if (type === 'unread') {
+                tabUnread.className = "pb-3 px-3 text-brand border-b-2 border-brand transition-all";
+                tabAll.className = "pb-3 px-3 hover:text-gray-600 transition-all";
+                items.forEach(item => {
+                    if (item.classList.contains('unread')) {
+                        item.classList.remove('hidden');
+                    } else {
+                        item.classList.add('hidden');
+                    }
+                });
+            }
+        }
+
+        // Select Active Chat Item
+        function selectChat(element) {
+            document.querySelectorAll('.chat-item').forEach(el => {
+                el.classList.remove('border-gray-900', 'shadow-sm');
+                el.classList.add('border-gray-100');
+            });
+            element.classList.remove('border-gray-100');
+            element.classList.add('border-gray-900', 'shadow-sm');
+        }
+
+        // Toggle 3-Dots Dropdown Menu
+        function toggleThreeDotsMenu(event) {
+            event.stopPropagation();
+            const menu = document.getElementById('threeDotsMenu');
+            menu.classList.toggle('hidden');
+        }
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', () => {
+            const menu = document.getElementById('threeDotsMenu');
+            if (menu && !menu.classList.contains('hidden')) {
+                menu.classList.add('hidden');
+            }
+        });
+
+        // POP-UP / MODAL MANAGEMENT FUNCTIONS
+        const backdrop = document.getElementById('modalBackdrop');
+        const modal1 = document.getElementById('reportModalStep1');
+        const modal2 = document.getElementById('reportModalStep2');
+
+        function openReportModalStep1() {
+            document.getElementById('threeDotsMenu').classList.add('hidden');
+
+            backdrop.classList.remove('hidden');
+            modal1.classList.remove('hidden');
+
+            setTimeout(() => {
+                backdrop.classList.remove('opacity-0');
+                modal1.classList.remove('scale-95', 'opacity-0');
+            }, 10);
+        }
+
+        function selectReportReason(reasonText) {
+            document.getElementById('selectedReasonTitle').innerText = reasonText;
+
+            // Transition from Step 1 to Step 2
+            modal1.classList.add('scale-95', 'opacity-0');
+            setTimeout(() => {
+                modal1.classList.add('hidden');
+                modal2.classList.remove('hidden');
+                setTimeout(() => {
+                    modal2.classList.remove('scale-95', 'opacity-0');
+                }, 10);
+            }, 200);
+        }
+
+        function submitReport() {
+            alert('گزارش شما با موفقیت ثبت شد.');
+            closeAllModals();
+        }
+
+        function closeAllModals() {
+            modal1.classList.add('scale-95', 'opacity-0');
+            modal2.classList.add('scale-95', 'opacity-0');
+            backdrop.classList.add('opacity-0');
+
+            setTimeout(() => {
+                modal1.classList.add('hidden');
+                modal2.classList.add('hidden');
+                backdrop.classList.add('hidden');
+            }, 300);
+        }
+
+        // Close modals on ESC key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeAllModals();
+        });
+    </script>
+</body>
+
+</html>

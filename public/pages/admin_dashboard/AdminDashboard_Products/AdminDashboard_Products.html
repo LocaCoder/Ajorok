@@ -1,0 +1,1557 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>محصولات | Jorok</title>
+    <!-- ===== سئو ===== -->
+    <meta name="description" content="مدیریت و مشاهده محصولات، وضعیت انتشار، موجودی و قیمت در پنل ادمین." />
+    <meta name="keywords" content="محصولات, پنل ادمین, مدیریت محصول, وضعیت انتشار, موجودی" />
+    <link rel="stylesheet" href="../../../styles/output.css">
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            -webkit-font-smoothing: antialiased;
+            text-rendering: optimizeLegibility;
+        }
+
+        button,
+        a {
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        button:focus-visible,
+        input:focus-visible,
+        select:focus-visible {
+            outline: 2px solid rgba(170, 73, 56, .24);
+            outline-offset: 2px;
+        }
+
+        .hide-scrollbar {
+            scrollbar-width: none;
+        }
+
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .fade-in {
+            animation: fadeIn .16s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-5px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ===== استایل چک‌باکس و رادیو ===== */
+        .check-ui,
+        .radio-ui {
+            position: relative;
+            display: inline-grid;
+            place-items: center;
+            width: 21px;
+            height: 21px;
+            flex: 0 0 21px;
+            border: 1px solid #aaa;
+            background: white;
+        }
+
+        .check-ui {
+            border-radius: 5px;
+        }
+
+        .radio-ui {
+            border-radius: 999px;
+        }
+
+        input:checked+.check-ui {
+            border-color: #aa4938;
+            background: #aa4938;
+        }
+
+        input:checked+.check-ui::after {
+            content: '';
+            width: 8px;
+            height: 4px;
+            border-left: 2px solid white;
+            border-bottom: 2px solid white;
+            transform: rotate(-45deg) translateY(-1px);
+        }
+
+        input:checked+.radio-ui {
+            border-color: #aa4938;
+        }
+
+        input:checked+.radio-ui::after {
+            content: '';
+            width: 11px;
+            height: 11px;
+            border-radius: 999px;
+            background: #aa4938;
+        }
+
+        /* ===== نمایش موبایل ===== */
+        .mobile-product-card {
+            display: none;
+        }
+
+        @media (max-width: 767px) {
+            .desktop-table {
+                display: none;
+            }
+
+            .mobile-product-card {
+                display: block;
+            }
+
+            .mobile-product-card .product-item {
+                padding: 16px;
+                border-bottom: 1px solid #e5e5e5;
+            }
+
+            .mobile-product-card .product-item:last-child {
+                border-bottom: none;
+            }
+
+            .product-info-row {
+                display: flex;
+                justify-content: space-between;
+                padding: 4px 0;
+                font-size: 13px;
+            }
+
+            .product-info-row .label {
+                color: #777;
+                font-weight: 400;
+            }
+
+            .product-info-row .value {
+                color: #252525;
+                font-weight: 500;
+                text-align: left;
+            }
+
+            .product-title-mobile {
+                font-weight: 600;
+                font-size: 15px;
+                margin-bottom: 4px;
+            }
+        }
+
+        /* ===== فیلترهای موبایل (اسکرول افقی) ===== */
+        .filter-scroll-wrapper {
+            overflow-x: auto;
+            overflow-y: hidden;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+        }
+
+        .filter-scroll-wrapper::-webkit-scrollbar {
+            display: none;
+        }
+
+        .filter-scroll-wrapper .filter-item {
+            flex-shrink: 0;
+        }
+
+        @media (max-width: 767px) {
+            .filter-scroll-wrapper {
+                flex-wrap: nowrap !important;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .filter-scroll-wrapper {
+                flex-wrap: wrap !important;
+                overflow-x: visible;
+                overflow-y: visible;
+            }
+
+            .filter-scroll-wrapper .filter-item {
+                flex-shrink: 1;
+            }
+        }
+
+        /* ===== پاپ‌آپ موبایل (Bottom Sheet) ===== */
+        @media (max-width: 767px) {
+            .dropdown-menu.mobile-bottom {
+                position: fixed !important;
+                bottom: 0 !important;
+                left: 0 !important;
+                right: 0 !important;
+                top: auto !important;
+                max-height: 80vh !important;
+                width: 100% !important;
+                max-width: 100% !important;
+                border-radius: 16px 16px 0 0 !important;
+                transform: translateY(100%);
+                transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                box-shadow: 0 -8px 30px rgba(0, 0, 0, 0.12) !important;
+                border: none !important;
+                border-top: 1px solid #e5e5e5 !important;
+                z-index: 100 !important;
+            }
+
+            .dropdown-menu.mobile-bottom.open {
+                transform: translateY(0);
+            }
+
+            .dropdown-menu.mobile-bottom .drag-handle {
+                display: block !important;
+                width: 40px;
+                height: 4px;
+                background: #d1d1d1;
+                border-radius: 999px;
+                margin: 10px auto 6px;
+            }
+
+            .dropdown-menu.mobile-bottom .close-dropdown {
+                display: none !important;
+            }
+        }
+
+        /* ===== Overlay موبایل ===== */
+        #mobileOverlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.3);
+            z-index: 99;
+            transition: opacity 0.3s ease;
+        }
+
+        #mobileOverlay.show {
+            display: block;
+        }
+
+        /* ===== صفحه‌بندی ===== */
+        .page-btn {
+            transition: all 0.15s ease;
+        }
+
+        .page-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
+        .page-num {
+            transition: all 0.15s ease;
+        }
+
+        .page-num:hover:not(.bg-custom-brown) {
+            background: #f3f3f3;
+        }
+
+        .page-num.bg-custom-brown {
+            color: white;
+        }
+    </style>
+</head>
+
+<body class="font-IRANSansXRegular min-h-screen bg-[#f3f3f3] text-[#252525]">
+
+    <!-- Header -->
+    <header class="h-[72px] border-b border-[#ececec] bg-white" role="banner">
+        <div class="mx-auto flex h-full max-w-[1536px] items-center justify-between px-4 sm:px-6 lg:px-[60px]">
+            <div class="flex items-center gap-4">
+                <img src="../../../images/logo/Logo.svg" alt="لوگو فروشگاه" />
+                <span class="hidden h-10 w-px bg-[#d9d9d9] sm:block" aria-hidden="true"></span>
+                <nav class="hidden items-center gap-8 md:flex" aria-label="منوی اصلی">
+                    <a href="#" class="flex items-center gap-2 text-[15px] font-medium text-[#2b2b2b]">
+                        <img src="../../../images/Header/home 04.svg" alt="آیکون خانه" />
+                        صفحه اصلی
+                    </a>
+                    <button class="flex items-center gap-2 text-[15px] font-medium text-[#2b2b2b]" aria-expanded="false">
+                        <img src="../../../images/Header/grid 02.svg" alt="آیکون صفحات" />
+                        صفحات پنل
+                        <img src="../../../images/Header/direction-down 01.svg" alt="باز کردن منو" />
+                    </button>
+                </nav>
+            </div>
+            <div class="flex items-center gap-3 sm:gap-7" dir="ltr">
+                <div class="flex items-center gap-3">
+                    <div class="h-9 w-9 rounded-full bg-[#202020]" role="img" aria-label="آواتار ادمین"></div>
+                    <div class="hidden leading-tight sm:block">
+                        <div class="text-[14px] font-medium text-[#222]">ادمین</div>
+                        <div class="mt-1 text-[11px] font-light text-[#777]">سطح ادمین</div>
+                    </div>
+                </div>
+                <div class="hidden items-center gap-3 sm:flex lg:gap-5">
+                    <button class="grid h-9 w-9 place-items-center rounded-lg hover:bg-[#f7f7f7]" aria-label="اعلان‌ها">
+                        <img src="../../../images/Header/notification.svg" alt="آیکون اعلان" />
+                    </button>
+                    <button class="grid h-9 w-9 place-items-center rounded-lg hover:bg-[#f7f7f7]" aria-label="پیام‌ها">
+                        <img src="../../../images/Header/mail.svg" alt="آیکون پیام" />
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main -->
+    <main class="mx-auto w-full max-w-[1200px] px-4 pb-20 pt-[54px] lg:px-0" role="main">
+
+        <!-- Breadcrumb -->
+        <nav class="mb-5 flex items-center gap-3 px-1 text-[13px] text-[#777]" aria-label="مسیر یابی">
+            <a href="#" class="hover:text-custom-brown">داشبورد</a>
+            <span aria-hidden="true">‹</span>
+            <span class="font-medium text-[#222]" aria-current="page">محصولات</span>
+        </nav>
+
+        <!-- Page title -->
+        <section class="rounded-[14px] bg-white px-6 py-[22px] shadow-soft lg:px-7">
+            <div class="flex items-center justify-between">
+                <button type="button" class="text-[#222]" aria-label="بازگشت">
+                    <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"
+                        aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M19 12H5m7-7-7 7 7 7" />
+                    </svg>
+                </button>
+                <h1 class="border-b-2 border-custom-brown px-5 pb-3 text-[17px] font-semibold text-custom-brown">محصولات</h1>
+            </div>
+        </section>
+
+        <!-- Products table card -->
+        <section class="mt-[34px] rounded-[14px] bg-white px-6 py-6 shadow-soft lg:px-7">
+
+            <!-- Search -->
+            <div class="flex flex-col-reverse gap-3 md:flex-row md:items-center">
+                <div class="relative flex-1">
+                    <input id="searchInput" type="search" placeholder="جست‌وجو" aria-label="جستجوی محصولات"
+                        class="h-[46px] w-full rounded-[8px] border border-[#a8a8a8] pr-4 pl-12 text-[14px] placeholder:text-[#a1a1a1] focus:border-custom-brown" />
+                    <svg class="pointer-events-none absolute left-4 top-1/2 h-6 w-6 -translate-y-1/2 text-[#9b9b9b]"
+                        fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                        <circle cx="11" cy="11" r="7" />
+                        <path stroke-linecap="round" d="m16.5 16.5 4 4" />
+                    </svg>
+                </div>
+                <button id="filterBtn" type="button"
+                    class="flex h-[46px] min-w-[105px] items-center justify-center gap-3 rounded-[8px] border border-custom-brown bg-white px-4 text-[14px] font-medium text-custom-brown hover:bg-[#fbf2ef]">
+                    <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.7"
+                        aria-hidden="true">
+                        <path stroke-linecap="round" d="M4 7h8m4 0h4M4 17h4m4 0h8M12 4v6m-4 4v6m8-10v6" />
+                        <circle cx="12" cy="7" r="1.5" />
+                        <circle cx="8" cy="17" r="1.5" />
+                        <circle cx="16" cy="13" r="1.5" />
+                    </svg>
+                    فیلتر
+                </button>
+            </div>
+
+            <!-- Status tabs -->
+            <div class="mt-6 flex justify-end border-b border-[#d7d7d7]">
+                <button data-status-tab="all"
+                    class="status-tab border-b-2 border-custom-brown px-5 pb-3 text-[14px] font-semibold text-custom-brown">همه</button>
+                <button data-status-tab="pending"
+                    class="status-tab border-b-2 border-transparent px-5 pb-3 text-[14px]">در انتظار تایید</button>
+            </div>
+
+            <!-- Controls -->
+            <div class="mt-5 flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+                <!-- ===== فیلترهای اسکرول‌شونده موبایل ===== -->
+                <div class="flex flex-wrap items-center gap-3 filter-scroll-wrapper py-2">
+                    <!-- Sort -->
+                    <div class="filter-item relative">
+                        <button data-dropdown="sortMenu"
+                            class="dropdown-trigger flex h-[39px] min-w-[180px] items-center justify-between gap-2 rounded-full border border-[#c9c9c9] bg-white px-4 text-[13px] whitespace-nowrap hover:border-custom-brown">
+                            <span id="sortLabel" class="truncate max-w-[110px]">مرتب‌سازی: جدیدترین</span>
+                            <svg class="h-4 w-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                                stroke-width="1.8" aria-hidden="true">
+                                <path stroke-linecap="round" d="m6 9 6 6 6-6" />
+                            </svg>
+                        </button>
+                        <div id="sortMenu"
+                            class="dropdown-menu absolute right-0 top-[48px] z-30 hidden w-[350px] max-w-[calc(100vw-32px)] overflow-hidden rounded-[9px] border border-gray-300 bg-white shadow-popup"
+                            role="dialog" aria-label="مرتب‌سازی">
+                            <div class="drag-handle hidden"></div>
+                            <div class="flex h-[57px] items-center justify-between border-b border-line px-6">
+                                <h2 class="text-[18px] font-medium">مرتب‌سازی</h2>
+                                <button data-close-popup aria-label="بستن"
+                                    class="close-dropdown grid h-8 w-8 place-items-center text-[#273444]">
+                                    <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                                        stroke-width="1.7" aria-hidden="true">
+                                        <path stroke-linecap="round" d="M6 6l12 12M18 6 6 18" />
+                                    </svg>
+                                </button>
+                            </div>
+                            <div class="space-y-6 px-6 py-5 text-[15px]">
+                                <label class="flex cursor-pointer items-center gap-4">
+                                    <span class="flex"><input class="peer sr-only" type="radio" name="sort"
+                                            value="updated" checked><span class="radio-ui"></span></span>
+                                    <span>جدیدترین به‌روزرسانی</span>
+                                </label>
+                                <label class="flex cursor-pointer items-center gap-4">
+                                    <span class="flex"><input class="peer sr-only" type="radio" name="sort"
+                                            value="oldest"><span class="radio-ui"></span></span>
+                                    <span>قدیمی‌ترین به‌روزرسانی</span>
+                                </label>
+                                <label class="flex cursor-pointer items-center gap-4">
+                                    <span class="flex"><input class="peer sr-only" type="radio" name="sort"
+                                            value="highest"><span class="radio-ui"></span></span>
+                                    <span>بیشترین قیمت</span>
+                                </label>
+                                <label class="flex cursor-pointer items-center gap-4">
+                                    <span class="flex"><input class="peer sr-only" type="radio" name="sort"
+                                            value="lowest"><span class="radio-ui"></span></span>
+                                    <span>کمترین قیمت</span>
+                                </label>
+                                <label class="flex cursor-pointer items-center gap-4">
+                                    <span class="flex"><input class="peer sr-only" type="radio" name="sort"
+                                            value="stock"><span class="radio-ui"></span></span>
+                                    <span>بیشترین موجودی</span>
+                                </label>
+                            </div>
+                            <div class="flex items-center justify-end border-t border-line px-6 py-4">
+                                <button data-clear-sort class="text-[14px] text-custom-brown">حذف فیلتر</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Stock -->
+                    <div class="filter-item relative">
+                        <button data-dropdown="stockMenu"
+                            class="dropdown-trigger flex h-[39px] min-w-[90px] items-center justify-between gap-2 rounded-full border border-[#c9c9c9] bg-white px-4 text-[13px] whitespace-nowrap hover:border-custom-brown">
+                            موجودی
+                            <svg class="h-4 w-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                                stroke-width="1.8" aria-hidden="true">
+                                <path stroke-linecap="round" d="m6 9 6 6 6-6" />
+                            </svg>
+                        </button>
+                        <div id="stockMenu"
+                            class="dropdown-menu absolute right-0 top-[48px] z-30 hidden w-[350px] max-w-[calc(100vw-32px)] overflow-hidden rounded-[9px] border border-gray-300 bg-white shadow-popup"
+                            role="dialog" aria-label="موجودی">
+                            <div class="drag-handle hidden"></div>
+                            <div class="flex h-[57px] items-center justify-between border-b border-line px-6">
+                                <h2 class="text-[18px] font-medium">موجودی</h2>
+                                <button data-close-popup aria-label="بستن"
+                                    class="close-dropdown grid h-8 w-8 place-items-center text-[#273444]">
+                                    <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                                        stroke-width="1.7" aria-hidden="true">
+                                        <path stroke-linecap="round" d="M6 6l12 12M18 6 6 18" />
+                                    </svg>
+                                </button>
+                            </div>
+                            <div class="space-y-6 px-6 py-5 text-[15px]">
+                                <label class="flex cursor-pointer items-center justify-between">
+                                    <span>موجود</span>
+                                    <span class="flex"><input data-stock-filter value="available" type="checkbox"
+                                            class="sr-only"><span class="check-ui"></span></span>
+                                </label>
+                                <label class="flex cursor-pointer items-center justify-between">
+                                    <span>موجودی محدود</span>
+                                    <span class="flex"><input data-stock-filter value="limited" type="checkbox"
+                                            class="sr-only"><span class="check-ui"></span></span>
+                                </label>
+                                <label class="flex cursor-pointer items-center justify-between">
+                                    <span>ناموجود</span>
+                                    <span class="flex"><input data-stock-filter value="unavailable" type="checkbox"
+                                            class="sr-only"><span class="check-ui"></span></span>
+                                </label>
+                            </div>
+                            <div class="flex items-center justify-end border-t border-line px-6 py-4">
+                                <button data-clear="stock" class="text-[14px] text-custom-brown">حذف فیلتر</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Publish -->
+                    <div class="filter-item relative">
+                        <button data-dropdown="publishMenu"
+                            class="dropdown-trigger flex h-[39px] min-w-[110px] items-center justify-between gap-2 rounded-full border border-[#c9c9c9] bg-white px-4 text-[13px] whitespace-nowrap hover:border-custom-brown">
+                            وضعیت انتشار
+                            <svg class="h-4 w-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                                stroke-width="1.8" aria-hidden="true">
+                                <path stroke-linecap="round" d="m6 9 6 6 6-6" />
+                            </svg>
+                        </button>
+                        <div id="publishMenu"
+                            class="dropdown-menu absolute right-0 top-[48px] z-30 hidden w-[350px] max-w-[calc(100vw-32px)] overflow-hidden rounded-[9px] border border-gray-300 bg-white shadow-popup"
+                            role="dialog" aria-label="وضعیت انتشار">
+                            <div class="drag-handle hidden"></div>
+                            <div class="flex h-[57px] items-center justify-between border-b border-line px-6">
+                                <h2 class="text-[18px] font-medium">وضعیت انتشار</h2>
+                                <button data-close-popup aria-label="بستن"
+                                    class="close-dropdown grid h-8 w-8 place-items-center text-[#273444]">
+                                    <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                                        stroke-width="1.7" aria-hidden="true">
+                                        <path stroke-linecap="round" d="M6 6l12 12M18 6 6 18" />
+                                    </svg>
+                                </button>
+                            </div>
+                            <div class="space-y-6 px-6 py-5 text-[15px]">
+                                <label class="flex cursor-pointer items-center justify-between">
+                                    <span>منتشر شده</span>
+                                    <span class="flex"><input data-publish-filter value="published" type="checkbox"
+                                            class="sr-only"><span class="check-ui"></span></span>
+                                </label>
+                                <label class="flex cursor-pointer items-center justify-between">
+                                    <span>در انتظار تایید</span>
+                                    <span class="flex"><input data-publish-filter value="pending" type="checkbox"
+                                            class="sr-only"><span class="check-ui"></span></span>
+                                </label>
+                                <label class="flex cursor-pointer items-center justify-between">
+                                    <span>رد شده</span>
+                                    <span class="flex"><input data-publish-filter value="rejected" type="checkbox"
+                                            class="sr-only"><span class="check-ui"></span></span>
+                                </label>
+                                <label class="flex cursor-pointer items-center justify-between">
+                                    <span>بایگانی شده</span>
+                                    <span class="flex"><input data-publish-filter value="archived" type="checkbox"
+                                            class="sr-only"><span class="check-ui"></span></span>
+                                </label>
+                            </div>
+                            <div class="flex items-center justify-end border-t border-line px-6 py-4">
+                                <button data-clear="publish" class="text-[14px] text-custom-brown">حذف فیلتر</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Store -->
+                    <div class="filter-item relative">
+                        <button data-dropdown="storeMenu"
+                            class="dropdown-trigger flex h-[39px] min-w-[90px] items-center justify-between gap-2 rounded-full border border-[#c9c9c9] bg-white px-4 text-[13px] whitespace-nowrap hover:border-custom-brown">
+                            فروشگاه
+                            <svg class="h-4 w-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                                stroke-width="1.8" aria-hidden="true">
+                                <path stroke-linecap="round" d="m6 9 6 6 6-6" />
+                            </svg>
+                        </button>
+                        <div id="storeMenu"
+                            class="dropdown-menu absolute right-0 top-[48px] z-30 hidden w-[350px] max-w-[calc(100vw-32px)] overflow-hidden rounded-[9px] border border-gray-300 bg-white shadow-popup"
+                            role="dialog" aria-label="فروشگاه">
+                            <div class="drag-handle hidden"></div>
+                            <div class="flex h-[57px] items-center justify-between border-b border-line px-6">
+                                <h2 class="text-[18px] font-medium">فروشگاه</h2>
+                                <button data-close-popup aria-label="بستن"
+                                    class="close-dropdown grid h-8 w-8 place-items-center text-[#273444]">
+                                    <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                                        stroke-width="1.7" aria-hidden="true">
+                                        <path stroke-linecap="round" d="M6 6l12 12M18 6 6 18" />
+                                    </svg>
+                                </button>
+                            </div>
+                            <div class="space-y-4 px-6 py-5 text-[15px]">
+                                <input id="storeSearch" type="search" placeholder="جست‌وجوی فروشگاه"
+                                    class="h-10 w-full rounded-lg border border-[#c9c9c9] px-3 text-[13px]" />
+                                <div id="storeFilterList" class="space-y-5">
+                                    <label class="flex cursor-pointer items-center justify-between">
+                                        <span>نام کامل فروشگاه</span>
+                                        <span class="flex"><input data-store-filter value="نام کامل فروشگاه"
+                                                type="checkbox" class="sr-only"><span class="check-ui"></span></span>
+                                    </label>
+                                    <label class="flex cursor-pointer items-center justify-between">
+                                        <span>فروشگاه سازه برتر</span>
+                                        <span class="flex"><input data-store-filter value="فروشگاه سازه برتر"
+                                                type="checkbox" class="sr-only"><span class="check-ui"></span></span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-end border-t border-line px-6 py-4">
+                                <button data-clear="store" class="text-[14px] text-custom-brown">حذف فیلتر</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-3 text-[12px] text-[#777] shrink-0">
+                    <span>تعداد نتایج: <strong id="resultCount" class="font-normal text-[#555]">۱۲۳</strong></span>
+                    <span class="h-5 w-px bg-[#d0d0d0]" aria-hidden="true"></span>
+                    <label class="flex items-center gap-2">تعداد نمایش
+                        <select id="pageSize"
+                            class="h-8 rounded-[5px] border border-[#c9c9c9] bg-white px-2 text-[12px]"
+                            aria-label="تعداد نمایش در هر صفحه">
+                            <option value="5">۵</option>
+                            <option value="10" selected>۱۰</option>
+                            <option value="20">۲۰</option>
+                            <option value="50">۵۰</option>
+                        </select>
+                    </label>
+                </div>
+            </div>
+
+            <!-- ===== Table - Desktop ===== -->
+            <div class="mt-6 overflow-x-auto rounded-[14px] border border-[#cfcfcf] desktop-table">
+                <table id="productsTable" class="w-full min-w-[1050px] border-collapse text-[13px]">
+                    <thead class="bg-[#f3f3f3] text-[#444]">
+                        <tr class="h-[58px]">
+                            <th class="px-5 text-right font-medium">نام محصول</th>
+                            <th class="px-4 text-center font-medium">نام فروشگاه</th>
+                            <th class="px-4 text-center font-medium">قیمت (تومان) / واحد</th>
+                            <th class="px-4 text-center font-medium">موجودی</th>
+                            <th class="px-4 text-center font-medium">وضعیت موجودی</th>
+                            <th class="px-4 text-center font-medium">انتشار</th>
+                            <th class="w-[80px] px-4 text-center font-medium">عملیات</th>
+                        </tr>
+                    </thead>
+                    <tbody id="productsBody"></tbody>
+                </table>
+                <div id="emptyState" class="hidden py-16 text-center text-sm text-[#777]">محصولی مطابق جست‌وجو یا
+                    فیلترهای انتخابی پیدا نشد.</div>
+            </div>
+
+            <!-- ===== Mobile - Cards ===== -->
+            <div id="mobileProductList"
+                class="mobile-product-card mt-6 rounded-[14px] border border-[#cfcfcf] divide-y divide-[#e5e5e5] bg-white">
+            </div>
+
+            <!-- Pagination -->
+            <div class="mt-6 flex items-center justify-center gap-2 text-[13px]" dir="ltr">
+                <button id="prevPage"
+                    class="page-btn text-custom-brown h-8 w-8 rounded-full hover:bg-gray-100 flex items-center justify-center"
+                    aria-label="قبلی">
+                    <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"
+                        aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+                    </svg>
+                </button>
+                <div id="paginationNumbers" class="flex items-center gap-1"></div>
+                <button id="nextPage"
+                    class="page-btn text-custom-brown h-8 w-8 rounded-full hover:bg-gray-100 flex items-center justify-center"
+                    aria-label="بعدی">
+                    <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"
+                        aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+                    </svg>
+                </button>
+            </div>
+        </section>
+    </main>
+
+    <!-- Filter drawer -->
+    <div id="drawerBackdrop" class="fixed inset-0 z-40 hidden bg-black/25" aria-hidden="true"></div>
+    <aside id="filterDrawer"
+        class="fixed bottom-0 right-0 top-0 z-50 w-full max-w-[390px] translate-x-full bg-white shadow-2xl transition-transform duration-200"
+        role="dialog" aria-label="فیلترها" aria-modal="true">
+        <div class="flex h-full flex-col">
+            <header class="flex items-center justify-between border-b px-6 py-4">
+                <h2 class="text-[18px] font-bold">فیلترها</h2>
+                <div class="flex items-center gap-5">
+                    <button id="clearAllFilters" class="text-[14px] text-custom-brown">حذف فیلترها</button>
+                    <button id="closeDrawer" class="text-2xl leading-none" aria-label="بستن">×</button>
+                </div>
+            </header>
+
+            <div class="flex-1 overflow-y-auto px-6 py-6">
+                <section>
+                    <h3 class="mb-5 font-semibold">وضعیت انتشار</h3>
+                    <div class="space-y-5 text-[14px]">
+                        <label class="flex cursor-pointer items-center justify-between">
+                            <span>منتشر شده</span>
+                            <span class="flex"><input data-drawer-publish value="published" type="checkbox"
+                                    class="sr-only"><span class="check-ui"></span></span>
+                        </label>
+                        <label class="flex cursor-pointer items-center justify-between">
+                            <span>در انتظار تایید</span>
+                            <span class="flex"><input data-drawer-publish value="pending" type="checkbox"
+                                    class="sr-only"><span class="check-ui"></span></span>
+                        </label>
+                        <label class="flex cursor-pointer items-center justify-between">
+                            <span>رد شده</span>
+                            <span class="flex"><input data-drawer-publish value="rejected" type="checkbox"
+                                    class="sr-only"><span class="check-ui"></span></span>
+                        </label>
+                    </div>
+                </section>
+
+                <hr class="my-7" />
+
+                <section>
+                    <h3 class="mb-5 font-semibold">موجودی</h3>
+                    <div class="space-y-5 text-[14px]">
+                        <label class="flex cursor-pointer items-center justify-between">
+                            <span>موجود</span>
+                            <span class="flex"><input data-drawer-stock value="available" type="checkbox"
+                                    class="sr-only"><span class="check-ui"></span></span>
+                        </label>
+                        <label class="flex cursor-pointer items-center justify-between">
+                            <span>موجودی محدود</span>
+                            <span class="flex"><input data-drawer-stock value="limited" type="checkbox"
+                                    class="sr-only"><span class="check-ui"></span></span>
+                        </label>
+                        <label class="flex cursor-pointer items-center justify-between">
+                            <span>ناموجود</span>
+                            <span class="flex"><input data-drawer-stock value="unavailable" type="checkbox"
+                                    class="sr-only"><span class="check-ui"></span></span>
+                        </label>
+                    </div>
+                </section>
+
+                <hr class="my-7" />
+
+                <section>
+                    <h3 class="mb-5 font-semibold">بازه قیمت</h3>
+                    <div class="grid grid-cols-2 gap-3">
+                        <label>
+                            <span class="mb-2 block text-[13px] text-[#666]">از قیمت</span>
+                            <input id="drawerMinPrice" inputmode="numeric" placeholder="۰"
+                                class="h-11 w-full rounded-lg border border-[#c9c9c9] px-3 text-[14px]" />
+                        </label>
+                        <label>
+                            <span class="mb-2 block text-[13px] text-[#666]">تا قیمت</span>
+                            <input id="drawerMaxPrice" inputmode="numeric" placeholder="۵۰۰,۰۰۰,۰۰۰"
+                                class="h-11 w-full rounded-lg border border-[#c9c9c9] px-3 text-[14px]" />
+                        </label>
+                    </div>
+                </section>
+            </div>
+
+            <footer class="border-t bg-white p-6">
+                <button id="applyDrawerFilters"
+                    class="h-12 w-full rounded-[7px] bg-custom-brown text-[15px] font-medium text-white">اعمال
+                    فیلتر</button>
+            </footer>
+        </div>
+    </aside>
+
+    <!-- Overlay مخصوص موبایل برای پاپ‌آپ‌های Bottom Sheet -->
+    <div id="mobileOverlay" class="hidden fixed inset-0 z-[99] bg-black/30" aria-hidden="true"></div>
+
+    <!-- Product action menu portal -->
+    <div id="floatingMenuHost"></div>
+
+    <!-- Modal -->
+    <div id="modalBackdrop" class="fixed inset-0 z-40 hidden bg-black/30" aria-hidden="true"></div>
+    <section id="modal"
+        class="fixed left-1/2 top-1/2 z-50 hidden w-[calc(100%-32px)] max-w-[520px] -translate-x-1/2 -translate-y-1/2 rounded-2xl bg-white shadow-2xl fade-in"
+        role="dialog" aria-label="جزئیات محصول" aria-modal="true">
+        <header class="flex items-center justify-between border-b px-6 py-4">
+            <h3 id="modalTitle" class="text-[17px] font-bold">جزئیات محصول</h3>
+            <button id="closeModal" type="button" class="text-2xl leading-none" aria-label="بستن">×</button>
+        </header>
+        <div id="modalBody" class="px-6 py-6"></div>
+    </section>
+
+    <!-- Toast -->
+    <div id="toast"
+        class="fixed bottom-5 left-1/2 z-[70] hidden -translate-x-1/2 rounded-xl bg-[#222] px-5 py-3 text-sm text-white shadow-xl"
+        role="alert" aria-live="polite"></div>
+
+    <script>
+        (function () {
+            'use strict';
+
+            // ===== تبدیل اعداد =====
+            const toFa = value => String(value).replace(/\d/g, d => '۰۱۲۳۴۵۶۷۸۹'[d]);
+            const money = value => typeof value === 'number' ? toFa(value.toLocaleString('en-US')) : value;
+
+            const stockMeta = {
+                available: { label: 'موجود', classes: 'bg-[#dcf6e8] text-[#16864a]' },
+                limited: { label: 'موجودی محدود', classes: 'bg-[#eee8ff] text-[#7142d6]' },
+                unavailable: { label: 'ناموجود', classes: 'bg-[#fde3e3] text-[#c53a3a]' }
+            };
+
+            const publishMeta = {
+                published: { label: 'منتشر شده', classes: 'bg-[#dcf6e8] text-[#16864a]' },
+                pending: { label: 'در انتظار تایید', classes: 'bg-[#fff0d8] text-[#db8b15]' },
+                rejected: { label: 'رد شده', classes: 'bg-[#fde3e3] text-[#c53a3a]' },
+                archived: { label: 'بایگانی شده', classes: 'bg-[#eeeeee] text-[#666]' }
+            };
+
+            // ===== داده نمونه =====
+            const products = Array.from({ length: 12 }, (_, index) => ({
+                id: index + 1,
+                title: 'عنوان محصول عنوان محصول عنوان محصول عنوان محصول عنوان محصول عنوان محصول',
+                store: 'نام کامل فروشگاه',
+                storeSubtitle: 'طولانی شد دوخط بشه',
+                price: 5000000000,
+                unit: 'واحد',
+                stock: 123456 - index * 100,
+                stockStatus: ['available', 'limited', 'unavailable'][index % 3],
+                publishStatus: ['published', 'pending', 'rejected', 'archived'][index % 4],
+                updatedAt: 100 - index
+            }));
+
+            // ===== State =====
+            const state = {
+                query: '',
+                activeTab: 'all',
+                sort: 'updated',
+                stockStatuses: new Set(),
+                publishStatuses: new Set(),
+                stores: new Set(),
+                minPrice: null,
+                maxPrice: null,
+                currentPage: 1,
+                pageSize: 10
+            };
+
+            // ===== ابزارها =====
+            const $ = (s, root = document) => root.querySelector(s);
+            const $$ = (s, root = document) => [...root.querySelectorAll(s)];
+
+            let toastTimer = null;
+
+            function showToast(message) {
+                const toast = $('#toast');
+                if (!toast) return;
+                toast.textContent = message;
+                toast.classList.remove('hidden');
+                clearTimeout(toastTimer);
+                toastTimer = setTimeout(() => toast.classList.add('hidden'), 2200);
+            }
+
+            // ===== تشخیص موبایل =====
+            function isMobile() {
+                return window.innerWidth < 768;
+            }
+
+            // ===== مدیریت پاپ‌آپ‌های موبایل (Bottom Sheet) =====
+            const mobileOverlay = document.getElementById('mobileOverlay');
+            let activeMobileMenu = null;
+
+            function openMobileMenu(menuId) {
+                closeMobileMenu();
+                const menu = document.getElementById(menuId);
+                if (!menu) return;
+
+                document.querySelectorAll('.dropdown-menu').forEach(m => {
+                    if (m.id !== menuId) m.classList.add('hidden');
+                });
+
+                if (isMobile()) {
+                    menu.classList.add('mobile-bottom');
+                    menu.classList.remove('hidden');
+                    if (mobileOverlay) {
+                        mobileOverlay.classList.add('show');
+                        mobileOverlay.style.display = 'block';
+                    }
+                    document.body.classList.add('overflow-hidden');
+
+                    requestAnimationFrame(() => {
+                        menu.classList.add('open');
+                    });
+                    activeMobileMenu = menuId;
+                } else {
+                    menu.classList.remove('mobile-bottom', 'open');
+                    menu.classList.remove('hidden');
+                }
+            }
+
+            function closeMobileMenu() {
+                if (activeMobileMenu) {
+                    const menu = document.getElementById(activeMobileMenu);
+                    if (menu) {
+                        menu.classList.remove('open');
+                        setTimeout(() => {
+                            menu.classList.add('hidden');
+                            menu.classList.remove('mobile-bottom');
+                        }, 300);
+                    }
+                    if (mobileOverlay) {
+                        mobileOverlay.classList.remove('show');
+                        mobileOverlay.style.display = 'none';
+                    }
+                    document.body.classList.remove('overflow-hidden');
+                    activeMobileMenu = null;
+                }
+            }
+
+            // ===== فیلتر و رندر =====
+            function getFilteredProducts() {
+                let data = [...products];
+
+                if (state.query.trim()) {
+                    const q = state.query.trim();
+                    data = data.filter(item =>
+                        item.title.includes(q) ||
+                        item.store.includes(q) ||
+                        item.storeSubtitle.includes(q) ||
+                        String(item.price).includes(q)
+                    );
+                }
+
+                if (state.activeTab === 'pending') {
+                    data = data.filter(item => item.publishStatus === 'pending');
+                }
+
+                if (state.stockStatuses.size) {
+                    data = data.filter(item => state.stockStatuses.has(item.stockStatus));
+                }
+
+                if (state.publishStatuses.size) {
+                    data = data.filter(item => state.publishStatuses.has(item.publishStatus));
+                }
+
+                if (state.stores.size) {
+                    data = data.filter(item => state.stores.has(item.store));
+                }
+
+                if (state.minPrice !== null) {
+                    data = data.filter(item => item.price >= state.minPrice);
+                }
+                if (state.maxPrice !== null) {
+                    data = data.filter(item => item.price <= state.maxPrice);
+                }
+
+                if (state.sort === 'oldest') data.sort((a, b) => a.updatedAt - b.updatedAt);
+                else if (state.sort === 'updated') data.sort((a, b) => b.updatedAt - a.updatedAt);
+                else if (state.sort === 'highest') data.sort((a, b) => b.price - a.price);
+                else if (state.sort === 'lowest') data.sort((a, b) => a.price - b.price);
+                else if (state.sort === 'stock') data.sort((a, b) => b.stock - a.stock);
+
+                return data;
+            }
+
+            function getPaginatedData(data) {
+                const start = (state.currentPage - 1) * state.pageSize;
+                const end = start + state.pageSize;
+                return data.slice(start, end);
+            }
+
+            function renderPagination(totalPages) {
+                let html = '';
+                const current = state.currentPage;
+                const maxVisible = 5;
+                let startPage = Math.max(1, current - Math.floor(maxVisible / 2));
+                let endPage = Math.min(totalPages, startPage + maxVisible - 1);
+                if (endPage - startPage < maxVisible - 1) {
+                    startPage = Math.max(1, endPage - maxVisible + 1);
+                }
+                if (startPage > 1) {
+                    html += `<button class="page-num h-8 w-8 rounded-full text-center text-[13px]" data-page="1">1</button>`;
+                    if (startPage > 2) html += `<span class="h-8 w-8 text-center text-[13px]">...</span>`;
+                }
+                for (let i = startPage; i <= endPage; i++) {
+                    const active = i === current ? 'bg-custom-brown text-white' : 'hover:bg-gray-100';
+                    html += `<button class="page-num h-8 w-8 rounded-full text-center text-[13px] ${active}" data-page="${i}">${i}</button>`;
+                }
+                if (endPage < totalPages) {
+                    if (endPage < totalPages - 1) html += `<span class="h-8 w-8 text-center text-[13px]">...</span>`;
+                    html += `<button class="page-num h-8 w-8 rounded-full text-center text-[13px]" data-page="${totalPages}">${totalPages}</button>`;
+                }
+                const paginationNumbers = document.getElementById('paginationNumbers');
+                if (paginationNumbers) {
+                    paginationNumbers.innerHTML = html || `<span class="text-sm text-gray-400">صفحه ۱</span>`;
+                }
+
+                $$('.page-num').forEach(btn => {
+                    btn.addEventListener('click', function () {
+                        const page = parseInt(this.dataset.page, 10);
+                        if (!isNaN(page) && page !== state.currentPage) {
+                            state.currentPage = page;
+                            renderProducts();
+                        }
+                    });
+                });
+            }
+
+            function rowTemplate(product) {
+                const stock = stockMeta[product.stockStatus];
+                const publish = publishMeta[product.publishStatus];
+
+                return `
+                    <tr class="h-[82px] border-b border-[#d7d7d7] last:border-b-0">
+                        <td class="px-5">
+                            <div class="flex items-center gap-4">
+                                <span class="h-[48px] w-[48px] shrink-0 rounded-[5px] bg-custom-brown" role="img" aria-label="تصویر محصول"></span>
+                                <p class="max-w-[270px] leading-6">${product.title}</p>
+                            </div>
+                        </td>
+                        <td class="px-4 text-center leading-6">
+                            <p>${product.store}</p>
+                            <p>${product.storeSubtitle}</p>
+                        </td>
+                        <td class="px-4 text-center leading-6">
+                            <p>${money(product.price)}</p>
+                            <p>${product.unit}</p>
+                        </td>
+                        <td class="px-4 text-center">${toFa(product.stock)}</td>
+                        <td class="px-4 text-center">
+                            <span class="inline-flex rounded-[4px] px-3 py-2 text-[12px] font-medium ${stock.classes}">${stock.label}</span>
+                        </td>
+                        <td class="px-4 text-center">
+                            <span class="inline-flex rounded-[4px] px-3 py-2 text-[12px] font-medium ${publish.classes}">${publish.label}</span>
+                        </td>
+                        <td class="px-4 text-center">
+                            <button data-product-menu="${product.id}" class="product-menu-btn grid h-9 w-9 place-items-center rounded-md hover:bg-[#f5f5f5]" aria-label="عملیات محصول">
+                                <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                    <circle cx="12" cy="5" r="1.6"/>
+                                    <circle cx="12" cy="12" r="1.6"/>
+                                    <circle cx="12" cy="19" r="1.6"/>
+                                </svg>
+                            </button>
+                        </td>
+                    </tr>
+                `;
+            }
+
+            function renderProducts() {
+                const filtered = getFilteredProducts();
+                const totalItems = filtered.length;
+                const totalPages = Math.ceil(totalItems / state.pageSize) || 1;
+                if (state.currentPage > totalPages) state.currentPage = totalPages;
+                const paginated = getPaginatedData(filtered);
+
+                // ===== Desktop Table =====
+                const body = document.getElementById('productsBody');
+                const table = document.getElementById('productsTable');
+                const emptyState = document.getElementById('emptyState');
+
+                if (body) {
+                    body.innerHTML = paginated.map(rowTemplate).join('');
+                }
+                if (table) {
+                    table.classList.toggle('hidden', paginated.length === 0);
+                }
+                if (emptyState) {
+                    emptyState.classList.toggle('hidden', paginated.length > 0);
+                }
+
+                // ===== Mobile Cards =====
+                const mobileList = document.getElementById('mobileProductList');
+                if (mobileList) {
+                    if (paginated.length) {
+                        mobileList.innerHTML = paginated.map(p => {
+                            const stock = stockMeta[p.stockStatus];
+                            const publish = publishMeta[p.publishStatus];
+                            return `
+                                <div class="product-item p-4">
+                                    <div class="flex items-center gap-3 mb-3">
+                                        <span class="h-[48px] w-[48px] shrink-0 rounded-[5px] bg-custom-brown" role="img" aria-label="تصویر محصول"></span>
+                                        <div class="flex-1">
+                                            <div class="product-title-mobile">${p.title}</div>
+                                            <p class="text-[12px] text-[#777]">${p.store}</p>
+                                        </div>
+                                        <button data-product-menu="${p.id}" class="product-menu-btn-mobile grid h-8 w-8 place-items-center rounded-md hover:bg-[#f5f5f5]" aria-label="عملیات محصول">
+                                            <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                                <circle cx="12" cy="5" r="1.6"/>
+                                                <circle cx="12" cy="12" r="1.6"/>
+                                                <circle cx="12" cy="19" r="1.6"/>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                    <div class="grid grid-cols-2 gap-1">
+                                        <div class="product-info-row">
+                                            <span class="label">قیمت:</span>
+                                            <span class="value">${money(p.price)} تومان</span>
+                                        </div>
+                                        <div class="product-info-row">
+                                            <span class="label">واحد:</span>
+                                            <span class="value">${p.unit}</span>
+                                        </div>
+                                        <div class="product-info-row">
+                                            <span class="label">موجودی:</span>
+                                            <span class="value">${toFa(p.stock)}</span>
+                                        </div>
+                                        <div class="product-info-row">
+                                            <span class="label">وضعیت:</span>
+                                            <span class="value"><span class="inline-flex rounded-[4px] px-2 py-1 text-[11px] font-medium ${stock.classes}">${stock.label}</span></span>
+                                        </div>
+                                        <div class="product-info-row col-span-2">
+                                            <span class="label">انتشار:</span>
+                                            <span class="value"><span class="inline-flex rounded-[4px] px-2 py-1 text-[11px] font-medium ${publish.classes}">${publish.label}</span></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            `;
+                        }).join('');
+                        mobileList.classList.remove('hidden');
+                    } else {
+                        mobileList.innerHTML = `<div class="py-12 text-center text-sm text-[#777]">محصولی مطابق جست‌وجو یا فیلترهای انتخابی پیدا نشد.</div>`;
+                        mobileList.classList.remove('hidden');
+                    }
+                }
+
+                // ===== تعداد نتایج =====
+                const resultCount = document.getElementById('resultCount');
+                if (resultCount) {
+                    const hasFilters = state.query || state.activeTab !== 'all' || state.stockStatuses.size || state.publishStatuses.size || state.stores.size || state.minPrice !== null || state.maxPrice !== null;
+                    resultCount.textContent = hasFilters ? toFa(totalItems) : '۱۲۳';
+                }
+
+                // ===== صفحه‌بندی =====
+                renderPagination(totalPages);
+
+                const prevPage = document.getElementById('prevPage');
+                const nextPage = document.getElementById('nextPage');
+                if (prevPage) {
+                    prevPage.disabled = state.currentPage <= 1;
+                    prevPage.classList.toggle('opacity-40', state.currentPage <= 1);
+                }
+                if (nextPage) {
+                    nextPage.disabled = state.currentPage >= totalPages;
+                    nextPage.classList.toggle('opacity-40', state.currentPage >= totalPages);
+                }
+
+                bindProductMenus();
+                bindMobileProductMenus();
+            }
+
+            // ===== منوهای محصول =====
+            function closeProductMenus() {
+                document.querySelectorAll('.floating-product-menu').forEach(menu => menu.remove());
+            }
+
+            function bindProductMenus() {
+                document.querySelectorAll('.product-menu-btn').forEach(button => {
+                    button.removeEventListener('click', handleProductMenu);
+                    button.addEventListener('click', handleProductMenu);
+                });
+            }
+
+            function bindMobileProductMenus() {
+                document.querySelectorAll('.product-menu-btn-mobile').forEach(button => {
+                    button.removeEventListener('click', handleMobileProductMenu);
+                    button.addEventListener('click', handleMobileProductMenu);
+                });
+            }
+
+            function handleProductMenu(event) {
+                event.stopPropagation();
+                closeProductMenus();
+
+                const productId = Number(this.dataset.productMenu);
+                const product = products.find(item => item.id === productId);
+                if (!product) return;
+
+                const rect = this.getBoundingClientRect();
+                const menu = document.createElement('div');
+                menu.className = 'floating-product-menu fixed z-[65] w-48 overflow-hidden rounded-xl border border-[#e2e2e2] bg-white py-1 shadow-menu fade-in';
+                menu.style.top = `${Math.min(rect.bottom + 6, window.innerHeight - 220)}px`;
+                menu.style.left = `${Math.max(10, rect.left - 160)}px`;
+
+                menu.innerHTML = `
+                    <a href="AdminDashboard_ProductDetail_Info.html" class="w-full px-4 py-2.5 text-right text-[13px] hover:bg-[#f7f7f7]">مشاهده جزئیات</a>
+                    <button data-action="approve" class="w-full px-4 py-2.5 text-right text-[13px] hover:bg-[#f7f7f7]">تایید محصول</button>
+                    <button data-action="reject" class="w-full px-4 py-2.5 text-right text-[13px] hover:bg-[#f7f7f7]">رد محصول</button>
+                    <button data-action="archive" class="w-full px-4 py-2.5 text-right text-[13px] hover:bg-[#f7f7f7]">بایگانی محصول</button>
+                    <button data-action="delete" class="w-full px-4 py-2.5 text-right text-[13px] text-[#c93434] hover:bg-[#fff4f4]">حذف محصول</button>
+                `;
+
+                document.body.appendChild(menu);
+
+                menu.querySelectorAll('button').forEach(actionButton => {
+                    actionButton.addEventListener('click', () => {
+                        const action = actionButton.dataset.action;
+
+                        if (action === 'approve') {
+                            product.publishStatus = 'published';
+                            renderProducts();
+                            showToast('محصول تایید و منتشر شد.');
+                        } else if (action === 'reject') {
+                            product.publishStatus = 'rejected';
+                            renderProducts();
+                            showToast('محصول رد شد.');
+                        } else if (action === 'archive') {
+                            product.publishStatus = 'archived';
+                            renderProducts();
+                            showToast('محصول بایگانی شد.');
+                        } else if (action === 'delete') {
+                            const index = products.findIndex(item => item.id === product.id);
+                            if (index !== -1) {
+                                products.splice(index, 1);
+                                renderProducts();
+                                showToast('محصول حذف شد.');
+                            }
+                        }
+                        closeProductMenus();
+                    });
+                });
+            }
+
+            function handleMobileProductMenu(event) {
+                event.stopPropagation();
+                const productId = Number(this.dataset.productMenu);
+                const product = products.find(item => item.id === productId);
+                if (!product) return;
+                openProductModal(product);
+            }
+
+
+            function closeModal() {
+                const backdrop = document.getElementById('modalBackdrop');
+                const modal = document.getElementById('modal');
+                if (backdrop) backdrop.classList.add('hidden');
+                if (modal) modal.classList.add('hidden');
+                document.body.classList.remove('overflow-hidden');
+            }
+
+            // ===== همگام‌سازی فیلترها =====
+            function syncFilters() {
+                $$('[data-stock-filter]').forEach(el => {
+                    el.checked = state.stockStatuses.has(el.value);
+                });
+                $$('[data-drawer-stock]').forEach(el => {
+                    el.checked = state.stockStatuses.has(el.value);
+                });
+                $$('[data-publish-filter]').forEach(el => {
+                    el.checked = state.publishStatuses.has(el.value);
+                });
+                $$('[data-drawer-publish]').forEach(el => {
+                    el.checked = state.publishStatuses.has(el.value);
+                });
+                $$('[data-store-filter]').forEach(el => {
+                    el.checked = state.stores.has(el.value);
+                });
+            }
+
+            // ===== مدیریت منوها =====
+            function closeMenus(except) {
+                $$('.dropdown-menu').forEach(menu => {
+                    if (menu.id !== except) menu.classList.add('hidden');
+                });
+            }
+
+            // ===== رویدادها =====
+            // Dropdown triggers
+            document.querySelectorAll('.dropdown-trigger').forEach(btn => {
+                btn.addEventListener('click', function (e) {
+                    e.stopPropagation();
+                    const id = this.dataset.dropdown;
+                    const menu = document.getElementById(id);
+                    if (!menu) return;
+
+                    if (isMobile() && menu.classList.contains('open')) {
+                        closeMobileMenu();
+                        return;
+                    }
+
+                    document.querySelectorAll('.dropdown-menu').forEach(m => {
+                        if (m.id !== id) {
+                            m.classList.add('hidden');
+                            m.classList.remove('open', 'mobile-bottom');
+                        }
+                    });
+
+                    if (isMobile()) {
+                        openMobileMenu(id);
+                    } else {
+                        menu.classList.remove('mobile-bottom', 'open');
+                        menu.classList.toggle('hidden');
+                    }
+                });
+            });
+
+            // Close dropdown buttons
+            document.querySelectorAll('.close-dropdown').forEach(btn => {
+                btn.addEventListener('click', function () {
+                    if (isMobile()) {
+                        closeMobileMenu();
+                    } else {
+                        this.closest('.dropdown-menu').classList.add('hidden');
+                    }
+                });
+            });
+
+            // Overlay موبایل
+            if (mobileOverlay) {
+                mobileOverlay.addEventListener('click', function () {
+                    closeMobileMenu();
+                });
+            }
+
+            // Clear sort
+            document.querySelector('[data-clear-sort]')?.addEventListener('click', function () {
+                state.sort = 'updated';
+                document.querySelector('input[name="sort"][value="updated"]')?.setAttribute('checked', 'checked');
+                state.currentPage = 1;
+                const labels = {
+                    updated: 'مرتب‌سازی: جدیدترین به‌روزرسانی',
+                    oldest: 'مرتب‌سازی: قدیمی‌ترین به‌روزرسانی',
+                    highest: 'مرتب‌سازی: بیشترین قیمت',
+                    lowest: 'مرتب‌سازی: کمترین قیمت',
+                    stock: 'مرتب‌سازی: بیشترین موجودی'
+                };
+                const sortLabel = document.getElementById('sortLabel');
+                if (sortLabel) sortLabel.textContent = labels[state.sort];
+                renderProducts();
+                if (isMobile()) {
+                    closeMobileMenu();
+                } else {
+                    this.closest('.dropdown-menu')?.classList.add('hidden');
+                }
+                showToast('مرتب‌سازی به حالت پیش‌فرض بازگشت.');
+            });
+
+            // Sort radios
+            $$('input[name="sort"]').forEach(r => {
+                r.addEventListener('change', function () {
+                    state.sort = this.value;
+                    state.currentPage = 1;
+                    const labels = {
+                        updated: 'مرتب‌سازی: جدیدترین به‌روزرسانی',
+                        oldest: 'مرتب‌سازی: قدیمی‌ترین به‌روزرسانی',
+                        highest: 'مرتب‌سازی: بیشترین قیمت',
+                        lowest: 'مرتب‌سازی: کمترین قیمت',
+                        stock: 'مرتب‌سازی: بیشترین موجودی'
+                    };
+                    const sortLabel = document.getElementById('sortLabel');
+                    if (sortLabel) sortLabel.textContent = labels[state.sort];
+                    if (isMobile()) closeMobileMenu();
+                    renderProducts();
+                });
+            });
+
+            // Stock filters
+            $$('[data-stock-filter]').forEach(el => {
+                el.addEventListener('change', function () {
+                    const set = state.stockStatuses;
+                    if (this.checked) set.add(this.value);
+                    else set.delete(this.value);
+                    state.currentPage = 1;
+                    syncFilters();
+                    renderProducts();
+                });
+            });
+
+            // Publish filters
+            $$('[data-publish-filter]').forEach(el => {
+                el.addEventListener('change', function () {
+                    const set = state.publishStatuses;
+                    if (this.checked) set.add(this.value);
+                    else set.delete(this.value);
+                    state.currentPage = 1;
+                    syncFilters();
+                    renderProducts();
+                });
+            });
+
+            // Store filters
+            $$('[data-store-filter]').forEach(el => {
+                el.addEventListener('change', function () {
+                    const set = state.stores;
+                    if (this.checked) set.add(this.value);
+                    else set.delete(this.value);
+                    state.currentPage = 1;
+                    syncFilters();
+                    renderProducts();
+                });
+            });
+
+            // Clear filters
+            document.querySelector('[data-clear="stock"]')?.addEventListener('click', function () {
+                state.stockStatuses.clear();
+                state.currentPage = 1;
+                syncFilters();
+                renderProducts();
+                if (isMobile()) closeMobileMenu();
+                showToast('فیلتر موجودی پاک شد.');
+            });
+
+            document.querySelector('[data-clear="publish"]')?.addEventListener('click', function () {
+                state.publishStatuses.clear();
+                state.currentPage = 1;
+                syncFilters();
+                renderProducts();
+                if (isMobile()) closeMobileMenu();
+                showToast('فیلتر وضعیت انتشار پاک شد.');
+            });
+
+            document.querySelector('[data-clear="store"]')?.addEventListener('click', function () {
+                state.stores.clear();
+                state.currentPage = 1;
+                syncFilters();
+                renderProducts();
+                if (isMobile()) closeMobileMenu();
+                showToast('فیلتر فروشگاه پاک شد.');
+            });
+
+            // Store search
+            document.getElementById('storeSearch')?.addEventListener('input', function () {
+                const q = this.value.trim();
+                document.querySelectorAll('#storeFilterList label').forEach(label => {
+                    label.classList.toggle('hidden', q && !label.textContent.includes(q));
+                });
+            });
+
+            // Search with debounce
+            let searchTimeout = null;
+            const searchInput = document.getElementById('searchInput');
+            if (searchInput) {
+                searchInput.addEventListener('input', function () {
+                    clearTimeout(searchTimeout);
+                    searchTimeout = setTimeout(() => {
+                        state.query = this.value;
+                        state.currentPage = 1;
+                        renderProducts();
+                    }, 300);
+                });
+            }
+
+            // Status tabs
+            $$('.status-tab').forEach(tab => {
+                tab.addEventListener('click', function () {
+                    $$('.status-tab').forEach(item => {
+                        item.classList.remove('border-custom-brown', 'font-semibold', 'text-custom-brown');
+                        item.classList.add('border-transparent');
+                    });
+                    this.classList.remove('border-transparent');
+                    this.classList.add('border-custom-brown', 'font-semibold', 'text-custom-brown');
+                    state.activeTab = this.dataset.statusTab;
+                    state.currentPage = 1;
+                    renderProducts();
+                });
+            });
+
+            // Drawer
+            const drawer = document.getElementById('filterDrawer');
+            const drawerBackdrop = document.getElementById('drawerBackdrop');
+
+            function openDrawer() {
+                syncFilters();
+                if (drawer) drawer.classList.remove('translate-x-full');
+                if (drawerBackdrop) drawerBackdrop.classList.remove('hidden');
+                document.body.classList.add('overflow-hidden');
+            }
+
+            function closeDrawer() {
+                if (drawer) drawer.classList.add('translate-x-full');
+                if (drawerBackdrop) drawerBackdrop.classList.add('hidden');
+                document.body.classList.remove('overflow-hidden');
+            }
+
+            document.getElementById('filterBtn')?.addEventListener('click', openDrawer);
+            document.getElementById('closeDrawer')?.addEventListener('click', closeDrawer);
+            if (drawerBackdrop) drawerBackdrop.addEventListener('click', closeDrawer);
+
+            document.getElementById('clearAllFilters')?.addEventListener('click', function () {
+                $$('[data-drawer-publish], [data-drawer-stock]').forEach(input => input.checked = false);
+                const minPrice = document.getElementById('drawerMinPrice');
+                const maxPrice = document.getElementById('drawerMaxPrice');
+                if (minPrice) minPrice.value = '';
+                if (maxPrice) maxPrice.value = '';
+                state.publishStatuses.clear();
+                state.stockStatuses.clear();
+                state.minPrice = null;
+                state.maxPrice = null;
+                state.currentPage = 1;
+                renderProducts();
+                showToast('همه فیلترها پاک شدند.');
+            });
+
+            document.getElementById('applyDrawerFilters')?.addEventListener('click', function () {
+                state.publishStatuses = new Set(
+                    [...$$('[data-drawer-publish]:checked')].map(input => input.value)
+                );
+                state.stockStatuses = new Set(
+                    [...$$('[data-drawer-stock]:checked')].map(input => input.value)
+                );
+
+                const minInput = document.getElementById('drawerMinPrice');
+                const maxInput = document.getElementById('drawerMaxPrice');
+                const min = minInput?.value.replace(/[^\d]/g, '') || '';
+                const max = maxInput?.value.replace(/[^\d]/g, '') || '';
+                state.minPrice = min ? Number(min) : null;
+                state.maxPrice = max ? Number(max) : null;
+                state.currentPage = 1;
+
+                syncFilters();
+                renderProducts();
+                closeDrawer();
+                showToast('فیلترها اعمال شدند.');
+            });
+
+            // Modal
+            document.getElementById('closeModal')?.addEventListener('click', closeModal);
+            document.getElementById('modalBackdrop')?.addEventListener('click', closeModal);
+
+            // دکمه‌های صفحه‌بندی
+            document.getElementById('prevPage')?.addEventListener('click', function () {
+                if (state.currentPage > 1) {
+                    state.currentPage--;
+                    renderProducts();
+                }
+            });
+
+            document.getElementById('nextPage')?.addEventListener('click', function () {
+                const totalItems = getFilteredProducts().length;
+                const totalPages = Math.ceil(totalItems / state.pageSize) || 1;
+                if (state.currentPage < totalPages) {
+                    state.currentPage++;
+                    renderProducts();
+                }
+            });
+
+            // تغییر تعداد نمایش
+            document.getElementById('pageSize')?.addEventListener('change', function () {
+                state.pageSize = parseInt(this.value, 10);
+                state.currentPage = 1;
+                renderProducts();
+            });
+
+            // کلیک بیرون
+            document.addEventListener('click', function (e) {
+                if (!isMobile()) {
+                    if (!e.target.closest('.dropdown-trigger') && !e.target.closest('.dropdown-menu')) {
+                        document.querySelectorAll('.dropdown-menu').forEach(menu => {
+                            menu.classList.add('hidden');
+                        });
+                    }
+                }
+                if (!e.target.closest('.product-menu-btn') && !e.target.closest('.floating-product-menu')) {
+                    closeProductMenus();
+                }
+            });
+
+            // Escape
+            document.addEventListener('keydown', function (e) {
+                if (e.key === 'Escape') {
+                    if (isMobile()) {
+                        closeMobileMenu();
+                    } else {
+                        document.querySelectorAll('.dropdown-menu').forEach(menu => {
+                            menu.classList.add('hidden');
+                        });
+                    }
+                    closeDrawer();
+                    closeModal();
+                    closeProductMenus();
+                }
+            });
+
+            // ===== همگام‌سازی با تغییر اندازه صفحه =====
+            let resizeTimer = null;
+            window.addEventListener('resize', function () {
+                clearTimeout(resizeTimer);
+                resizeTimer = setTimeout(() => {
+                    if (!isMobile() && activeMobileMenu) {
+                        closeMobileMenu();
+                    }
+                }, 200);
+            });
+
+            // ===== مقداردهی اولیه =====
+            renderProducts();
+
+            // ===== داده‌های ساختاریافته =====
+            const script = document.createElement('script');
+            script.type = 'application/ld+json';
+            script.textContent = JSON.stringify({
+                "@context": "https://schema.org",
+                "@type": "BreadcrumbList",
+                "itemListElement": [{
+                    "@type": "ListItem",
+                    "position": 1,
+                    "name": "داشبورد",
+                    "item": "https://example.com/admin"
+                }, {
+                    "@type": "ListItem",
+                    "position": 2,
+                    "name": "محصولات",
+                    "item": "https://example.com/admin/products"
+                }]
+            });
+            document.head.appendChild(script);
+
+        })();
+    </script>
+</body>
+
+</html>

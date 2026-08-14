@@ -1,0 +1,314 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>اطلاعات فروشنده | Jorok</title>
+    <link rel="stylesheet" href="../../../styles/output.css">
+    <style>
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .hide-scrollbar {
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+
+<body class="font-IRANSansXRegular min-h-screen bg-[#f3f3f3] text-[#252525]">
+    <!-- Header -->
+    <header class="h-[72px] border-b border-[#ececec] bg-white" role="banner">
+        <div class="mx-auto flex h-full max-w-[1536px] items-center justify-between px-4 sm:px-6 lg:px-[60px]">
+            <div class="flex items-center gap-4">
+                <img src="../../../images/logo/Logo.svg" alt="لوگو فروشگاه" />
+                <span class="hidden h-10 w-px bg-[#d9d9d9] sm:block" aria-hidden="true"></span>
+                <nav class="hidden items-center gap-8 md:flex" aria-label="منوی اصلی">
+                    <a href="#" class="flex items-center gap-2 text-[15px] font-medium text-[#2b2b2b]">
+                        <img src="../../../images/Header/home 04.svg" alt="آیکون خانه" />
+                        صفحه اصلی
+                    </a>
+                    <button class="flex items-center gap-2 text-[15px] font-medium text-[#2b2b2b]"
+                        aria-expanded="false">
+                        <img src="../../../images/Header/grid 02.svg" alt="آیکون صفحات" />
+                        صفحات پنل
+                        <img src="../../../images/Header/direction-down 01.svg" alt="باز کردن منو" />
+                    </button>
+                </nav>
+            </div>
+            <div class="flex items-center gap-3 sm:gap-7" dir="ltr">
+                <div class="flex items-center gap-3">
+                    <div class="h-9 w-9 rounded-full bg-[#202020]" role="img" aria-label="آواتار ادمین"></div>
+                    <div class="hidden leading-tight sm:block">
+                        <div class="text-[14px] font-medium text-[#222]">ادمین</div>
+                        <div class="mt-1 text-[11px] font-light text-[#777]">سطح ادمین</div>
+                    </div>
+                </div>
+                <div class="hidden items-center gap-3 sm:flex lg:gap-5">
+                    <button class="grid h-9 w-9 place-items-center rounded-lg hover:bg-[#f7f7f7]" aria-label="اعلان‌ها">
+                        <img src="../../../images/Header/notification.svg" alt="آیکون اعلان" />
+                    </button>
+                    <button class="grid h-9 w-9 place-items-center rounded-lg hover:bg-[#f7f7f7]" aria-label="پیام‌ها">
+                        <img src="../../../images/Header/mail.svg" alt="آیکون پیام" />
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="mx-auto w-full max-w-[1200px] px-4 pb-16 pt-[55px] lg:px-0">
+        <!-- Breadcrumb -->
+        <div class="mb-5 flex items-center gap-2 px-1 text-[13px] text-[#666666]">
+            <img src="../../../images/AdminDashboard/Seller/arrow-right.svg" alt="">
+            <a href="#">داشبورد</a>
+            <img src="../../../images/AdminDashboard/Seller/direction-down 01.svg" class="rotate-90" alt="">
+            <a href="AdminDashboard_Sellers_List.html">فروشندگان</a>
+            <img src="../../../images/AdminDashboard/Seller/direction-down 01.svg" class="rotate-90" alt="">
+            <span class="font-medium text-[#222]">نام کامل فروشگاه</span>
+
+        </div>
+        <!-- Seller summary -->
+        <section class="rounded-[14px] bg-white px-6 py-4 shadow-soft lg:px-8">
+            <div class="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
+                <div class="flex items-center gap-4">
+                    <span class="h-[84px] w-[84px] shrink-0 rounded-full bg-custom-brown"></span>
+                    <div>
+                        <div class="flex flex-wrap items-center gap-3">
+                            <h1 class="text-lg font-bold">نام کامل فروشگاه</h1>
+                            <span id="statusBadge"
+                                class="rounded-[5px] bg-[#dcecff] px-3 py-2 text-[12px] font-medium text-[#2b78c5]">در
+                                انتظار بررسی</span>
+                        </div>
+                        <p class="mt-2 text-[13px] text-[#777]">نام مدیر فروشگاه</p>
+                    </div>
+                </div>
+
+                <div class="flex flex-col gap-4 lg:items-end">
+                    <div class="flex flex-wrap items-center gap-4">
+                        <span id="completionLabel" class="text-[14px] font-semibold text-custom-brown">نیازمند تکمیل
+                            اطلاعات</span>
+                        <button id="rejectBtn" type="button"
+                            class="h-[44px] min-w-[144px] rounded-[7px] border-2 border-[#d12d2d] bg-white px-5 text-[15px] font-semibold text-[#d12d2d] transition hover:bg-[#fff3f3]">رد
+                            فروشگاه</button>
+                        <button id="approveBtn" type="button"
+                            class="h-[44px] min-w-[144px] rounded-[7px] bg-[#19aa56] px-5 text-[15px] font-semibold text-white transition hover:bg-[#15994d]">تایید
+                            فروشگاه</button>
+                        <div class="relative">
+                            <button id="moreBtn" type="button"
+                                class="grid h-11 w-8 place-items-center rounded-md hover:bg-[#f5f5f5]"
+                                aria-expanded="false" aria-label="گزینه‌های بیشتر">
+                                <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                                    <circle cx="12" cy="5" r="1.7" />
+                                    <circle cx="12" cy="12" r="1.7" />
+                                    <circle cx="12" cy="19" r="1.7" />
+                                </svg>
+                            </button>
+                            <div id="moreMenu"
+                                class="absolute left-0 top-12 z-30 hidden w-44 overflow-hidden rounded-xl border border-[#e5e5e5] bg-white py-1 shadow-lg">
+                                <button data-action="edit"
+                                    class="w-full px-4 py-2.5 text-right text-[13px] hover:bg-[#f7f7f7]">ویرایش
+                                    اطلاعات</button>
+                                <button class="w-full px-4 py-2.5 text-right text-[13px] hover:bg-[#f7f7f7]">تعلیق
+                                    فروشنده</button>
+                                <button
+                                    class="w-full px-4 py-2.5 text-right text-[13px] text-[#c93434] hover:bg-[#fff4f4]">حذف
+                                    فروشنده</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex flex-wrap gap-x-8 gap-y-2 text-[12px] text-[#777]"><span>عضویت:
+                            ۱۴۰۵/۱۲/۱۲</span><span>آخرین فعالیت: ۱۴۰۵/۱۲/۱۲</span></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tabs -->
+        <nav id="sellerTabs" class="hide-scrollbar mt-[34px] flex overflow-x-auto border-b border-[#cfcfcf]"
+            aria-label="بخش‌های فروشنده">
+            <a href="AdminDashboard_SellerDetail_Overview.html"
+                class="tab-btn whitespace-nowrap border-b-2 border-transparent px-6 pb-[13px] text-[15px]">نمای
+                کلی</a>
+            <a href="AdminDashboard_SellerDetail_Info.html"
+                class="tab-btn active-tab whitespace-nowrap border-b-2 border-custom-brown px-6 pb-[13px] text-[15px] font-semibold text-custom-brown">اطلاعات
+                </ش>
+                <a href="AdminDashboard_SellerDetail_Products.html"
+                    class="tab-btn whitespace-nowrap border-b-2 border-transparent px-6 pb-[13px] text-[15px]">محصولات</a>
+                <a href="AdminDashboard_SellerDetail_Orders.html"
+                    class="tab-btn whitespace-nowrap border-b-2 border-transparent px-6 pb-[13px] text-[15px]">سفارش‌ها</a>
+                <a href="AdminDashboard_SellerDetail_Transactions.html"
+                    class="tab-btn whitespace-nowrap border-b-2 border-transparent px-6 pb-[13px] text-[15px]">تراکنش‌ها</a>
+                <a href="AdminDashboard_SellerDetail_FinancialBalance.html"
+                    class="tab-btn whitespace-nowrap border-b-2 border-transparent px-6 pb-[13px] text-[15px]">موجودی و
+                    تسویه</a>
+                <a href="AdminDashboard_SellerDetail_BankAccounts.html"
+                    class="tab-btn whitespace-nowrap border-b-2 border-transparent px-6 pb-[13px] text-[15px]">حساب
+                    بانکی</a>
+        </nav>
+
+        <!-- Information panel -->
+        <section id="infoPanel" class="mt-[30px] rounded-[15px] bg-white px-6 pb-8 pt-8 shadow-soft lg:px-8 lg:pb-10">
+            <form id="sellerForm" class="space-y-[30px]" novalidate>
+                <div class="grid grid-cols-1 gap-x-[30px] gap-y-[28px] md:grid-cols-2">
+                    <label class="block"><span class="mb-2 block text-[14px]">نام فروشگاه</span><input name="storeName"
+                            readonly value="نام فروشگاه"
+                            class="form-control h-[50px] w-full rounded-[7px] border border-[#999999] px-4 text-[14px]" /></label>
+                    <label class="block"><span class="mb-2 block text-[14px]">نام کاربری فروشگاه</span><input
+                            name="username" readonly value="abcded" dir="ltr"
+                            class="form-control h-[50px] w-full rounded-[7px] border border-[#999999] px-4 text-right text-[14px]" /></label>
+
+                    <label class="block"><span class="mb-2 block text-[14px]">شهر</span><input name="city" readonly
+                            value="شهر"
+                            class="form-control h-[50px] w-full rounded-[7px] border border-[#999999] px-4 text-[14px]" /></label>
+                    <label class="block"><span class="mb-2 block text-[14px]">استان</span><input name="province"
+                            readonly value="استان"
+                            class="form-control h-[50px] w-full rounded-[7px] border border-[#999999] px-4 text-[14px]" /></label>
+                </div>
+
+                <div class="grid grid-cols-1 gap-x-[30px] gap-y-[28px] md:grid-cols-3">
+                    <label class="block"><span class="mb-2 block text-[14px]">ساعت کاری</span><input name="workHours"
+                            readonly value="انتخاب نشده"
+                            class="form-control h-[50px] w-full rounded-[7px] border border-[#999999] px-4 text-[14px]" /></label>
+                    <label class="block"><span class="mb-2 block text-[14px]">کد پستی</span><input name="postalCode"
+                            readonly value="۱۲۳۴۵۶۷۸۹۰"
+                            class="form-control h-[50px] w-full rounded-[7px] border border-[#999999] px-4 text-[14px]" /></label>
+                    <label class="block"><span class="mb-2 block text-[14px]">نوع فروشگاه</span><input name="storeType"
+                            readonly value="حضوری و آنلاین"
+                            class="form-control h-[50px] w-full rounded-[7px] border border-[#999999] px-4 text-[14px]" /></label>
+                </div>
+
+                <label class="block"><span class="mb-2 block text-[14px]">آدرس پستی</span><textarea name="address"
+                        readonly rows="5"
+                        class="form-control min-h-[165px] w-full resize-none rounded-[7px] border border-[#999999] px-4 py-4 text-[14px]">آدرس پستی آدرس پستی آدرس پستی آدرس پستی آدرس پستی</textarea></label>
+
+                <div class="grid grid-cols-1 gap-x-[30px] gap-y-[28px] md:grid-cols-2">
+                    <label class="block"><span class="mb-2 block text-[14px]">شماره تلفن ثابت</span><input name="phone"
+                            readonly value="۰۲۱-۱۲۳۴۵۶۷"
+                            class="form-control h-[50px] w-full rounded-[7px] border border-[#999999] px-4 text-[14px]" /></label>
+                    <label class="block"><span class="mb-2 block text-[14px]">شماره تلفن همراه</span><input
+                            name="mobile" readonly value="۰۹۱۲ ۱۲۳ ۴۵ ۶۷"
+                            class="form-control h-[50px] w-full rounded-[7px] border border-[#999999] px-4 text-[14px]" /></label>
+
+                    <label class="block"><span class="mb-2 block text-[14px]">آدرس ایمیل</span><input name="email"
+                            readonly value="store@example.com" dir="ltr"
+                            class="form-control h-[50px] w-full rounded-[7px] border border-[#999999] px-4 text-right text-[14px]" /></label>
+                    <label class="block"><span class="mb-2 block text-[14px]">آدرس وبسایت</span><input name="website"
+                            readonly value="www.example.com" dir="ltr"
+                            class="form-control h-[50px] w-full rounded-[7px] border border-[#999999] px-4 text-right text-[14px]" /></label>
+
+                    <div>
+                        <label class="block"><span class="mb-2 block text-[14px]">آدرس اینستاگرام</span><input
+                                name="instagram" readonly value="@store.name" dir="ltr"
+                                class="form-control h-[50px] w-full rounded-[7px] border border-[#999999] px-4 text-right text-[14px]" /></label>
+                        <button id="socialBtn" type="button"
+                            class="mt-4 flex items-center gap-2 text-[16px] font-semibold text-custom-brown"><svg
+                                class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                                stroke-width="1.8">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="m15 18-6-6 6-6" />
+                            </svg>مشاهده دیگر شبکه‌های اجتماعی</button>
+                    </div>
+                    <label class="block"><span class="mb-2 block text-[14px]">شماره واتس‌اپ</span><input name="whatsapp"
+                            readonly value="۰۹۱۲ ۱۲۳ ۴۵ ۶۷"
+                            class="form-control h-[50px] w-full rounded-[7px] border border-[#999999] px-4 text-[14px]" /></label>
+                </div>
+
+                <div id="socialBox" class="hidden rounded-xl border border-[#dedede] bg-[#fafafa] p-5">
+                    <div class="grid grid-cols-1 gap-4 md:grid-cols-3">
+                        <div><span class="text-xs text-[#777]">تلگرام</span>
+                            <p class="mt-1" dir="ltr">@store.name</p>
+                        </div>
+                        <div><span class="text-xs text-[#777]">لینکدین</span>
+                            <p class="mt-1" dir="ltr">linkedin.com/company/store</p>
+                        </div>
+                        <div><span class="text-xs text-[#777]">ایتا</span>
+                            <p class="mt-1" dir="ltr">eitaa.com/store.name</p>
+                        </div>
+                    </div>
+                </div>
+
+                <label class="block"><span class="mb-2 block text-[14px]">توضیحات</span><textarea name="description"
+                        readonly rows="5"
+                        class="form-control min-h-[165px] w-full resize-none rounded-[7px] border border-black px-4 py-4 text-[14px]">توضیح کوتاهی درباره فعالیت و خدمات فروشگاه بنویسید</textarea></label>
+
+                <button id="mapBtn" type="button"
+                    class="h-[54px] w-full rounded-[7px] border border-black bg-white text-[14px] transition hover:border-custom-brown hover:text-custom-brown">مشاهده
+                    آدرس از روی نقشه</button>
+
+                <div class="grid grid-cols-1 gap-8 pt-2 lg:grid-cols-[180px_1fr] lg:items-start">
+                    <div>
+                        <p class="mb-3 text-[14px]">لوگوی فروشگاه</p>
+                        <div
+                            class="grid h-[135px] w-[135px] place-items-center overflow-hidden rounded-[8px] border border-[#c8c8c8] bg-white">
+                            <img src="../../../images/58bebe61a9e25e2c419610b60987928fbe5b3ad4.jpg" alt="لوگوی فروشگاه"
+                                class="h-full w-full object-cover" />
+                        </div>
+                    </div>
+                    <div>
+                        <p class="mb-3 text-[14px]">تصاویر فروشگاه</p>
+                        <div class="flex flex-wrap gap-6">
+                            <img src="../../../images/58bebe61a9e25e2c419610b60987928fbe5b3ad4.jpg"
+                                alt="تصویر فروشگاه ۱" class="h-[135px] w-[135px] rounded-[8px] object-cover" />
+                            <img src="../../../images/58bebe61a9e25e2c419610b60987928fbe5b3ad4.jpg"
+                                alt="تصویر فروشگاه ۲" class="h-[135px] w-[135px] rounded-[8px] object-cover" />
+                            <img src="../../../images/58bebe61a9e25e2c419610b60987928fbe5b3ad4.jpg"
+                                alt="تصویر فروشگاه ۳" class="h-[135px] w-[135px] rounded-[8px] object-cover" />
+                            <img src="../../../images/58bebe61a9e25e2c419610b60987928fbe5b3ad4.jpg"
+                                alt="تصویر فروشگاه ۴" class="h-[135px] w-[135px] rounded-[8px] object-cover" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex items-center justify-end gap-3 pt-3" dir="ltr">
+                    <button id="cancelBtn" type="button"
+                        class="hidden h-[45px] rounded-[7px] border border-[#bbb] bg-white px-5 text-[14px]">انصراف</button>
+                    <button id="editBtn" type="button"
+                        class="h-[45px] rounded-[7px] bg-custom-brown px-5 text-[14px] font-medium text-white transition">ویرایش
+                        اطلاعات</button>
+                </div>
+            </form>
+        </section>
+
+        <!-- Generic panel for other tabs -->
+        <section id="placeholderPanel"
+            class="mt-[30px] hidden min-h-[320px] place-items-center rounded-[15px] bg-white p-8 shadow-soft">
+            <div class="text-center">
+                <h2 id="placeholderTitle" class="text-lg font-semibold"></h2>
+                <p class="mt-2 text-sm text-[#777]">محتوای این بخش را به API پروژه متصل کنید.</p>
+            </div>
+        </section>
+    </main>
+
+    <!-- Map modal -->
+    <div id="mapModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/40 p-4">
+        <div class="w-full max-w-[680px] overflow-hidden rounded-2xl bg-white shadow-2xl">
+            <div class="flex items-center justify-between border-b px-5 py-4">
+                <h3 class="font-semibold">موقعیت فروشگاه روی نقشه</h3><button id="closeMap"
+                    class="grid h-9 w-9 place-items-center rounded-full hover:bg-[#f5f5f5]" aria-label="بستن">✕</button>
+            </div>
+            <div class="relative grid h-[390px] place-items-center overflow-hidden bg-[#e9ecef]">
+                <div class="absolute inset-0 opacity-50"
+                    style="background-image:linear-gradient(#cfd5d9 1px,transparent 1px),linear-gradient(90deg,#cfd5d9 1px,transparent 1px);background-size:32px 32px">
+                </div>
+                <div class="relative text-center">
+                    <div
+                        class="mx-auto grid h-14 w-14 place-items-center rounded-full bg-custom-brown text-white shadow-lg">
+                        <svg class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M20 10c0 5-8 11-8 11S4 15 4 10a8 8 0 1 1 16 0Z" />
+                            <circle cx="12" cy="10" r="2.5" />
+                        </svg>
+                    </div>
+                    <p class="mt-3 rounded-lg bg-white px-4 py-2 text-sm shadow">آدرس پستی فروشگاه</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast -->
+    <div id="toast"
+        class="fixed bottom-6 left-1/2 z-[60] hidden -translate-x-1/2 rounded-xl bg-[#222] px-5 py-3 text-sm text-white shadow-xl">
+    </div>
+    <script type="module" src="../../../scripts/AdminDashboard/admin-seller-detail.js"></script>
+</body>
+
+</html>

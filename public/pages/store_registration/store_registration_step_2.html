@@ -1,0 +1,1841 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ثبت فروشگاه</title>
+    <link rel="stylesheet" href="../../styles/output.css">
+
+
+</head>
+
+<body class="store_registration_step_2 md:bg-[#F2F2F2]">
+    <svg class="hidden">
+        <symbol id="menu_berger" width="32" height="33" viewBox="0 0 32 33" fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+            <path d="M9.33398 11.166H22.6673M9.33398 16.4993H22.6673M9.33398 21.8327H22.6673" stroke="currentColor"
+                stroke-width="1.5" stroke-linecap="round" />
+        </symbol>
+        <symbol id="map" width="20" height="21" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+                d="M17.5 9.57342C17.5 13.6644 12.8125 18.8327 10 18.8327C7.1875 18.8327 2.5 13.6644 2.5 9.57342C2.5 5.48242 5.85786 2.16602 10 2.16602C14.1421 2.16602 17.5 5.48242 17.5 9.57342Z"
+                stroke="currentColor" stroke-width="1.5" />
+            <path
+                d="M12.5 9.66602C12.5 11.0467 11.3807 12.166 10 12.166C8.61929 12.166 7.5 11.0467 7.5 9.66602C7.5 8.2853 8.61929 7.16602 10 7.16602C11.3807 7.16602 12.5 8.2853 12.5 9.66602Z"
+                stroke="currentColor" stroke-width="1.5" />
+        </symbol>
+        <symbol id="chevron" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+            stroke="currentColor" class="size-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+        </symbol>
+        <symbol id="search" width="20" height="21" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+                d="M15.418 15.916L18.3346 18.8327M17.5013 10.0827C17.5013 5.71043 13.9569 2.16602 9.58464 2.16602C5.21238 2.16602 1.66797 5.71043 1.66797 10.0827C1.66797 14.4549 5.21238 17.9993 9.58464 17.9993C13.9569 17.9993 17.5013 14.4549 17.5013 10.0827Z"
+                stroke="#CCCCCC" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+        </symbol>
+        <symbol id="shop" width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+                d="M8.06805 22.5H15.9304C17.7718 22.5 19.3752 21.2429 19.8148 19.4548L21.7812 11.4548C22.4009 8.93408 20.4926 6.5 17.8969 6.5H6.10153C3.50575 6.5 1.59752 8.9341 2.21716 11.4548L4.18369 19.4548C4.62324 21.243 6.2267 22.5 8.06805 22.5Z"
+                stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M3 10.5H21" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+            <path d="M9 2.5L6 6.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                stroke-linejoin="round" />
+            <path d="M15 2.5L18 6.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                stroke-linejoin="round" />
+        </symbol>
+        <symbol id="user" width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+                d="M18.5588 20.0488C17.5654 17.3918 15.0036 15.5 12 15.5C8.99638 15.5 6.4346 17.3918 5.44117 20.0488M18.5588 20.0488C20.6672 18.2154 22 15.5134 22 12.5C22 6.97715 17.5228 2.5 12 2.5C6.47715 2.5 2 6.97715 2 12.5C2 15.5134 3.33285 18.2154 5.44117 20.0488M18.5588 20.0488C16.8031 21.5756 14.5095 22.5 12 22.5C9.49052 22.5 7.19694 21.5756 5.44117 20.0488"
+                stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" />
+            <circle cx="3" cy="3" r="3" transform="matrix(1 0 0 -1 9 12.5)" stroke="currentColor" stroke-width="1.5"
+                stroke-linejoin="round" />
+        </symbol>
+        <symbol id="tick" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M5 13L8.52642 15.8211C9.35374 16.483 10.5536 16.3848 11.2624 15.5973L19 7" stroke="currentColor"
+                stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+        </symbol>
+        <svg id="error" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" clip-rule="evenodd"
+                d="M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12ZM11 17C11 16.4477 11.4477 16 12 16C12.5523 16 13 16.4477 13 17C13 17.5523 12.5523 18 12 18C11.4477 18 11 17.5523 11 17ZM11.25 14C11.25 14.4142 11.5858 14.75 12 14.75C12.4142 14.75 12.75 14.4142 12.75 14L12.75 7C12.75 6.58579 12.4142 6.25 12 6.25C11.5858 6.25 11.25 6.58579 11.25 7L11.25 14Z"
+                fill="#D22121" />
+        </svg>
+        <svg id="exit" width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M21.6575 10.3438L10.3438 21.6575M21.6575 21.6575L10.3438 10.3438" stroke="#28303F"
+                stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+
+    </svg>
+
+
+    <header class="relative h-20">
+        <!-- Desktop -->
+        <div
+            class=" top-0 left-0 w-full z-50 transition-all duration-300 font-IRANSansXRegular hidden md:flex items-center justify-between py-3 px-10 lg:px-12 xl:px-14 bg-white">
+            <div class="flex items-center md:gap-4 lg:gap-5 xl:gap-6">
+                <a href="index.html" id="logo_header" class="border-l-2 border-[#CCCCCC] md:pl-4 lg:pl-5 xl:pl-6">
+                    <svg id="logo" width="55" height="61" viewBox="0 0 55 61" fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path d="M16.7087 27.2444V11.4785L8.71289 19.4743V27.2444H16.7087Z" fill="#9C4639" />
+                        <path d="M16.7077 31.4824H0V36.2701H16.7077V31.4824Z" fill="#9C4639" />
+                        <path d="M31.3362 27.2445V3.13945L28.1968 0L21.0938 7.103V27.2445H31.3362Z" fill="#9C4639" />
+                        <path d="M31.346 31.4824H21.0938V36.2701H31.346V31.4824Z" fill="#9C4639" />
+                        <path d="M46.3465 27.2442V17.2078L35.9961 6.85742V27.2442H46.3465Z" fill="#9C4639" />
+                        <path d="M54.6464 31.4824H35.9961V36.2701H54.6464V31.4824Z" fill="#9C4639" />
+                        <path
+                            d="M3.98971 54.5664C3.37422 54.5664 2.82467 54.429 2.34107 54.1542C1.86846 53.8795 1.50026 53.5168 1.23648 53.0661C0.972698 52.6045 0.840806 52.0989 0.840806 51.5494C0.840806 51.4505 0.851797 51.2911 0.873779 51.0713C0.906752 50.8405 0.978193 50.4613 1.0881 49.9337C1.19801 49.4062 1.29693 48.9445 1.38486 48.5489L2.83566 48.9281C2.53891 50.17 2.37954 50.9614 2.35756 51.3021C2.34656 51.3571 2.34107 51.4285 2.34107 51.5164C2.34107 51.9121 2.48395 52.2253 2.76972 52.4561C3.05548 52.676 3.46214 52.7859 3.98971 52.7859H9.90833C10.315 52.7859 10.6282 52.7089 10.8481 52.5551C11.0789 52.4012 11.1943 52.1979 11.1943 51.9451C11.1943 51.6263 11.0349 51.3076 10.7162 50.9889L7.30347 47.5597L7.73212 45.5319L13.354 43.0589L13.997 44.6746L9.00157 46.8837L11.8372 49.7854C12.134 50.0821 12.3538 50.4118 12.4967 50.7745C12.6506 51.1372 12.7275 51.5054 12.7275 51.8791C12.7275 52.3517 12.6121 52.7969 12.3813 53.2145C12.1615 53.6212 11.8372 53.9509 11.4086 54.2037C10.9799 54.4455 10.4744 54.5664 9.89184 54.5664H3.98971ZM16.1519 56.9404C16.8993 56.9404 17.4708 56.858 17.8665 56.6932C18.2732 56.5283 18.5534 56.27 18.7073 55.9183C18.8612 55.5776 18.9381 55.1105 18.9381 54.5169H17.2565C16.3003 54.5169 15.5309 54.2312 14.9484 53.6597C14.3659 53.0881 14.0746 52.2913 14.0746 51.2691C14.0746 50.5657 14.2065 49.9282 14.4703 49.3567C14.7451 48.7852 15.1188 48.34 15.5914 48.0213C16.075 47.6916 16.6245 47.5267 17.24 47.5267C17.8995 47.5267 18.471 47.6861 18.9546 48.0048C19.4492 48.3126 19.8284 48.7522 20.0922 49.3237C20.3669 49.8843 20.5043 50.5327 20.5043 51.2691V54.5005C20.5043 55.7864 20.1581 56.8086 19.4657 57.5669C18.7732 58.3363 17.6687 58.721 16.1519 58.721H14.3219V56.9404H16.1519ZM15.6079 51.2362C15.6079 51.7857 15.7397 52.1814 16.0035 52.4232C16.2673 52.654 16.685 52.7694 17.2565 52.7694H18.9381V51.2526C18.9381 50.6262 18.8007 50.1371 18.5259 49.7854C18.2512 49.4336 17.8225 49.2578 17.24 49.2578C16.7124 49.2578 16.3058 49.4391 16.02 49.8018C15.7452 50.1535 15.6079 50.6317 15.6079 51.2362ZM26.4529 49.3402V51.6978C26.4529 52.0934 26.5519 52.3737 26.7497 52.5386C26.9475 52.7034 27.2608 52.7859 27.6894 52.7859H27.9037L28.0027 53.6926L27.9037 54.5664H27.6894C27.1838 54.5664 26.7717 54.4345 26.4529 54.1707C26.42 55.6325 26.0188 56.7536 25.2494 57.534C24.4801 58.3253 23.3865 58.721 21.9686 58.721H20.93V56.9404H21.9686C22.6831 56.9404 23.2546 56.8415 23.6832 56.6437C24.1119 56.4568 24.4196 56.1491 24.6065 55.7205C24.8043 55.3028 24.9032 54.7258 24.9032 53.9894V49.3402H26.4529ZM27.7384 52.7859H31.1675L31.2665 53.6597L31.1675 54.5664H27.7384V52.7859ZM31.0067 52.7859H34.4358L34.5348 53.6597L34.4358 54.5664H31.0067V52.7859ZM34.209 52.7859H36.2368C37.303 52.7859 38.2702 52.621 39.1385 52.2913C40.0067 51.9616 41.0234 51.456 42.1884 50.7745C39.7814 49.8183 38.3581 49.3402 37.9185 49.3402C37.6217 49.3402 37.3854 49.4117 37.2095 49.5545C37.0447 49.6974 36.8853 49.9722 36.7314 50.3789L35.2806 49.9172C35.5444 49.1149 35.9016 48.5269 36.3523 48.1532C36.8139 47.7685 37.3359 47.5762 37.9185 47.5762C38.3251 47.5762 38.9571 47.7355 39.8144 48.0543C40.6717 48.362 41.8807 48.8401 43.4414 49.4886L43.7546 49.6205L44.0844 51.5164L43.4909 51.8791C42.4797 52.5056 41.6444 52.9947 40.9849 53.3464C40.3365 53.6981 39.6111 53.9894 38.8087 54.2202C38.0174 54.451 37.1601 54.5664 36.2368 54.5664H34.209V52.7859ZM38.3636 56.5613H40.1936V58.3748H38.3636V56.5613ZM46.4856 45.1197H48.1342V54.5664H46.4856V45.1197ZM43.7818 44.7075C43.9467 44.0481 44.2544 43.5315 44.7051 43.1578C45.1557 42.7841 45.7602 42.5973 46.5186 42.5973H49.7994V43.9821H46.5186C46.0899 43.9821 45.7602 44.0811 45.5294 44.2789C45.2986 44.4767 45.1172 44.7515 44.9853 45.1032L43.7818 44.7075Z"
+                            fill="#9C4639" />
+                    </svg>
+                </a>
+
+                <!-- MENU ITEM --- Mega Menu -->
+                <li id="menuToggle" class="menu-item megamenu-link list-none">
+
+                    <a href=""
+                        class="font-IRANSansXMedium group menu-item_link flex items-center justify-center text-custom-black">
+                        <svg class="w-8 h-8">
+                            <use href="#menu_berger"></use>
+                        </svg>
+                        دسته بندی ها
+                    </a>
+                    <div id="megamenu" class="megamenu hidden">
+                        <!-- RIGHT MENU -->
+                        <ul class="megamenu_category">
+                            <li class="megamenu_category-item active">
+                                <a href="">مصالح و مواد پایه ساختمانی</a>
+                                <svg class="w-5 h-5 rotate-90">
+                                    <use href="#chevron"></use>
+                                </svg>
+                            </li>
+                            <li class="megamenu_category-item ">
+                                <a href="">دکوراسیون داخلی و مبلمان</a>
+                                <svg class="w-5 h-5 rotate-90">
+                                    <use href="#chevron"></use>
+                                </svg>
+                            </li>
+                            <li class="megamenu_category-item ">
+                                <a href="">کاشی، سرامیک و سرویس بهداشتی</a>
+                                <svg class="w-5 h-5 rotate-90">
+                                    <use href="#chevron"></use>
+                                </svg>
+                            </li>
+                            <li class="megamenu_category-item ">
+                                <a href="">درب، پنجره و حفاظ</a>
+                                <svg class="w-5 h-5 rotate-90">
+                                    <use href="#chevron"></use>
+                                </svg>
+                            </li>
+                            <li class="megamenu_category-item ">
+                                <a href="">تأسیسات مکانیکی و برقی</a>
+                                <svg class="w-5 h-5 rotate-90">
+                                    <use href="#chevron"></use>
+                                </svg>
+                            </li>
+                            <li class="megamenu_category-item ">
+                                <a href="">ابزارآلات و یراق</a>
+                                <svg class="w-5 h-5 rotate-90">
+                                    <use href="#chevron"></use>
+                                </svg>
+                            </li>
+                            <li class="megamenu_category-item ">
+                                <a href="">آشپزخانه و تجهیزات مرتبط</a>
+                                <svg class="w-5 h-5 rotate-90">
+                                    <use href="#chevron"></use>
+                                </svg>
+                            </li>
+                            <li class="megamenu_category-item ">
+                                <a href="">سنگ، نما و محوطه‌سازی</a>
+                                <svg class="w-5 h-5 rotate-90">
+                                    <use href="#chevron"></use>
+                                </svg>
+                            </li>
+                            <li class="megamenu_category-item ">
+                                <a href="">لوازم خانگی</a>
+                                <svg class="w-5 h-5 rotate-90">
+                                    <use href="#chevron"></use>
+                                </svg>
+                            </li>
+                            <li class="megamenu_category-item ">
+                                <a href="">دیگر</a>
+                                <svg class="w-5 h-5 rotate-90">
+                                    <use href="#chevron"></use>
+                                </svg>
+                            </li>
+                        </ul>
+
+                        <div class="megamenu_left">
+                            <a href="shop.html" class="text-custom-brown flex items-center gap-x-0.5 text-sm mb-4">
+                                مشاهده همه
+                                <svg class="size-4 rotate-90">
+                                    <use href="#chevron" />
+                                </svg>
+                            </a>
+                            <ul class="megamenu_left-item active">
+                                <div class="megamenu_left-menu">
+                                    <h2 class="megamenu_left-title">برندهای مختلف :</h2>
+                                    <li>
+                                        <a href="shop.html">گوشی آیفون</a>
+                                    </li>
+                                    <li>
+                                        <a href="shop.html">گوشی سامسونگ</a>
+                                    </li>
+                                    <li>
+                                        <a href="shop.html">گوشی هواووی</a>
+                                    </li>
+                                    <li>
+                                        <a href="shop.html">گوشی شیامی</a>
+                                    </li>
+                                    <li>
+                                        <a href="shop.html">گوشی نوکیا</a>
+                                    </li>
+                                    <li>
+                                        <a href="shop.html">گوشی آنر</a>
+                                    </li>
+                                    <li>
+                                        <a href="shop.html">گوشی آیفون</a>
+                                    </li>
+                                </div>
+                                <div class="megamenu_left-menu">
+                                    <h2 class="megamenu_left-title">گوشی بر اساس قیمت</h2>
+                                    <li><a href="shop.html">گوشی ارزان</a></li>
+                                    <li><a href="shop.html">گوشی موبایل قسطی</a></li>
+                                    <li><a href="shop.html">گوشی تا ۲ میلیون تومان</a></li>
+                                    <li><a href="shop.html">گوشی تا ۵ میلیون تومان</a></li>
+                                    <li><a href="shop.html">گوشی تا ۷ میلیون تومان</a></li>
+                                    <li><a href="shop.html">گوشی تا ۱۵ میلیون تومان</a></li>
+                                    <li><a href="shop.html">گوشی بالای ۱۵ میلیون تومان</a></li>
+                                </div>
+                                <div class="megamenu_left-menu">
+                                    <h2 class="megamenu_left-title">لوازم جانبی موبایل</h2>
+                                    <li><a href="shop.html">شارژر گوشی</a></li>
+                                    <li><a href="shop.html">شارژر وایرلس</a></li>
+                                    <li><a href="shop.html">قاب و کاور گوشی</a></li>
+                                    <li><a href="shop.html">گلس گوشی</a></li>
+                                    <li><a href="shop.html">هولدر گوشی موبایل</a></li>
+                                    <li><a href="shop.html">کابل شارژ و مبدل</a></li>
+                                    <li><a href="shop.html">پاوربانک (شارژر همراه)</a></li>
+                                </div>
+
+                            </ul>
+                            <ul class="megamenu_left-item ">
+                                <div class="megamenu_left-menu">
+                                    <h2 class="megamenu_left-title">برندهای مختلف :</h2>
+                                    <li><a href="shop.html">لپ‌تاپ اپل (MacBook)</a></li>
+                                    <li><a href="shop.html">لپ‌تاپ ایسوس</a></li>
+                                    <li><a href="shop.html">لپ‌تاپ لنوو</a></li>
+                                    <li><a href="shop.html">لپ‌تاپ اچ‌پی</a></li>
+                                    <li><a href="shop.html">لپ‌تاپ دل</a></li>
+                                    <li><a href="shop.html">لپ‌تاپ ام‌اس‌آی</a></li>
+                                    <li><a href="shop.html">لپ‌تاپ ایسر</a></li>
+                                </div>
+
+                                <div class="megamenu_left-menu">
+                                    <h2 class="megamenu_left-title">لپ‌تاپ بر اساس قیمت</h2>
+                                    <li><a href="shop.html">لپ‌تاپ اقتصادی</a></li>
+                                    <li><a href="shop.html">لپ‌تاپ تا ۱۰ میلیون تومان</a></li>
+                                    <li><a href="shop.html">لپ‌تاپ تا ۲۰ میلیون تومان</a></li>
+                                    <li><a href="shop.html">لپ‌تاپ تا ۳۰ میلیون تومان</a></li>
+                                    <li><a href="shop.html">لپ‌تاپ تا ۵۰ میلیون تومان</a></li>
+                                    <li><a href="shop.html">لپ‌تاپ بالای ۵۰ میلیون تومان</a></li>
+                                </div>
+
+                                <div class="megamenu_left-menu">
+                                    <h2 class="megamenu_left-title">لوازم جانبی لپ‌تاپ</h2>
+                                    <li><a href="shop.html">کیف و کوله لپ‌تاپ</a></li>
+                                    <li><a href="shop.html">کابل و آداپتور لپ‌تاپ</a></li>
+                                    <li><a href="shop.html">استند و پایه خنک‌کننده</a></li>
+                                    <li><a href="shop.html">ماوس و کیبورد</a></li>
+                                    <li><a href="shop.html">هارد اکسترنال و SSD</a></li>
+                                    <li><a href="shop.html">پد ماوس</a></li>
+                                </div>
+
+                            </ul>
+                            <ul class="megamenu_left-item">
+                                <div class="megamenu_left-menu">
+                                    <h2 class="megamenu_left-title">برندهای مختلف تبلت</h2>
+                                    <li><a href="shop.html">تبلت اپل (iPad)</a></li>
+                                    <li><a href="shop.html">تبلت سامسونگ</a></li>
+                                    <li><a href="shop.html">تبلت لنوو</a></li>
+                                    <li><a href="shop.html">تبلت مایکروسافت (Surface)</a></li>
+                                    <li><a href="shop.html">تبلت هواوی</a></li>
+                                    <li><a href="shop.html">تبلت شیائومی</a></li>
+                                </div>
+
+                                <div class="megamenu_left-menu">
+                                    <h2 class="megamenu_left-title">لوازم جانبی تبلت</h2>
+                                    <li><a href="shop.html">کیف و کاور تبلت</a></li>
+                                    <li><a href="shop.html">قلم لمسی</a></li>
+                                    <li><a href="shop.html">کیبورد و استند</a></li>
+                                    <li><a href="shop.html">گلس و محافظ صفحه</a></li>
+                                    <li><a href="shop.html">کابل و شارژر</a></li>
+                                    <li><a href="shop.html">پاوربانک</a></li>
+                                </div>
+
+                            </ul>
+                            <ul class="megamenu_left-item">
+                                <li>منوی4 </li>
+                            </ul>
+                            <ul class="megamenu_left-item">
+                                <li>منوی5 </li>
+                            </ul>
+                            <ul class="megamenu_left-item">
+                                <li>منوی6 </li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+            </div>
+            <div class="flex items-center gap-6 child:gap-1 child:text-[#28303F]">
+                <a id="shopping_cart_header" href="" class="flex-center child:text-custom-black">
+                    <span class="hidden lg:inline">سبد خرید</span>
+                    <svg class="size-6">
+                        <use href="#shop"></use>
+                    </svg>
+
+                </a>
+                <a href="dashbord.html" class="py-3 px-4 rounded-lg child:text-white bg-custom-brown flex-center">
+                    <span class="text-sm xl:text-base">حساب من</span>
+                    <svg class="size-6">
+                        <use href="#user"></use>
+                    </svg>
+                </a>
+                <!-- <a href="login.html" class="py-3 px-4 rounded-lg bg-custom-brown">
+                        <span class="text-white text-sm xl:text-base">ورود / ثبت فروشگاه</span>
+                    </a> -->
+            </div>
+        </div>
+        <div class="flex justify-center md:hidden">
+            <!-- Top Navbar -->
+            <nav class="absolute top-0 inset-x-0 w-full h-16 px-4 shadow-sm flex items-center justify-between">
+                <!-- Menu -->
+                <button class="open-menu-mobile flex-center p-2 app-border rounded-full">
+                    <svg class=" size-8 text-white">
+                        <use href="#menu_berger" />
+                    </svg>
+                </button>
+                <div class="mobile-menu z-50 flex flex-col">
+                    <!--  MENU MOBILE header -->
+                    <div class="flex w-full items-center justify-between border-b-normal pb-4">
+                        <a href="index.html" id="logo_header"
+                            class="border-l-2 border-[#CCCCCC] md:pl-4 lg:pl-5 xl:pl-6">
+                            <svg id="logo" width="55" height="61" viewBox="0 0 55 61" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path d="M16.7087 27.2444V11.4785L8.71289 19.4743V27.2444H16.7087Z" fill="#9C4639" />
+                                <path d="M16.7077 31.4824H0V36.2701H16.7077V31.4824Z" fill="#9C4639" />
+                                <path d="M31.3362 27.2445V3.13945L28.1968 0L21.0938 7.103V27.2445H31.3362Z"
+                                    fill="#9C4639" />
+                                <path d="M31.346 31.4824H21.0938V36.2701H31.346V31.4824Z" fill="#9C4639" />
+                                <path d="M46.3465 27.2442V17.2078L35.9961 6.85742V27.2442H46.3465Z" fill="#9C4639" />
+                                <path d="M54.6464 31.4824H35.9961V36.2701H54.6464V31.4824Z" fill="#9C4639" />
+                                <path
+                                    d="M3.98971 54.5664C3.37422 54.5664 2.82467 54.429 2.34107 54.1542C1.86846 53.8795 1.50026 53.5168 1.23648 53.0661C0.972698 52.6045 0.840806 52.0989 0.840806 51.5494C0.840806 51.4505 0.851797 51.2911 0.873779 51.0713C0.906752 50.8405 0.978193 50.4613 1.0881 49.9337C1.19801 49.4062 1.29693 48.9445 1.38486 48.5489L2.83566 48.9281C2.53891 50.17 2.37954 50.9614 2.35756 51.3021C2.34656 51.3571 2.34107 51.4285 2.34107 51.5164C2.34107 51.9121 2.48395 52.2253 2.76972 52.4561C3.05548 52.676 3.46214 52.7859 3.98971 52.7859H9.90833C10.315 52.7859 10.6282 52.7089 10.8481 52.5551C11.0789 52.4012 11.1943 52.1979 11.1943 51.9451C11.1943 51.6263 11.0349 51.3076 10.7162 50.9889L7.30347 47.5597L7.73212 45.5319L13.354 43.0589L13.997 44.6746L9.00157 46.8837L11.8372 49.7854C12.134 50.0821 12.3538 50.4118 12.4967 50.7745C12.6506 51.1372 12.7275 51.5054 12.7275 51.8791C12.7275 52.3517 12.6121 52.7969 12.3813 53.2145C12.1615 53.6212 11.8372 53.9509 11.4086 54.2037C10.9799 54.4455 10.4744 54.5664 9.89184 54.5664H3.98971ZM16.1519 56.9404C16.8993 56.9404 17.4708 56.858 17.8665 56.6932C18.2732 56.5283 18.5534 56.27 18.7073 55.9183C18.8612 55.5776 18.9381 55.1105 18.9381 54.5169H17.2565C16.3003 54.5169 15.5309 54.2312 14.9484 53.6597C14.3659 53.0881 14.0746 52.2913 14.0746 51.2691C14.0746 50.5657 14.2065 49.9282 14.4703 49.3567C14.7451 48.7852 15.1188 48.34 15.5914 48.0213C16.075 47.6916 16.6245 47.5267 17.24 47.5267C17.8995 47.5267 18.471 47.6861 18.9546 48.0048C19.4492 48.3126 19.8284 48.7522 20.0922 49.3237C20.3669 49.8843 20.5043 50.5327 20.5043 51.2691V54.5005C20.5043 55.7864 20.1581 56.8086 19.4657 57.5669C18.7732 58.3363 17.6687 58.721 16.1519 58.721H14.3219V56.9404H16.1519ZM15.6079 51.2362C15.6079 51.7857 15.7397 52.1814 16.0035 52.4232C16.2673 52.654 16.685 52.7694 17.2565 52.7694H18.9381V51.2526C18.9381 50.6262 18.8007 50.1371 18.5259 49.7854C18.2512 49.4336 17.8225 49.2578 17.24 49.2578C16.7124 49.2578 16.3058 49.4391 16.02 49.8018C15.7452 50.1535 15.6079 50.6317 15.6079 51.2362ZM26.4529 49.3402V51.6978C26.4529 52.0934 26.5519 52.3737 26.7497 52.5386C26.9475 52.7034 27.2608 52.7859 27.6894 52.7859H27.9037L28.0027 53.6926L27.9037 54.5664H27.6894C27.1838 54.5664 26.7717 54.4345 26.4529 54.1707C26.42 55.6325 26.0188 56.7536 25.2494 57.534C24.4801 58.3253 23.3865 58.721 21.9686 58.721H20.93V56.9404H21.9686C22.6831 56.9404 23.2546 56.8415 23.6832 56.6437C24.1119 56.4568 24.4196 56.1491 24.6065 55.7205C24.8043 55.3028 24.9032 54.7258 24.9032 53.9894V49.3402H26.4529ZM27.7384 52.7859H31.1675L31.2665 53.6597L31.1675 54.5664H27.7384V52.7859ZM31.0067 52.7859H34.4358L34.5348 53.6597L34.4358 54.5664H31.0067V52.7859ZM34.209 52.7859H36.2368C37.303 52.7859 38.2702 52.621 39.1385 52.2913C40.0067 51.9616 41.0234 51.456 42.1884 50.7745C39.7814 49.8183 38.3581 49.3402 37.9185 49.3402C37.6217 49.3402 37.3854 49.4117 37.2095 49.5545C37.0447 49.6974 36.8853 49.9722 36.7314 50.3789L35.2806 49.9172C35.5444 49.1149 35.9016 48.5269 36.3523 48.1532C36.8139 47.7685 37.3359 47.5762 37.9185 47.5762C38.3251 47.5762 38.9571 47.7355 39.8144 48.0543C40.6717 48.362 41.8807 48.8401 43.4414 49.4886L43.7546 49.6205L44.0844 51.5164L43.4909 51.8791C42.4797 52.5056 41.6444 52.9947 40.9849 53.3464C40.3365 53.6981 39.6111 53.9894 38.8087 54.2202C38.0174 54.451 37.1601 54.5664 36.2368 54.5664H34.209V52.7859ZM38.3636 56.5613H40.1936V58.3748H38.3636V56.5613ZM46.4856 45.1197H48.1342V54.5664H46.4856V45.1197ZM43.7818 44.7075C43.9467 44.0481 44.2544 43.5315 44.7051 43.1578C45.1557 42.7841 45.7602 42.5973 46.5186 42.5973H49.7994V43.9821H46.5186C46.0899 43.9821 45.7602 44.0811 45.5294 44.2789C45.2986 44.4767 45.1172 44.7515 44.9853 45.1032L43.7818 44.7075Z"
+                                    fill="#9C4639" />
+                            </svg>
+                        </a>
+                        <button class="close-menu-mobile">
+                            <svg class="size-5 text-gray-500 ">
+                                <use href="#x-mark" />
+                            </svg>
+                        </button>
+                    </div>
+                    <!-- MENU MOBILE CATEGORY & ACTION  -->
+                    <ul class="flex flex-col gap-y-2 text-gray-800  mt-4">
+                        <li>
+                            <span class="open-category mobile-menu-item">
+                                <svg class="size-5">
+                                    <use href="#squares" />
+                                </svg>
+                                <a href="#">دسته بندی</a>
+                            </span>
+                            <!-- MENU CATEGORY SLIDE -->
+                            <div class="category-slide">
+                                <div class=" w-full border-b-normal pb-4">
+                                    <span class="close-category-slide flex items-center gap-x-1 cursor-pointer">
+                                        <svg class="size-4">
+                                            <use href="#arrow" />
+                                        </svg>
+                                        دسته بندی
+                                    </span>
+                                </div>
+                                <ul class="child:flex pt-4 child:cursor-pointer space-y-2">
+                                    <li>
+                                        <div class="relative open-detail-category">
+                                            <span class="mobile-menu-category-badge">
+                                                موبایل
+                                            </span>
+                                            <img src="./images/category/1.webp" class="h-28 w-full object-cover rounded"
+                                                alt="">
+                                        </div>
+                                        <!-- Mobile SLIDE -->
+                                        <div class="detail-category">
+                                            <span
+                                                class="close-detail-category flex-center gap-x-1 mx-4 bg-gray-100  rounded p-2 cursor-pointer">
+                                                موبایل
+                                                <svg class="size-4">
+                                                    <use href="#arrow" />
+                                                </svg>
+                                            </span>
+                                            <ul class="mt-5 flex flex-col child:py-3 divide-y-2  child:px-4">
+                                                <li>
+                                                    <span class="flex group items-center justify-between open-submenu">
+                                                        <a href="#">گوشی‌های هوشمند</a>
+                                                        <svg class="size-4 rotate-90">
+                                                            <use href="#chevron" />
+                                                        </svg>
+                                                    </span>
+                                                    <ul
+                                                        class="menu-category-submenu child:list-disc child-hover:mr-2 child:transition-all child:duration-300">
+                                                        <li href="">آیفون</li>
+                                                        <li href="">سامسونگ</li>
+                                                        <li href="">شیائومی</li>
+                                                        <li href="" class="text-red-500">پرفروش‌ها</li>
+                                                        <li href="">نوکیا</li>
+                                                    </ul>
+                                                </li>
+                                                <li>
+                                                    <span class="flex group items-center justify-between open-submenu">
+                                                        <a href="#">لوازم جانبی</a>
+                                                        <svg class="size-4 rotate-90">
+                                                            <use href="#chevron" />
+                                                        </svg>
+                                                    </span>
+                                                    <ul
+                                                        class="menu-category-submenu child:list-disc child-hover:mr-2 child:transition-all child:duration-300">
+                                                        <li href="">قاب موبایل</li>
+                                                        <li href="">محافظ صفحه</li>
+                                                        <li href="">پاوربانک</li>
+                                                        <li href="" class="text-red-500">تخفیف‌ها</li>
+                                                        <li href="">شارژر</li>
+                                                    </ul>
+                                                </li>
+                                                <li>
+                                                    <span class="flex group items-center justify-between open-submenu">
+                                                        <a href="#">گجت‌های پوشیدنی</a>
+                                                        <svg class="size-4 rotate-90">
+                                                            <use href="#chevron" />
+                                                        </svg>
+                                                    </span>
+                                                    <ul
+                                                        class="menu-category-submenu child:list-disc child-hover:mr-2 child:transition-all child:duration-300">
+                                                        <li href="">ساعت هوشمند</li>
+                                                        <li href="">دستبند هوشمند</li>
+                                                        <li href="">هدفون بی‌سیم</li>
+                                                        <li href="" class="text-red-500">جدیدترین‌ها</li>
+                                                        <li href="">هدست</li>
+                                                    </ul>
+                                                </li>
+                                                <li>
+                                                    <span class="flex group items-center justify-between open-submenu">
+                                                        <a href="#">لوازم مخصوص بازی</a>
+                                                        <svg class="size-4 rotate-90">
+                                                            <use href="#chevron" />
+                                                        </svg>
+                                                    </span>
+                                                    <ul
+                                                        class="menu-category-submenu child:list-disc child-hover:mr-2 child:transition-all child:duration-300">
+                                                        <li href="">کنترلر بازی</li>
+                                                        <li href="">دسته بازی موبایل</li>
+                                                        <li href="">لوازم جانبی گیمرها</li>
+                                                        <li href="" class="text-red-500">محصولات جدید</li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="relative open-detail-category">
+                                            <span class="mobile-menu-category-badge">
+                                                لپ تاپ
+                                            </span>
+                                            <img src="./images/category/2.jpg" class="h-28 w-full object-cover rounded"
+                                                alt="">
+                                        </div>
+                                        <div class="detail-category">
+                                            <span
+                                                class="close-detail-category flex-center gap-x-1 mx-4 bg-gray-100  rounded p-2 cursor-pointer">
+                                                لپ تاپ
+                                                <svg class="size-4">
+                                                    <use href="#arrow" />
+                                                </svg>
+                                            </span>
+                                            <ul class="mt-5 flex flex-col child:py-3 divide-y-2  child:px-4">
+                                                <li>
+                                                    <span class="flex group items-center justify-between open-submenu">
+                                                        <a href="#">لپ‌تاپ‌ها</a>
+                                                        <svg class="size-4 rotate-90">
+                                                            <use href="#chevron" />
+                                                        </svg>
+                                                    </span>
+                                                    <ul
+                                                        class="menu-category-submenu child:list-disc child-hover:mr-2 child:transition-all child:duration-300">
+                                                        <li href="">ایسر</li>
+                                                        <li href="">دل</li>
+                                                        <li href="">اچ‌پی</li>
+                                                        <li href="" class="text-red-500">پرفروش‌ها</li>
+                                                        <li href="">لنوو</li>
+                                                    </ul>
+                                                </li>
+                                                <li>
+                                                    <span class="flex group items-center justify-between open-submenu">
+                                                        <a href="#">لوازم جانبی</a>
+                                                        <svg class="size-4 rotate-90">
+                                                            <use href="#chevron" />
+                                                        </svg>
+                                                    </span>
+                                                    <ul
+                                                        class="menu-category-submenu child:list-disc child-hover:mr-2 child:transition-all child:duration-300">
+                                                        <li href="">کیبورد</li>
+                                                        <li href="">ماوس</li>
+                                                        <li href="">کوله لپ‌تاپ</li>
+                                                        <li href="" class="text-red-500">محصولات تخفیف‌دار</li>
+                                                        <li href="">پایه خنک‌کننده</li>
+                                                    </ul>
+                                                </li>
+                                                <li>
+                                                    <span class="flex group items-center justify-between open-submenu">
+                                                        <a href="#">قطعات و تجهیزات</a>
+                                                        <svg class="size-4 rotate-90">
+                                                            <use href="#chevron" />
+                                                        </svg>
+                                                    </span>
+                                                    <ul
+                                                        class="menu-category-submenu child:list-disc child-hover:mr-2 child:transition-all child:duration-300">
+                                                        <li href="">هارد اکسترنال</li>
+                                                        <li href="">رم لپ‌تاپ</li>
+                                                        <li href="">شارژر لپ‌تاپ</li>
+                                                        <li href="" class="text-red-500">قطعات ویژه</li>
+                                                        <li href="">کارت گرافیک</li>
+                                                    </ul>
+                                                </li>
+                                                <li>
+                                                    <span class="flex group items-center justify-between open-submenu">
+                                                        <a href="#">نرم‌افزارها</a>
+                                                        <svg class="size-4 rotate-90">
+                                                            <use href="#chevron" />
+                                                        </svg>
+                                                    </span>
+                                                    <ul
+                                                        class="menu-category-submenu child:list-disc child-hover:mr-2 child:transition-all child:duration-300">
+                                                        <li href="">آنتی‌ویروس</li>
+                                                        <li href="">نرم‌افزارهای اداری</li>
+                                                        <li href="">نرم‌افزارهای طراحی</li>
+                                                        <li href="" class="text-red-500">جدیدترین نرم‌افزارها</li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="relative open-detail-category">
+                                            <span class="mobile-menu-category-badge">
+                                                هدفون
+                                            </span>
+                                            <img src="./images/category/4.webp" class="h-28 w-full object-cover rounded"
+                                                alt="">
+                                        </div>
+                                        <div class="detail-category">
+                                            <span
+                                                class="close-detail-category flex-center gap-x-1 mx-4 bg-gray-100  rounded p-2 cursor-pointer">
+                                                هدفون
+                                                <svg class="size-4">
+                                                    <use href="#arrow" />
+                                                </svg>
+                                            </span>
+                                            <ul class="mt-5 flex flex-col child:py-3 divide-y-2  child:px-4">
+                                                <li>
+                                                    <span class="flex group items-center justify-between open-submenu">
+                                                        <a href="#">هدفون‌های بی‌سیم</a>
+                                                        <svg class="size-4 rotate-90">
+                                                            <use href="#chevron" />
+                                                        </svg>
+                                                    </span>
+                                                    <ul
+                                                        class="menu-category-submenu child:list-disc child-hover:mr-2 child:transition-all child:duration-300">
+                                                        <li href="">ایرپاد</li>
+                                                        <li href="">هدفون‌های بلوتوثی</li>
+                                                        <li href="">هدفون‌های ورزشی</li>
+                                                        <li href="" class="text-red-500">محصولات تخفیف‌دار</li>
+                                                        <li href="">هدفون‌های نویزگیر</li>
+                                                    </ul>
+                                                </li>
+                                                <li>
+                                                    <span class="flex group items-center justify-between open-submenu">
+                                                        <a href="#">هدفون‌های باسیم</a>
+                                                        <svg class="size-4 rotate-90">
+                                                            <use href="#chevron" />
+                                                        </svg>
+                                                    </span>
+                                                    <ul
+                                                        class="menu-category-submenu child:list-disc child-hover:mr-2 child:transition-all child:duration-300">
+                                                        <li href="">هدفون‌های استودیویی</li>
+                                                        <li href="">هدفون‌های گیمینگ</li>
+                                                        <li href="">هدفون‌های اقتصادی</li>
+                                                        <li href="" class="text-red-500">مدل‌های ویژه</li>
+                                                        <li href="">هدفون‌های حرفه‌ای</li>
+                                                    </ul>
+                                                </li>
+                                                <li>
+                                                    <span class="flex group items-center justify-between open-submenu">
+                                                        <a href="#">لوازم جانبی هدفون</a>
+                                                        <svg class="size-4 rotate-90">
+                                                            <use href="#chevron" />
+                                                        </svg>
+                                                    </span>
+                                                    <ul
+                                                        class="menu-category-submenu child:list-disc child-hover:mr-2 child:transition-all child:duration-300">
+                                                        <li href="">کیس شارژ</li>
+                                                        <li href="">پد گوش</li>
+                                                        <li href="">کابل و مبدل</li>
+                                                        <li href="" class="text-red-500">محصولات تخفیف‌دار</li>
+                                                        <li href="">هولدر هدفون</li>
+                                                    </ul>
+                                                </li>
+                                                <li>
+                                                    <span class="flex group items-center justify-between open-submenu">
+                                                        <a href="#">برندها</a>
+                                                        <svg class="size-4 rotate-90">
+                                                            <use href="#chevron" />
+                                                        </svg>
+                                                    </span>
+                                                    <ul
+                                                        class="menu-category-submenu child:list-disc child-hover:mr-2 child:transition-all child:duration-300">
+                                                        <li href="">سونی</li>
+                                                        <li href="">بوز</li>
+                                                        <li href="">جبرا</li>
+                                                        <li href="" class="text-red-500">برندهای تخفیف‌دار</li>
+                                                        <li href="">انکر</li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="relative open-detail-category">
+                                            <span class="mobile-menu-category-badge">
+                                                پرفروش ها
+                                            </span>
+                                            <img src="./images/category/3.webp" class="h-28 w-full object-cover rounded"
+                                                alt="">
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="mobile-menu-item">
+                            <svg class="size-5">
+                                <use href="#user" />
+                            </svg>
+                            <a href="dashboard.html">حساب کاربری</a>
+                        </li>
+                        <li class="mobile-menu-item">
+                            <svg class="size-5">
+                                <use href="#heart" />
+                            </svg>
+                            <a href="dashboard-favorite.html">علاقه مندی ها</a>
+                        </li>
+                        <li class="mobile-menu-item">
+                            <svg class="size-5">
+                                <use href="#shopping-cart" />
+                            </svg>
+                            <a href="shopping-cart.html">سبد خرید</a>
+                        </li>
+                        <li class="mobile-menu-item">
+                            <svg class="size-5">
+                                <use href="#check-badge" />
+                            </svg>
+                            <a href="#">دربـاره مـا</a>
+                        </li>
+                        <li class="mobile-menu-item">
+                            <svg class="size-5">
+                                <use href="#phone" />
+                            </svg>
+                            <a href="contact-us.html">تـماس بـا مـا</a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- Logo -->
+                <a href="index.html" class="flex flex-col text-center">
+                    <span class="font-IRANSansXBlack text-white text-3xl flex items-center">
+                        آجروک
+                    </span>
+                </a>
+                <div>
+                    <svg class="size-6 text-white">
+                        <use href="#search"></use>
+                    </svg>
+                </div>
+            </nav>
+        </div>
+        <!-- bottom Navbar-->
+        <ul class="bottom-navbar child:h-full child:pt-3 md:hidden">
+            <li class="text-[#333333] font-IRANSansXRegular border-t border-custom-brown">
+                <svg class="size-5">
+                    <use href="#home" />
+                </svg>
+                <a href="index.html">خانه</a>
+            </li>
+            <li>
+                <svg class="size-5">
+                    <use href="#squares" />
+                </svg>
+                <a href="shop.html">فروشگاه</a>
+            </li>
+            <li>
+                <svg class="size-5">
+                    <use href="#shopping-bag" />
+                </svg>
+                <a href="shopping-cart.html">سبد خرید</a>
+            </li>
+            <li>
+                <svg class="size-5">
+                    <use href="#user" />
+                </svg>
+                <a href="dashboard.html">حساب من</a>
+            </li>
+        </ul>
+        </div>
+    </header>
+    <main class="relative container pb-32">
+        <h3 class="md:hidden text-center font-IRANSansXDemiBold text-xl">ثبت فروشگاه</h3>
+        <section class="steps font-IRANSansXRegular w-full md:w-[740px] flex items-center justify-center mx-auto mt-8">
+            <div class="relative w-full text-sm md:text-base">
+                <!-- خط پشت (همیشه از چپ تا راست) -->
+                <div class="absolute left-0 right-0 top-5 transform  h-[3px] bg-[#E0E0E0] w-11/12 mx-auto"></div>
+                <div class="absolute top-5 right-0 h-[3px] bg-[#7b2e1f] -translate-y-1/2 w-11/12 mr-6"
+                    style="width: 34%;"></div>
+
+                <!-- مراحل (روی خط قرار می‌گیرند) -->
+                <div class="relative z-10 flex justify-between items-center">
+                    <!-- Step 1 (active) -->
+                    <a href="store_registration_step_1.html"
+                        class="font-IRANSansXMedium flex flex-col items-center text-center">
+                        <div
+                            class="size-9 rounded-full bg-custom-brown text-white flex items-center justify-center z-20">
+                            <svg class="size-6 text-white">
+                                <use href="#tick"></use>
+                            </svg>
+                        </div>
+                        <span class="mt-2">انتخاب دسته</span>
+                    </a>
+
+                    <!-- Step 2 -->
+                    <div class="flex flex-col items-center text-center">
+                        <div
+                            class="size-9 rounded-full border-[3px] border-custom-brown bg-[#E0E0E0] flex items-center justify-center">
+                            <span class="text-sm text-black">2</span>
+                        </div>
+                        <span class="mt-2">اطلاعات اولیه</span>
+                    </div>
+
+                    <!-- Step 3 -->
+                    <div class="flex flex-col items-center text-center">
+                        <div class="size-9 rounded-full bg-[#E0E0E0] flex items-center justify-center">
+                            <span class="text-sm text-black">3</span>
+                        </div>
+                        <span class="mt-2">اطلاعات تکمیلی</span>
+                    </div>
+
+                    <!-- Step 4 -->
+                    <div class="flex flex-col items-center text-center">
+                        <div class="size-9 rounded-full bg-[#E0E0E0] flex items-center justify-center">
+                            <span class="text-sm text-black">4</span>
+                        </div>
+                        <span class="mt-2">ثبت نهایی</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- new_shop_forms -->
+        <section
+            class="font-IRANSansXRegular flex flex-col items-center justify-center rounded-xl mt-16 bg-white mx-0 md:mx-3 lg:mx-6 md:py-8 ">
+            <form id="shop-form" novalidate action="store_registration_step_3.html" method="get"
+                class="w-full child:w-full grid  grid-cols-1 md:grid-cols-2 gap-8 md:p-8">
+                <div class="relative">
+                    <label for="shop-name">نام فروشگاه <span class="text-red-500">*</span></label>
+                    <input required id="shop-name" class="shop-input" type="text" placeholder="عنوان ورودی">
+                    <!-- آیکون خطا (در حالت عادی مخفی) -->
+                    <svg class="error-icon hidden absolute left-3 top-1/2 -translate-y-1/3 size-6 text-red-500"
+                        fill="none">
+                        <use href="#error"></use>
+                    </svg>
+                    <p class="error-msg hidden text-sm text-red-500 mt-1">نام فروشگاه را وارد کنید.</p>
+                </div>
+                <div class="relative">
+                    <label for="username">نام کاربری فروشگاه <span class="text-red-500">*</span></label>
+                    <input required id="username" class="shop-input" type="text" placeholder="عنوان ورودی">
+                    <!-- آیکون خطا (در حالت عادی مخفی) -->
+                    <svg class="error-icon hidden absolute left-3 top-1/2 -translate-y-1/3 size-6 text-red-500"
+                        fill="none">
+                        <use href="#error"></use>
+                    </svg>
+                    <p class="error-msg hidden text-sm text-red-500 mt-1">نام کاربری نامعتبر است. فقط حروف انگلیسی کوچک،
+                        عدد و خط تیره مجاز است.</p>
+                </div>
+                <!-- فیلد انتخاب استان -->
+                <div class="relative flex flex-col">
+                    <label for="province-field">استان <span class="text-red-500">*</span></label>
+                    <input type="text" id="province-field" required readonly class="shop-input cursor-pointer"
+                        placeholder="انتخاب استان">
+                </div>
+
+                <!-- MODAL استان -->
+                <div id="province-modal" class="fixed inset-0 hidden z-50 flex items-end justify-center">
+                    <div id="province-box" class="mobile-bottom-sheet bg-white py-4">
+                        <div class="flex items-center justify-between border-b pb-6 mb-6 px-6 pt-6">
+                            <h2 class="text-xl font-bold">انتخاب استان</h2>
+                            <button type="button" id="province-close-btn"
+                                class="text-gray-500 hover:text-gray-700 text-xl">
+                                <svg class="size-8">
+                                    <use href="#exit">
+                                </svg>
+                            </button>
+                        </div>
+
+                        <div class="px-6">
+                            <input id="province-search" type="text" placeholder="جستجو استان..."
+                                class="w-full border px-3 py-2 rounded-md mb-6">
+                            <div id="province-list" class="max-h-60 overflow-auto cursor-grab"
+                                style="scrollbar-width: none;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- فیلد انتخاب شهر -->
+                <div class="relative flex flex-col">
+                    <label for="city-field">شهر <span class="text-red-500">*</span></label>
+                    <input type="text" id="city-field" required readonly class="shop-input cursor-pointer"
+                        placeholder="ابتدا استان را انتخاب کنید" disabled>
+                </div>
+
+                <!-- MODAL شهر -->
+                <div id="city-modal" class="fixed inset-0 hidden z-50 flex items-end justify-center">
+                    <div id="city-box" class="mobile-bottom-sheet bg-white">
+                        <div class="flex items-center justify-between border-b pb-6 mb-6 px-6 pt-6">
+                            <h2 class="text-xl font-bold">انتخاب شهر</h2>
+                            <button type="button" id="city-close-btn" class="text-gray-500 hover:text-gray-700 text-xl">
+                                <svg class="size-8">
+                                    <use href="#exit">
+                                </svg>
+                            </button>
+                        </div>
+
+                        <div class="px-6">
+                            <input id="city-search" type="text" placeholder="جستجو شهر..."
+                                class="w-full border px-3 py-2 rounded-md mb-6">
+                            <div id="city-list" class="max-h-60 overflow-auto cursor-grab max-w-[506px]"></div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <!-- فیلد انتخاب ساعت و تاریخ -->
+                <div class="relative w-full">
+                    <label for="worktime-field">ساعت کاری <span class="text-red-500">*</span></label>
+                    <input id="worktime-field" type="text" required readonly class="shop-input cursor-pointer"
+                        placeholder="انتخاب ساعت کاری">
+
+                    <!-- Error icon -->
+                    <svg class="error-icon hidden absolute left-3 top-1/2 -translate-y-1/3 size-6 text-red-500"
+                        fill="none">
+                        <use href="#error"></use>
+                    </svg>
+                    <p class="error-msg hidden text-sm text-red-500 mt-1">ساعت کاری را وارد کنید.</p>
+                </div>
+                <!-- MODAL ساعت و تاریخ -->
+                <div id="worktime-modal" class="fixed inset-0 hidden items-center justify-center z-50">
+                    <div
+                        class="flex flex-col justify-between items-center bg-white h-dvh md:h-auto w-[540px] md:rounded-3xl shadow-lg py-8 px-6 md:px-8 relative">
+                        <div>
+                            <!-- Header -->
+                            <div class="flex items-center justify-between mb-6">
+                                <h2 class="text-xl font-bold">ساعت کاری فروشگاه</h2>
+                                <button type="button" id="close-worktime"
+                                    class="text-gray-500 hover:text-gray-700 text-xl">
+                                    <svg class="size-8">
+                                        <use href="#exit"></use>
+                                    </svg>
+                                </button>
+                            </div>
+
+
+                            <!-- روزهای هفته -->
+                            <div class="space-y-4">
+
+                                <!-- شنبه تا چهارشنبه -->
+                                <div
+                                    class="workday-content mt-4 transition-all duration-300 p-4 border border-[#cccccc] rounded-lg workday ">
+
+                                    <!-- عنوان + سوئیچ -->
+                                    <div class="flex items-center justify-between">
+                                        <span class="font-IRANSansXMedium">شنبه تا چهارشنبه</span>
+
+                                        <!-- سوئیچ -->
+                                        <label class="relative inline-flex cursor-pointer items-center">
+                                            <input type="checkbox" class="sr-only peer workday-toggle">
+                                            <div
+                                                class="w-14 h-7 bg-gray-300 rounded-full peer-checked:bg-[#9C4639]
+                                                                                        after:absolute after:top-[4px] after:right-[3px] after:w-5 after:h-5 after:bg-white
+                                                                                        after:rounded-full after:transition-all peer-checked:after:translate-x-[-28px]">
+                                            </div>
+                                        </label>
+                                    </div>
+                                    <div class="workday-fields opacity-50 pointer-events-none">
+                                        <!-- شیفت 1 -->
+                                        <div class="shift-row font-IRANSansXMedium text-sm flex items-center gap-4 mt-4"
+                                            data-shift="1">
+                                            <span class="text-nowrap">شیفت 1</span>
+                                            <!-- Input -->
+                                            <div class="relative">
+                                                <input type="text" readonly
+                                                    class="timepicker-input w-full border border-[#CCCCCC] rounded-lg p-2 cursor-pointer"
+                                                    placeholder="-- : --">
+                                            </div>
+                                            <!-- Modal TimePicker -->
+                                            <div id="timepicker-modal"
+                                                class="fixed inset-0 hidden bg-black/30 flex items-center justify-center z-[999]">
+
+                                                <div class="bg-white w-[300px] rounded-2xl shadow-xl p-5">
+
+                                                    <h3 class="text-lg font-bold text-center mb-4">انتخاب ساعت</h3>
+                                                    <div class="flex items-center justify-center mb-4">
+                                                        <p class="errors_time"></p>
+                                                    </div>
+                                                    <!-- ساعت + دقیقه -->
+                                                    <div class="flex justify-center items-center gap-4 mb-4">
+
+                                                        <div class="relative w-full" id="hour-picker-wrapper">
+                                                            <div id="hour-picker"
+                                                                class="cursor-pointer bg-white border border-[#CCCCCC] rounded-xl px-4 py-2 flex items-center justify-between
+                                                               text-[#262626] font-IRANSansXMedium shadow-sm hover:border-[#9C4639] transition">
+                                                                <span id="hour-picker-label">ساعت</span>
+
+                                                                <svg class="w-5 h-5 text-[#9C4639]" fill="none"
+                                                                    stroke="currentColor" stroke-width="2"
+                                                                    viewBox="0 0 24 24">
+                                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                                        d="M19 9l-7 7-7-7" />
+                                                                </svg>
+                                                            </div>
+
+                                                            <!-- DROPDOWN -->
+                                                            <div id="hour-dropdown" class="absolute left-0 right-0 mt-2 bg-white border border-[#CCCCCC] rounded-xl shadow-xl
+                                                                max-h-48 overflow-y-auto hidden z-50 animate-fade">
+
+                                                                <ul id="hour-options" class="py-2"></ul>
+                                                            </div>
+                                                        </div>
+                                                        <span class="text-xl font-bold">:</span>
+
+                                                        <div class="relative w-full" id="min-picker-wrapper">
+                                                            <div id="min-picker"
+                                                                class="cursor-pointer bg-white border border-[#CCCCCC] rounded-xl px-4 py-2 flex items-center justify-between
+                                                                                                               text-[#262626] font-IRANSansXMedium shadow-sm hover:border-[#9C4639] transition">
+                                                                <span id="min-picker-label">دقیقه</span>
+
+                                                                <svg class="w-5 h-5 text-[#9C4639]" fill="none"
+                                                                    stroke="currentColor" stroke-width="2"
+                                                                    viewBox="0 0 24 24">
+                                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                                        d="M19 9l-7 7-7-7" />
+                                                                </svg>
+                                                            </div>
+
+                                                            <!-- DROPDOWN -->
+                                                            <div id="min-dropdown"
+                                                                class="absolute left-0 right-0 mt-2 bg-white border border-[#CCCCCC] rounded-xl shadow-xl
+                                                                                                                max-h-48 overflow-y-auto hidden z-50 animate-fade">
+
+                                                                <ul id="min-options" class="py-2"></ul>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+
+                                                    <!-- صبح / شب -->
+                                                    <div class="flex justify-center gap-4 mb-5">
+                                                        <button type="button" id="tp-am"
+                                                            class="tp-meridiem px-4 py-2 border rounded-lg">
+                                                            صبح
+                                                        </button>
+
+                                                        <button type="button" id="tp-pm"
+                                                            class="tp-meridiem px-4 py-2 border rounded-lg">
+                                                            شب<p class="errors_time mx-auto text-center"></p>
+                                                        </button>
+                                                    </div>
+
+                                                    <!-- دکمه‌ها -->
+                                                    <div class="flex justify-between mt-4">
+                                                        <button type="button" id="tp-cancel"
+                                                            class="px-4 py-2 border border-[#9C4639] text-[#9C4639] rounded-lg w-1/2 ml-2">
+                                                            انصراف
+                                                        </button>
+
+                                                        <button type="button" id="tp-save"
+                                                            class="px-4 py-2 bg-custom-brown text-white rounded-lg w-1/2">
+                                                            تایید
+                                                        </button>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <span>تا</span>
+                                            <!-- Input -->
+                                            <div class="relative">
+                                                <input type="text" readonly
+                                                    class="timepicker-input w-full border border-[#CCCCCC] rounded-lg p-2 cursor-pointer"
+                                                    placeholder="-- : --">
+                                            </div>
+                                            <!-- Modal TimePicker -->
+                                            <div id="timepicker-modal"
+                                                class="fixed inset-0 hidden bg-black/30 flex items-center justify-center z-[999]">
+
+                                                <div class="bg-white w-[300px] rounded-2xl shadow-xl p-5">
+
+                                                    <h3 class="text-lg font-bold text-center mb-4">انتخاب ساعت</h3>
+
+                                                    <!-- ساعت + دقیقه -->
+                                                    <div class="flex justify-center items-center gap-4 mb-4">
+
+                                                        <div class="relative w-full" id="hour-picker-wrapper">
+                                                            <div id="hour-picker"
+                                                                class="cursor-pointer bg-white border border-[#CCCCCC] rounded-xl px-4 py-2 flex items-center justify-between
+                                                                                                   text-[#262626] font-IRANSansXMedium shadow-sm hover:border-[#9C4639] transition">
+                                                                <span id="hour-picker-label">ساعت</span>
+
+                                                                <svg class="w-5 h-5 text-[#9C4639]" fill="none"
+                                                                    stroke="currentColor" stroke-width="2"
+                                                                    viewBox="0 0 24 24">
+                                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                                        d="M19 9l-7 7-7-7" />
+                                                                </svg>
+                                                            </div>
+
+                                                            <!-- DROPDOWN -->
+                                                            <div id="hour-dropdown"
+                                                                class="absolute left-0 right-0 mt-2 bg-white border border-[#CCCCCC] rounded-xl shadow-xl
+                                                                                                    max-h-48 overflow-y-auto hidden z-50 animate-fade">
+
+                                                                <ul id="hour-options" class="py-2"></ul>
+                                                            </div>
+                                                        </div>
+
+
+                                                        <span class="text-xl font-bold">:</span>
+
+                                                        <div class="relative w-full" id="min-picker-wrapper">
+                                                            <div id="min-picker"
+                                                                class="cursor-pointer bg-white border border-[#CCCCCC] rounded-xl px-4 py-2 flex items-center justify-between
+                                                                                                                                                   text-[#262626] font-IRANSansXMedium shadow-sm hover:border-[#9C4639] transition">
+                                                                <span id="min-picker-label">دقیقه</span>
+
+                                                                <svg class="w-5 h-5 text-[#9C4639]" fill="none"
+                                                                    stroke="currentColor" stroke-width="2"
+                                                                    viewBox="0 0 24 24">
+                                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                                        d="M19 9l-7 7-7-7" />
+                                                                </svg>
+                                                            </div>
+
+                                                            <!-- DROPDOWN -->
+                                                            <div id="min-dropdown"
+                                                                class="absolute left-0 right-0 mt-2 bg-white border border-[#CCCCCC] rounded-xl shadow-xl
+                                                                                                                                                    max-h-48 overflow-y-auto hidden z-50 animate-fade">
+
+                                                                <ul id="min-options" class="py-2"></ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- صبح / شب -->
+                                                    <div class="flex justify-center gap-4 mb-5">
+                                                        <button type="button" id="tp-am"
+                                                            class="tp-meridiem px-4 py-2 border rounded-lg">
+                                                            صبح
+                                                        </button>
+
+                                                        <button type="button" id="tp-pm"
+                                                            class="tp-meridiem px-4 py-2 border rounded-lg">
+                                                            شب
+                                                        </button>
+                                                    </div>
+
+                                                    <!-- دکمه‌ها -->
+                                                    <div class="flex justify-between mt-4">
+                                                        <button type="button" id="tp-cancel"
+                                                            class="px-4 py-2 border border-[#9C4639] text-[#9C4639] rounded-lg w-1/2 ml-2">
+                                                            انصراف
+                                                        </button>
+
+                                                        <button type="button" id="tp-save"
+                                                            class="px-4 py-2 bg-custom-brown text-white rounded-lg w-1/2">
+                                                            تایید
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- شیفت 2 -->
+                                        <div class="shift-row hidden font-IRANSansXMedium text-sm flex items-center gap-4 mt-3"
+                                            data-shift="2">
+                                            <span class="text-nowrap">شیفت 2</span>
+                                            <!-- Input -->
+                                            <div class="relative">
+                                                <input type="text" readonly
+                                                    class="timepicker-input w-full border border-[#CCCCCC] rounded-lg p-2 cursor-pointer"
+                                                    placeholder="-- : --">
+                                            </div>
+
+                                            <!-- Modal TimePicker -->
+                                            <div id="timepicker-modal"
+                                                class="fixed inset-0 hidden bg-black/30 flex items-center justify-center z-[999]">
+
+                                                <div class="bg-white w-[300px] rounded-2xl shadow-xl p-5">
+
+                                                    <h3 class="text-lg font-bold text-center mb-4">انتخاب ساعت</h3>
+
+                                                    <!-- ساعت + دقیقه -->
+                                                    <div class="flex justify-center items-center gap-4 mb-4">
+
+                                                        <div class="relative w-full" id="hour-picker-wrapper">
+                                                            <div id="hour-picker"
+                                                                class="cursor-pointer bg-white border border-[#CCCCCC] rounded-xl px-4 py-2 flex items-center justify-between
+                                                                                                   text-[#262626] font-IRANSansXMedium shadow-sm hover:border-[#9C4639] transition">
+                                                                <span id="hour-picker-label">ساعت</span>
+
+                                                                <svg class="w-5 h-5 text-[#9C4639]" fill="none"
+                                                                    stroke="currentColor" stroke-width="2"
+                                                                    viewBox="0 0 24 24">
+                                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                                        d="M19 9l-7 7-7-7" />
+                                                                </svg>
+                                                            </div>
+
+                                                            <!-- DROPDOWN -->
+                                                            <div id="hour-dropdown"
+                                                                class="absolute left-0 right-0 mt-2 bg-white border border-[#CCCCCC] rounded-xl shadow-xl
+                                                                                                    max-h-48 overflow-y-auto hidden z-50 animate-fade">
+
+                                                                <ul id="hour-options" class="py-2"></ul>
+                                                            </div>
+                                                        </div>
+
+
+                                                        <span class="text-xl font-bold">:</span>
+
+                                                        <div class="relative w-full" id="min-picker-wrapper">
+                                                            <div id="min-picker"
+                                                                class="cursor-pointer bg-white border border-[#CCCCCC] rounded-xl px-4 py-2 flex items-center justify-between
+                                                                                                                                                   text-[#262626] font-IRANSansXMedium shadow-sm hover:border-[#9C4639] transition">
+                                                                <span id="min-picker-label">دقیقه</span>
+
+                                                                <svg class="w-5 h-5 text-[#9C4639]" fill="none"
+                                                                    stroke="currentColor" stroke-width="2"
+                                                                    viewBox="0 0 24 24">
+                                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                                        d="M19 9l-7 7-7-7" />
+                                                                </svg>
+                                                            </div>
+
+                                                            <!-- DROPDOWN -->
+                                                            <div id="min-dropdown"
+                                                                class="absolute left-0 right-0 mt-2 bg-white border border-[#CCCCCC] rounded-xl shadow-xl
+                                                                                                                                                    max-h-48 overflow-y-auto hidden z-50 animate-fade">
+
+                                                                <ul id="min-options" class="py-2"></ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- صبح / شب -->
+                                                    <div class="flex justify-center gap-4 mb-5">
+                                                        <button type="button" id="tp-am"
+                                                            class="tp-meridiem px-4 py-2 border rounded-lg">
+                                                            صبح
+                                                        </button>
+
+                                                        <button type="button" id="tp-pm"
+                                                            class="tp-meridiem px-4 py-2 border rounded-lg">
+                                                            شب
+                                                        </button>
+                                                    </div>
+
+                                                    <!-- دکمه‌ها -->
+                                                    <div class="flex justify-between mt-4">
+                                                        <button type="button" id="tp-cancel"
+                                                            class="px-4 py-2 border border-[#9C4639] text-[#9C4639] rounded-lg w-1/2 ml-2">
+                                                            انصراف
+                                                        </button>
+
+                                                        <button type="button" id="tp-save"
+                                                            class="px-4 py-2 bg-custom-brown text-white rounded-lg w-1/2">
+                                                            تایید
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <span>تا</span>
+                                            <!-- Input -->
+                                            <div class="relative">
+                                                <input type="text" readonly
+                                                    class="timepicker-input w-full border border-[#CCCCCC] rounded-lg p-2 cursor-pointer"
+                                                    placeholder="-- : --">
+                                            </div>
+
+                                            <!-- Modal TimePicker -->
+                                            <div id="timepicker-modal"
+                                                class="fixed inset-0 hidden bg-black/30 flex items-center justify-center z-[999]">
+
+                                                <div class="bg-white w-[300px] rounded-2xl shadow-xl p-5">
+
+                                                    <h3 class="text-lg font-bold text-center mb-4">انتخاب ساعت</h3>
+
+                                                    <!-- ساعت + دقیقه -->
+                                                    <div class="flex justify-center items-center gap-4 mb-4">
+
+                                                        <div class="relative w-full" id="hour-picker-wrapper">
+                                                            <div id="hour-picker"
+                                                                class="cursor-pointer bg-white border border-[#CCCCCC] rounded-xl px-4 py-2 flex items-center justify-between
+                                                                                                                                       text-[#262626] font-IRANSansXMedium shadow-sm hover:border-[#9C4639] transition">
+                                                                <span id="hour-picker-label">ساعت</span>
+
+                                                                <svg class="w-5 h-5 text-[#9C4639]" fill="none"
+                                                                    stroke="currentColor" stroke-width="2"
+                                                                    viewBox="0 0 24 24">
+                                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                                        d="M19 9l-7 7-7-7" />
+                                                                </svg>
+                                                            </div>
+
+                                                            <!-- DROPDOWN -->
+                                                            <div id="hour-dropdown"
+                                                                class="absolute left-0 right-0 mt-2 bg-white border border-[#CCCCCC] rounded-xl shadow-xl
+                                                                                                                                        max-h-48 overflow-y-auto hidden z-50 animate-fade">
+
+                                                                <ul id="hour-options" class="py-2"></ul>
+                                                            </div>
+                                                        </div>
+
+
+                                                        <span class="text-xl font-bold">:</span>
+
+                                                        <div class="relative w-full" id="min-picker-wrapper">
+                                                            <div id="min-picker"
+                                                                class="cursor-pointer bg-white border border-[#CCCCCC] rounded-xl px-4 py-2 flex items-center justify-between
+                                                                                                                                                                                       text-[#262626] font-IRANSansXMedium shadow-sm hover:border-[#9C4639] transition">
+                                                                <span id="min-picker-label">دقیقه</span>
+
+                                                                <svg class="w-5 h-5 text-[#9C4639]" fill="none"
+                                                                    stroke="currentColor" stroke-width="2"
+                                                                    viewBox="0 0 24 24">
+                                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                                        d="M19 9l-7 7-7-7" />
+                                                                </svg>
+                                                            </div>
+
+                                                            <!-- DROPDOWN -->
+                                                            <div id="min-dropdown"
+                                                                class="absolute left-0 right-0 mt-2 bg-white border border-[#CCCCCC] rounded-xl shadow-xl
+                                                                                                                                                                                        max-h-48 overflow-y-auto hidden z-50 animate-fade">
+
+                                                                <ul id="min-options" class="py-2"></ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- صبح / شب -->
+                                                    <div class="flex justify-center gap-4 mb-5">
+                                                        <button type="button" id="tp-am"
+                                                            class="tp-meridiem px-4 py-2 border rounded-lg">
+                                                            صبح
+                                                        </button>
+
+                                                        <button type="button" id="tp-pm"
+                                                            class="tp-meridiem px-4 py-2 border rounded-lg">
+                                                            شب
+                                                        </button>
+                                                    </div>
+
+                                                    <!-- دکمه‌ها -->
+                                                    <div class="flex justify-between mt-4">
+                                                        <button type="button" id="tp-cancel"
+                                                            class="px-4 py-2 border border-[#9C4639] text-[#9C4639] rounded-lg w-1/2 ml-2">
+                                                            انصراف
+                                                        </button>
+
+                                                        <button type="button" id="tp-save"
+                                                            class="px-4 py-2 bg-custom-brown text-white rounded-lg w-1/2">
+                                                            تایید
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- دو شیفت -->
+                                        <label
+                                            class="font-IRANSansXMedium text-sm flex items-center gap-2 cursor-pointer select-none mt-3">
+                                            <input type="checkbox" class="peer hidden two-shifts" />
+
+                                            <div
+                                                class="w-6 h-6 border-2 border-[#999999] rounded-md
+                                                                        flex items-center justify-center
+                                                                        peer-checked:bg-custom-brown peer-checked:border-none">
+
+                                                <!-- آیکون تیک -->
+                                                <svg class="w-5 h-5 text-white  transition">
+                                                    <use href="#tick"></use>
+                                                </svg>
+                                            </div>
+
+                                            <span>دو شیفت</span>
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <!-- پنج‌شنبه -->
+                                <div class="workday p-4 border border-[#cccccc] rounded-lg">
+
+                                    <!-- عنوان + سوئیچ -->
+                                    <div class="flex items-center justify-between">
+                                        <span class="workday-title font-IRANSansXMedium">پنج‌شنبه</span>
+
+                                        <label class="relative inline-flex cursor-pointer items-center">
+                                            <input type="checkbox" class="sr-only peer workday-toggle">
+                                            <div
+                                                class="w-14 h-7 bg-gray-300 rounded-full peer-checked:bg-[#9C4639]
+                                                    after:absolute after:top-[4px] after:right-[3px] after:w-5 after:h-5 after:bg-white
+                                                    after:rounded-full after:transition-all peer-checked:after:translate-x-[-28px]">
+                                            </div>
+                                        </label>
+                                    </div>
+                                    <div class="workday-fields">
+                                        <!-- شیفت 1 -->
+                                        <div class="shift-row font-IRANSansXMedium text-sm flex items-center gap-4 mt-4"
+                                            data-shift="1">
+                                            <span class="text-nowrap">شیفت 1</span>
+                                            <!-- Input -->
+                                            <div class="relative">
+                                                <input type="text" readonly
+                                                    class="timepicker-input w-full border border-[#CCCCCC] rounded-lg p-2 cursor-pointer"
+                                                    placeholder="-- : --">
+                                            </div>
+                                            <!-- Modal TimePicker -->
+                                            <div id="timepicker-modal"
+                                                class="fixed inset-0 hidden bg-black/30 flex items-center justify-center z-[999]">
+
+                                                <div class="bg-white w-[300px] rounded-2xl shadow-xl p-5">
+
+                                                    <h3 class="text-lg font-bold text-center mb-4">انتخاب ساعت</h3>
+
+                                                    <!-- ساعت + دقیقه -->
+                                                    <div class="flex justify-center items-center gap-4 mb-4">
+
+                                                        <div class="relative w-full" id="hour-picker-wrapper">
+                                                            <div id="hour-picker"
+                                                                class="cursor-pointer bg-white border border-[#CCCCCC] rounded-xl px-4 py-2 flex items-center justify-between
+                                                                                                   text-[#262626] font-IRANSansXMedium shadow-sm hover:border-[#9C4639] transition">
+                                                                <span id="hour-picker-label">ساعت</span>
+
+                                                                <svg class="w-5 h-5 text-[#9C4639]" fill="none"
+                                                                    stroke="currentColor" stroke-width="2"
+                                                                    viewBox="0 0 24 24">
+                                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                                        d="M19 9l-7 7-7-7" />
+                                                                </svg>
+                                                            </div>
+
+                                                            <!-- DROPDOWN -->
+                                                            <div id="hour-dropdown"
+                                                                class="absolute left-0 right-0 mt-2 bg-white border border-[#CCCCCC] rounded-xl shadow-xl
+                                                                                                    max-h-48 overflow-y-auto hidden z-50 animate-fade">
+
+                                                                <ul id="hour-options" class="py-2"></ul>
+                                                            </div>
+                                                        </div>
+
+
+                                                        <span class="text-xl font-bold">:</span>
+
+                                                        <div class="relative w-full" id="min-picker-wrapper">
+                                                            <div id="min-picker"
+                                                                class="cursor-pointer bg-white border border-[#CCCCCC] rounded-xl px-4 py-2 flex items-center justify-between
+                                                                                                                                                   text-[#262626] font-IRANSansXMedium shadow-sm hover:border-[#9C4639] transition">
+                                                                <span id="min-picker-label">دقیقه</span>
+
+                                                                <svg class="w-5 h-5 text-[#9C4639]" fill="none"
+                                                                    stroke="currentColor" stroke-width="2"
+                                                                    viewBox="0 0 24 24">
+                                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                                        d="M19 9l-7 7-7-7" />
+                                                                </svg>
+                                                            </div>
+
+                                                            <!-- DROPDOWN -->
+                                                            <div id="min-dropdown"
+                                                                class="absolute left-0 right-0 mt-2 bg-white border border-[#CCCCCC] rounded-xl shadow-xl
+                                                                                                                                                    max-h-48 overflow-y-auto hidden z-50 animate-fade">
+
+                                                                <ul id="min-options" class="py-2"></ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- صبح / شب -->
+                                                    <div class="flex justify-center gap-4 mb-5">
+                                                        <button type="button" id="tp-am"
+                                                            class="tp-meridiem px-4 py-2 border rounded-lg">
+                                                            صبح
+                                                        </button>
+
+                                                        <button type="button" id="tp-pm"
+                                                            class="tp-meridiem px-4 py-2 border rounded-lg">
+                                                            شب
+                                                        </button>
+                                                    </div>
+
+                                                    <!-- دکمه‌ها -->
+                                                    <div class="flex justify-between mt-4">
+                                                        <button type="button" id="tp-cancel"
+                                                            class="px-4 py-2 border border-[#9C4639] text-[#9C4639] rounded-lg w-1/2 ml-2">
+                                                            انصراف
+                                                        </button>
+
+                                                        <button type="button" id="tp-save"
+                                                            class="px-4 py-2 bg-custom-brown text-white rounded-lg w-1/2">
+                                                            تایید
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <span>تا</span>
+                                            <!-- Input -->
+                                            <div class="relative">
+                                                <input type="text" readonly
+                                                    class="timepicker-input w-full border border-[#CCCCCC] rounded-lg p-2 cursor-pointer"
+                                                    placeholder="-- : --">
+                                            </div>
+                                            <!-- Modal TimePicker -->
+                                            <div id="timepicker-modal"
+                                                class="fixed inset-0 hidden bg-black/30 flex items-center justify-center z-[999]">
+
+                                                <div class="bg-white w-[300px] rounded-2xl shadow-xl p-5">
+
+                                                    <h3 class="text-lg font-bold text-center mb-4">انتخاب ساعت</h3>
+
+                                                    <!-- ساعت + دقیقه -->
+                                                    <div class="flex justify-center items-center gap-4 mb-4">
+
+                                                        <div class="relative w-full" id="hour-picker-wrapper">
+                                                            <div id="hour-picker"
+                                                                class="cursor-pointer bg-white border border-[#CCCCCC] rounded-xl px-4 py-2 flex items-center justify-between
+                                                                                                                                       text-[#262626] font-IRANSansXMedium shadow-sm hover:border-[#9C4639] transition">
+                                                                <span id="hour-picker-label">ساعت</span>
+
+                                                                <svg class="w-5 h-5 text-[#9C4639]" fill="none"
+                                                                    stroke="currentColor" stroke-width="2"
+                                                                    viewBox="0 0 24 24">
+                                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                                        d="M19 9l-7 7-7-7" />
+                                                                </svg>
+                                                            </div>
+
+                                                            <!-- DROPDOWN -->
+                                                            <div id="hour-dropdown"
+                                                                class="absolute left-0 right-0 mt-2 bg-white border border-[#CCCCCC] rounded-xl shadow-xl
+                                                                                                                                        max-h-48 overflow-y-auto hidden z-50 animate-fade">
+
+                                                                <ul id="hour-options" class="py-2"></ul>
+                                                            </div>
+                                                        </div>
+
+
+                                                        <span class="text-xl font-bold">:</span>
+
+                                                        <div class="relative w-full" id="min-picker-wrapper">
+                                                            <div id="min-picker"
+                                                                class="cursor-pointer bg-white border border-[#CCCCCC] rounded-xl px-4 py-2 flex items-center justify-between
+                                                                                                                                                                                       text-[#262626] font-IRANSansXMedium shadow-sm hover:border-[#9C4639] transition">
+                                                                <span id="min-picker-label">دقیقه</span>
+
+                                                                <svg class="w-5 h-5 text-[#9C4639]" fill="none"
+                                                                    stroke="currentColor" stroke-width="2"
+                                                                    viewBox="0 0 24 24">
+                                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                                        d="M19 9l-7 7-7-7" />
+                                                                </svg>
+                                                            </div>
+
+                                                            <!-- DROPDOWN -->
+                                                            <div id="min-dropdown"
+                                                                class="absolute left-0 right-0 mt-2 bg-white border border-[#CCCCCC] rounded-xl shadow-xl
+                                                                                                                                                                                        max-h-48 overflow-y-auto hidden z-50 animate-fade">
+
+                                                                <ul id="min-options" class="py-2"></ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- صبح / شب -->
+                                                    <div class="flex justify-center gap-4 mb-5">
+                                                        <button type="button" id="tp-am"
+                                                            class="tp-meridiem px-4 py-2 border rounded-lg">
+                                                            صبح
+                                                        </button>
+
+                                                        <button type="button" id="tp-pm"
+                                                            class="tp-meridiem px-4 py-2 border rounded-lg">
+                                                            شب
+                                                        </button>
+                                                    </div>
+
+                                                    <!-- دکمه‌ها -->
+                                                    <div class="flex justify-between mt-4">
+                                                        <button type="button" id="tp-cancel"
+                                                            class="px-4 py-2 border border-[#9C4639] text-[#9C4639] rounded-lg w-1/2 ml-2">
+                                                            انصراف
+                                                        </button>
+
+                                                        <button type="button" id="tp-save"
+                                                            class="px-4 py-2 bg-custom-brown text-white rounded-lg w-1/2">
+                                                            تایید
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- شیفت 2 -->
+                                        <div class="shift-row hidden font-IRANSansXMedium text-sm flex items-center gap-4 mt-3"
+                                            data-shift="2">
+                                            <span class="text-nowrap">شیفت 2</span>
+                                            <!-- Input -->
+                                            <div class="relative">
+                                                <input type="text" readonly
+                                                    class="timepicker-input w-full border border-[#CCCCCC] rounded-lg p-2 cursor-pointer"
+                                                    placeholder="-- : --">
+                                            </div>
+
+                                            <!-- Modal TimePicker -->
+                                            <div id="timepicker-modal"
+                                                class="fixed inset-0 hidden bg-black/30 flex items-center justify-center z-[999]">
+
+                                                <div class="bg-white w-[300px] rounded-2xl shadow-xl p-5">
+
+                                                    <h3 class="text-lg font-bold text-center mb-4">انتخاب ساعت</h3>
+
+                                                    <!-- ساعت + دقیقه -->
+                                                    <div class="flex justify-center items-center gap-4 mb-4">
+
+                                                        <div class="relative w-full" id="hour-picker-wrapper">
+                                                            <div id="hour-picker"
+                                                                class="cursor-pointer bg-white border border-[#CCCCCC] rounded-xl px-4 py-2 flex items-center justify-between
+                                                                                                                                       text-[#262626] font-IRANSansXMedium shadow-sm hover:border-[#9C4639] transition">
+                                                                <span id="hour-picker-label">ساعت</span>
+
+                                                                <svg class="w-5 h-5 text-[#9C4639]" fill="none"
+                                                                    stroke="currentColor" stroke-width="2"
+                                                                    viewBox="0 0 24 24">
+                                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                                        d="M19 9l-7 7-7-7" />
+                                                                </svg>
+                                                            </div>
+
+                                                            <!-- DROPDOWN -->
+                                                            <div id="hour-dropdown"
+                                                                class="absolute left-0 right-0 mt-2 bg-white border border-[#CCCCCC] rounded-xl shadow-xl
+                                                                                                                                        max-h-48 overflow-y-auto hidden z-50 animate-fade">
+
+                                                                <ul id="hour-options" class="py-2"></ul>
+                                                            </div>
+                                                        </div>
+
+
+                                                        <span class="text-xl font-bold">:</span>
+
+                                                        <div class="relative w-full" id="min-picker-wrapper">
+                                                            <div id="min-picker"
+                                                                class="cursor-pointer bg-white border border-[#CCCCCC] rounded-xl px-4 py-2 flex items-center justify-between
+                                                                                                                                                                                       text-[#262626] font-IRANSansXMedium shadow-sm hover:border-[#9C4639] transition">
+                                                                <span id="min-picker-label">دقیقه</span>
+
+                                                                <svg class="w-5 h-5 text-[#9C4639]" fill="none"
+                                                                    stroke="currentColor" stroke-width="2"
+                                                                    viewBox="0 0 24 24">
+                                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                                        d="M19 9l-7 7-7-7" />
+                                                                </svg>
+                                                            </div>
+
+                                                            <!-- DROPDOWN -->
+                                                            <div id="min-dropdown"
+                                                                class="absolute left-0 right-0 mt-2 bg-white border border-[#CCCCCC] rounded-xl shadow-xl
+                                                                                                                                                                                        max-h-48 overflow-y-auto hidden z-50 animate-fade">
+
+                                                                <ul id="min-options" class="py-2"></ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- صبح / شب -->
+                                                    <div class="flex justify-center gap-4 mb-5">
+                                                        <button type="button" id="tp-am"
+                                                            class="tp-meridiem px-4 py-2 border rounded-lg">
+                                                            صبح
+                                                        </button>
+
+                                                        <button type="button" id="tp-pm"
+                                                            class="tp-meridiem px-4 py-2 border rounded-lg">
+                                                            شب
+                                                        </button>
+                                                    </div>
+
+                                                    <!-- دکمه‌ها -->
+                                                    <div class="flex justify-between mt-4">
+                                                        <button type="button" id="tp-cancel"
+                                                            class="px-4 py-2 border border-[#9C4639] text-[#9C4639] rounded-lg w-1/2 ml-2">
+                                                            انصراف
+                                                        </button>
+
+                                                        <button type="button" id="tp-save"
+                                                            class="px-4 py-2 bg-custom-brown text-white rounded-lg w-1/2">
+                                                            تایید
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <span>تا</span>
+                                            <!-- Input -->
+                                            <div class="relative">
+                                                <input type="text" readonly
+                                                    class="timepicker-input w-full border border-[#CCCCCC] rounded-lg p-2 cursor-pointer"
+                                                    placeholder="-- : --">
+                                            </div>
+
+                                            <!-- Modal TimePicker -->
+                                            <div id="timepicker-modal"
+                                                class="fixed inset-0 hidden bg-black/30 flex items-center justify-center z-[999]">
+
+                                                <div class="bg-white w-[300px] rounded-2xl shadow-xl p-5">
+
+                                                    <h3 class="text-lg font-bold text-center mb-4">انتخاب ساعت</h3>
+
+                                                    <!-- ساعت + دقیقه -->
+                                                    <div class="flex justify-center items-center gap-4 mb-4">
+
+                                                        <div class="relative w-full" id="hour-picker-wrapper">
+                                                            <div id="hour-picker"
+                                                                class="cursor-pointer bg-white border border-[#CCCCCC] rounded-xl px-4 py-2 flex items-center justify-between
+                                                                                                                                                                           text-[#262626] font-IRANSansXMedium shadow-sm hover:border-[#9C4639] transition">
+                                                                <span id="hour-picker-label">ساعت</span>
+
+                                                                <svg class="w-5 h-5 text-[#9C4639]" fill="none"
+                                                                    stroke="currentColor" stroke-width="2"
+                                                                    viewBox="0 0 24 24">
+                                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                                        d="M19 9l-7 7-7-7" />
+                                                                </svg>
+                                                            </div>
+
+                                                            <!-- DROPDOWN -->
+                                                            <div id="hour-dropdown"
+                                                                class="absolute left-0 right-0 mt-2 bg-white border border-[#CCCCCC] rounded-xl shadow-xl
+                                                                                                                                                                            max-h-48 overflow-y-auto hidden z-50 animate-fade">
+
+                                                                <ul id="hour-options" class="py-2"></ul>
+                                                            </div>
+                                                        </div>
+
+
+                                                        <span class="text-xl font-bold">:</span>
+
+                                                        <div class="relative w-full" id="min-picker-wrapper">
+                                                            <div id="min-picker"
+                                                                class="cursor-pointer bg-white border border-[#CCCCCC] rounded-xl px-4 py-2 flex items-center justify-between
+                                                                                                                                                                                                                           text-[#262626] font-IRANSansXMedium shadow-sm hover:border-[#9C4639] transition">
+                                                                <span id="min-picker-label">دقیقه</span>
+
+                                                                <svg class="w-5 h-5 text-[#9C4639]" fill="none"
+                                                                    stroke="currentColor" stroke-width="2"
+                                                                    viewBox="0 0 24 24">
+                                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                                        d="M19 9l-7 7-7-7" />
+                                                                </svg>
+                                                            </div>
+
+                                                            <!-- DROPDOWN -->
+                                                            <div id="min-dropdown"
+                                                                class="absolute left-0 right-0 mt-2 bg-white border border-[#CCCCCC] rounded-xl shadow-xl
+                                                                                                                                                                                                                            max-h-48 overflow-y-auto hidden z-50 animate-fade">
+
+                                                                <ul id="min-options" class="py-2"></ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- صبح / شب -->
+                                                    <div class="flex justify-center gap-4 mb-5">
+                                                        <button type="button" id="tp-am"
+                                                            class="tp-meridiem px-4 py-2 border rounded-lg">
+                                                            صبح
+                                                        </button>
+
+                                                        <button type="button" id="tp-pm"
+                                                            class="tp-meridiem px-4 py-2 border rounded-lg">
+                                                            شب
+                                                        </button>
+                                                    </div>
+
+                                                    <!-- دکمه‌ها -->
+                                                    <div class="flex justify-between mt-4">
+                                                        <button type="button" id="tp-cancel"
+                                                            class="px-4 py-2 border border-[#9C4639] text-[#9C4639] rounded-lg w-1/2 ml-2">
+                                                            انصراف
+                                                        </button>
+
+                                                        <button type="button" id="tp-save"
+                                                            class="px-4 py-2 bg-custom-brown text-white rounded-lg w-1/2">
+                                                            تایید
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- دو شیفت -->
+                                        <label
+                                            class="font-IRANSansXMedium text-sm flex items-center gap-2 cursor-pointer select-none mt-3">
+                                            <input type="checkbox" class="peer hidden two-shifts" />
+
+                                            <div class="w-6 h-6 border-2 border-[#999999] rounded-md
+                                        flex items-center justify-center
+                                        peer-checked:bg-custom-brown peer-checked:border-none">
+
+                                                <!-- آیکون تیک -->
+                                                <svg class="w-5 h-5 text-white  transition">
+                                                    <use href="#tick"></use>
+                                                </svg>
+                                            </div>
+
+                                            <span>دو شیفت</span>
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <!-- جمعه -->
+                                <div class="flex items-center justify-between p-4 border border-[#cccccc] rounded-lg">
+
+                                    <div class="flex items-center gap-2">
+                                        <span class="font-semibold">جمعه</span>
+                                        <span class="text-[#9C4639] font-IRANSansXMedium">(تعطیل)</span>
+                                    </div>
+
+                                    <!-- سوئیچ -->
+                                    <label class="relative inline-flex cursor-pointer items-center">
+                                        <input type="checkbox" class="sr-only peer">
+                                        <div
+                                            class="w-14 h-7 bg-gray-300 rounded-full peer-checked:bg-[#9C4639]
+                                                                                    after:absolute after:top-[4px] after:right-[3px] after:w-5 after:h-5 after:bg-white
+                                                                                    after:rounded-full after:transition-all peer-checked:after:translate-x-[-28px]">
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="error-msg-box hidden text-sm text-red-500 mt-3">ساعت کاری را وارد کنید.</p>
+                        <!-- دکمه‌ها -->
+                        <div class="font-IRANSansXRegular w-full flex justify-between gap-x-2 mt-3 mb-4 md:mb-0">
+                            <button type="button" id="worktime-confirm"
+                                class="w-2/3 py-2 bg-[#9C4639] text-white rounded-lg">
+                                تأیید
+                            </button>
+                            <button type="button" id="worktime-cancel"
+                                class="w-1/3 py-2 border-2 border-[#D22121] text-[#D22121] rounded-lg">
+                                انصراف
+                            </button>
+
+                        </div>
+
+
+                    </div>
+                </div>
+
+
+                <!-- فیلد کد پستی   -->
+                <div class="relative">
+                    <label for="username">کد پستی <span class="text-red-500">*</span></label>
+                    <input required id="postalCode" class="shop-input w-full pr-3 pl-10 border rounded py-2" type="text"
+                        placeholder="عنوان ورودی">
+                    <!-- آیکون خطا (در حالت عادی مخفی) -->
+                    <svg class="error-icon hidden absolute left-3 top-1/2 -translate-y-1/3 size-6 text-red-500"
+                        fill="none">
+                        <use href="#error"></use>
+                    </svg>
+                    <p class="error-msg hidden text-sm text-red-500 mt-1">کد پستی باید ۱۰ رقم باشد.</p>
+                </div>
+                <!-- فیلد  ادرس   -->
+                <div class="relative md:col-span-2">
+                    <label for="address">آدرس پستی <span class="text-red-500">*</span></label>
+                    <textarea required id="address" class="shop-input h-[165px]" placeholder="عنوان ورودی"></textarea>
+                    <!-- آیکون خطا (در حالت عادی مخفی) -->
+                    <svg class="error-icon hidden absolute left-3 top-11 size-6 text-red-500" fill="none">
+                        <use href="#error"></use>
+                    </svg>
+                    <p class="error-msg hidden text-sm text-red-500 mt-1">آدرس پستی را وارد کنید.</p>
+                </div>
+                <!-- فیلد  نوع فروشگاه   -->
+                <div>
+                    <label for="address">نوع فروشگاه <span class="text-red-500">*</span></label>
+                    <div
+                        class="flex items-center gap-6 mt-4 child:flex child:items-center child:gap-2 text-xs md:text-sm lg:text-base">
+                        <label for="">
+                            <input checked type="radio" name="companyType" id=""
+                                class="accent-[#b64832] w-5 h-5 cursor-pointer" required>
+                            حضوری و آنلاین
+                        </label>
+                        <label for="">
+                            <input type="radio" name="companyType" id=""
+                                class="accent-[#b64832] w-5 h-5 cursor-pointer">
+                            آنلاین
+                        </label>
+                        <label for="">
+                            <input type="radio" name="companyType" id=""
+                                class="accent-[#b64832] w-5 h-5 cursor-pointer">
+                            حضوری
+                        </label>
+
+                    </div>
+                </div>
+                <!-- انتخاب ادرس -->
+                <div>
+                    <button type="button"
+                        class="w-full flex-center py-2 md:py-4 border border-[#999999] rounded-lg mt-2 text-sm md:text-base">
+                        <span>
+                            انتخاب آدرس از روی نقشه
+                        </span>
+                    </button>
+                </div>
+                <div class="hidden md:block"></div>
+                <div class="mt-8 md:mt-20 flex justify-center gap-4 w-full">
+                    <button id="confirm-btn" href="store_registration_step_1.html"
+                        class="w-1/2 py-2 rounded-md transition-all duration-300 bg-custom-brown text-white">
+                        تایید
+                    </button>
+                    <button class="w-1/2 py-2 rounded-md border border-[#999999] text-gray-700 " type="button">
+                        انصراف
+                    </button>
+                </div>
+            </form>
+        </section>
+    </main>
+    </div>
+    <div class="overlay"></div>
+    <script src="scripts/header.js"></script>
+    <script type="module" src="scripts/shopform.module.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+    <title>فروشندگان</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: "#9C4639",
+                        brandLight: "#F5EDEB",
+                        bg: "#F7F7F7",
+                        text: "#262626",
+                        muted: "#999999",
+                        success: "#16A34A",
+                        danger: "#D22121",
+                        border: "#E5E5E5"
+                    },
+                    fontFamily: {
+                        dana: ["Dana", "Tahoma"]
+                    }
+                }
+            }
+        }
+    </script>
+
+
+    <style>
+        @font-face {
+            font-family: Dana;
+            src: url("./assets/fonts/Dana.woff");
+        }
+
+        * {
+            font-family: Dana, Tahoma;
+        }
+
+        body {
+            background: #F7F7F7;
+        }
+
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #ccc;
+            border-radius: 10px;
+        }
+    </style>
+
+</head>
+
+
+
+<body>
+
+
+    <!-- HEADER -->
+
+    <header class="h-[64px] bg-white border-b border-gray-200 flex items-center justify-between px-10">
+
+
+        <div class="flex items-center gap-6">
+
+            <div class="w-9 h-9 bg-[#262626] rounded-full"></div>
+
+            <div>
+                <p class="text-sm font-bold">
+                    ادمین
+                </p>
+
+                <p class="text-xs text-gray-400">
+                    سطح ادمین
+                </p>
+            </div>
+
+
+            <button>
+                <svg class="w-5 h-5">
+                    <use href="#bell" />
+                </svg>
+            </button>
+
+
+            <button>
+                <svg class="w-5 h-5">
+                    <use href="#mail" />
+                </svg>
+            </button>
+
+
+        </div>
+
+
+
+
+        <div class="flex items-center gap-10">
+
+
+            <div class="flex gap-2 items-center">
+
+                صفحه اصلی
+
+                <svg class="w-5">
+                    <use href="#home" />
+                </svg>
+
+            </div>
+
+
+
+            <div>
+                صفحات پنل
+                ⌄
+            </div>
+
+
+
+            <div class="text-2xl font-bold">
+
+                <span class="text-brand">
+                    J
+                </span>
+
+                orok
+
+            </div>
+
+
+        </div>
+
+
+
+    </header>
+
+
+
+
+
+
+    <!-- CONTENT -->
+
+    <main class="max-w-[1025px] mx-auto py-10">
+
+
+
+        <!-- breadcrumb -->
+
+
+        <div class="text-sm text-gray-400 mb-5">
+
+            داشبورد
+
+            <span class="px-2">
+                ›
+            </span>
+
+            فروشندگان
+
+        </div>
+
+
+
+
+
+
+
+        <!-- PAGE TITLE -->
+
+
+        <section class="bg-white rounded-xl h-[65px] px-8 flex items-center justify-between mb-5">
+
+
+            <div class="text-brand font-bold h-full flex items-center border-b-2 border-brand">
+
+                فروشندگان
+
+            </div>
+
+
+            <div class="text-2xl">
+
+                →
+
+            </div>
+
+
+        </section>
+
+
+
+
+
+
+
+
+        <!-- PANEL -->
+
+        <section class="bg-white rounded-xl p-5">
+
+
+
+            <!-- SEARCH -->
+
+            <div class="flex gap-4">
+
+
+                <button class="
+h-10
+px-5
+border
+border-brand
+rounded-lg
+text-brand
+flex
+items-center
+gap-2
+">
+
+                    فیلتر
+
+                    ⚙
+
+                </button>
+
+
+
+                <div class="
+flex-1
+border
+border-gray-300
+rounded-lg
+h-10
+flex
+items-center
+px-5
+text-gray-400
+">
+
+                    جستجو
+
+                    <span class="mr-auto">
+                        ⌕
+                    </span>
+
+
+                </div>
+
+
+            </div>
+
+
+
+
+
+
+
+
+
+            <!-- TABS -->
+
+
+            <div class="
+flex
+justify-end
+gap-10
+mt-8
+border-b
+border-gray-200
+">
+
+
+                <div class="
+text-brand
+border-b-2
+border-brand
+pb-4
+">
+
+                    همه
+
+                </div>
+
+
+                <div>
+                    در انتظار تایید
+                </div>
+
+
+                <div>
+                    فعال
+                </div>
+
+
+                <div>
+                    رد شده
+                </div>
+
+
+                <div>
+                    تعلیق شده
+                </div>
+
+
+            </div>
+
+
+
+
+
+
+
+
+
+
+            <!-- FILTER BAR -->
+
+
+            <div class="flex justify-between items-center py-6">
+
+
+                <div class="flex gap-3">
+
+
+                    <button class="filter">
+                        مرتب‌سازی: جدیدترین⌄
+                    </button>
+
+
+                    <button class="filter">
+                        نوع فروشنده⌄
+                    </button>
+
+
+                    <button class="filter">
+                        شهر⌄
+                    </button>
+
+
+                    <button class="filter">
+                        وضعیت⌄
+                    </button>
+
+
+
+                </div>
+
+
+
+                <div class="text-sm text-gray-400">
+
+                    تعداد نتایج: ۱۲۳
+
+                </div>
+
+
+
+            </div>
+
+
+
+
+
+
+
+
+
+            <!-- TABLE -->
+
+            <div class="
+border
+border-gray-200
+rounded-2xl
+overflow-hidden
+">
+
+
+                <div class="
+grid
+grid-cols-7
+bg-gray-100
+py-4
+px-5
+text-sm
+font-bold
+">
+
+
+                    <div>
+                        فروشنده
+                    </div>
+
+                    <div>
+                        نوع
+                    </div>
+
+                    <div>
+                        شهر
+                    </div>
+
+                    <div>
+                        محصولات
+                    </div>
+
+                    <div>
+                        سفارش‌ها
+                    </div>
+
+                    <div>
+                        قابل تسویه
+                    </div>
+
+                    <div>
+                        عملیات
+                    </div>
+
+
+                </div>
+
+
+
+
+                <div id="sellerRows"></div>
+
+
+
+            </div>
+
+
+
+
+
+
+
+
+
+
+            <!-- PAGINATION -->
+
+            <div class="
+flex
+justify-center
+items-center
+gap-5
+mt-8
+">
+
+
+                <span class="text-brand">
+                    ←
+                </span>
+
+
+                <span class="
+bg-brand
+text-white
+w-8
+h-8
+rounded-full
+flex
+items-center
+justify-center
+">
+
+                    1
+
+                </span>
+
+
+                <span>2</span>
+                <span>3</span>
+                <span>4</span>
+                <span>...</span>
+                <span>9</span>
+
+
+                <span class="text-brand">
+                    →
+                </span>
+
+
+
+            </div>
+
+
+
+        </section>
+
+
+
+    </main>
+
+
+
+
+
+
+
+
+    <script>
+
+
+        const rows = document.querySelector("#sellerRows");
+
+
+        for (let i = 0; i < 7; i++) {
+
+
+            rows.innerHTML += `
+
+<div class="
+grid
+grid-cols-7
+items-center
+px-5
+py-5
+border-t
+border-gray-200
+text-sm
+">
+
+
+<div class="flex items-center gap-3">
+
+
+<div class="
+w-10
+h-10
+rounded-full
+bg-brand
+">
+</div>
+
+
+<div>
+
+<p class="font-bold">
+نام کامل فروشگاه
+</p>
+
+
+<p class="text-xs text-gray-400">
+نام مدیر فروشگاه
+</p>
+
+
+</div>
+
+
+</div>
+
+
+
+<div>
+حقیقی
+</div>
+
+
+<div>
+تهران
+</div>
+
+
+<div>
+۱۲۳۴۵۶۷۸۹
+</div>
+
+
+<div>
+۱۲۳۴۵۶۷۸۹
+</div>
+
+
+<div>
+۵,۰۰۰,۰۰۰,۰۰۰
+</div>
+
+
+
+<div>
+
+
+<button class="
+bg-blue-100
+text-blue-600
+rounded
+px-3
+py-2
+text-xs
+">
+
+در انتظار بررسی
+
+</button>
+
+
+
+</div>
+
+
+
+</div>
+
+`;
+
+        }
+
+
+
+
+        document.querySelectorAll(".filter")
+            .forEach(btn => {
+
+                btn.className += " border border-gray-300 rounded-full px-5 py-2 text-sm hover:border-brand transition"
+
+            })
+
+
+    </script>
+
+
+</body>
+
+</html>

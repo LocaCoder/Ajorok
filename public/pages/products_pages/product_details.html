@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>صفحه محصول (فرانت)</title>
+    <link rel="stylesheet" href="../../styles/output.css">
+
+</head>
+
+<body class="font-IRANSansXRegular bg-[#FCFCFC] container py-20">
+    <svg class="hidden">
+        <symbol id="direction_left" width="20" height="20" viewBox="0 0 24 24" fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+            <path d="M14 7L10 12L14 17" stroke="#262626" stroke-width="1.5" stroke-linecap="round"
+                stroke-linejoin="round" />
+        </symbol>
+        <symbol id="chat" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+                d="M8.66683 2H7.3335C4.01979 2 1.3335 4.68629 1.3335 8V11.3333C1.3335 12.8061 2.5274 14 4.00016 14H8.66683C11.9805 14 14.6668 11.3137 14.6668 8C14.6668 4.68629 11.9805 2 8.66683 2Z"
+                stroke="#262626" stroke-linejoin="round" />
+            <circle cx="8.00016" cy="8.0026" r="0.666667" fill="#28303F" />
+            <ellipse cx="10.6667" cy="8.0026" rx="0.666667" ry="0.666667" fill="#28303F" />
+            <circle cx="5.33317" cy="8.0026" r="0.666667" fill="#28303F" />
+        </symbol>
+        <symbol id="location" width="16" height="16" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+                d="M17.5 9.57342C17.5 13.6644 12.8125 18.8327 10 18.8327C7.1875 18.8327 2.5 13.6644 2.5 9.57342C2.5 5.48242 5.85786 2.16602 10 2.16602C14.1421 2.16602 17.5 5.48242 17.5 9.57342Z"
+                stroke="#28303F" stroke-width="1.5" />
+            <path
+                d="M12.5 9.66602C12.5 11.0467 11.3807 12.166 10 12.166C8.61929 12.166 7.5 11.0467 7.5 9.66602C7.5 8.2853 8.61929 7.16602 10 7.16602C11.3807 7.16602 12.5 8.2853 12.5 9.66602Z"
+                stroke="#28303F" stroke-width="1.5" />
+        </symbol>
+        <symbol id="star" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+                d="M13.0861 6.01667L10.3609 8.67317L11.0044 12.4252C11.0182 12.5056 11.0092 12.5883 10.9785 12.6639C10.9477 12.7396 10.8964 12.8051 10.8303 12.853C10.7643 12.901 10.6861 12.9295 10.6047 12.9354C10.5233 12.9413 10.4419 12.9243 10.3696 12.8863L7 11.1149L3.63081 12.8859C3.55856 12.9238 3.47712 12.9409 3.3957 12.935C3.31428 12.9291 3.23613 12.9006 3.17009 12.8526C3.10405 12.8046 3.05274 12.7391 3.02198 12.6635C2.99121 12.5879 2.98221 12.5052 2.996 12.4247L3.63956 8.67273L0.913934 6.01667C0.85543 5.95967 0.814051 5.88743 0.794481 5.80813C0.774911 5.72883 0.777932 5.64564 0.8032 5.56796C0.828469 5.49029 0.874977 5.42124 0.93746 5.36864C0.999942 5.31603 1.0759 5.28196 1.15675 5.2703L4.92318 4.72342L6.60756 1.31005C6.755 1.01123 7.245 1.01123 7.39243 1.31005L9.07681 4.72342L12.8432 5.2703C12.9239 5.28227 12.9996 5.3165 13.0619 5.36915C13.1242 5.42179 13.1705 5.49076 13.1957 5.5683C13.221 5.64585 13.2241 5.72889 13.2047 5.80809C13.1853 5.8873 13.1442 5.95953 13.0861 6.01667Z"
+                fill="#FFA500" />
+        </symbol>
+
+    </svg>
+    <!-- Breadcrumb -->
+    <div class="font-IRANSansXMedium flex items-center gap-1 text-sm text-gray-500 mb-8">
+        <span class="text-[#9C4639]">صفحه اصلی</span>
+        <svg class="size-5">
+            <use href="#direction_left"></use>
+        </svg>
+        <span>مصالح و مواد پایه ساختمان</span>
+        <svg class="size-5">
+            <use href="#direction_left"></use>
+        </svg>
+        <span>سیمان و ملات</span>
+        <svg class="size-5">
+            <use href="#direction_left"></use>
+        </svg>
+        <span>سیمان تیپ ۱، ۲، ۵</span>
+        <svg class="size-5">
+            <use href="#direction_left"></use>
+        </svg>
+        <span class="text-gray-800 font-bold">عنوان محصول</span>
+    </div>
+    <div class="flex items-start gap-12">
+        <!-- =================== CENTER CONTENT (Col-9) ==================== -->
+        <div>
+            <!-- Main Product Section -->
+            <div class="bg-white p-8 rounded-xl ">
+
+                <!-- Top Row: Title & Images -->
+                <div class="flex flex-col md:flex-row gap-8">
+                    <div class="flex flex-col gap-3 max-w-[360px]">
+                        <!-- Main Image -->
+                        <div
+                            class="rounded-lg overflow-hidden h-[244px] flex items-center justify-center border border-gray-100">
+                            <img src="../../images/58bebe61a9e25e2c419610b60987928fbe5b3ad4.jpg" alt="محصول"
+                                class="w-full h-full object-cover">
+                        </div>
+                        <!-- Thumbnails -->
+                        <div class="w-full flex gap-3 no-scrollbar overflow-x-auto">
+                            <div
+                                class="w-28 h-[77px] rounded-lg border border-gray-200 overflow-hidden cursor-pointer bg-gray-50 shrink-0">
+                                <img src="../../images/58bebe61a9e25e2c419610b60987928fbe5b3ad4.jpg"
+                                    class="w-32 h-full object-cover">
+                            </div>
+                            <div
+                                class="w-28 h-[77px] rounded-lg border border-gray-200 overflow-hidden cursor-pointer bg-gray-50 shrink-0">
+                                <img src="../../images/58bebe61a9e25e2c419610b60987928fbe5b3ad4.jpg"
+                                    class="w-32 h-full object-cover">
+                            </div>
+                            <div
+                                class="w-28 h-[77px] rounded-lg border border-gray-200 overflow-hidden cursor-pointer bg-gray-50 shrink-0">
+                                <img src="../../images/58bebe61a9e25e2c419610b60987928fbe5b3ad4.jpg"
+                                    class="w-32 h-full object-cover">
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Text Content -->
+                    <div class="flex-1 order-2">
+                        <h1 class="text-xl md:text-[22px] font-IRANSansXMedium text-gray-900 mb-4">عنوان محصول عنوان محصول عنوان
+                            محصول</h1>
+
+                        <div class="flex flex-wrap gap-2 mb-6 text-sm">
+                            <span
+                                class="bg-gray-50 text-gray-700 px-3 py-1.5 rounded ">مصالح
+                                و مواد پایه ساختمان</span>
+                            <span
+                                class="bg-gray-50 text-gray-700 px-3 py-1.5 rounded ">سیمان
+                                و ملات</span>
+                            <span
+                                class="bg-gray-50 text-gray-700 px-3 py-1.5 rounded ">سیمان
+                                تیپ ۱، ۲، ۵</span>
+                        </div>
+
+                        <!-- Stats -->
+                        <div class="flex flex-col gap-4 mb-6 text-sm text-gray-700">
+                            <div class="flex items-center gap-1 text-gray-800 ">
+                                <span>4.۵</span>
+                                <svg class="size-4">
+                                    <use href="#star"></use>
+                                </svg>
+                                <span class="text-xs text-gray-500">(امتیاز 50 خریدار)</span>
+                            </div>
+                            <div class="flex items-center gap-2 text-sm">
+                                <svg class="size-4">
+                                    <use href="#chat"></use>
+                                </svg>
+                                <span>۲۵ نظر ثبت شده</span>
+                                <svg class="size-5">
+                                    <use href="#direction_left"></use>
+                                </svg>
+                            </div>
+                            <div class="flex items-center gap-2 text-sm mt-1">
+                                <svg class="size-4">
+                                    <use href="#location"></use>
+                                </svg>
+                                <span>تهران</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Description -->
+                <div class="mt-8 mb-12 pt-6 border-t border-gray-100">
+                    <h3 class="text-base font-bold text-gray-800 mb-3 text-right">توضیحات</h3>
+                    <p class="text-gray-500 text-[13px] leading-8 text-justify">
+                        توضیحات محصول توضیحات محصول توضیحات محصول توضیحات محصول توضیحات محصول توضیحات محصول توضیحات
+                        محصول توضیحات محصول توضیحات محصول توضیحات محصول توضیحات محصول توضیحات محصول توضیحات محصول
+                        توضیحات محصول توضیحات محصول توضیحات محصول توضیحات محصول توضیحات محصول توضیحات محصول توضیحات
+                        محصول توضیحات محصول توضیحات محصول توضیحات محصول توضیحات محصول توضیحات محصول توضیحات محصول
+                        توضیحات محصول توضیحات محصول توضیحات محصول.
+                    </p>
+                </div>
+                <!-- ==================== COMMENTS SECTION ==================== -->
+                <div class="bg-white pt-12 border-t border-t-gray-400">
+                
+                    <div class="flex items-center justify-between mb-8">
+                        <h3 class="text-base font-bold text-gray-800 mb-6">نظرات</h3>
+                
+                        <!-- Add Comment Button -->
+                        <button
+                            class="bg-[#9C4639] hover:bg-[#853b30] text-white text-[12px] font-bold py-2 px-6 rounded-lg transition-colors mb-8">
+                            ثبت نظر
+                        </button>
+                    </div>
+                
+                    <!-- Comment List -->
+                    <div class="space-y-8">
+                
+                        <!-- Comment 1 -->
+                        <div class="pb-6 border-b border-gray-300 last:border-0 last:pb-0">
+                            <div class="flex items-center gap-4 mb-3">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-8 h-8 rounded-full bg-gray-300 overflow-hidden"><img
+                                            src="https://i.pravatar.cc/100?img=12" alt="user" class="w-full h-full object-cover">
+                                    </div>
+                                    <span class="font-IRANSansXMedium text-base text-gray-800">نام کاربر</span>
+                                </div>
+                                <div class="flex items-center gap-4">
+                                    <span class="text-gray-600 text-[11px] font-medium">۱۴۰۴/۰۴/۰۴</span>
+                                    <div class="flex text-[#FFA500] text-lg">★★★★<span class="text-gray-300">★</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="text-gray-600 text-[13px] leading-7 text-justify">
+                                للورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است
+                                چاپگرها و متون بلکه روزنامه
+                                و مجله در ستون و سطرآنچنان که لازم است. لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از
+                                صنعت چاپ و با استفاده از طراحان
+                                گرافیک است چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است
+                            </p>
+                        </div>
+                
+                        <!-- Comment 2 -->
+                        <div class="pb-6 border-b border-gray-100 last:border-0 last:pb-0">
+                
+                            <div class="flex items-center gap-4 mb-3">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-8 h-8 rounded-full bg-gray-300 overflow-hidden"><img
+                                            src="https://i.pravatar.cc/100?img=12" alt="user" class="w-full h-full object-cover">
+                                    </div>
+                                    <span class="font-IRANSansXMedium text-base text-gray-800">نام کاربر</span>
+                                </div>
+                                <div class="flex items-center gap-4">
+                                    <span class="text-gray-600 text-[11px] font-medium">۱۴۰۴/۰۴/۰۴</span>
+                                    <div class="flex text-[#FFA500] text-lg">★★★★<span class="text-gray-300">★</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="text-gray-600 text-[13px] leading-7 text-justify">
+                                للورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است
+                                چاپگرها و متون بلکه
+                                روزنامه
+                                و مجله در ستون و سطرآنچنان که لازم است. لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از
+                                صنعت چاپ و با استفاده از
+                                طراحان
+                                گرافیک است چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است
+                            </p>
+                            <!-- Seller Reply -->
+                            <div class="mt-4 bg-[#F4FAF5] border border-[#16A34A]  p-4 rounded-lg">
+                                <div class="flex items-center gap-4 mb-2 text-sm">
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-6 h-6 rounded-full bg-gray-200 overflow-hidden border border-gray-300">
+                                            <img src="https://i.pravatar.cc/100?img=68" alt="seller" class="w-full h-full object-cover">
+                                        </div>
+                                        <span class="text-[#16A34A]">پاسخ فروشگاه</span>
+                                    </div>
+                                    <span class="text-[#16A34A]">۱۴۰۴/۰۴/۰۴</span>
+                                </div>
+                                <p class="text-gray-600 text-[12px] leading-6 text-justify">
+                                    للورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک
+                                    است چاپگرها و متون بلکه روزنامه
+                                    و مجله در ستون و سطرآنچنان که لازم است. لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از
+                                    صنعت چاپ و با استفاده از طراحان
+                                    گرافیک است چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است
+                                </p>
+                            </div>
+                        </div>
+                
+                    </div>
+                
+                    <!-- See All Comments -->
+                    <div class="font-IRANSansXMedium mt-8 flex items-center gap-1 text-[#9C4639] text-sm cursor-pointer">
+                        <span>مشاهده تمام نظرات</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M6 9l6 6 6-6" />
+                        </svg>
+                    </div>
+                
+                </div>
+
+            </div>
+            
+            
+        </div>
+        <!-- ==================== RIGHT SIDEBAR (Col-3) ==================== -->
+        <div class="flex flex-col flex-1 min-w-[344px]">
+
+            <!-- Card 1: Purchase Box -->
+            <div class="bg-white p-5 rounded-xl">
+
+                <!-- Counter -->
+                <div class="flex items-center justify-between gap-4 mb-4">
+                    <div class="w-full flex items-center justify-between border border-gray-300 rounded-lg p-2">
+                        <button
+                        class="w-8 h-8 flex items-center justify-center border border-[#D1AAA4] text-[#B06B61] rounded transition">+</button>
+                        <span class="font-bold text-gray-800 text-lg">۳</span>
+                        <button
+                            class="w-8 h-8 flex items-center justify-center border border-[#D1AAA4] text-[#B06B61] rounded transition">-</button>
+                    </div>
+
+                    <span class="w-fit text-nowrap text-sm text-gray-500 font-medium ml-2">واحد فروش</span>
+                </div>
+
+                <!-- Prices -->
+                <div class="space-y-3 mb-6">
+                    <div class="flex justify-between items-center">
+                        <span class="text-gray-600 font-medium">قیمت واحد:</span>
+                        <span class="text-gray-900 tracking-tight">۵,۰۰۰,۰۰۰ <span class="text-xs">تومان / واحد</span></span>
+                    </div>
+                    <div class="font-IRANSansXMedium flex justify-between items-center text-lg border-t border-gray-100 pt-3">
+                        <span class="text-gray-800">جمع کل:</span>
+                        <span class=" text-gray-900 tracking-tight">۱۵,۰۰۰,۰۰۰ <span class="text-sm">تومان</span></span>
+                    </div>
+                </div>
+
+                <!-- Buttons -->
+                <button
+                    class="w-full bg-[#9C4639] text-white font-bold py-3 rounded-lg text-sm transition-colors mb-4">
+                    افزودن به سبد خرید
+                </button>
+                <button
+                    class="w-full bg-white border border-[#9C4639] text-[#9C4639] font-bold py-3 rounded-lg text-sm transition-colors mb-6">
+                    ارسال پیام
+                </button>
+
+                <!-- Card 2: Seller Info -->
+                <div class="bg-white p-5 pt-6 border-t border-t-gray-300 flex items-center justify-between">
+                    <div class="flex items-center gap-3">
+                        <div class="w-12 h-12 rounded-lg bg-gray-200 overflow-hidden shrink-0">
+                            <!-- جایگاه عکس فروشنده -->
+                            <img src="images/58bebe61a9e25e2c419610b60987928fbe5b3ad4.jpg"
+                                alt="فروشنده" class="w-full h-full object-cover">
+                        </div>
+                        <div class="flex flex-col">
+                            <span class="font-IRANSansXMedium text-gray-800">نام فروشگاه نام فروشگاه</span>
+                            <span class="text-xs text-gray-400 mt-2">مصالح و مواد پایه ساختمانی</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+
+
+        </div>
+        
+    </div>
+    <div class="w-full mt-20 px-8">
+        <!-- Haeader  -->
+        <div class="flex items-center justify-between mb-4">
+            <h4 class="font-IRANSansXDemiBold text-xl">محصولات مشابه</h4>
+            <a href="" class="font-IRANSansXRegular text-lg">مشاهده همه</a>
+        </div>
+        <!-- Content -->
+        <div class="font-IRANSansXRegular flex items-center gap-4">
+            <div class="flex flex-col items-center w-1/5 border border-gray-200 rounded-lg pb-4">
+                <div class="w-full">
+                    <img class="w-full rounded-tr-lg rounded-tl-lg h-40" src="../../images/58bebe61a9e25e2c419610b60987928fbe5b3ad4.jpg" alt="">
+                </div>
+                <div class="flex flex-col items-start gap-2 text-sm text-gray-500 p-4">
+                    <p class="text-base text-[#090808]">عنوان محصول در این قسمت نوشته می‌شود.</p>
+                    <span>نام فروشگاه نام فروشگاه</span>
+                    <span class="flex items-center gap-1">
+                        <svg class="size-3">
+                            <use href=""></use>
+                        </svg>
+                        تهران
+                    </span>
+                </div>
+                <div class="mt-4">
+                    <p class="font-IRANSansXMedium text-gray-700 text-left">
+                        <span class="text-xs">هر واحد</span>
+                        /
+                        <span>12.500.000</span>
+                        <span class="text-[10px]">تومان</span>
+                    </p>
+                </div>
+            </div>
+            <div class="flex flex-col items-center w-1/5 border border-gray-200 rounded-lg pb-4">
+                <div class="w-full">
+                    <img class="w-full rounded-tr-lg rounded-tl-lg h-40"
+                        src="../../images/58bebe61a9e25e2c419610b60987928fbe5b3ad4.jpg" alt="">
+                </div>
+                <div class="flex flex-col items-start gap-2 text-sm text-gray-500 p-4">
+                    <p class="text-base text-[#090808]">عنوان محصول در این قسمت نوشته می‌شود.</p>
+                    <span>نام فروشگاه نام فروشگاه</span>
+                    <span class="flex items-center gap-1">
+                        <svg class="size-3">
+                            <use href=""></use>
+                        </svg>
+                        تهران
+                    </span>
+                </div>
+                <div class="mt-4">
+                    <p class="font-IRANSansXMedium text-gray-700 text-left">
+                        <span class="text-xs">هر واحد</span>
+                        /
+                        <span>12.500.000</span>
+                        <span class="text-[10px]">تومان</span>
+                    </p>
+                </div>
+            </div>
+            <div class="flex flex-col items-center w-1/5 border border-gray-200 rounded-lg pb-4">
+                <div class="w-full">
+                    <img class="w-full rounded-tr-lg rounded-tl-lg h-40"
+                        src="../../images/58bebe61a9e25e2c419610b60987928fbe5b3ad4.jpg" alt="">
+                </div>
+                <div class="flex flex-col items-start gap-2 text-sm text-gray-500 p-4">
+                    <p class="text-base text-[#090808]">عنوان محصول در این قسمت نوشته می‌شود.</p>
+                    <span>نام فروشگاه نام فروشگاه</span>
+                    <span class="flex items-center gap-1">
+                        <svg class="size-3">
+                            <use href=""></use>
+                        </svg>
+                        تهران
+                    </span>
+                </div>
+                <div class="mt-4">
+                    <p class="font-IRANSansXMedium text-gray-700 text-left">
+                        <span class="text-xs">هر واحد</span>
+                        /
+                        <span>12.500.000</span>
+                        <span class="text-[10px]">تومان</span>
+                    </p>
+                </div>
+            </div>
+            <div class="flex flex-col items-center w-1/5 border border-gray-200 rounded-lg pb-4">
+                <div class="w-full">
+                    <img class="w-full rounded-tr-lg rounded-tl-lg h-40"
+                        src="../../images/58bebe61a9e25e2c419610b60987928fbe5b3ad4.jpg" alt="">
+                </div>
+                <div class="flex flex-col items-start gap-2 text-sm text-gray-500 p-4">
+                    <p class="text-base text-[#090808]">عنوان محصول در این قسمت نوشته می‌شود.</p>
+                    <span>نام فروشگاه نام فروشگاه</span>
+                    <span class="flex items-center gap-1">
+                        <svg class="size-3">
+                            <use href=""></use>
+                        </svg>
+                        تهران
+                    </span>
+                </div>
+                <div class="mt-4">
+                    <p class="font-IRANSansXMedium text-gray-700 text-left">
+                        <span class="text-xs">هر واحد</span>
+                        /
+                        <span>12.500.000</span>
+                        <span class="text-[10px]">تومان</span>
+                    </p>
+                </div>
+            </div>
+            <div class="flex flex-col items-center w-1/5 border border-gray-200 rounded-lg pb-4">
+                <div class="w-full">
+                    <img class="w-full rounded-tr-lg rounded-tl-lg h-40"
+                        src="../../images/58bebe61a9e25e2c419610b60987928fbe5b3ad4.jpg" alt="">
+                </div>
+                <div class="flex flex-col items-start gap-2 text-sm text-gray-500 p-4">
+                    <p class="text-base text-[#090808]">عنوان محصول در این قسمت نوشته می‌شود.</p>
+                    <span>نام فروشگاه نام فروشگاه</span>
+                    <span class="flex items-center gap-1">
+                        <svg class="size-3">
+                            <use href=""></use>
+                        </svg>
+                        تهران
+                    </span>
+                </div>
+                <div class="mt-4">
+                    <p class="font-IRANSansXMedium text-gray-700 text-left">
+                        <span class="text-xs">هر واحد</span>
+                        /
+                        <span>12.500.000</span>
+                        <span class="text-[10px]">تومان</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../scripts/product_details.js"></script>
+</body>
+
+</html>

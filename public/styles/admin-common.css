@@ -1,0 +1,702 @@
+/* ============================================================
+   admin-common.css - استایل‌های مشترک پنل ادمین
+   ============================================================ */
+
+/* ===== Reset & Base ===== */
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    @apply font-IRANSansXRegular;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: #f3f3f3;
+    color: #252525;
+}
+
+button,
+a {
+    -webkit-tap-highlight-color: transparent;
+}
+
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+    outline: 2px solid rgba(170, 73, 56, .24);
+    outline-offset: 2px;
+}
+
+/* ===== Utility ===== */
+.hide-scrollbar {
+    scrollbar-width: none;
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+
+.fade-in {
+    animation: fadeIn 0.3s ease-out forwards;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95) translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.animate-spin {
+    animation: spin 0.8s linear infinite;
+}
+
+/* ===== Scrollbar ===== */
+::-webkit-scrollbar {
+    width: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 4px;
+}
+
+/* ===== Main Layout ===== */
+.main-wrapper {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.content-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* ===== Tabs ===== */
+.tab-btn {
+    border-bottom: 2px solid transparent;
+    padding: 0 1.5rem 13px;
+    font-size: 15px;
+    white-space: nowrap;
+    transition: all 0.15s ease;
+}
+
+.tab-btn:hover:not(.active-tab) {
+    color: #aa4938;
+}
+
+.active-tab {
+    border-bottom-color: #aa4938;
+    color: #aa4938;
+    font-weight: 600;
+}
+
+/* ===== Bank Cards ===== */
+.bank-card {
+    background:
+        radial-gradient(circle at 7% 50%, rgba(255, 255, 255, .09) 0 95px, transparent 96px),
+        linear-gradient(90deg, #4b4b4b 0%, #2d2d2d 43%, #090909 100%);
+    opacity: 0;
+    animation: fadeIn 0.3s ease-out forwards;
+}
+
+.bank-card:nth-child(1) {
+    animation-delay: 0.05s;
+}
+
+.bank-card:nth-child(2) {
+    animation-delay: 0.1s;
+}
+
+.bank-card:nth-child(3) {
+    animation-delay: 0.15s;
+}
+
+.bank-card:nth-child(4) {
+    animation-delay: 0.2s;
+}
+
+.bank-card:nth-child(5) {
+    animation-delay: 0.25s;
+}
+
+#bankAccountsContainer {
+    min-height: 200px;
+    transition: opacity 0.3s ease;
+}
+
+/* ===== Modal (Desktop) ===== */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 9998;
+    display: none;
+}
+
+.modal-overlay.active {
+    display: block;
+}
+
+.modal-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 9999;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.modal-container.active {
+    display: flex;
+}
+
+.modal-box {
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    width: 100%;
+    max-width: 540px;
+    max-height: 90vh;
+    overflow-y: auto;
+    transform: scale(0.95);
+    opacity: 0;
+    transition: all 0.3s ease-out;
+}
+
+.modal-container.active .modal-box {
+    transform: scale(1);
+    opacity: 1;
+}
+
+.modal-box.confirm {
+    max-width: 420px;
+}
+
+.modal-box::-webkit-scrollbar {
+    width: 4px;
+}
+
+.modal-box::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 4px;
+}
+
+/* ===== Modal Mobile (Bottom Sheet) ===== */
+@media (max-width: 767px) {
+    .modal-box {
+        max-width: 100% !important;
+        max-height: 85vh !important;
+        border-radius: 16px 16px 0 0 !important;
+        transform: translateY(100%) !important;
+        opacity: 1 !important;
+        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    }
+
+    .modal-container.active .modal-box {
+        transform: translateY(0) !important;
+    }
+
+    .modal-container {
+        align-items: flex-end !important;
+        padding: 0 !important;
+    }
+
+    .modal-box .drag-handle {
+        display: block !important;
+        width: 40px;
+        height: 4px;
+        background: #d1d1d1;
+        border-radius: 999px;
+        margin: 10px auto 6px;
+    }
+
+    .modal-box.confirm {
+        max-width: 100% !important;
+    }
+}
+
+.drag-handle {
+    display: none;
+}
+
+/* ===== Checkbox & Radio UI ===== */
+.check-ui,
+.radio-ui {
+    position: relative;
+    display: inline-grid;
+    place-items: center;
+    width: 21px;
+    height: 21px;
+    flex: 0 0 21px;
+    border: 1px solid #aaa;
+    background: white;
+}
+
+.check-ui {
+    border-radius: 5px;
+}
+
+.radio-ui {
+    border-radius: 999px;
+}
+
+input:checked+.check-ui {
+    border-color: #aa4938;
+    background: #aa4938;
+}
+
+input:checked+.check-ui::after {
+    content: '';
+    width: 8px;
+    height: 4px;
+    border-left: 2px solid white;
+    border-bottom: 2px solid white;
+    transform: rotate(-45deg) translateY(-1px);
+}
+
+input:checked+.radio-ui {
+    border-color: #aa4938;
+}
+
+input:checked+.radio-ui::after {
+    content: '';
+    width: 11px;
+    height: 11px;
+    border-radius: 999px;
+    background: #aa4938;
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+    accent-color: #aa4938;
+}
+
+/* ===== Mobile Cards ===== */
+.mobile-order-card,
+.mobile-settlement-card,
+.mobile-transaction-card,
+.mobile-product-card {
+    display: none;
+}
+
+@media (max-width: 767px) {
+    .desktop-table {
+        display: none;
+    }
+
+    .mobile-order-card,
+    .mobile-settlement-card,
+    .mobile-transaction-card,
+    .mobile-product-card {
+        display: block;
+    }
+
+    .mobile-order-card .order-item,
+    .mobile-settlement-card .settlement-item,
+    .mobile-transaction-card .transaction-item,
+    .mobile-product-card .product-item {
+        padding: 16px;
+        border-bottom: 1px solid #e5e5e5;
+    }
+
+    .mobile-order-card .order-item:last-child,
+    .mobile-settlement-card .settlement-item:last-child,
+    .mobile-transaction-card .transaction-item:last-child,
+    .mobile-product-card .product-item:last-child {
+        border-bottom: none;
+    }
+
+    .order-info-row,
+    .settlement-info-row,
+    .transaction-info-row,
+    .product-info-row {
+        display: flex;
+        justify-content: space-between;
+        padding: 4px 0;
+        font-size: 13px;
+    }
+
+    .order-info-row .label,
+    .settlement-info-row .label,
+    .transaction-info-row .label,
+    .product-info-row .label {
+        color: #777;
+        font-weight: 400;
+    }
+
+    .order-info-row .value,
+    .settlement-info-row .value,
+    .transaction-info-row .value,
+    .product-info-row .value {
+        color: #252525;
+        font-weight: 500;
+        text-align: left;
+    }
+
+    .order-title-mobile,
+    .settlement-title-mobile,
+    .transaction-title-mobile,
+    .product-title-mobile {
+        font-weight: 600;
+        font-size: 15px;
+        margin-bottom: 4px;
+    }
+}
+
+/* ===== Mobile Filters (Horizontal Scroll) ===== */
+.filter-scroll-wrapper {
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+}
+
+.filter-scroll-wrapper::-webkit-scrollbar {
+    display: none;
+}
+
+.filter-scroll-wrapper .filter-item {
+    flex-shrink: 0;
+}
+
+@media (max-width: 767px) {
+    .filter-scroll-wrapper {
+        flex-wrap: nowrap !important;
+    }
+}
+
+@media (min-width: 768px) {
+    .filter-scroll-wrapper {
+        flex-wrap: wrap !important;
+        overflow-x: visible;
+        overflow-y: visible;
+    }
+
+    .filter-scroll-wrapper .filter-item {
+        flex-shrink: 1;
+    }
+}
+
+/* ===== Mobile Bottom Sheet (Dropdowns) ===== */
+@media (max-width: 767px) {
+
+    .dropdown-menu.mobile-bottom,
+    .popup-panel.mobile-bottom {
+        position: fixed !important;
+        bottom: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        top: auto !important;
+        max-height: 80vh !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        border-radius: 16px 16px 0 0 !important;
+        transform: translateY(100%);
+        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: 0 -8px 30px rgba(0, 0, 0, 0.12) !important;
+        border: none !important;
+        border-top: 1px solid #e5e5e5 !important;
+        z-index: 100 !important;
+    }
+
+    .dropdown-menu.mobile-bottom.open,
+    .popup-panel.mobile-bottom.open {
+        transform: translateY(0);
+    }
+
+    .dropdown-menu.mobile-bottom .drag-handle,
+    .popup-panel.mobile-bottom .drag-handle {
+        display: block !important;
+        width: 40px;
+        height: 4px;
+        background: #d1d1d1;
+        border-radius: 999px;
+        margin: 10px auto 6px;
+    }
+
+    .dropdown-menu.mobile-bottom .close-dropdown,
+    .popup-panel.mobile-bottom .close-dropdown {
+        display: none !important;
+    }
+}
+
+/* ===== Mobile Overlay ===== */
+#mobileOverlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.3);
+    z-index: 99;
+    transition: opacity 0.3s ease;
+}
+
+#mobileOverlay.show {
+    display: block;
+}
+
+/* ===== Pagination ===== */
+.page-btn {
+    transition: all 0.15s ease;
+}
+
+.page-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.page-num {
+    transition: all 0.15s ease;
+}
+
+.page-num:hover:not(.bg-custom-brown) {
+    background: #f3f3f3;
+}
+
+.page-num.bg-custom-brown {
+    color: white;
+}
+
+/* ===== Dropdown Enter Animation ===== */
+.dropdown-enter {
+    animation: dropdownEnter 0.16s ease-out;
+}
+
+@keyframes dropdownEnter {
+    from {
+        opacity: 0;
+        transform: translateY(-5px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ===== Row Menus ===== */
+.row-menu button {
+    width: 100%;
+    padding: 0.65rem 1rem;
+    text-align: right;
+    font-size: 13px;
+}
+
+.row-menu button:hover {
+    background: #f7f7f7;
+}
+
+/* ===== Table Sizing ===== */
+.orders-table {
+    min-width: 1040px;
+}
+
+.products-table {
+    min-width: 960px;
+}
+
+/* ===== Product Detail Mobile ===== */
+@media (max-width: 767px) {
+    .product-stats-grid {
+        grid-template-columns: 1fr 1fr !important;
+        gap: 12px !important;
+    }
+
+    .product-actions-mobile {
+        flex-wrap: wrap;
+        justify-content: center !important;
+    }
+
+    .product-actions-mobile button {
+        flex: 1;
+        min-width: 120px;
+        justify-content: center;
+    }
+
+    .gallery-thumbs {
+        grid-template-columns: repeat(3, 1fr) !important;
+    }
+
+    .product-details-grid {
+        grid-template-columns: 1fr !important;
+    }
+
+    .product-details-grid .gallery-section {
+        order: -1 !important;
+    }
+}
+
+/* ===== Toast ===== */
+#toast {
+    position: fixed;
+    bottom: 1.25rem;
+    left: 50%;
+    z-index: 99999;
+    transform: translateX(-50%);
+    border-radius: 0.75rem;
+    background: #222;
+    padding: 0.75rem 1.25rem;
+    font-size: 0.875rem;
+    color: white;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    display: none;
+}
+
+/* ===== Sticky Table Headers (اختیاری) ===== */
+.sticky-header th {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: #f3f3f3;
+}
+
+/* ===== Shadow Utilities ===== */
+.shadow-soft {
+    box-shadow: 0 1px 2px rgba(0, 0, 0, .025);
+}
+
+.shadow-menu {
+    box-shadow: 0 12px 32px rgba(0, 0, 0, .12);
+}
+
+.shadow-popup {
+    box-shadow: 0 8px 30px rgba(0, 0, 0, .10);
+}
+
+.shadow-card {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .04);
+}
+
+.shadow-2xl {
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+
+/* ===== Color Utilities (Tailwind-like) ===== */
+.bg-custom-brown {
+    background-color: #aa4938;
+}
+
+.text-custom-brown {
+    color: #aa4938;
+}
+
+.border-custom-brown {
+    border-color: #aa4938;
+}
+
+.hover\:bg-custom-brown:hover {
+    background-color: #aa4938;
+}
+
+.hover\:text-custom-brown:hover {
+    color: #aa4938;
+}
+
+.hover\:border-custom-brown:hover {
+    border-color: #aa4938;
+}
+
+.bg-brand-50 {
+    background-color: #fbf2ef;
+}
+
+.hover\:bg-brand-50:hover {
+    background-color: #fbf2ef;
+}
+
+/* ===== Border Utilities ===== */
+.border-line {
+    border-color: #e5e5e5;
+}
+
+.bg-line {
+    background-color: #e5e5e5;
+}
+
+.bg-page {
+    background-color: #f3f3f3;
+}
+
+.text-ink {
+    color: #252525;
+}
+
+.bg-tableHead {
+    background-color: #f3f3f3;
+}
+
+/* ===== Scrollbar Thin ===== */
+.scrollbar-thin::-webkit-scrollbar {
+    width: 3px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 4px;
+}
+
+/* ===== Overflow Hidden Helper ===== */
+.overflow-hidden {
+    overflow: hidden;
+}
+
+/* ===== Transition Helpers ===== */
+.transition {
+    transition: all 0.15s ease;
+}
+
+.transition-transform {
+    transition: transform 0.2s ease;
+}
+
+.duration-200 {
+    transition-duration: 200ms;
+}
+
+/* ===== Rotate Helpers ===== */
+.rotate-90 {
+    transform: rotate(90deg);
+}
+
+.rotate-180 {
+    transform: rotate(180deg);
+}
+
+.-rotate-90 {
+    transform: rotate(-90deg);
+}
