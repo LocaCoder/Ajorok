@@ -12,7 +12,6 @@ html {
 }
 
 body {
-    @apply font-IRANSansXRegular;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
     min-height: 100vh;
@@ -20,6 +19,9 @@ body {
     flex-direction: column;
     background-color: #f3f3f3;
     color: #252525;
+}
+main{
+    @apply font-IRANSansXRegular;
 }
 
 button,
@@ -324,24 +326,18 @@ input[type="radio"] {
     .mobile-settlement-card,
     .mobile-transaction-card,
     .mobile-product-card {
-        display: block;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
     }
 
     .mobile-order-card .order-item,
     .mobile-settlement-card .settlement-item,
     .mobile-transaction-card .transaction-item,
     .mobile-product-card .product-item {
-        padding: 16px;
-        border-bottom: 1px solid #e5e5e5;
+        border: 2px solid #CCCCCC;
+        border-radius: 8px;
     }
-
-    .mobile-order-card .order-item:last-child,
-    .mobile-settlement-card .settlement-item:last-child,
-    .mobile-transaction-card .transaction-item:last-child,
-    .mobile-product-card .product-item:last-child {
-        border-bottom: none;
-    }
-
     .order-info-row,
     .settlement-info-row,
     .transaction-info-row,
@@ -699,4 +695,8 @@ input[type="radio"] {
 
 .-rotate-90 {
     transform: rotate(-90deg);
+}
+.order-tab-active, .tab-active{
+    color: #9C4639;
+    border-bottom: 2px solid #9C4639;
 }

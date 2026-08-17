@@ -52,7 +52,7 @@ function stockBadge(status) {
     out: ["ناموجود", "#ffe5e5", "#c23b3b"],
   };
   const [label, bg, color] = map[status] || ["نامشخص", "#eee", "#666"];
-  return `<span class="inline-flex rounded-[4px] px-3 py-2 text-[12px] font-medium" style="background:${bg};color:${color}">${label}</span>`;
+  return `<span class="inline-flex rounded-[4px] px-3 py-2 text-[10px] md:text-[12px] font-medium" style="background:${bg};color:${color}">${label}</span>`;
 }
 
 function publishBadge(status) {
@@ -62,7 +62,7 @@ function publishBadge(status) {
     rejected: ["رد شده", "#ffe3e3", "#c43b3b"],
   };
   const [label, bg, color] = map[status] || ["نامشخص", "#eee", "#666"];
-  return `<span class="inline-flex rounded-[4px] px-3 py-2 text-[12px] font-medium" style="background:${bg};color:${color}">${label}</span>`;
+  return `<span class="inline-flex rounded-[4px] px-3 py-2 text-[10px] md:text-[12px] font-medium" style="background:${bg};color:${color}">${label}</span>`;
 }
 
 // ===== Filter Functions =====
@@ -163,12 +163,18 @@ function renderProducts() {
                         <div class="flex items-center gap-3 mb-3">
                             <span class="h-[52px] w-[52px] shrink-0 rounded-[6px] bg-custom-brown" role="img" aria-label="تصویر محصول"></span>
                             <div class="flex-1">
-                                <div class="product-title-mobile">${
-                                  p.title
-                                }</div>
-                                <div class="flex items-center gap-2 mt-1 flex-wrap">
+                                <div class="flex items-center gap-2 mb-1 flex-nowrap">
                                     ${stockBadge(p.stockStatus)}
                                     ${publishBadge(p.publish)}
+                                </div>
+                                <div class="flex items-center justify-between ">
+                                  <div class="product-info-row text[10px]">
+                                      <span class="value">${p.date}</span>
+                                  </div>
+                                  <div class="product-info-row">
+                                    <span class="label">موجودی:</span>
+                                    <span class="value">${toFa(p.stock)}</span>
+                                  </div>
                                 </div>
                             </div>
                             <button class="row-more-mobile grid h-8 w-8 place-items-center rounded-md hover:bg-[#f1f1f1]" data-id="${
@@ -183,25 +189,16 @@ function renderProducts() {
                                 </a>
                             </button>
                         </div>
-                        <div class="grid grid-cols-2 gap-1">
+                        <div class="flex flex-col items-start border-t border-t-[#E0E0E0] pt-4">
+                            <div class="product-title-mobile">${p.title}</div>
                             <div class="product-info-row">
                                 <span class="label">قیمت:</span>
                                 <span class="value">${money(
                                   p.price
-                                )} تومان</span>
+                                )}  تومان / واحد</span>
                             </div>
-                            <div class="product-info-row">
-                                <span class="label">تاریخ ثبت:</span>
-                                <span class="value">${p.date}</span>
-                            </div>
-                            <div class="product-info-row">
-                                <span class="label">موجودی:</span>
-                                <span class="value">${toFa(p.stock)}</span>
-                            </div>
-                            <div class="product-info-row">
-                                <span class="label">واحد:</span>
-                                <span class="value">واحد</span>
-                            </div>
+                            
+                  
                         </div>
                     </div>
                 `

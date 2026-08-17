@@ -53,10 +53,10 @@
     </header>
 
     <!-- Main wrapper -->
-    <div class="mx-auto w-full max-w-[1200px] px-4 pb-16 pt-[55px] lg:px-0">
+    <div class="mx-auto w-full max-w-[1200px] pb-16 pt-[55px]">
         <div class="content-container">
             <!-- Breadcrumb -->
-            <div class="mb-5 flex items-center gap-2 px-1 text-[13px] text-[#666666]">
+            <div class="mb-5 flex items-center gap-2 px-3 text-[13px] text-[#666666]">
                 <img src="../../../images/AdminDashboard/Seller/arrow-right.svg" alt="">
                 <a href="#">داشبورد</a>
                 <img src="../../../images/AdminDashboard/Seller/direction-down 01.svg" class="rotate-90" alt="">
@@ -80,39 +80,43 @@
                             <p class="mt-2 text-[13px] text-[#777]">نام مدیر فروشگاه</p>
                         </div>
                     </div>
-
+            
                     <div class="flex flex-col gap-4 lg:items-end">
                         <div class="flex flex-wrap items-center gap-4">
                             <span id="completionLabel" class="text-[14px] font-semibold text-custom-brown">نیازمند تکمیل
                                 اطلاعات</span>
-                            <button id="rejectBtn" type="button"
-                                class="h-[44px] min-w-[144px] rounded-[7px] border-2 border-[#d12d2d] bg-white px-5 text-[15px] font-semibold text-[#d12d2d] transition hover:bg-[#fff3f3]">رد
-                                فروشگاه</button>
-                            <button id="approveBtn" type="button"
-                                class="h-[44px] min-w-[144px] rounded-[7px] bg-[#19aa56] px-5 text-[15px] font-semibold text-white transition hover:bg-[#15994d]">تایید
-                                فروشگاه</button>
-                            <div class="relative">
-                                <button id="moreBtn" type="button"
-                                    class="grid h-11 w-8 place-items-center rounded-md hover:bg-[#f5f5f5]"
-                                    aria-expanded="false" aria-label="گزینه‌های بیشتر">
-                                    <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
-                                        <circle cx="12" cy="5" r="1.7" />
-                                        <circle cx="12" cy="12" r="1.7" />
-                                        <circle cx="12" cy="19" r="1.7" />
-                                    </svg>
-                                </button>
-                                <div id="moreMenu"
-                                    class="absolute left-0 top-12 z-30 hidden w-44 overflow-hidden rounded-xl border border-[#e5e5e5] bg-white py-1 shadow-lg">
-                                    <button data-action="edit"
-                                        class="w-full px-4 py-2.5 text-right text-[13px] hover:bg-[#f7f7f7]">ویرایش
-                                        اطلاعات</button>
-                                    <button class="w-full px-4 py-2.5 text-right text-[13px] hover:bg-[#f7f7f7]">تعلیق
-                                        فروشنده</button>
-                                    <button
-                                        class="w-full px-4 py-2.5 text-right text-[13px] text-[#c93434] hover:bg-[#fff4f4]">حذف
-                                        فروشنده</button>
+                            <div class="flex items-center justify-between gap-2">
+                                <button id="rejectBtn" type="button"
+                                    class="h-[44px] min-w-[144px] rounded-[7px] border-2 border-[#d12d2d] bg-white px-5 text-[15px] font-semibold text-[#d12d2d] transition hover:bg-[#fff3f3]">رد
+                                    فروشگاه</button>
+                                <button id="approveBtn" type="button"
+                                    class="h-[44px] min-w-[144px] rounded-[7px] bg-[#19aa56] px-5 text-[15px] font-semibold text-white transition hover:bg-[#15994d]">تایید
+                                    فروشگاه</button>
+                                <div class="relative">
+                                    <button id="moreBtn" type="button"
+                                        class="grid h-11 w-8 place-items-center rounded-md hover:bg-[#f5f5f5]" aria-expanded="false"
+                                        aria-label="گزینه‌های بیشتر">
+                                        <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                                            <circle cx="12" cy="5" r="1.7" />
+                                            <circle cx="12" cy="12" r="1.7" />
+                                            <circle cx="12" cy="19" r="1.7" />
+                                        </svg>
+                                    </button>
+                                    <div id="moreMenu"
+                                        class="absolute left-0 top-12 z-30 hidden w-44 overflow-hidden rounded-xl border border-[#e5e5e5] bg-white py-1 shadow-lg">
+                                        <button data-action="edit"
+                                            class="w-full px-4 py-2.5 text-right text-[13px] hover:bg-[#f7f7f7]">ویرایش
+                                            اطلاعات</button>
+                                        <button class="w-full px-4 py-2.5 text-right text-[13px] hover:bg-[#f7f7f7]">تعلیق
+                                            فروشنده</button>
+                                        <button
+                                            class="w-full px-4 py-2.5 text-right text-[13px] text-[#c93434] hover:bg-[#fff4f4]">حذف
+                                            فروشنده</button>
+                                    </div>
                                 </div>
                             </div>
+            
+            
                         </div>
                         <div class="flex flex-wrap gap-x-8 gap-y-2 text-[12px] text-[#777]"><span>عضویت:
                                 ۱۴۰۵/۱۲/۱۲</span><span>آخرین فعالیت: ۱۴۰۵/۱۲/۱۲</span></div>

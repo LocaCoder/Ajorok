@@ -237,7 +237,7 @@ const BankAccountsModal = {
             account?.ownerName || ""
           }" placeholder="نام و نام خانوادگی صاحب حساب" class="h-11 w-full rounded-lg border border-[#c9c9c9] px-3 text-[14px]" />
         </label>
-        <button type="submit" class="h-11 w-full rounded-lg bg-custom-brown text-white hover:bg-brand-600">${
+        <button type="submit" class="h-11 w-full rounded-lg bg-custom-brown text-white">${
           isEdit ? "ذخیره تغییرات" : "افزودن حساب بانکی"
         }</button>
       </form>

@@ -359,7 +359,7 @@ function rowTemplate(item) {
       <td class="px-4 text-center">
         <button data-id="${
           item.id
-        }" class="detail-btn text-xl leading-none text-[#555] hover:text-custom-brown" aria-label="مشاهده جزئیات">‹</button>
+        }" class="detail-btn text-xl leading-none text-[#555] hover:text-custom-brown" aria-label="مشاهده جزئیات"><img class="rotate-90" src="../../../images/AdminDashboard/Seller/direction-down 01.svg"></button>
       </td>
     </tr>
   `;
@@ -407,9 +407,9 @@ function renderTransactions() {
                 </div>
                 <button data-id="${
                   item.id
-                }" class="detail-btn-mobile grid h-8 w-8 place-items-center rounded-md hover:bg-[#f1f1f1] text-[#555] hover:text-custom-brown text-xl" aria-label="مشاهده جزئیات">‹</button>
+                }" class="detail-btn-mobile grid h-8 w-8 place-items-center rounded-md hover:bg-[#f1f1f1] text-[#555] hover:text-custom-brown text-xl" aria-label="مشاهده جزئیات"><img class="rotate-90" src="../../../images/AdminDashboard/Seller/direction-down 01.svg"></button>
               </div>
-              <div class="grid grid-cols-2 gap-1">
+              <div class="grid grid-cols-1 gap-1">
                 <div class="transaction-info-row">
                   <span class="label">تاریخ:</span>
                   <span class="value">${item.date}</span>

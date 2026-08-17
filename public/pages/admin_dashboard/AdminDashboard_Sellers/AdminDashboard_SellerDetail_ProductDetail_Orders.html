@@ -52,37 +52,31 @@
     </header>
 
     <!-- Main -->
-    <main class="mx-auto w-full max-w-[1200px] px-4 pb-20 pt-[54px] lg:px-0" role="main">
-        <!-- Breadcrumb -->
-        <nav class="mb-5 flex items-center gap-3 px-1 text-[13px] text-[#777]" aria-label="مسیر یابی">
-            <a href="#" class="hover:text-custom-brown">داشبورد</a>
-            <span aria-hidden="true">‹</span>
-            <a href="#" class="hover:text-custom-brown">فروشندگان</a>
-            <span aria-hidden="true">‹</span>
-            <a href="#" class="hover:text-custom-brown">نام کامل فروشگاه</a>
-            <span aria-hidden="true">‹</span>
-            <span class="font-medium text-[#222]" aria-current="page">نام محصول</span>
-            <button type="button" class="mr-auto hover:text-custom-brown" aria-label="بازگشت">
-                <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"
-                    aria-hidden="true">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 12H5m7-7-7 7 7 7" />
-                </svg>
-            </button>
-        </nav>
+    <main class="mx-auto w-full max-w-[1200px] pb-20 pt-[54px]" role="main">
+        <div class="mb-5 flex items-center gap-2 px-3 text-[13px] text-[#666666]">
+            <img src="../../../images/AdminDashboard/Seller/arrow-right.svg" alt="">
+            <a href="#">داشبورد</a>
+            <img src="../../../images/AdminDashboard/Seller/direction-down 01.svg" class="rotate-90" alt="">
+            <a href="AdminDashboard_Sellers_List.html">فروشندگان</a>
+            <img src="../../../images/AdminDashboard/Seller/direction-down 01.svg" class="rotate-90" alt="">
+            <a href="AdminDashboard_SellerDetail_Overview.html">نام کامل فروشگاه</a>
+            <img src="../../../images/AdminDashboard/Seller/direction-down 01.svg" class="rotate-90" alt="">
+            <span class="font-medium text-[#222]">نام محصول</span>
+        </div>
 
         <!-- Product summary -->
         <section class="rounded-[14px] bg-white px-6 py-[16px] shadow-soft lg:px-7">
-            <div class="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
-                <div class="flex items-center gap-4">
+            <div class="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
+                <div class="flex items-start gap-4">
                     <span class="h-[76px] w-[76px] shrink-0 rounded-[6px] bg-custom-brown" role="img"
                         aria-label="تصویر محصول"></span>
                     <div class="max-w-[560px]">
-                        <h1 class="text-[16px] font-semibold leading-7">عنوان محصول عنوان محصول عنوان</h1>
+                        <h1 class="text-[16px] font-semibold leading-7">عنوان محصول عنوان محصول عنوان محصول</h1>
                         <p class="mt-2 text-[13px] text-[#777]">نام فروشگاه: <strong class="font-medium text-[#222]">نام
                                 کامل فروشگاه</strong></p>
                     </div>
                 </div>
-
+        
                 <div class="flex flex-wrap items-center gap-4">
                     <span id="stockBadge"
                         class="rounded-[5px] bg-[#dcecff] px-3 py-2 text-[12px] font-medium text-[#2b78c5]">موجود</span>
@@ -96,8 +90,8 @@
                         محصول</button>
                     <div class="relative">
                         <button id="topMoreBtn" type="button"
-                            class="grid h-11 w-8 place-items-center rounded-md hover:bg-[#f5f5f5]"
-                            aria-label="گزینه‌های بیشتر" aria-expanded="false">
+                            class="grid h-11 w-8 place-items-center rounded-md hover:bg-[#f5f5f5]" aria-label="گزینه‌های بیشتر"
+                            aria-expanded="false">
                             <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                                 <circle cx="12" cy="5" r="1.6" />
                                 <circle cx="12" cy="12" r="1.6" />
@@ -107,11 +101,9 @@
                         <div id="topMoreMenu"
                             class="absolute left-0 top-12 z-30 hidden w-48 overflow-hidden rounded-xl border border-[#e3e3e3] bg-white py-1 shadow-menu fade-in"
                             role="menu">
-                            <button data-action="edit"
-                                class="w-full px-4 py-2.5 text-right text-[13px] hover:bg-[#f7f7f7]"
+                            <button data-action="edit" class="w-full px-4 py-2.5 text-right text-[13px] hover:bg-[#f7f7f7]"
                                 role="menuitem">ویرایش محصول</button>
-                            <button data-action="archive"
-                                class="w-full px-4 py-2.5 text-right text-[13px] hover:bg-[#f7f7f7]"
+                            <button data-action="archive" class="w-full px-4 py-2.5 text-right text-[13px] hover:bg-[#f7f7f7]"
                                 role="menuitem">بایگانی محصول</button>
                             <button data-action="delete"
                                 class="w-full px-4 py-2.5 text-right text-[13px] text-[#c93434] hover:bg-[#fff4f4]"
@@ -123,7 +115,7 @@
         </section>
 
         <!-- Tabs -->
-        <nav class="mt-[25px] flex justify-end border-b border-[#cfcfcf]" aria-label="بخش‌های محصول">
+        <nav class="mt-[25px] flex justify-start border-b border-[#cfcfcf]" aria-label="بخش‌های محصول">
             <a href="AdminDashboard_SellerDetail_ProductDetail_Info.html"
                 class="border-b-2 border-transparent px-6 pb-[12px] text-[15px]">اطلاعات</a>
             <a href="AdminDashboard_SellerDetail_ProductDetail_Orders.html"
@@ -274,7 +266,7 @@
                         </div>
                     </div>
                     <!-- Result count & page size -->
-                    <div class="flex flex-col gap-3 text-[12px] text-[#777] sm:flex-row sm:items-center">
+                    <div class="hidden md:flex flex-col gap-3 shrink-0 text-[12px] text-[#777] sm:flex-row sm:items-center">
                         <span>تعداد نتایج: <strong id="resultCount" class="font-normal text-[#555]">۱۲۳</strong></span>
                         <span class="hidden h-5 w-px bg-[#d0d0d0] sm:block" aria-hidden="true"></span>
                         <label class="flex items-center gap-2">تعداد نمایش
@@ -289,10 +281,24 @@
                         </label>
                     </div>
                 </div>
+                <!-- Result count & page size -->
+                <div class="flex md:hidden items-center  gap-3 shrink-0 text-[12px] text-[#777] sm:flex-row sm:items-center">
+                    <span>تعداد نتایج: <strong id="resultCount" class="font-normal text-[#555]">۱۲۳</strong></span>
+                    <span class="hidden h-5 w-px bg-[#d0d0d0] sm:block" aria-hidden="true"></span>
+                    <label class="flex items-center gap-2">تعداد نمایش
+                        <select id="pageSize" class="h-8 rounded-[5px] border border-[#c9c9c9] bg-white px-2 text-[12px]"
+                            aria-label="تعداد نمایش در هر صفحه">
+                            <option value="5">۵</option>
+                            <option value="10" selected>۱۰</option>
+                            <option value="20">۲۰</option>
+                            <option value="50">۵۰</option>
+                        </select>
+                    </label>
+                </div>
             </div>
 
             <!-- Table - Desktop -->
-            <div class="mt-1 overflow-x-auto desktop-table">
+            <div class="mt-6 overflow-x-auto desktop-table">
                 <table class="w-full min-w-[850px] border-collapse text-[13px]">
                     <thead>
                         <tr class="h-[64px] border-b border-[#bfbfbf] text-[#444]">
@@ -312,7 +318,7 @@
 
             <!-- Mobile - Cards -->
             <div id="mobileOrderList"
-                class="mobile-order-card mt-4 rounded-[14px] border border-[#cfcfcf] divide-y divide-[#e5e5e5] bg-white">
+                class="mobile-order-card mt-4 bg-white">
             </div>
 
             <!-- Pagination -->
