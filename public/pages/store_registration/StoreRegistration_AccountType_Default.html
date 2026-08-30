@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>انتخاب نوع حساب فروشنده | جوروک</title>
+    <meta name="description" content="نوع حساب فروشندگی خود را انتخاب کنید: فروشنده حقیقی یا حقوقی.">
+    <link rel="stylesheet" href="../../styles/output.css">
+</head>
+
+<body class="store_registration_step_0 bg-[#F2F2F2]">
+    <svg class="hidden">
+        <symbol id="menu_berger" width="32" height="33" viewBox="0 0 32 33" fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+            <path d="M9.33398 11.166H22.6673M9.33398 16.4993H22.6673M9.33398 21.8327H22.6673" stroke="currentColor"
+                stroke-width="1.5" stroke-linecap="round" />
+        </symbol>
+        <symbol id="chevron" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+            stroke="currentColor" class="size-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+        </symbol>
+        <symbol id="search" width="20" height="21" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+                d="M15.418 15.916L18.3346 18.8327M17.5013 10.0827C17.5013 5.71043 13.9569 2.16602 9.58464 2.16602C5.21238 2.16602 1.66797 5.71043 1.66797 10.0827C1.66797 14.4549 5.21238 17.9993 9.58464 17.9993C13.9569 17.9993 17.5013 14.4549 17.5013 10.0827Z"
+                stroke="#CCCCCC" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+        </symbol>
+        <symbol id="shop" width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+                d="M8.06805 22.5H15.9304C17.7718 22.5 19.3752 21.2429 19.8148 19.4548L21.7812 11.4548C22.4009 8.93408 20.4926 6.5 17.8969 6.5H6.10153C3.50575 6.5 1.59752 8.9341 2.21716 11.4548L4.18369 19.4548C4.62324 21.243 6.2267 22.5 8.06805 22.5Z"
+                stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M3 10.5H21" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+            <path d="M9 2.5L6 6.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                stroke-linejoin="round" />
+            <path d="M15 2.5L18 6.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                stroke-linejoin="round" />
+        </symbol>
+        <symbol id="user" width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+                d="M18.5588 20.0488C17.5654 17.3918 15.0036 15.5 12 15.5C8.99638 15.5 6.4346 17.3918 5.44117 20.0488M18.5588 20.0488C20.6672 18.2154 22 15.5134 22 12.5C22 6.97715 17.5228 2.5 12 2.5C6.47715 2.5 2 6.97715 2 12.5C2 15.5134 3.33285 18.2154 5.44117 20.0488M18.5588 20.0488C16.8031 21.5756 14.5095 22.5 12 22.5C9.49052 22.5 7.19694 21.5756 5.44117 20.0488"
+                stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" />
+            <circle cx="3" cy="3" r="3" transform="matrix(1 0 0 -1 9 12.5)" stroke="currentColor" stroke-width="1.5"
+                stroke-linejoin="round" />
+        </symbol>
+        <symbol id="tick" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M5 13L8.52642 15.8211C9.35374 16.483 10.5536 16.3848 11.2624 15.5973L19 7" stroke="#9C4639"
+                stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+        </symbol>
+    </svg>
+
+    <!-- Header -->
+    <header class="h-[72px] border-b border-[#ececec] bg-white" role="banner">
+        <div class="mx-auto flex h-full max-w-[1536px] items-center justify-between px-4 sm:px-6 lg:px-[60px]">
+            <div class="flex items-center gap-4">
+                <img src="../../images/logo/Logo.svg" alt="لوگو فروشگاه جوروک" width="55" height="61" />
+                <span class="hidden h-10 w-px bg-[#d9d9d9] sm:block" aria-hidden="true"></span>
+                <nav class="hidden items-center gap-8 md:flex" aria-label="منوی اصلی">
+                    <a href="#" class="flex items-center gap-2 text-[15px] font-medium text-[#2b2b2b]">
+                        <img src="../../images/Header/home 04.svg" alt="آیکون خانه" width="20" height="20" />
+                        صفحه اصلی
+                    </a>
+                    <button class="flex items-center gap-2 text-[15px] font-medium text-[#2b2b2b]"
+                        aria-expanded="false">
+                        <img src="../../images/Header/grid 02.svg" alt="آیکون صفحات" width="20" height="20" />
+                        صفحات پنل
+                        <img src="../../images/Header/direction-down 01.svg" alt="باز کردن منو" width="20"
+                            height="20" />
+                    </button>
+                </nav>
+            </div>
+            <div class="flex items-center gap-3 sm:gap-7" dir="ltr">
+                <div class="flex items-center gap-3">
+                    <div class="h-9 w-9 rounded-full bg-[#202020]" role="img" aria-label="آواتار ادمین"></div>
+                    <div class="hidden leading-tight sm:block">
+                        <div class="text-[14px] font-medium text-[#222]">ادمین</div>
+                        <div class="mt-1 text-[11px] font-light text-[#777]">سطح ادمین</div>
+                    </div>
+                </div>
+                <div class="hidden items-center gap-3 sm:flex lg:gap-5">
+                    <button class="grid h-9 w-9 place-items-center rounded-lg hover:bg-[#f7f7f7]" aria-label="اعلان‌ها">
+                        <img src="../../images/Header/notification.svg" alt="آیکون اعلان" width="20" height="20" />
+                    </button>
+                    <button class="grid h-9 w-9 place-items-center rounded-lg hover:bg-[#f7f7f7]" aria-label="پیام‌ها">
+                        <img src="../../images/Header/mail.svg" alt="آیکون پیام" width="20" height="20" />
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container font-IRANSansXRegular flex justify-center mt-14">
+        <div class="bg-white px-16 py-12 rounded-2xl w-full text-center mx-6">
+            <h1 class="text-lg font-medium mb-10">نوع حساب فروشندگی را انتخاب کنید</h1>
+
+            <div id="account-options" class="flex flex-col md:flex-row items-stretch gap-11">
+                <!-- فروشنده حقیقی -->
+                <label
+                    class="option-card flex-1 cursor-pointer rounded-xl border border-[#CCCCCC] bg-[#FCFCFC] px-8 py-10 text-right transition-all duration-300"
+                    data-type="individual">
+                    <div class="flex items-center gap-3 mb-5">
+                        <input type="radio" name="sellerType" value="individual" class="accent-[#b64832] w-5 h-5" />
+                        <span class="font-semibold text-gray-800">فروشنده حقیقی</span>
+                    </div>
+                    <p class="font-IRANSansXLight text-gray-600 leading-6">
+                        فروشنده حقیقی یک فرد است که با مدارک هویتی فعالیت می‌کند. برای ساخت حساب، اطلاعاتی مانند نام و
+                        نام‌خانوادگی، کد ملی، شماره شناسنامه و تاریخ تولد لازم است.
+                    </p>
+                </label>
+
+                <!-- فروشنده حقوقی -->
+                <label
+                    class="option-card flex-1 cursor-pointer rounded-xl border border-[#CCCCCC] bg-[#FCFCFC] px-8 py-10 text-right transition-all duration-300"
+                    data-type="company">
+                    <div class="flex items-center gap-3 mb-5">
+                        <input type="radio" name="sellerType" value="company" class="accent-[#b64832] w-5 h-5" />
+                        <span class="font-semibold text-gray-800">فروشنده حقوقی</span>
+                    </div>
+                    <p class="font-IRANSansXLight text-gray-600 leading-6">
+                        فروشنده حقوقی یک شرکت یا مؤسسه ثبت‌شده است. برای ساخت حساب، اطلاعات ثبتی مانند نام شرکت، شماره
+                        ثبت و شناسه ملی لازم است.
+                    </p>
+                </label>
+            </div>
+
+            <div class="mt-20 flex justify-center gap-4 child:w-[235px]">
+                <a id="confirm-btn" href="store_registration_step_1.html"
+                    class="py-2 rounded-md text-[#CCCCCC] transition-all duration-300 bg-[#F5EDEB] cursor-not-allowed"
+                    disabled>تایید</a>
+                <button class="py-2 rounded-md border border-[#999999] text-gray-700" type="button">انصراف</button>
+            </div>
+
+            <div class="font-IRANSansXLight mt-6 text-custom-brown flex justify-center gap-6">
+                <a href="#">راهنمای ثبت‌نام</a>
+                <span>|</span>
+                <a href="#">تماس با پشتیبانی</a>
+            </div>
+        </div>
+    </main>
+
+    <div id="overlay" class="fixed inset-0 bg-black/50 opacity-0 invisible transition-opacity duration-300 z-40"></div>
+    <script src="../../scripts/store_registration/validator.js"></script>
+    <script src="../../scripts/store_registration/accountType.js"></script>
+</body>
+
+</html>

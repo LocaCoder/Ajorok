@@ -812,7 +812,7 @@
 
     // ---------------- 8) Worktime modal ----------------
     function initWorktimeModule() {
-      if (!document.querySelector(".store_refistration_step_2")) return;
+      if (!document.querySelector(".store_registration_step_2")) return;
 
       const worktimeField = $("worktime-field");
       const modalWork = $("worktime-modal");

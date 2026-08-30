@@ -7,11 +7,14 @@
     <title>ثبت فروشگاه</title>
     <link rel="stylesheet" href="../../styles/output.css">
 
-
 </head>
 
-<body class="store_registration_step_2 md:bg-[#F2F2F2]">
+<body class="bg-[#F2F2F2] store_refistration_step_2 store_refistration_step_3">
     <svg class="hidden">
+        <symbol id="exit" width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M21.6575 10.3438L10.3438 21.6575M21.6575 21.6575L10.3438 10.3438" stroke="#28303F"
+                stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+        </symbol>
         <symbol id="menu_berger" width="32" height="33" viewBox="0 0 32 33" fill="none"
             xmlns="http://www.w3.org/2000/svg">
             <path d="M9.33398 11.166H22.6673M9.33398 16.4993H22.6673M9.33398 21.8327H22.6673" stroke="currentColor"
@@ -55,19 +58,44 @@
             <path d="M5 13L8.52642 15.8211C9.35374 16.483 10.5536 16.3848 11.2624 15.5973L19 7" stroke="currentColor"
                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
         </symbol>
-        <svg id="error" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <symbol id="instagram" width="24" height="24" viewBox="0 0 48 48" fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+            <path
+                d="M40.5 0H7.5C3.35786 0 0 3.35786 0 7.5V40.5C0 44.6421 3.35786 48 7.5 48H40.5C44.6421 48 48 44.6421 48 40.5V7.5C48 3.35786 44.6421 0 40.5 0Z"
+                fill="#F00073" />
+            <path
+                d="M24.0008 13.8008C27.3008 13.8008 27.7508 13.8008 29.1008 13.8008C30.3008 13.8008 30.9008 14.1008 31.3508 14.2508C31.9508 14.5508 32.4008 14.7008 32.8508 15.1508C33.3008 15.6008 33.6008 16.0508 33.7508 16.6508C33.9008 17.1008 34.0508 17.7008 34.2008 18.9008C34.2008 20.2508 34.2008 20.5508 34.2008 24.0008C34.2008 27.4508 34.2008 27.7508 34.2008 29.1008C34.2008 30.3008 33.9008 30.9008 33.7508 31.3508C33.4508 31.9508 33.3008 32.4008 32.8508 32.8508C32.4008 33.3008 31.9508 33.6008 31.3508 33.7508C30.9008 33.9008 30.3008 34.0508 29.1008 34.2008C27.7508 34.2008 27.4508 34.2008 24.0008 34.2008C20.5508 34.2008 20.2508 34.2008 18.9008 34.2008C17.7008 34.2008 17.1008 33.9008 16.6508 33.7508C16.0508 33.4508 15.6008 33.3008 15.1508 32.8508C14.7008 32.4008 14.4008 31.9508 14.2508 31.3508C14.1008 30.9008 13.9508 30.3008 13.8008 29.1008C13.8008 27.7508 13.8008 27.4508 13.8008 24.0008C13.8008 20.5508 13.8008 20.2508 13.8008 18.9008C13.8008 17.7008 14.1008 17.1008 14.2508 16.6508C14.5508 16.0508 14.7008 15.6008 15.1508 15.1508C15.6008 14.7008 16.0508 14.4008 16.6508 14.2508C17.1008 14.1008 17.7008 13.9508 18.9008 13.8008C20.2508 13.8008 20.7008 13.8008 24.0008 13.8008ZM24.0008 11.5508C20.5508 11.5508 20.2508 11.5508 18.9008 11.5508C17.5508 11.5508 16.6508 11.8508 15.9008 12.1508C15.1508 12.4508 14.4008 12.9008 13.6508 13.6508C12.9008 14.4008 12.6008 15.0008 12.1508 15.9008C11.8508 16.6508 11.7008 17.5508 11.5508 18.9008C11.5508 20.2508 11.5508 20.7008 11.5508 24.0008C11.5508 27.4508 11.5508 27.7508 11.5508 29.1008C11.5508 30.4508 11.8508 31.3508 12.1508 32.1008C12.4508 32.8508 12.9008 33.6008 13.6508 34.3508C14.4008 35.1008 15.0008 35.4008 15.9008 35.8508C16.6508 36.1508 17.5508 36.3008 18.9008 36.4508C20.2508 36.4508 20.7008 36.4508 24.0008 36.4508C27.3008 36.4508 27.7508 36.4508 29.1008 36.4508C30.4508 36.4508 31.3508 36.1508 32.1008 35.8508C32.8508 35.5508 33.6008 35.1008 34.3508 34.3508C35.1008 33.6008 35.4008 33.0008 35.8508 32.1008C36.1508 31.3508 36.3008 30.4508 36.4508 29.1008C36.4508 27.7508 36.4508 27.3008 36.4508 24.0008C36.4508 20.7008 36.4508 20.2508 36.4508 18.9008C36.4508 17.5508 36.1508 16.6508 35.8508 15.9008C35.5508 15.1508 35.1008 14.4008 34.3508 13.6508C33.6008 12.9008 33.0008 12.6008 32.1008 12.1508C31.3508 11.8508 30.4508 11.7008 29.1008 11.5508C27.7508 11.5508 27.4508 11.5508 24.0008 11.5508Z"
+                fill="white" />
+            <path
+                d="M24.0008 17.5508C20.4008 17.5508 17.5508 20.4008 17.5508 24.0008C17.5508 27.6008 20.4008 30.4508 24.0008 30.4508C27.6008 30.4508 30.4508 27.6008 30.4508 24.0008C30.4508 20.4008 27.6008 17.5508 24.0008 17.5508ZM24.0008 28.2008C21.7508 28.2008 19.8008 26.4008 19.8008 24.0008C19.8008 21.7508 21.6008 19.8008 24.0008 19.8008C26.2508 19.8008 28.2008 21.6008 28.2008 24.0008C28.2008 26.2508 26.2508 28.2008 24.0008 28.2008Z"
+                fill="white" />
+            <path
+                d="M30.6008 18.9008C31.4292 18.9008 32.1008 18.2292 32.1008 17.4008C32.1008 16.5724 31.4292 15.9008 30.6008 15.9008C29.7724 15.9008 29.1008 16.5724 29.1008 17.4008C29.1008 18.2292 29.7724 18.9008 30.6008 18.9008Z"
+                fill="white" />
+        </symbol>
+        <symbol id="telegram" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+                d="M40.5 0H7.5C3.35786 0 0 3.35786 0 7.5V40.5C0 44.6421 3.35786 48 7.5 48H40.5C44.6421 48 48 44.6421 48 40.5V7.5C48 3.35786 44.6421 0 40.5 0Z"
+                fill="#0088CC" />
+            <path
+                d="M12.1499 23.5624C18.5923 20.7556 22.8883 18.9051 25.0378 18.0111C31.175 15.4584 32.4503 15.0149 33.2815 15.0001C33.4643 14.9971 33.8731 15.0424 34.1379 15.2572C34.3614 15.4386 34.4229 15.6837 34.4524 15.8557C34.4818 16.0277 34.5185 16.4195 34.4893 16.7257C34.1567 20.2201 32.7177 28.7002 31.9856 32.6141C31.6758 34.2702 31.0658 34.8254 30.4753 34.8798C29.1919 34.9979 28.2174 34.0317 26.9744 33.2169C25.0294 31.9419 23.9305 31.1482 22.0425 29.904C19.8606 28.4662 21.2751 27.6759 22.5185 26.3844C22.844 26.0464 28.4985 20.9032 28.6079 20.4366C28.6216 20.3783 28.6343 20.1608 28.5051 20.0459C28.3759 19.9311 28.1851 19.9703 28.0475 20.0016C27.8524 20.0458 24.7452 22.0996 18.7258 26.1628C17.8439 26.7685 17.045 27.0636 16.3292 27.0481C15.5402 27.0311 14.0223 26.602 12.894 26.2352C11.51 25.7853 10.41 25.5474 10.5058 24.7834C10.5557 24.3854 11.1037 23.9785 12.1499 23.5624Z"
+                fill="white" />
+        </symbol>
+        <symbol id="whatsapp" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+                d="M40.5 0H7.5C3.35786 0 0 3.35786 0 7.5V40.5C0 44.6421 3.35786 48 7.5 48H40.5C44.6421 48 48 44.6421 48 40.5V7.5C48 3.35786 44.6421 0 40.5 0Z"
+                fill="#25D366" />
             <path fill-rule="evenodd" clip-rule="evenodd"
-                d="M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12ZM11 17C11 16.4477 11.4477 16 12 16C12.5523 16 13 16.4477 13 17C13 17.5523 12.5523 18 12 18C11.4477 18 11 17.5523 11 17ZM11.25 14C11.25 14.4142 11.5858 14.75 12 14.75C12.4142 14.75 12.75 14.4142 12.75 14L12.75 7C12.75 6.58579 12.4142 6.25 12 6.25C11.5858 6.25 11.25 6.58579 11.25 7L11.25 14Z"
-                fill="#D22121" />
-        </svg>
-        <svg id="exit" width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M21.6575 10.3438L10.3438 21.6575M21.6575 21.6575L10.3438 10.3438" stroke="#28303F"
-                stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-        </svg>
+                d="M32.4 15.45C30.15 13.2 27.15 12 24 12C17.4 12 12 17.4 12 24C12 26.1 12.6 28.2 13.65 30L12 36L18.3 34.35C20.1 35.25 22.05 35.85 24 35.85C30.6 35.85 36 30.45 36 23.85C36 20.7 34.65 17.7 32.4 15.45ZM24 33.9C22.2 33.9 20.4 33.45 18.9 32.55L18.6 32.4L14.85 33.45L15.9 29.85L15.6 29.4C14.55 27.75 14.1 25.95 14.1 24.15C14.1 18.75 18.6 14.25 24 14.25C26.7 14.25 29.1 15.3 31.05 17.1C33 19.05 33.9 21.45 33.9 24.15C33.9 29.4 29.55 33.9 24 33.9ZM29.4 26.4C29.1 26.25 27.6 25.5 27.3 25.5C27 25.35 26.85 25.35 26.7 25.65C26.55 25.95 25.95 26.55 25.8 26.85C25.65 27 25.5 27 25.2 27C24.9 26.85 24 26.55 22.8 25.5C21.9 24.75 21.3 23.7 21.15 23.4C21 23.1 21.15 22.95 21.3 22.8C21.45 22.65 21.6 22.5 21.75 22.35C21.9 22.2 21.9 22.05 22.05 21.9C22.2 21.75 22.05 21.6 22.05 21.45C22.05 21.3 21.45 19.8 21.15 19.2C21 18.75 20.7 18.75 20.55 18.75C20.4 18.75 20.25 18.75 19.95 18.75C19.8 18.75 19.5 18.75 19.2 19.05C18.9 19.35 18.15 20.1 18.15 21.6C18.15 23.1 19.2 24.45 19.35 24.75C19.5 24.9 21.45 28.05 24.45 29.25C27 30.3 27.45 30 28.05 30C28.65 30 29.85 29.25 30 28.65C30.3 27.9 30.3 27.3 30.15 27.3C30 26.55 29.7 26.55 29.4 26.4Z"
+                fill="white" />
+        </symbol>
+        <symbol id="plus" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 6V18M18 12L6 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round" />
+        </symbol>
+
 
     </svg>
-
-
     <!-- Header -->
     <header class="h-[72px] border-b border-[#ececec] bg-white" role="banner">
         <div class="mx-auto flex h-full max-w-[1536px] items-center justify-between px-4 sm:px-6 lg:px-[60px]">
@@ -106,8 +134,7 @@
             </div>
         </div>
     </header>
-    <main class="relative container pb-32">
-        <h3 class="md:hidden text-center font-IRANSansXDemiBold text-xl">ثبت فروشگاه</h3>
+    <main class="container">
         <section class="steps font-IRANSansXRegular w-full md:w-[740px] flex items-center justify-center mx-auto mt-20">
             <div class="relative w-full text-sm md:text-base">
                 <!-- خط پشت (همیشه از چپ تا راست) -->
@@ -131,31 +158,34 @@
                     </a>
 
                     <!-- Step 2 -->
-                    <div class="flex flex-col items-center text-center">
-                        <div
-                            class="size-9 rounded-full bg-[#E0E0E0] border-[3px] border-custom-brown flex items-center justify-center">
-                            <span class="text-sm text-black">۲</span>
+                    <a href="store_registration_step_2.html" class="flex flex-col items-center text-center">
+                        <div class="size-9 rounded-full bg-custom-brown text-white flex items-center justify-center">
+                            <svg class="size-5 text-white">
+                                <use href="#tick"></use>
+                            </svg>
                         </div>
                         <span class="mt-2">اطلاعات اولیه</span>
-                    </div>
+                    </a>
 
                     <!-- Step 3 -->
-                    <div class="flex flex-col items-center text-center">
-                        <div
-                            class="size-9 rounded-full bg-[#E0E0E0] border-[3px] border-custom-brown flex items-center justify-center">
-                            <span class="text-sm text-black">۳</span>
+                    <a href="store_registration_step_3.html" class="flex flex-col items-center text-center">
+                        <div class="size-9 rounded-full bg-custom-brown text-white flex items-center justify-center">
+                            <svg class="size-5 text-white">
+                                <use href="#tick"></use>
+                            </svg>
                         </div>
                         <span class="mt-2">اطلاعات تکمیلی</span>
-                    </div>
+                    </a>
 
                     <!-- Step 4 (بارگذاری مدارک - جدید) -->
-                    <div class="flex flex-col items-center text-center">
-                        <div
-                            class="size-9 rounded-full bg-[#E0E0E0] border-[3px] border-custom-brown flex items-center justify-center">
-                            <span class="text-sm text-black">۴</span>
+                    <a href="store_registration_step_4.html" class="flex flex-col items-center text-center">
+                        <div class="size-9 rounded-full bg-custom-brown text-white flex items-center justify-center">
+                            <svg class="size-5 text-white">
+                                <use href="#tick"></use>
+                            </svg>
                         </div>
                         <span class="mt-2">بارگذاری مدارک</span>
-                    </div>
+                    </a>
 
                     <!-- Step 5 (ثبت نهایی) -->
                     <div class="flex flex-col items-center text-center">
@@ -170,10 +200,10 @@
         </section>
         <!-- new_shop_forms -->
         <section
-            class="font-IRANSansXRegular flex flex-col items-center justify-center rounded-xl mt-16 bg-white mx-0 md:mx-3 lg:mx-6 md:py-8 ">
-            <form id="shop-form" novalidate action="store_registration_step_3.html" method="get"
-                class="w-full child:w-full grid  grid-cols-1 md:grid-cols-2 gap-8 md:p-8">
-                <div class="relative">
+            class="font-IRANSansXRegular flex flex-col items-center justify-center rounded-xl mt-16 bg-white mx-0 md:mx-3 lg:mx-6 py-8 ">
+            <form id="shop-form" novalidate method="get"
+                class="w-full child:w-full grid grid-cols-1 md:grid-cols-2 gap-8 p-8 child:col-span-2 md:child:col-span-1">
+                <div class="relative ">
                     <label for="shop-name">نام فروشگاه <span class="text-red-500">*</span></label>
                     <input required id="shop-name" class="shop-input" type="text" placeholder="عنوان ورودی">
                     <!-- آیکون خطا (در حالت عادی مخفی) -->
@@ -192,7 +222,8 @@
                         <use href="#error"></use>
                     </svg>
                     <p class="error-msg hidden text-sm text-red-500 mt-1">نام کاربری نامعتبر است. فقط حروف انگلیسی کوچک،
-                        عدد و خط تیره مجاز است.</p>
+                        عدد و خط تیره
+                        مجاز است.</p>
                 </div>
                 <!-- فیلد انتخاب استان -->
                 <div class="relative flex flex-col">
@@ -298,8 +329,8 @@
                                             <input type="checkbox" class="sr-only peer workday-toggle">
                                             <div
                                                 class="w-14 h-7 bg-gray-300 rounded-full peer-checked:bg-[#9C4639]
-                                                                                        after:absolute after:top-[4px] after:right-[3px] after:w-5 after:h-5 after:bg-white
-                                                                                        after:rounded-full after:transition-all peer-checked:after:translate-x-[-28px]">
+                                                                                                        after:absolute after:top-[4px] after:right-[3px] after:w-5 after:h-5 after:bg-white
+                                                                                                        after:rounded-full after:transition-all peer-checked:after:translate-x-[-28px]">
                                             </div>
                                         </label>
                                     </div>
@@ -330,7 +361,7 @@
                                                         <div class="relative w-full" id="hour-picker-wrapper">
                                                             <div id="hour-picker"
                                                                 class="cursor-pointer bg-white border border-[#CCCCCC] rounded-xl px-4 py-2 flex items-center justify-between
-                                                               text-[#262626] font-IRANSansXMedium shadow-sm hover:border-[#9C4639] transition">
+                                                                               text-[#262626] font-IRANSansXMedium shadow-sm hover:border-[#9C4639] transition">
                                                                 <span id="hour-picker-label">ساعت</span>
 
                                                                 <svg class="w-5 h-5 text-[#9C4639]" fill="none"
@@ -342,8 +373,9 @@
                                                             </div>
 
                                                             <!-- DROPDOWN -->
-                                                            <div id="hour-dropdown" class="absolute left-0 right-0 mt-2 bg-white border border-[#CCCCCC] rounded-xl shadow-xl
-                                                                max-h-48 overflow-y-auto hidden z-50 animate-fade">
+                                                            <div id="hour-dropdown"
+                                                                class="absolute left-0 right-0 mt-2 bg-white border border-[#CCCCCC] rounded-xl shadow-xl
+                                                                                max-h-48 overflow-y-auto hidden z-50 animate-fade">
 
                                                                 <ul id="hour-options" class="py-2"></ul>
                                                             </div>
@@ -353,7 +385,7 @@
                                                         <div class="relative w-full" id="min-picker-wrapper">
                                                             <div id="min-picker"
                                                                 class="cursor-pointer bg-white border border-[#CCCCCC] rounded-xl px-4 py-2 flex items-center justify-between
-                                                                                                               text-[#262626] font-IRANSansXMedium shadow-sm hover:border-[#9C4639] transition">
+                                                                                                                               text-[#262626] font-IRANSansXMedium shadow-sm hover:border-[#9C4639] transition">
                                                                 <span id="min-picker-label">دقیقه</span>
 
                                                                 <svg class="w-5 h-5 text-[#9C4639]" fill="none"
@@ -367,7 +399,7 @@
                                                             <!-- DROPDOWN -->
                                                             <div id="min-dropdown"
                                                                 class="absolute left-0 right-0 mt-2 bg-white border border-[#CCCCCC] rounded-xl shadow-xl
-                                                                                                                max-h-48 overflow-y-auto hidden z-50 animate-fade">
+                                                                                                                                max-h-48 overflow-y-auto hidden z-50 animate-fade">
 
                                                                 <ul id="min-options" class="py-2"></ul>
                                                             </div>
@@ -424,7 +456,7 @@
                                                         <div class="relative w-full" id="hour-picker-wrapper">
                                                             <div id="hour-picker"
                                                                 class="cursor-pointer bg-white border border-[#CCCCCC] rounded-xl px-4 py-2 flex items-center justify-between
-                                                                                                   text-[#262626] font-IRANSansXMedium shadow-sm hover:border-[#9C4639] transition">
+                                                                                                                   text-[#262626] font-IRANSansXMedium shadow-sm hover:border-[#9C4639] transition">
                                                                 <span id="hour-picker-label">ساعت</span>
 
                                                                 <svg class="w-5 h-5 text-[#9C4639]" fill="none"
@@ -438,7 +470,7 @@
                                                             <!-- DROPDOWN -->
                                                             <div id="hour-dropdown"
                                                                 class="absolute left-0 right-0 mt-2 bg-white border border-[#CCCCCC] rounded-xl shadow-xl
-                                                                                                    max-h-48 overflow-y-auto hidden z-50 animate-fade">
+                                                                                                                    max-h-48 overflow-y-auto hidden z-50 animate-fade">
 
                                                                 <ul id="hour-options" class="py-2"></ul>
                                                             </div>
@@ -450,7 +482,7 @@
                                                         <div class="relative w-full" id="min-picker-wrapper">
                                                             <div id="min-picker"
                                                                 class="cursor-pointer bg-white border border-[#CCCCCC] rounded-xl px-4 py-2 flex items-center justify-between
-                                                                                                                                                   text-[#262626] font-IRANSansXMedium shadow-sm hover:border-[#9C4639] transition">
+                                                                                                                                                                   text-[#262626] font-IRANSansXMedium shadow-sm hover:border-[#9C4639] transition">
                                                                 <span id="min-picker-label">دقیقه</span>
 
                                                                 <svg class="w-5 h-5 text-[#9C4639]" fill="none"
@@ -464,7 +496,7 @@
                                                             <!-- DROPDOWN -->
                                                             <div id="min-dropdown"
                                                                 class="absolute left-0 right-0 mt-2 bg-white border border-[#CCCCCC] rounded-xl shadow-xl
-                                                                                                                                                    max-h-48 overflow-y-auto hidden z-50 animate-fade">
+                                                                                                                                                                    max-h-48 overflow-y-auto hidden z-50 animate-fade">
 
                                                                 <ul id="min-options" class="py-2"></ul>
                                                             </div>
@@ -525,7 +557,7 @@
                                                         <div class="relative w-full" id="hour-picker-wrapper">
                                                             <div id="hour-picker"
                                                                 class="cursor-pointer bg-white border border-[#CCCCCC] rounded-xl px-4 py-2 flex items-center justify-between
-                                                                                                   text-[#262626] font-IRANSansXMedium shadow-sm hover:border-[#9C4639] transition">
+                                                                                                                   text-[#262626] font-IRANSansXMedium shadow-sm hover:border-[#9C4639] transition">
                                                                 <span id="hour-picker-label">ساعت</span>
 
                                                                 <svg class="w-5 h-5 text-[#9C4639]" fill="none"
@@ -539,7 +571,7 @@
                                                             <!-- DROPDOWN -->
                                                             <div id="hour-dropdown"
                                                                 class="absolute left-0 right-0 mt-2 bg-white border border-[#CCCCCC] rounded-xl shadow-xl
-                                                                                                    max-h-48 overflow-y-auto hidden z-50 animate-fade">
+                                                                                                                    max-h-48 overflow-y-auto hidden z-50 animate-fade">
 
                                                                 <ul id="hour-options" class="py-2"></ul>
                                                             </div>
@@ -551,7 +583,7 @@
                                                         <div class="relative w-full" id="min-picker-wrapper">
                                                             <div id="min-picker"
                                                                 class="cursor-pointer bg-white border border-[#CCCCCC] rounded-xl px-4 py-2 flex items-center justify-between
-                                                                                                                                                   text-[#262626] font-IRANSansXMedium shadow-sm hover:border-[#9C4639] transition">
+                                                                                                                                                                   text-[#262626] font-IRANSansXMedium shadow-sm hover:border-[#9C4639] transition">
                                                                 <span id="min-picker-label">دقیقه</span>
 
                                                                 <svg class="w-5 h-5 text-[#9C4639]" fill="none"
@@ -565,7 +597,7 @@
                                                             <!-- DROPDOWN -->
                                                             <div id="min-dropdown"
                                                                 class="absolute left-0 right-0 mt-2 bg-white border border-[#CCCCCC] rounded-xl shadow-xl
-                                                                                                                                                    max-h-48 overflow-y-auto hidden z-50 animate-fade">
+                                                                                                                                                                    max-h-48 overflow-y-auto hidden z-50 animate-fade">
 
                                                                 <ul id="min-options" class="py-2"></ul>
                                                             </div>
@@ -622,7 +654,7 @@
                                                         <div class="relative w-full" id="hour-picker-wrapper">
                                                             <div id="hour-picker"
                                                                 class="cursor-pointer bg-white border border-[#CCCCCC] rounded-xl px-4 py-2 flex items-center justify-between
-                                                                                                                                       text-[#262626] font-IRANSansXMedium shadow-sm hover:border-[#9C4639] transition">
+                                                                                                                                                       text-[#262626] font-IRANSansXMedium shadow-sm hover:border-[#9C4639] transition">
                                                                 <span id="hour-picker-label">ساعت</span>
 
                                                                 <svg class="w-5 h-5 text-[#9C4639]" fill="none"
@@ -636,7 +668,7 @@
                                                             <!-- DROPDOWN -->
                                                             <div id="hour-dropdown"
                                                                 class="absolute left-0 right-0 mt-2 bg-white border border-[#CCCCCC] rounded-xl shadow-xl
-                                                                                                                                        max-h-48 overflow-y-auto hidden z-50 animate-fade">
+                                                                                                                                                        max-h-48 overflow-y-auto hidden z-50 animate-fade">
 
                                                                 <ul id="hour-options" class="py-2"></ul>
                                                             </div>
@@ -648,7 +680,7 @@
                                                         <div class="relative w-full" id="min-picker-wrapper">
                                                             <div id="min-picker"
                                                                 class="cursor-pointer bg-white border border-[#CCCCCC] rounded-xl px-4 py-2 flex items-center justify-between
-                                                                                                                                                                                       text-[#262626] font-IRANSansXMedium shadow-sm hover:border-[#9C4639] transition">
+                                                                                                                                                                                                       text-[#262626] font-IRANSansXMedium shadow-sm hover:border-[#9C4639] transition">
                                                                 <span id="min-picker-label">دقیقه</span>
 
                                                                 <svg class="w-5 h-5 text-[#9C4639]" fill="none"
@@ -662,7 +694,7 @@
                                                             <!-- DROPDOWN -->
                                                             <div id="min-dropdown"
                                                                 class="absolute left-0 right-0 mt-2 bg-white border border-[#CCCCCC] rounded-xl shadow-xl
-                                                                                                                                                                                        max-h-48 overflow-y-auto hidden z-50 animate-fade">
+                                                                                                                                                                                                        max-h-48 overflow-y-auto hidden z-50 animate-fade">
 
                                                                 <ul id="min-options" class="py-2"></ul>
                                                             </div>
@@ -705,8 +737,8 @@
 
                                             <div
                                                 class="w-6 h-6 border-2 border-[#999999] rounded-md
-                                                                        flex items-center justify-center
-                                                                        peer-checked:bg-custom-brown peer-checked:border-none">
+                                                                                        flex items-center justify-center
+                                                                                        peer-checked:bg-custom-brown peer-checked:border-none">
 
                                                 <!-- آیکون تیک -->
                                                 <svg class="w-5 h-5 text-white  transition">
@@ -730,8 +762,8 @@
                                             <input type="checkbox" class="sr-only peer workday-toggle">
                                             <div
                                                 class="w-14 h-7 bg-gray-300 rounded-full peer-checked:bg-[#9C4639]
-                                                    after:absolute after:top-[4px] after:right-[3px] after:w-5 after:h-5 after:bg-white
-                                                    after:rounded-full after:transition-all peer-checked:after:translate-x-[-28px]">
+                                                                    after:absolute after:top-[4px] after:right-[3px] after:w-5 after:h-5 after:bg-white
+                                                                    after:rounded-full after:transition-all peer-checked:after:translate-x-[-28px]">
                                             </div>
                                         </label>
                                     </div>
@@ -760,7 +792,7 @@
                                                         <div class="relative w-full" id="hour-picker-wrapper">
                                                             <div id="hour-picker"
                                                                 class="cursor-pointer bg-white border border-[#CCCCCC] rounded-xl px-4 py-2 flex items-center justify-between
-                                                                                                   text-[#262626] font-IRANSansXMedium shadow-sm hover:border-[#9C4639] transition">
+                                                                                                                   text-[#262626] font-IRANSansXMedium shadow-sm hover:border-[#9C4639] transition">
                                                                 <span id="hour-picker-label">ساعت</span>
 
                                                                 <svg class="w-5 h-5 text-[#9C4639]" fill="none"
@@ -774,7 +806,7 @@
                                                             <!-- DROPDOWN -->
                                                             <div id="hour-dropdown"
                                                                 class="absolute left-0 right-0 mt-2 bg-white border border-[#CCCCCC] rounded-xl shadow-xl
-                                                                                                    max-h-48 overflow-y-auto hidden z-50 animate-fade">
+                                                                                                                    max-h-48 overflow-y-auto hidden z-50 animate-fade">
 
                                                                 <ul id="hour-options" class="py-2"></ul>
                                                             </div>
@@ -786,7 +818,7 @@
                                                         <div class="relative w-full" id="min-picker-wrapper">
                                                             <div id="min-picker"
                                                                 class="cursor-pointer bg-white border border-[#CCCCCC] rounded-xl px-4 py-2 flex items-center justify-between
-                                                                                                                                                   text-[#262626] font-IRANSansXMedium shadow-sm hover:border-[#9C4639] transition">
+                                                                                                                                                                   text-[#262626] font-IRANSansXMedium shadow-sm hover:border-[#9C4639] transition">
                                                                 <span id="min-picker-label">دقیقه</span>
 
                                                                 <svg class="w-5 h-5 text-[#9C4639]" fill="none"
@@ -800,7 +832,7 @@
                                                             <!-- DROPDOWN -->
                                                             <div id="min-dropdown"
                                                                 class="absolute left-0 right-0 mt-2 bg-white border border-[#CCCCCC] rounded-xl shadow-xl
-                                                                                                                                                    max-h-48 overflow-y-auto hidden z-50 animate-fade">
+                                                                                                                                                                    max-h-48 overflow-y-auto hidden z-50 animate-fade">
 
                                                                 <ul id="min-options" class="py-2"></ul>
                                                             </div>
@@ -855,7 +887,7 @@
                                                         <div class="relative w-full" id="hour-picker-wrapper">
                                                             <div id="hour-picker"
                                                                 class="cursor-pointer bg-white border border-[#CCCCCC] rounded-xl px-4 py-2 flex items-center justify-between
-                                                                                                                                       text-[#262626] font-IRANSansXMedium shadow-sm hover:border-[#9C4639] transition">
+                                                                                                                                                       text-[#262626] font-IRANSansXMedium shadow-sm hover:border-[#9C4639] transition">
                                                                 <span id="hour-picker-label">ساعت</span>
 
                                                                 <svg class="w-5 h-5 text-[#9C4639]" fill="none"
@@ -869,7 +901,7 @@
                                                             <!-- DROPDOWN -->
                                                             <div id="hour-dropdown"
                                                                 class="absolute left-0 right-0 mt-2 bg-white border border-[#CCCCCC] rounded-xl shadow-xl
-                                                                                                                                        max-h-48 overflow-y-auto hidden z-50 animate-fade">
+                                                                                                                                                        max-h-48 overflow-y-auto hidden z-50 animate-fade">
 
                                                                 <ul id="hour-options" class="py-2"></ul>
                                                             </div>
@@ -881,7 +913,7 @@
                                                         <div class="relative w-full" id="min-picker-wrapper">
                                                             <div id="min-picker"
                                                                 class="cursor-pointer bg-white border border-[#CCCCCC] rounded-xl px-4 py-2 flex items-center justify-between
-                                                                                                                                                                                       text-[#262626] font-IRANSansXMedium shadow-sm hover:border-[#9C4639] transition">
+                                                                                                                                                                                                       text-[#262626] font-IRANSansXMedium shadow-sm hover:border-[#9C4639] transition">
                                                                 <span id="min-picker-label">دقیقه</span>
 
                                                                 <svg class="w-5 h-5 text-[#9C4639]" fill="none"
@@ -895,7 +927,7 @@
                                                             <!-- DROPDOWN -->
                                                             <div id="min-dropdown"
                                                                 class="absolute left-0 right-0 mt-2 bg-white border border-[#CCCCCC] rounded-xl shadow-xl
-                                                                                                                                                                                        max-h-48 overflow-y-auto hidden z-50 animate-fade">
+                                                                                                                                                                                                        max-h-48 overflow-y-auto hidden z-50 animate-fade">
 
                                                                 <ul id="min-options" class="py-2"></ul>
                                                             </div>
@@ -956,7 +988,7 @@
                                                         <div class="relative w-full" id="hour-picker-wrapper">
                                                             <div id="hour-picker"
                                                                 class="cursor-pointer bg-white border border-[#CCCCCC] rounded-xl px-4 py-2 flex items-center justify-between
-                                                                                                                                       text-[#262626] font-IRANSansXMedium shadow-sm hover:border-[#9C4639] transition">
+                                                                                                                                                       text-[#262626] font-IRANSansXMedium shadow-sm hover:border-[#9C4639] transition">
                                                                 <span id="hour-picker-label">ساعت</span>
 
                                                                 <svg class="w-5 h-5 text-[#9C4639]" fill="none"
@@ -970,7 +1002,7 @@
                                                             <!-- DROPDOWN -->
                                                             <div id="hour-dropdown"
                                                                 class="absolute left-0 right-0 mt-2 bg-white border border-[#CCCCCC] rounded-xl shadow-xl
-                                                                                                                                        max-h-48 overflow-y-auto hidden z-50 animate-fade">
+                                                                                                                                                        max-h-48 overflow-y-auto hidden z-50 animate-fade">
 
                                                                 <ul id="hour-options" class="py-2"></ul>
                                                             </div>
@@ -982,7 +1014,7 @@
                                                         <div class="relative w-full" id="min-picker-wrapper">
                                                             <div id="min-picker"
                                                                 class="cursor-pointer bg-white border border-[#CCCCCC] rounded-xl px-4 py-2 flex items-center justify-between
-                                                                                                                                                                                       text-[#262626] font-IRANSansXMedium shadow-sm hover:border-[#9C4639] transition">
+                                                                                                                                                                                                       text-[#262626] font-IRANSansXMedium shadow-sm hover:border-[#9C4639] transition">
                                                                 <span id="min-picker-label">دقیقه</span>
 
                                                                 <svg class="w-5 h-5 text-[#9C4639]" fill="none"
@@ -996,7 +1028,7 @@
                                                             <!-- DROPDOWN -->
                                                             <div id="min-dropdown"
                                                                 class="absolute left-0 right-0 mt-2 bg-white border border-[#CCCCCC] rounded-xl shadow-xl
-                                                                                                                                                                                        max-h-48 overflow-y-auto hidden z-50 animate-fade">
+                                                                                                                                                                                                        max-h-48 overflow-y-auto hidden z-50 animate-fade">
 
                                                                 <ul id="min-options" class="py-2"></ul>
                                                             </div>
@@ -1053,7 +1085,7 @@
                                                         <div class="relative w-full" id="hour-picker-wrapper">
                                                             <div id="hour-picker"
                                                                 class="cursor-pointer bg-white border border-[#CCCCCC] rounded-xl px-4 py-2 flex items-center justify-between
-                                                                                                                                                                           text-[#262626] font-IRANSansXMedium shadow-sm hover:border-[#9C4639] transition">
+                                                                                                                                                                                           text-[#262626] font-IRANSansXMedium shadow-sm hover:border-[#9C4639] transition">
                                                                 <span id="hour-picker-label">ساعت</span>
 
                                                                 <svg class="w-5 h-5 text-[#9C4639]" fill="none"
@@ -1067,7 +1099,7 @@
                                                             <!-- DROPDOWN -->
                                                             <div id="hour-dropdown"
                                                                 class="absolute left-0 right-0 mt-2 bg-white border border-[#CCCCCC] rounded-xl shadow-xl
-                                                                                                                                                                            max-h-48 overflow-y-auto hidden z-50 animate-fade">
+                                                                                                                                                                                            max-h-48 overflow-y-auto hidden z-50 animate-fade">
 
                                                                 <ul id="hour-options" class="py-2"></ul>
                                                             </div>
@@ -1079,7 +1111,7 @@
                                                         <div class="relative w-full" id="min-picker-wrapper">
                                                             <div id="min-picker"
                                                                 class="cursor-pointer bg-white border border-[#CCCCCC] rounded-xl px-4 py-2 flex items-center justify-between
-                                                                                                                                                                                                                           text-[#262626] font-IRANSansXMedium shadow-sm hover:border-[#9C4639] transition">
+                                                                                                                                                                                                                                           text-[#262626] font-IRANSansXMedium shadow-sm hover:border-[#9C4639] transition">
                                                                 <span id="min-picker-label">دقیقه</span>
 
                                                                 <svg class="w-5 h-5 text-[#9C4639]" fill="none"
@@ -1093,7 +1125,7 @@
                                                             <!-- DROPDOWN -->
                                                             <div id="min-dropdown"
                                                                 class="absolute left-0 right-0 mt-2 bg-white border border-[#CCCCCC] rounded-xl shadow-xl
-                                                                                                                                                                                                                            max-h-48 overflow-y-auto hidden z-50 animate-fade">
+                                                                                                                                                                                                                                            max-h-48 overflow-y-auto hidden z-50 animate-fade">
 
                                                                 <ul id="min-options" class="py-2"></ul>
                                                             </div>
@@ -1134,8 +1166,8 @@
                                             <input type="checkbox" class="peer hidden two-shifts" />
 
                                             <div class="w-6 h-6 border-2 border-[#999999] rounded-md
-                                        flex items-center justify-center
-                                        peer-checked:bg-custom-brown peer-checked:border-none">
+                                                        flex items-center justify-center
+                                                        peer-checked:bg-custom-brown peer-checked:border-none">
 
                                                 <!-- آیکون تیک -->
                                                 <svg class="w-5 h-5 text-white  transition">
@@ -1161,8 +1193,8 @@
                                         <input type="checkbox" class="sr-only peer">
                                         <div
                                             class="w-14 h-7 bg-gray-300 rounded-full peer-checked:bg-[#9C4639]
-                                                                                    after:absolute after:top-[4px] after:right-[3px] after:w-5 after:h-5 after:bg-white
-                                                                                    after:rounded-full after:transition-all peer-checked:after:translate-x-[-28px]">
+                                                                                                    after:absolute after:top-[4px] after:right-[3px] after:w-5 after:h-5 after:bg-white
+                                                                                                    after:rounded-full after:transition-all peer-checked:after:translate-x-[-28px]">
                                         </div>
                                     </label>
                                 </div>
@@ -1200,7 +1232,7 @@
                     <p class="error-msg hidden text-sm text-red-500 mt-1">کد پستی باید ۱۰ رقم باشد.</p>
                 </div>
                 <!-- فیلد  ادرس   -->
-                <div class="relative md:col-span-2">
+                <div class="relative col-span-1 md:!col-span-2">
                     <label for="address">آدرس پستی <span class="text-red-500">*</span></label>
                     <textarea required id="address" class="shop-input h-[165px]" placeholder="عنوان ورودی"></textarea>
                     <!-- آیکون خطا (در حالت عادی مخفی) -->
@@ -1241,24 +1273,449 @@
                         </span>
                     </button>
                 </div>
-                <div class="hidden md:block"></div>
-                <div class="mt-8 md:mt-20 flex justify-center gap-4 w-full">
-                    <button class="w-1/2 py-2 rounded-md border border-[#999999] text-gray-700 " type="button">
-                        <span class="hidden md:block">انصراف</span>
-                        <span class="block md:hidden">بازگشت</span>
-                    </button>
-                    <button id="confirm-btn" href="store_registration_step_1.html"
-                        class="w-1/2 py-2 rounded-md transition-all duration-300 bg-custom-brown text-white">
-                        تایید
-                    </button>
+                <div>
+                    <label for="">شماره تلفن ثابت</label>
+                    <input dir="rtl" class="shop-input" type="tel" name="" id="" required placeholder="عنوان ورودی">
+                    <p class="error-msg hidden text-sm text-red-500 mt-1">شماره تلفن ثابت نامعتبر است.</p>
+
+                </div>
+                <div>
+                    <label for="">شماره تلفن همراه</label>
+                    <input dir="rtl" class="shop-input" required type="tel" name="" id="" placeholder="عنوان ورودی">
+                    <p class="error-msg hidden text-sm text-red-500 mt-1">شماره تلفن همراه نامعتبر است.</p>
+                </div>
+                <div>
+                    <label for="">آدرس ایمیل</label>
+                    <input class="shop-input" required type="email" name="" id="" placeholder="عنوان ورودی">
+                    <p class="error-msg hidden text-sm text-red-500 mt-1"> ایمیل نامعتبر است.</p>
+                </div>
+                <div>
+                    <label for="">آدرس وبسایت</label>
+                    <input class="shop-input " required type="text" name="" id="" placeholder="عنوان ورودی">
+                    <p class="error-msg hidden text-sm text-red-500 mt-1"> آدرس وبسایت نامعتبر است.</p>
+                </div>
+                <div>
+                    <div class="relative flex flex-col text-custom-brown -mt-5">
+                        <button type="button" id="openSocialModalBtn" class="flex items-center gap-2">
+                            <svg class="size-4">
+                                <use href="#plus"></use>
+                            </svg>
+                            <span>افزودن لینک شبکه‌های اجتماعی</span>
+                        </button>
+                    </div>
+
+                    <!-- Overlay -->
+                    <div id="socialModal"
+                        class="fixed inset-0 z-50 hidden flex items-center justify-center bg-black/40">
+
+                        <!-- Modal -->
+                        <div class="w-full h-dvh md:h-auto max-w-[507px] md:rounded-xl bg-white p-6 shadow-xl">
+
+                            <!-- Header -->
+                            <div class="mb-6 flex items-center justify-between">
+                                <h2 class="text-lg font-bold text-gray-800">
+                                    شبکه‌های اجتماعی
+                                </h2>
+                                <button type="button" class="social_close_exit text-gray-400 hover:text-gray-600">
+                                    <svg class="size-6">
+                                        <use href="#exit"></use>
+                                    </svg>
+                                </button>
+                            </div>
+
+                            <!-- Instagram -->
+                            <div class="mb-4 border border-[#CCCCCC] rounded-lg p-4">
+                                <label
+                                    class="font-IRANSansXMedium mb-2 flex items-center gap-2 text-base text-gray-700">
+                                    <svg class="size-6">
+                                        <use href="#instagram"></use>
+                                    </svg>
+                                    اینستاگرام
+                                </label>
+                                <input type="text" placeholder="instagramid"
+                                    class="shop-input h-10 focus:border focus:border-custom-brown" />
+                                <p class="mt-2 text-sm text-gray-600">
+                                    https://instagram.com/instagramid
+                                </p>
+                            </div>
+
+                            <!-- Telegram -->
+                            <div class="mb-4 border border-[#CCCCCC] rounded-lg p-4">
+                                <label class="font-IRANSansXMedium mb-2 flex items-center gap-2 text-gray-700">
+                                    <svg class="size-6">
+                                        <use href="#telegram"></use>
+                                    </svg>
+                                    تلگرام
+                                </label>
+                                <input type="text" placeholder="لینک بدون @"
+                                    class="shop-input h-10 focus:border focus:border-custom-brown" />
+                                <p class="mt-2 text-sm text-gray-600">
+                                    پیشنهاد مناسب خودکار اضافه می‌شود.
+                                </p>
+                            </div>
+
+                            <!-- WhatsApp -->
+                            <div class="mb-6 border border-[#CCCCCC] rounded-lg p-4">
+                                <label class="mb-2 flex items-center gap-2 text-sm font-medium text-gray-700">
+                                    <svg class="size-6">
+                                        <use href="#whatsapp"></use>
+                                    </svg>
+                                    واتساپ
+                                </label>
+                                <input type="text" placeholder="لینک بدون @"
+                                    class="shop-input h-10 focus:border focus:border-custom-brown" />
+                                <p class="mt-2 text-sm text-gray-600">
+                                    پیشنهاد مناسب خودکار اضافه می‌شود.
+                                </p>
+                            </div>
+
+                            <!-- Buttons -->
+                            <div class="font-IRANSansXRegular w-full flex justify-between gap-x-3 mt-6">
+                                <button type="button"
+                                    class="social_confirm w-1/2 py-2 bg-[#9C4639] text-white rounded-lg">
+                                    تأیید
+                                </button>
+                                <button type="button"
+                                    class="social_close w-1/2 py-2 border-2 border-[#D22121] text-[#D22121] rounded-lg">
+                                    انصراف
+                                </button>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col-span-1 md:!col-span-2">
+                    <label for="">توضیحات</label>
+                    <textarea class="shop-input" name="" id="" cols="30" rows="5" placeholder="عنوان ورودی"></textarea>
+                </div>
+
+                <div
+                    class="col-span-1 md:!col-span-2 flex items-center justify-center md:justify-start gap-10 sm:gap-16 md:gap-20 ">
+
+                    <!-- فیلد چپی: چند عکس (collage داخل باکس) -->
+                    <div class="relative">
+                        <label for="">لوگوی فروشگاه</label>
+                        <div class="flex flex-col items-center justify-center text-custom-brown size-[105px] sm:size-[115px] md:size-[135px] border-[1px] border-[#999999] rounded-lg cursor-pointer mt-2"
+                            id="rightBox">
+
+                            <!-- حالت اولیه: + و متن -->
+                            <div id="rightInitial"
+                                class="flex flex-col items-center w-full h-full text-sm md:text-base p-4 md:pt-7">
+                                <svg class="size-10 md:size-12 text-[#666666]">
+                                    <use href="#plus"></use>
+                                </svg>
+                                <span>افزودن لوگو</span>
+                            </div>
+                            <!-- حالت پیش‌نمایش: یک عکس -->
+                            <div id="rightPreview" class="w-full h-full p-2 hidden">
+                                <img id="rightImg" class="w-full h-full object-cover">
+                            </div>
+                        </div>
+                        <input type="file" class="absolute inset-0 opacity-0 cursor-pointer" id="rightInput"
+                            accept="image/*">
+                    </div>
+                    <div class="flex items-center gap-3 relative">
+                        <div>
+                            <label for="">لوگوی فروشگاه</label>
+                            <!-- باکس انتخاب -->
+                            <div id="leftBox" class="flex flex-col items-center justify-center text-custom-brown
+                                                   size-[105px] sm:size-[115px] md:size-[135px]
+                                                   border border-[#999999] rounded-lg cursor-pointer mt-2">
+                                <div id="leftInitial"
+                                    class="flex flex-col items-center w-full h-full text-sm md:text-base p-3 pt-6 md:pt-7">
+                                    <svg class="size-10 md:size-12 text-[#666666]">
+                                        <use href="#plus"></use>
+                                    </svg>
+                                    <span>افزودن تصویر</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- پریویو عکس‌ها -->
+                        <div dir="ltr" id="leftPreview" class="hidden flex items-center gap-2"></div>
+
+                        <!-- input فقط برای باکس انتخاب -->
+                        <input type="file" id="leftInput" class="hidden" multiple accept="image/*" />
+                    </div>
+
+
+                    <!-- فیلد راستی: تک عکس (تصویر کامل داخل باکس) -->
+                </div>
+                <div></div>
+                <div class="!col-span-2 flex flex-col gap-4">
+                    <!-- ردیف موفقیت‌آمیز (پس از آپلود فایل) -->
+                    <div class="flex items-center justify-between bg-white border border-custom-gray rounded-xl p-5 gap-4 flex-wrap">
+                        <div class="flex items-center gap-3">
+                            <span
+                                class="w-11 h-11 rounded-lg bg-custom-brown/10 text-custom-brown flex items-center justify-center shrink-0">
+                                <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" />
+                                    <polyline points="14 2 14 8 20 8" />
+                                    <line x1="8" y1="13" x2="16" y2="13" />
+                                    <line x1="8" y1="17" x2="13" y2="17" />
+                                </svg>
+                            </span>
+                            <div class="text-right">
+                                <p class="text-[13.5px] font-IRANSansXMedium text-custom-black">مدرک شناسایی فروشنده</p>
+                                <span
+                                    class="inline-flex items-center gap-1 mt-1.5 px-2 py-0.5 rounded-md bg-custom-yellow text-[11px] font-IRANSansXMedium text-amber-800">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
+                                    <span>الزامی</span>
+                                </span>
+                            </div>
+                        </div>
+                    
+                        <div class="flex items-center gap-3 flex-wrap">
+                            <div class="flex items-center gap-2">
+                                <span class="text-green-600 shrink-0">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                                        stroke-linecap="round" stroke-linejoin="round">
+                                        <circle cx="12" cy="12" r="10" />
+                                        <polyline points="8 12 11 15 16 9" />
+                                    </svg>
+                                </span>
+                                <div class="text-[12.5px] leading-[1.7]">
+                                    <p class="text-custom-black font-IRANSansXMedium">بارگزاری با موفقیت انجام شد.</p>
+                                    <p class="text-custom-black/50 font-IRANSansXRegular" dir="ltr">مدارک_فروشنده.pdf &nbsp;&nbsp;۲.۴
+                                        مگابایت</p>
+                                </div>
+                            </div>
+                    
+                            <label
+                                class="flex items-center gap-1.5 h-10 px-4 rounded-[10px] border border-custom-gray text-[13px] font-IRANSansXMedium text-custom-black cursor-pointer hover:border-custom-brown hover:text-custom-brown transition-colors">
+                                <span>جایگزینی</span>
+                                <span class="text-current">
+                                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                        stroke-linecap="round" stroke-linejoin="round">
+                                        <polyline points="23 4 23 10 17 10" />
+                                        <polyline points="1 20 1 14 7 14" />
+                                        <path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15" />
+                                    </svg>
+                                </span>
+                                <input type="file" class="hidden" data-input="doc-1" accept=".pdf,.jpg,.jpeg,.png"
+                                    aria-label="جایگزینی فایل برای مدرک شناسایی فروشنده" />
+                            </label>
+                    
+                            <button type="button" data-preview="doc-1"
+                                class="w-10 h-10 flex items-center justify-center rounded-[10px] border border-custom-gray text-custom-black hover:border-custom-brown hover:text-custom-brown transition-colors"
+                                aria-label="پیش‌نمایش فایل مدرک شناسایی فروشنده">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z" />
+                                    <circle cx="12" cy="12" r="3" />
+                                </svg>
+                            </button>
+                    
+                            <button type="button" data-delete="doc-1"
+                                class="w-10 h-10 flex items-center justify-center rounded-[10px] border border-custom-gray text-custom-black hover:border-red-500 hover:text-red-600 transition-colors"
+                                aria-label="حذف فایل مدرک شناسایی فروشنده">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <polyline points="3 6 5 6 21 6" />
+                                    <path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6" />
+                                    <path d="M10 11v6" />
+                                    <path d="M14 11v6" />
+                                    <path d="M9 6V4a1 1 0 011-1h4a1 1 0 011 1v2" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    
+                                        
+                    <!-- ردیف کامل با تمام آیتم‌ها (برای نمایش کامل) -->
+                    <div class="flex items-center justify-between bg-white border border-custom-gray rounded-xl p-5 gap-4 flex-wrap">
+                        <div class="flex items-center gap-3">
+                            <span
+                                class="w-11 h-11 rounded-lg bg-custom-brown/10 text-custom-brown flex items-center justify-center shrink-0">
+                                <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" />
+                                    <polyline points="14 2 14 8 20 8" />
+                                    <line x1="8" y1="13" x2="16" y2="13" />
+                                    <line x1="8" y1="17" x2="13" y2="17" />
+                                </svg>
+                            </span>
+                            <div class="text-right">
+                                <p class="text-[13.5px] font-IRANSansXMedium text-custom-black">مدارک هویتی نماینده قانونی</p>
+                                <span
+                                    class="inline-flex items-center gap-1 mt-1.5 px-2 py-0.5 rounded-md bg-custom-yellow text-[11px] font-IRANSansXMedium text-amber-800">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
+                                    <span>الزامی</span>
+                                </span>
+                            </div>
+                        </div>
+                    
+                        <div class="flex items-center gap-3 flex-wrap">
+                            <!-- وضعیت آپلود شده -->
+                            <div class="flex items-center gap-2">
+                                <span class="text-green-600 shrink-0">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                                        stroke-linecap="round" stroke-linejoin="round">
+                                        <circle cx="12" cy="12" r="10" />
+                                        <polyline points="8 12 11 15 16 9" />
+                                    </svg>
+                                </span>
+                                <div class="text-[12.5px] leading-[1.7]">
+                                    <p class="text-custom-black font-IRANSansXMedium">بارگزاری با موفقیت انجام شد.</p>
+                                    <p class="text-custom-black/50 font-IRANSansXRegular" dir="ltr">مدارک_نماینده.pdf &nbsp;&nbsp;۱.۸
+                                        مگابایت</p>
+                                </div>
+                            </div>
+                    
+                            <!-- دکمه جایگزینی -->
+                            <label
+                                class="flex items-center gap-1.5 h-10 px-4 rounded-[10px] border border-custom-gray text-[13px] font-IRANSansXMedium text-custom-black cursor-pointer hover:border-custom-brown hover:text-custom-brown transition-colors">
+                                <span>جایگزینی</span>
+                                <span class="text-current">
+                                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                        stroke-linecap="round" stroke-linejoin="round">
+                                        <polyline points="23 4 23 10 17 10" />
+                                        <polyline points="1 20 1 14 7 14" />
+                                        <path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15" />
+                                    </svg>
+                                </span>
+                                <input type="file" class="hidden" data-input="doc-4" accept=".pdf,.jpg,.jpeg,.png"
+                                    aria-label="جایگزینی فایل برای مدارک هویتی نماینده قانونی" />
+                            </label>
+                    
+                            <!-- دکمه پیش‌نمایش -->
+                            <button type="button" data-preview="doc-4"
+                                class="w-10 h-10 flex items-center justify-center rounded-[10px] border border-custom-gray text-custom-black hover:border-custom-brown hover:text-custom-brown transition-colors"
+                                aria-label="پیش‌نمایش فایل مدارک هویتی نماینده قانونی">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z" />
+                                    <circle cx="12" cy="12" r="3" />
+                                </svg>
+                            </button>
+                    
+                            <!-- دکمه حذف -->
+                            <button type="button" data-delete="doc-4"
+                                class="w-10 h-10 flex items-center justify-center rounded-[10px] border border-custom-gray text-custom-black hover:border-red-500 hover:text-red-600 transition-colors"
+                                aria-label="حذف فایل مدارک هویتی نماینده قانونی">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <polyline points="3 6 5 6 21 6" />
+                                    <path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6" />
+                                    <path d="M10 11v6" />
+                                    <path d="M14 11v6" />
+                                    <path d="M9 6V4a1 1 0 011-1h4a1 1 0 011 1v2" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- ردیف کامل با تمام آیتم‌ها (برای نمایش کامل) -->
+                    <div class="flex items-center justify-between bg-white border border-custom-gray rounded-xl p-5 gap-4 flex-wrap">
+                        <div class="flex items-center gap-3">
+                            <span
+                                class="w-11 h-11 rounded-lg bg-custom-brown/10 text-custom-brown flex items-center justify-center shrink-0">
+                                <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" />
+                                    <polyline points="14 2 14 8 20 8" />
+                                    <line x1="8" y1="13" x2="16" y2="13" />
+                                    <line x1="8" y1="17" x2="13" y2="17" />
+                                </svg>
+                            </span>
+                            <div class="text-right">
+                                <p class="text-[13.5px] font-IRANSansXMedium text-custom-black">مدارک هویتی نماینده قانونی</p>
+                                <span
+                                    class="inline-flex items-center gap-1 mt-1.5 px-2 py-0.5 rounded-md bg-custom-yellow text-[11px] font-IRANSansXMedium text-amber-800">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
+                                    <span>الزامی</span>
+                                </span>
+                            </div>
+                        </div>
+                    
+                        <div class="flex items-center gap-3 flex-wrap">
+                            <!-- وضعیت آپلود شده -->
+                            <div class="flex items-center gap-2">
+                                <span class="text-green-600 shrink-0">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                                        stroke-linecap="round" stroke-linejoin="round">
+                                        <circle cx="12" cy="12" r="10" />
+                                        <polyline points="8 12 11 15 16 9" />
+                                    </svg>
+                                </span>
+                                <div class="text-[12.5px] leading-[1.7]">
+                                    <p class="text-custom-black font-IRANSansXMedium">بارگزاری با موفقیت انجام شد.</p>
+                                    <p class="text-custom-black/50 font-IRANSansXRegular" dir="ltr">مدارک_نماینده.pdf &nbsp;&nbsp;۱.۸
+                                        مگابایت</p>
+                                </div>
+                            </div>
+                    
+                            <!-- دکمه جایگزینی -->
+                            <label
+                                class="flex items-center gap-1.5 h-10 px-4 rounded-[10px] border border-custom-gray text-[13px] font-IRANSansXMedium text-custom-black cursor-pointer hover:border-custom-brown hover:text-custom-brown transition-colors">
+                                <span>جایگزینی</span>
+                                <span class="text-current">
+                                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                        stroke-linecap="round" stroke-linejoin="round">
+                                        <polyline points="23 4 23 10 17 10" />
+                                        <polyline points="1 20 1 14 7 14" />
+                                        <path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15" />
+                                    </svg>
+                                </span>
+                                <input type="file" class="hidden" data-input="doc-4" accept=".pdf,.jpg,.jpeg,.png"
+                                    aria-label="جایگزینی فایل برای مدارک هویتی نماینده قانونی" />
+                            </label>
+                    
+                            <!-- دکمه پیش‌نمایش -->
+                            <button type="button" data-preview="doc-4"
+                                class="w-10 h-10 flex items-center justify-center rounded-[10px] border border-custom-gray text-custom-black hover:border-custom-brown hover:text-custom-brown transition-colors"
+                                aria-label="پیش‌نمایش فایل مدارک هویتی نماینده قانونی">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z" />
+                                    <circle cx="12" cy="12" r="3" />
+                                </svg>
+                            </button>
+                    
+                            <!-- دکمه حذف -->
+                            <button type="button" data-delete="doc-4"
+                                class="w-10 h-10 flex items-center justify-center rounded-[10px] border border-custom-gray text-custom-black hover:border-red-500 hover:text-red-600 transition-colors"
+                                aria-label="حذف فایل مدارک هویتی نماینده قانونی">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <polyline points="3 6 5 6 21 6" />
+                                    <path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6" />
+                                    <path d="M10 11v6" />
+                                    <path d="M14 11v6" />
+                                    <path d="M9 6V4a1 1 0 011-1h4a1 1 0 011 1v2" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="!col-span-2 w-full mt-20 flex flex-wrap justify-between gap-4">
+                    <a href="store_registration_step_4.html" id="prevStepLink"
+                        class="hidden md:flex items-center gap-1.5 text-[13px] font-IRANSansXMedium text-custom-black hover:text-custom-brown">
+                        <img src="../../images/AdminDashboard/Seller/arrow-right.svg" alt="مرحله قبل" width="20" height="20" />
+                        <span>مرحله قبل</span>
+                    </a>
+                    <div class="w-full md:w-[500px] flex items-center gap-3 md:gap-6">
+                        <button class="w-1/3 md:w-1/2 py-2 rounded-md border border-[#999999] text-gray-700 " type="button">
+                            <span class="hidden md:block">انصراف</span>
+                            <span class="block md:hidden">بازگشت</span>
+                        </button>
+                        <button id="confirm-btn"
+                            class="w-2/3 md:w-1/2  py-2 rounded-md text-white transition-all duration-300 bg-custom-brown ">
+                            تایید
+                        </button>
+                    </div>
                 </div>
             </form>
         </section>
     </main>
-    </div>
-    <div class="overlay"></div>
-    <script type="module" src="../../scripts/shopform.module.js"></script>
 
+    <div id="overlay" class="fixed inset-0 bg-black/50 opacity-0 invisible transition-opacity duration-300 z-40">
+    </div>
+    <div class="search-overlay"></div>
+    <script type="module" src="scripts/shopform.module.js"></script>
 </body>
 
 </html>

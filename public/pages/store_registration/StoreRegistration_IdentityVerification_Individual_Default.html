@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تأیید هویت فروشنده حقیقی | جوروک</title>
+    <meta name="description"
+        content="کد ملی خود را برای تأیید هویت وارد کنید. کد ملی باید با شماره موبایل ثبت‌شده مطابقت داشته باشد.">
+    <link rel="stylesheet" href="../../styles/output.css">
+</head>
+
+<body class="bg-custom-gray text-custom-black font-IRANSansXRegular min-h-screen">
+    <header class="h-[72px] border-b border-[#ececec] bg-white" role="banner">
+        <div class="mx-auto flex h-full max-w-[1536px] items-center justify-between px-4 sm:px-6 lg:px-[60px]">
+            <div class="flex items-center gap-4">
+                <img src="../../../images/logo/Logo.svg" alt="لوگو فروشگاه جوروک" width="55" height="61" />
+                <span class="hidden h-10 w-px bg-[#d9d9d9] sm:block" aria-hidden="true"></span>
+                <nav class="hidden items-center gap-8 md:flex" aria-label="منوی اصلی">
+                    <a href="#" class="flex items-center gap-2 text-[15px] font-medium text-[#2b2b2b]">
+                        <img src="../../../images/Header/home 04.svg" alt="آیکون خانه" width="20" height="20" />
+                        صفحه اصلی
+                    </a>
+                    <button class="flex items-center gap-2 text-[15px] font-medium text-[#2b2b2b]"
+                        aria-expanded="false">
+                        <img src="../../../images/Header/grid 02.svg" alt="آیکون صفحات" width="20" height="20" />
+                        صفحات پنل
+                        <img src="../../../images/Header/direction-down 01.svg" alt="باز کردن منو" width="20"
+                            height="20" />
+                    </button>
+                </nav>
+            </div>
+            <div class="flex items-center gap-3 sm:gap-7" dir="ltr">
+                <div class="flex items-center gap-3">
+                    <div class="h-9 w-9 rounded-full bg-[#202020]" role="img" aria-label="آواتار ادمین"></div>
+                    <div class="hidden leading-tight sm:block">
+                        <div class="text-[14px] font-medium text-[#222]">ادمین</div>
+                        <div class="mt-1 text-[11px] font-light text-[#777]">سطح ادمین</div>
+                    </div>
+                </div>
+                <div class="hidden items-center gap-3 sm:flex lg:gap-5">
+                    <button class="grid h-9 w-9 place-items-center rounded-lg hover:bg-[#f7f7f7]" aria-label="اعلان‌ها">
+                        <img src="../../../images/Header/notification.svg" alt="آیکون اعلان" width="20" height="20" />
+                    </button>
+                    <button class="grid h-9 w-9 place-items-center rounded-lg hover:bg-[#f7f7f7]" aria-label="پیام‌ها">
+                        <img src="../../../images/Header/mail.svg" alt="آیکون پیام" width="20" height="20" />
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-[760px] mx-auto px-4 md:px-0 py-14">
+        <section class="bg-white rounded-2xl p-8 md:p-10">
+            <div class="flex items-center gap-2 mb-3">
+                <h1 class="text-lg font-IRANSansXDemiBold text-custom-black">تأیید هویت فروشنده</h1>
+                <span class="text-base">→</span>
+            </div>
+
+            <p class="text-[13.5px] leading-[1.9] text-custom-black/60 font-IRANSansXRegular mb-7">
+                کد ملی باید با شماره موبایلی که وارد کرده‌اید مطابقت داشته باشد.
+            </p>
+
+            <label for="nationalCode" class="block text-[13px] font-IRANSansXMedium text-custom-black/80 mb-2">کد
+                ملی</label>
+
+            <div class="mb-2">
+                <input id="nationalCode" type="tel" inputmode="numeric" placeholder="کد ملی ۱۰ رقمی را وارد کنید"
+                    autocomplete="off"
+                    class="w-full h-12 rounded-[10px] border-[1.5px] border-custom-gray px-4 text-[15px] text-right outline-none transition-colors focus:border-custom-brown font-IRANSansXRegular"
+                    aria-describedby="national-error" />
+            </div>
+
+            <div id="national-error"
+                class="hidden text-[12.5px] leading-[1.9] text-red-600 font-IRANSansXRegular text-center mb-1"
+                role="alert"></div>
+
+            <div id="changeMobileWrap" class="hidden text-center mb-6">
+                <a href="login/login.html"
+                    class="text-[13px] font-IRANSansXDemiBold text-custom-brown hover:underline">تغییر شماره موبایل</a>
+            </div>
+            <div id="spacerNoError" class="mb-9"></div>
+
+            <button type="button" id="submitBtn"
+                class="w-full h-12 rounded-[10px] text-[15px] font-IRANSansXDemiBold transition-colors bg-custom-brown text-white hover:bg-custom-brown/90">تایید</button>
+
+            <div class="mt-5 text-center text-[12.5px] text-custom-brown font-IRANSansXRegular">
+                <a href="#" class="hover:underline">راهنمای ثبت نام</a>
+                <span class="text-custom-gray mx-2.5">|</span>
+                <a href="#" class="hover:underline">تماس با پشتیبانی</a>
+            </div>
+        </section>
+    </main>
+
+    <script src="../../scripts/store_registration/validator.js"></script>
+    <script src="../../scripts/store_registration/nationalCodeValidator.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تأیید شماره موبایل | جوروک</title>
+    <meta name="description" content="کد تایید ارسال شده به شماره موبایل خود را وارد کنید.">
+    <link rel="stylesheet" href="../../../styles/output.css">
+</head>
+
+<body class="bg-[#FCFCFC] md:bg-custom-bg text-custom-black min-h-screen font-IRANSansXRegular">
+    <header class="h-[72px] border-b border-[#ececec] bg-white" role="banner">
+        <div class="mx-auto flex h-full max-w-[1536px] items-center justify-between px-4 sm:px-6 lg:px-[60px]">
+            <div class="flex items-center gap-4">
+                <img src="../../../images/logo/Logo.svg" alt="لوگو فروشگاه جوروک" width="55" height="61" />
+                <span class="hidden h-10 w-px bg-[#d9d9d9] sm:block" aria-hidden="true"></span>
+                <nav class="hidden items-center gap-8 md:flex" aria-label="منوی اصلی">
+                    <a href="#" class="flex items-center gap-2 text-[15px] font-medium text-[#2b2b2b]">
+                        <img src="../../../images/Header/home 04.svg" alt="آیکون خانه" width="20" height="20" />
+                        صفحه اصلی
+                    </a>
+                    <button class="flex items-center gap-2 text-[15px] font-medium text-[#2b2b2b]"
+                        aria-expanded="false">
+                        <img src="../../../images/Header/grid 02.svg" alt="آیکون صفحات" width="20" height="20" />
+                        صفحات پنل
+                        <img src="../../../images/Header/direction-down 01.svg" alt="باز کردن منو" width="20"
+                            height="20" />
+                    </button>
+                </nav>
+            </div>
+            <div class="flex items-center gap-3 sm:gap-7" dir="ltr">
+                <div class="flex items-center gap-3">
+                    <div class="h-9 w-9 rounded-full bg-[#202020]" role="img" aria-label="آواتار ادمین"></div>
+                    <div class="hidden leading-tight sm:block">
+                        <div class="text-[14px] font-medium text-[#222]">ادمین</div>
+                        <div class="mt-1 text-[11px] font-light text-[#777]">سطح ادمین</div>
+                    </div>
+                </div>
+                <div class="hidden items-center gap-3 sm:flex lg:gap-5">
+                    <button class="grid h-9 w-9 place-items-center rounded-lg hover:bg-[#f7f7f7]" aria-label="اعلان‌ها">
+                        <img src="../../../images/Header/notification.svg" alt="آیکون اعلان" width="20" height="20" />
+                    </button>
+                    <button class="grid h-9 w-9 place-items-center rounded-lg hover:bg-[#f7f7f7]" aria-label="پیام‌ها">
+                        <img src="../../../images/Header/mail.svg" alt="آیکون پیام" width="20" height="20" />
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div
+        class="max-w-[1000px] mx-auto min-h-[410px] md:h-[500px] md:bg-white rounded-xl overflow-hidden shadow-sm flex flex-col md:flex-row mt-12">
+        <div class="w-1/2 flex-1 relative bg-custom-black min-h-[200px] h-auto overflow-hidden hidden md:block">
+            <img src="../../../images/store_registeration/ajorok-seller-login-visual-raw 1.jpg" alt="تأیید شماره موبایل"
+                class="w-full h-full object-cover">
+        </div>
+        <div class="w-full md:w-1/2 flex-none flex flex-col p-8 md:p-14">
+            <div class="flex items-center gap-2 mb-2.5">
+                <a href="login.html" aria-label="بازگشت">
+                    <img src="../../../images/AdminDashboard/Seller/arrow-right.svg" alt="بازگشت" width="20"
+                        height="20" />
+                </a>
+                <h1 class="text-xl font-IRANSansXBold text-custom-black">تأیید شماره موبایل</h1>
+            </div>
+
+            <p class="text-[13.5px] leading-[1.9] text-custom-black/60 font-IRANSansXRegular mb-6">
+                کد تایید به شماره
+                <b id="mobileShown" dir="ltr"
+                    class="text-custom-black font-IRANSansXDemiBold inline-block">۰۹۱۲۱۲۳۴۵۶۷</b>
+                ارسال شده. کد را وارد نمایید.
+            </p>
+
+            <div id="otpRow" class="flex justify-center items-center gap-3 mb-2 child:w-11 child:h-14 md:child:size-12"
+                dir="ltr">
+                <input
+                    class="otp-box rounded-[10px] border-[1.5px] border-custom-gray text-center text-xl outline-none transition-colors font-IRANSansXMedium"
+                    type="tel" inputmode="numeric" maxlength="1" data-idx="0" aria-label="رقم اول کد" />
+                <input
+                    class="otp-box rounded-[10px] border-[1.5px] border-custom-gray text-center text-xl outline-none transition-colors font-IRANSansXMedium"
+                    type="tel" inputmode="numeric" maxlength="1" data-idx="1" aria-label="رقم دوم کد" />
+                <input
+                    class="otp-box rounded-[10px] border-[1.5px] border-custom-gray text-center text-xl outline-none transition-colors font-IRANSansXMedium"
+                    type="tel" inputmode="numeric" maxlength="1" data-idx="2" aria-label="رقم سوم کد" />
+                <input
+                    class="otp-box rounded-[10px] border-[1.5px] border-custom-gray text-center text-xl outline-none transition-colors font-IRANSansXMedium"
+                    type="tel" inputmode="numeric" maxlength="1" data-idx="3" aria-label="رقم چهارم کد" />
+            </div>
+
+            <div id="otpMsg" class="min-h-[18px] text-[12.5px] text-red-600 font-IRANSansXRegular my-1.5 text-center"
+                role="alert"></div>
+
+            <div class="mb-1.5 mx-auto">
+                <a href="login.html" class="text-[13px] font-IRANSansXDemiBold text-custom-brown hover:underline">ویرایش
+                    شماره</a>
+            </div>
+
+            <div class="text-[12.5px] text-custom-black/60 font-IRANSansXRegular mb-5 mx-auto">
+                ارسال مجدد کد: <span id="resendTimer">۲:۲۸</span>
+                <a href="#" id="resendLink"
+                    class="font-IRANSansXDemiBold text-custom-black/40 pointer-events-none cursor-default">ارسال مجدد
+                    کد</a>
+            </div>
+
+            <button type="button" id="verifyBtn" disabled
+                class="w-full h-12 rounded-[10px] text-[15px] font-IRANSansXDemiBold transition-colors bg-custom-brown/10 text-custom-brown/40 cursor-not-allowed mt-1">تایید</button>
+
+            <div class="mt-10 text-center text-[12.5px] text-custom-brown font-IRANSansXRegular">
+                <a href="#" class="hover:underline">راهنمای ثبت نام</a>
+                <span class="text-custom-gray mx-2.5">|</span>
+                <a href="#" class="hover:underline">تماس با پشتیبانی</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../../scripts/store_registration/validator.js"></script>
+    <script src="../../../scripts/store_registration/otpVerification.js"></script>
+</body>
+
+</html>

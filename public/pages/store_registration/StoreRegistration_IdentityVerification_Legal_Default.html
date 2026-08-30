@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>اطلاعات شرکت | جوروک</title>
+    <meta name="description" content="اطلاعات شرکت و نماینده قانونی را برای ثبت فروشگاه حقوقی وارد کنید.">
+    <link rel="stylesheet" href="../../styles/output.css">
+</head>
+
+<body class="bg-[#F2F2F2] text-custom-black font-IRANSansXRegular min-h-screen">
+    <header class="h-[72px] border-b border-[#ececec] bg-white" role="banner">
+        <div class="mx-auto flex h-full max-w-[1536px] items-center justify-between px-4 sm:px-6 lg:px-[60px]">
+            <div class="flex items-center gap-4">
+                <img src="../../images/logo/Logo.svg" alt="لوگو فروشگاه جوروک" width="55" height="61" />
+                <span class="hidden h-10 w-px bg-[#d9d9d9] sm:block" aria-hidden="true"></span>
+                <nav class="hidden items-center gap-8 md:flex" aria-label="منوی اصلی">
+                    <a href="#" class="flex items-center gap-2 text-[15px] font-medium text-[#2b2b2b]">
+                        <img src="../../images/Header/home 04.svg" alt="آیکون خانه" width="20" height="20" />
+                        صفحه اصلی
+                    </a>
+                    <button class="flex items-center gap-2 text-[15px] font-medium text-[#2b2b2b]"
+                        aria-expanded="false">
+                        <img src="../../images/Header/grid 02.svg" alt="آیکون صفحات" width="20" height="20" />
+                        صفحات پنل
+                        <img src="../../images/Header/direction-down 01.svg" alt="باز کردن منو" width="20"
+                            height="20" />
+                    </button>
+                </nav>
+            </div>
+            <div class="flex items-center gap-3 sm:gap-7" dir="ltr">
+                <div class="flex items-center gap-3">
+                    <div class="h-9 w-9 rounded-full bg-[#202020]" role="img" aria-label="آواتار ادمین"></div>
+                    <div class="hidden leading-tight sm:block">
+                        <div class="text-[14px] font-medium text-[#222]">ادمین</div>
+                        <div class="mt-1 text-[11px] font-light text-[#777]">سطح ادمین</div>
+                    </div>
+                </div>
+                <div class="hidden items-center gap-3 sm:flex lg:gap-5">
+                    <button class="grid h-9 w-9 place-items-center rounded-lg hover:bg-[#f7f7f7]" aria-label="اعلان‌ها">
+                        <img src="../../images/Header/notification.svg" alt="آیکون اعلان" width="20" height="20" />
+                    </button>
+                    <button class="grid h-9 w-9 place-items-center rounded-lg hover:bg-[#f7f7f7]" aria-label="پیام‌ها">
+                        <img src="../../images/Header/mail.svg" alt="آیکون پیام" width="20" height="20" />
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-[1140px] mx-auto px-4 md:px-0 py-20">
+        <section class="bg-white rounded-2xl p-7 md:p-10">
+            <div class="flex items-center gap-2 mb-8">
+                <a href="StoreRegistration_AccountType_Default.html" aria-label="بازگشت">
+                    <img src="../../images/AdminDashboard/Seller/arrow-right.svg" alt="بازگشت" width="20" height="20" />
+                </a>
+                <h1 class="text-lg font-IRANSansXDemiBold text-custom-black">اطلاعات شرکت</h1>
+            </div>
+
+            <form id="companyForm" novalidate>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
+                    <div class="field-group">
+                        <label for="companyName"
+                            class="block text-[13px] font-IRANSansXMedium text-custom-black mb-2">نام ثبتی شرکت <span
+                                class="text-red-500">*</span></label>
+                        <input id="companyName" type="text" placeholder="نام ثبتی شرکت را وارد کنید"
+                            class="field w-full h-12 rounded-[10px] border-[1.5px] border-custom-gray px-4 text-[14px] text-right outline-none transition-colors focus:border-custom-brown"
+                            aria-describedby="company-error" />
+                        <p id="company-error" class="field-msg hidden text-[12px] text-red-600 mt-1.5"></p>
+                    </div>
+                    <div class="field-group">
+                        <label for="companyNationalId"
+                            class="block text-[13px] font-IRANSansXMedium text-custom-black mb-2">شناسه ملی شرکت <span
+                                class="text-red-500">*</span></label>
+                        <input id="companyNationalId" type="tel" inputmode="numeric"
+                            placeholder="شناسه ملی ۱۱ رقمی شرکت را وارد کنید"
+                            class="field w-full h-12 rounded-[10px] border-[1.5px] border-custom-gray px-4 text-[14px] text-right outline-none transition-colors focus:border-custom-brown"
+                            aria-describedby="national-error" />
+                        <p id="national-error" class="field-msg hidden text-[12px] text-red-600 mt-1.5"></p>
+                    </div>
+                    <div class="field-group">
+                        <label for="registrationNumber"
+                            class="block text-[13px] font-IRANSansXMedium text-custom-black mb-2">شماره ثبت <span
+                                class="text-red-500">*</span></label>
+                        <input id="registrationNumber" type="text" inputmode="numeric"
+                            placeholder="شماره ثبت شرکت را وارد کنید"
+                            class="field w-full h-12 rounded-[10px] border-[1.5px] border-custom-gray px-4 text-[14px] text-right outline-none transition-colors focus:border-custom-brown"
+                            aria-describedby="reg-error" />
+                        <p id="reg-error" class="field-msg hidden text-[12px] text-red-600 mt-1.5"></p>
+                    </div>
+                    <div class="field-group">
+                        <label for="companyType"
+                            class="block text-[13px] font-IRANSansXMedium text-custom-black mb-2">نوع شرکت <span
+                                class="text-red-500">*</span></label>
+                        <div class="relative">
+                            <select id="companyType"
+                                class="field company-type w-full h-12 rounded-[10px] border-[1.5px] border-custom-gray pr-4 pl-9 text-[14px] text-right outline-none transition-colors focus:border-custom-brown bg-white text-custom-black/40 appearance-none"
+                                aria-describedby="type-error">
+                                <option value="" disabled selected hidden>نوع شرکت را انتخاب کنید</option>
+                                <option value="LLC" class="text-custom-black">مسئولیت محدود</option>
+                                <option value="PJSC" class="text-custom-black">سهامی عام</option>
+                                <option value="PrJSC" class="text-custom-black">سهامی خاص</option>
+                                <option value="COOP" class="text-custom-black">تعاونی</option>
+                            </select>
+                            <svg class="absolute top-1/2 left-3.5 -translate-y-1/2 pointer-events-none text-custom-black/50"
+                                width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <polyline points="15 18 9 12 15 6" />
+                            </svg>
+                        </div>
+                        <p id="type-error" class="field-msg hidden text-[12px] text-red-600 mt-1.5"></p>
+                    </div>
+                    <div class="field-group">
+                        <label for="sheba" class="block text-[13px] font-IRANSansXMedium text-custom-black mb-2">شماره
+                            شبا</label>
+                        <input id="sheba" type="text" placeholder="IRxx xxxx xxxx xxxx xxxx xxxx xx"
+                            class="field w-full h-12 rounded-[10px] border-[1.5px] border-custom-gray px-4 text-[14px] text-right outline-none transition-colors focus:border-custom-brown"
+                            aria-describedby="sheba-error" />
+                        <p id="sheba-error" class="field-msg hidden text-[12px] text-red-600 mt-1.5"></p>
+                    </div>
+                    <div class="field-group">
+                        <label for="economicCode"
+                            class="block text-[13px] font-IRANSansXMedium text-custom-black mb-2">کد اقتصادی
+                            شرکت</label>
+                        <input id="economicCode" type="text" inputmode="numeric"
+                            placeholder="کد اقتصادی شرکت را وارد کنید"
+                            class="field w-full h-12 rounded-[10px] border-[1.5px] border-custom-gray px-4 text-[14px] text-right outline-none transition-colors focus:border-custom-brown"
+                            aria-describedby="eco-error" />
+                        <p id="eco-error" class="field-msg hidden text-[12px] text-red-600 mt-1.5"></p>
+                    </div>
+                </div>
+
+                <h2 class="text-[15px] font-IRANSansXDemiBold text-custom-black mt-9 mb-6">اطلاعات نماینده شرکت</h2>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
+                    <div class="field-group">
+                        <label for="repName" class="block text-[13px] font-IRANSansXMedium text-custom-black mb-2">نام و
+                            نام خانوادگی نماینده <span class="text-red-500">*</span></label>
+                        <input id="repName" type="text" placeholder="نام و نام خانوادگی را وارد کنید"
+                            class="field w-full h-12 rounded-[10px] border-[1.5px] border-custom-gray px-4 text-[14px] text-right outline-none transition-colors focus:border-custom-brown"
+                            aria-describedby="rep-error" />
+                        <p id="rep-error" class="field-msg hidden text-[12px] text-red-600 mt-1.5"></p>
+                    </div>
+                    <div class="field-group">
+                        <label for="repNationalCode"
+                            class="block text-[13px] font-IRANSansXMedium text-custom-black mb-2">کد ملی نماینده <span
+                                class="text-red-500">*</span></label>
+                        <input id="repNationalCode" type="tel" inputmode="numeric"
+                            placeholder="کد ملی ۱۰ رقمی را وارد کنید"
+                            class="field w-full h-12 rounded-[10px] border-[1.5px] border-custom-gray px-4 text-[14px] text-right outline-none transition-colors focus:border-custom-brown"
+                            aria-describedby="rep-national-error" />
+                        <p id="rep-national-error" class="field-msg hidden text-[12px] text-red-600 mt-1.5"></p>
+                    </div>
+                    <div class="field-group">
+                        <label for="repRole" class="block text-[13px] font-IRANSansXMedium text-custom-black mb-2">سمت
+                            در شرکت <span class="text-red-500">*</span></label>
+                        <input id="repRole" type="text" placeholder="سمت نماینده را وارد کنید"
+                            class="field w-full h-12 rounded-[10px] border-[1.5px] border-custom-gray px-4 text-[14px] text-right outline-none transition-colors focus:border-custom-brown"
+                            aria-describedby="role-error" />
+                        <p id="role-error" class="field-msg hidden text-[12px] text-red-600 mt-1.5"></p>
+                    </div>
+                    <div class="field-group">
+                        <label for="mobile" class="block text-[13px] font-IRANSansXMedium text-custom-black mb-2">شماره
+                            موبایل <span class="text-red-500">*</span></label>
+                        <input id="mobile" type="tel" inputmode="numeric" placeholder="مثال: ۰۹۱۲۱۲۳۴۵۶۷"
+                            class="field w-full h-12 rounded-[10px] border-[1.5px] border-custom-gray px-4 text-[14px] text-right outline-none transition-colors focus:border-custom-brown"
+                            aria-describedby="mobile-error" />
+                        <p id="mobile-error" class="field-msg hidden text-[12px] text-red-600 mt-1.5"></p>
+                    </div>
+                </div>
+
+                <div class="w-full mt-20" dir="ltr">
+                    <div class="w-full md:w-[500px] flex items-center gap-3 mt-9">
+                        <button type="button" id="cancelBtn"
+                            class="h-12 w-1/3 md:w-1/2 rounded-[10px] border border-custom-gray text-[14px] font-IRANSansXDemiBold text-custom-black hover:bg-custom-gray/40 transition-colors">انصراف</button>
+                        <button type="submit" id="confirmBtn"
+                            class="h-12 w-2/3 md:w-1/2 rounded-[10px] text-[14px] font-IRANSansXDemiBold transition-colors bg-custom-brown text-white hover:bg-custom-brown/90">تائید</button>
+                    </div>
+                </div>
+            </form>
+        </section>
+    </main>
+
+    <script src="../../scripts/store_registration/validator.js"></script>
+    <script src="../../scripts/store_registration/companyInfoForm.js"></script>
+</body>
+
+</html>  

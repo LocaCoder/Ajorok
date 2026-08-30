@@ -41,9 +41,11 @@ module.exports = {
     },
     extend: {
       colors: {
+        
         "custom-brown": "#9C4639",
         "custom-yellow": "#FFF6DA",
         "custom-gray": "#E0E0E0",
+        "custom-bg": "#F2F2F2",
         "custom-black": "#262626",
       },
       size: {

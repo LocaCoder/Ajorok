@@ -15,7 +15,8 @@
 
     @font-face {
         font-family: "IRANSansX-Black";
-        src: local("IRANSansX-Black"), url("../fonts/woff2/IRANSansX-Black.woff2");
+        src: local("IRANSansX-Black"), url("../fonts/woff2/IRANSansX-Black.woff2"),
+        url("../fonts/woff/IRANSansX-Black.woff");
         font-display: swap;
     }
 
@@ -39,7 +40,8 @@
 
     @font-face {
         font-family: "IRANSansX-Regular";
-        src: local("IRANSansX-Regular"), url("../fonts/woff2/IRANSansX-Regular.woff2");
+        src: local("IRANSansX-Regular"), url("../fonts/woff2/IRANSansX-Regular.woff2"),
+        url("../fonts/woff/IRANSansX-Regular.woff");;
         font-display: swap;
     }
 
