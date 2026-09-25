@@ -1,251 +1,297 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fa" dir="rtl">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>جزئیات محصول - پیام‌ها | جورک</title>
-    <link rel="stylesheet" href="../../styles/output.css">
-    <style>
-        body {
-            background-color: #f5f6f8;
-            font-family: 'Vazirmatn', sans-serif;
-        }
-
-        .custom-shadow {
-            box-shadow: 0 2px 15px -3px rgba(0, 0, 0, 0.04);
-        }
-
-        .chat-container {
-            height: calc(100vh - 280px);
-            min-height: 550px;
-        }
-
-        .scrollbar-hide::-webkit-scrollbar {
-            display: none;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>جزئیات محصول - پیام‌ها | پنل فروشگاه جورک</title>
+  <link rel="stylesheet" href="../../styles/output.css" />
+  <link rel="stylesheet" href="../../styles/store-common.css" />
 </head>
 
-<body class="text-gray-800 text-sm">
+<body class="store-dashboard-page min-h-screen bg-[#f3f3f3] text-[#252525] font-IRANSansXRegular antialiased">
 
-    <!-- Header (Same as previous steps) -->
-    <header class="bg-white border-b px-8 py-3 flex items-center justify-between sticky top-0 z-40">
-        <div class="flex items-center gap-8">
-            <img src="logo.png" alt="Jorok" class="h-7">
-            <nav class="hidden md:flex gap-6 text-[11px] font-medium text-gray-500">
-                <span>صفحه اصلی سایت</span>
-                <span>صفحات فروشگاه</span>
-            </nav>
+  <svg class="hidden" aria-hidden="true" focusable="false">
+    <symbol id="icon-arrow-left" viewBox="0 0 24 24" fill="none">
+      <path d="M14 7l-5 5 5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="icon-arrow-right" width="20" height="20" viewBox="0 0 28 28" fill="none"
+      xmlns="http://www.w3.org/2000/svg">
+      <path d="M16.3333 9.33464L21 14.0013L16.3333 18.668M21 14.0013L7 14.0013" stroke="#262626" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round" />
+    </symbol>
+    <symbol id="icon-user" viewBox="0 0 24 24" fill="currentColor">
+      <circle cx="12" cy="7.2" r="3.5"/>
+      <path d="M5.7 19c.8-4 3-6 6.3-6 3.4 0 5.6 2 6.3 6-1.8 1.4-3.9 2-6.3 2s-4.5-.6-6.3-2Z"/>
+    </symbol>
+    <symbol id="icon-attach" viewBox="0 0 24 24" fill="none">
+      <path d="m8.5 12.7 6.9-6.9a3 3 0 1 1 4.2 4.2l-9.1 9.1a5 5 0 0 1-7.1-7.1l9-9" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="icon-double-check" viewBox="0 0 24 24" fill="none">
+      <path d="M5 13l4 4L19 7m-14 6l4 4L19 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+  </svg>
+
+  <header class="store-desktop-header hidden md:block mb-8" role="banner">
+    <div class="store-header-inner">
+      <div class="flex items-center gap-4">
+        <a href="../../../index.html"><img src="../../../images/logo/Logo.svg" alt="" /></a>
+        <span class="hidden h-10 w-px bg-[#d9d9d9] sm:block"></span>
+        <nav class="hidden items-center gap-8 md:flex">
+          <a href="../../../index.html" class="flex items-center gap-2 text-[15px] font-medium text-[#2b2b2b]">
+            <img src="../../../images/Header/home 04.svg" alt="" />صفحه اصلی سایت
+          </a>
+          <button class="flex items-center gap-2 text-[15px] font-medium text-[#2b2b2b]">
+            <img src="../../../images/Header/grid 02.svg" alt="" />صفحات فروشگاه
+            <img src="../../../images/Header/direction-down 01.svg" alt="" />
+          </button>
+        </nav>
+      </div>
+      <div class="flex items-center gap-3 sm:gap-7" dir="ltr">
+        <div class="flex items-center gap-3">
+          <div class="h-9 w-9 rounded-full bg-[#202020]"></div>
+          <div class="hidden leading-tight sm:block" dir="rtl">
+            <div class="text-[14px] font-medium">نام فروشگاه</div>
+            <div class="mt-1 text-[11px] text-[#777]">نام فروشنده</div>
+          </div>
         </div>
-        <div class="flex items-center gap-4">
-            <div class="flex gap-3 text-gray-400">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path
-                        d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z">
-                    </path>
-                </svg>
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path
-                        d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9">
-                    </path>
-                </svg>
-            </div>
-            <div class="flex items-center gap-2">
-                <div class="text-left leading-tight">
-                    <div class="text-[11px] font-bold">نام فروشگاه</div>
-                </div>
-                <div class="w-9 h-9 bg-gray-900 rounded-full"></div>
-            </div>
+        <div class="hidden items-center gap-3 sm:flex lg:gap-5">
+          <a href="../StoreDashboard_Notifications.html" class="grid h-9 w-9 place-items-center rounded-lg hover:bg-[#f7f7f7]"><img src="../../../images/Header/notification.svg" alt="" /></a>
+          <a href="../StoreDashboard_Messages.html" class="grid h-9 w-9 place-items-center rounded-lg hover:bg-[#f7f7f7]"><img src="../../../images/Header/mail.svg" alt="" /></a>
         </div>
-    </header>
+      </div>
+    </div>
+  </header>
 
-    <main class="max-w-7xl mx-auto p-6 space-y-5">
 
-        <!-- Top Stats Bar (Same as before) -->
-        <div
-            class="bg-white rounded-xl p-3 px-5 custom-shadow border border-gray-50 flex items-center justify-between text-[11px] text-gray-400">
-            <div class="flex items-center gap-1.5"><svg class="w-4 h-4" fill="none" stroke="currentColor"
-                    viewBox="0 0 24 24">
-                    <path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                </svg> آخرین به‌روز رسانی: <span class="text-gray-800">۱۴۰۴/۰۴/۰۴</span></div>
-            <div class="flex items-center gap-1.5"><svg class="w-4 h-4" fill="none" stroke="currentColor"
-                    viewBox="0 0 24 24">
-                    <path
-                        d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z">
-                    </path>
-                </svg> پیام‌ها: <span class="text-gray-800 font-mono">۱۲۳</span></div>
-            <div class="flex items-center gap-1.5"><span
-                    class="bg-blue-100 text-blue-600 px-3 py-0.5 rounded font-bold">موجود</span><span
-                    class="bg-green-50 text-green-600 px-3 py-0.5 rounded font-bold border border-green-100">منتشر</span>
-            </div>
-        </div>
+  <main class="store-shell mx-auto w-full max-w-[1200px] px-4 pb-32 pt-5 md:pb-16 md:pt-[54px] lg:px-0" role="main">
 
-        <!-- Tabs -->
-        <div class="flex border-b border-gray-200 text-[13px] font-bold text-gray-400">
-            <button class="px-8 py-3">مشخصات محصول</button>
-            <button class="px-8 py-3">سفارش‌ها</button>
-            <button class="px-8 py-3">نظرات</button>
-            <button class="px-8 py-3 text-brand-700 border-b-4 border-brand-700">پیام‌ها</button>
-        </div>
-
-        <!-- VIEW 1: MESSAGES CHAT (Active) -->
-        <div id="messagesChatView" class="grid grid-cols-12 gap-6 chat-container">
-
-            <!-- Sidebar: Conversation List (Left in RTL is actually Right side in UI) -->
-            <div
-                class="col-span-4 bg-white rounded-2xl custom-shadow border border-gray-50 flex flex-col overflow-hidden">
-                <div class="overflow-y-auto flex-1 scrollbar-hide">
-                    <!-- Chat Item (Active) -->
-                    <div class="p-4 border-b border-gray-50 bg-gray-50/50 relative cursor-pointer">
-                        <div class="flex justify-between items-start mb-2">
-                            <div class="flex items-center gap-2">
-                                <div
-                                    class="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center text-lg">
-                                    👤</div>
-                                <div>
-                                    <h4 class="font-bold text-xs">نام کاربر</h4>
-                                    <div
-                                        class="flex items-center gap-1 text-[9px] text-gray-400 bg-white border rounded px-1 mt-1 w-fit">
-                                        <img src="prod-thumb.jpg" class="w-3 h-3 rounded-sm"> نام محصول
-                                    </div>
-                                </div>
-                            </div>
-                            <span class="text-[9px] text-gray-400">۱۲ دقیقه پیش</span>
-                        </div>
-                        <p class="text-[10px] text-gray-500 truncate pl-4">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم
-                            از ....</p>
-                        <!-- Unread Badge -->
-                        <div
-                            class="absolute right-2 top-1/2 -translate-y-1/2 w-5 h-5 bg-red-600 text-white text-[10px] rounded-full flex items-center justify-center font-bold border-2 border-white">
-                            ۲</div>
-                    </div>
-
-                    <!-- Repeat Chat Items -->
-                    <div class="p-4 border-b border-gray-50 hover:bg-gray-50 transition-colors cursor-pointer">
-                        <div class="flex justify-between items-start mb-2">
-                            <div class="flex items-center gap-2">
-                                <div
-                                    class="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center text-lg">
-                                    👤</div>
-                                <div>
-                                    <h4 class="font-bold text-xs">نام کاربر</h4>
-                                    <div
-                                        class="flex items-center gap-1 text-[9px] text-gray-400 border rounded px-1 mt-1 w-fit">
-                                        📦 نام محصول</div>
-                                </div>
-                            </div>
-                            <span class="text-[9px] text-gray-400">۱۲ دقیقه پیش</span>
-                        </div>
-                        <p class="text-[10px] text-gray-500 truncate">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از
-                            ....</p>
-                    </div>
-                    <!-- Mock more items... -->
-                </div>
-            </div>
-
-            <!-- Main: Chat Environment -->
-            <div
-                class="col-span-8 bg-white rounded-2xl custom-shadow border border-gray-50 flex flex-col overflow-hidden relative">
-                <!-- Chat Header -->
-                <div class="p-4 border-b flex items-center justify-between">
-                    <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center text-lg">👤
-                        </div>
-                        <div>
-                            <h4 class="font-bold text-sm">نام کاربر</h4>
-                            <div class="text-[10px] text-gray-400 flex items-center gap-1">
-                                <span class="w-3 h-3 border rounded flex items-center justify-center">📦</span> نام
-                                محصول
-                            </div>
-                        </div>
-                    </div>
-                    <button class="text-gray-400">● ● ●</button>
-                </div>
-
-                <!-- Chat Bubbles -->
-                <div class="flex-1 p-6 overflow-y-auto space-y-6 bg-gray-50/30">
-                    <!-- User Message -->
-                    <div class="flex flex-col items-start max-w-[70%]">
-                        <div
-                            class="bg-brand-100/50 border border-brand-100 p-4 rounded-2xl rounded-tr-none text-[12px] leading-6 text-gray-700">
-                            لورم ایپسوم متن ساختگی با تولید سادگی
-                        </div>
-                        <span class="text-[9px] text-gray-400 mt-1 mr-2">۱۳:۵۲</span>
-                    </div>
-
-                    <!-- Owner Message -->
-                    <div class="flex flex-col items-end">
-                        <div
-                            class="bg-white border border-gray-100 p-4 rounded-2xl rounded-tl-none text-[12px] leading-6 text-gray-700 max-w-[70%] shadow-sm">
-                            لورم ایپسوم متن ساختگی با تولید سادگی
-                        </div>
-                        <span class="text-[9px] text-gray-400 mt-1 ml-2">۱۳:۵۲</span>
-                    </div>
-
-                    <!-- Repeat Messages... -->
-                </div>
-
-                <!-- Chat Input Area -->
-                <div class="p-4 border-t bg-white">
-                    <div class="flex items-center gap-3">
-                        <button
-                            class="bg-brand-700 text-white px-6 py-2.5 rounded-xl font-bold text-xs hover:bg-brand-800 transition-colors">ارسال
-                            پاسخ</button>
-                        <div class="flex-1 relative">
-                            <input type="text" placeholder="پیام خود را بنویسید..."
-                                class="w-full bg-gray-50 border border-gray-200 rounded-xl py-2.5 px-4 pr-10 text-xs outline-none focus:border-brand-700">
-                            <button class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path
-                                        d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13">
-                                    </path>
-                                </svg>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <nav class="mb-4 hidden items-center gap-2 text-[13px] text-[#777] md:flex">
+      <a href="StoreDashboard.html">
+        <svg class="size-5">
+          <use href="#icon-arrow-right"></use>
+        </svg>
+      </a>
+      <a href="../StoreDashboard.html" class="hover:text-[#aa4938]">فروشگاه</a>
+      <span>‹</span>
+      <a href="StoreDashboard_ProductsList.html" class="hover:text-[#aa4938]">محصولات</a>
+      <span>‹</span>
+      <span class="font-medium text-[#333]">جزئیات محصول</span>
+    </nav>
+    <!-- نوار آمار -->
+    <section class="rounded-[14px] border border-[#ececec] bg-white p-4 shadow-card md:p-5">
+      <div class="flex flex-wrap items-center gap-x-5 gap-y-3 text-[12px] text-[#555]">
+        <div class="flex items-center gap-2">
+          <span class="rounded-[4px] bg-[#dcf6e8] px-3 py-1.5 text-[11px] font-medium text-[#16864a]">منتشر</span>
+          <span class="rounded-[4px] bg-[#dcf6e8] px-3 py-1.5 text-[11px] font-medium text-[#16864a]">موجود</span>
         </div>
 
-        <!-- VIEW 2: EMPTY MESSAGES (Hidden) -->
-        <div id="messagesEmptyView" class="hidden flex flex-col items-center justify-center py-32 animate-fade-in">
-            <div class="relative mb-8">
-                <!-- Paper Plane Illustration Matching the Image -->
-                <div class="w-48 h-48 bg-brand-50/50 rounded-full flex items-center justify-center">
-                    <svg class="w-32 h-32 text-brand-700/20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-                            d="M3 10l19-7-7 19-3-9-9-3z"></path>
-                    </svg>
-                    <!-- Floating '0' Circle -->
-                    <div
-                        class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-12 h-12 bg-white/80 backdrop-blur border-4 border-brand-50 rounded-full flex items-center justify-center text-brand-700 font-bold font-mono text-xl shadow-sm">
-                        ۰</div>
-                </div>
-                <!-- Artistic Dots from the image -->
-                <div class="absolute -top-4 -right-4 w-2 h-2 bg-brand-700/10 rounded-full"></div>
-                <div class="absolute bottom-10 -left-6 w-3 h-3 bg-brand-700/10 rounded-full"></div>
-            </div>
-            <p class="text-gray-500 font-bold">هنوز پیامی در این بخش وجود ندارد.</p>
+        <span class="hidden h-4 w-px bg-[#ddd] md:block"></span>
+
+        <div class="flex items-center gap-1.5">
+          <svg class="h-4 w-4 text-[#999]" aria-hidden="true"><use href="#icon-box"></use></svg>
+          <span>موجودی:</span>
+          <b class="text-[#333]">۱۲۳ واحد</b>
         </div>
 
-    </main>
+        <div class="flex items-center gap-1.5">
+          <svg class="h-4 w-4 text-[#999]" aria-hidden="true"><use href="#icon-shopping-bag"></use></svg>
+          <span>کل سفارش‌ها:</span>
+          <b class="text-[#333]">۱۲۳ واحد</b>
+        </div>
 
-    <script>
-        // Switch between chat and empty state for demonstration
-        function toggleMessages(isEmpty) {
-            const chatView = document.getElementById('messagesChatView');
-            const emptyView = document.getElementById('messagesEmptyView');
-            if (isEmpty) {
-                chatView.classList.add('hidden');
-                emptyView.classList.remove('hidden');
-            } else {
-                chatView.classList.remove('hidden');
-                emptyView.classList.add('hidden');
-            }
-        }
-        // toggleMessages(true); // Uncomment to see empty state
-    </script>
+        <div class="flex items-center gap-1.5">
+          <svg class="h-4 w-4 text-[#999]" aria-hidden="true"><use href="#icon-mail"></use></svg>
+          <span>پیام‌ها:</span>
+          <b class="text-[#333]">۱۲۳</b>
+        </div>
+
+        <div class="flex items-center gap-1.5">
+          <svg class="h-4 w-4 text-[#999]" aria-hidden="true"><use href="#icon-star"></use></svg>
+          <span>نظرات:</span>
+          <b class="text-[#333]">۱۲۳</b>
+        </div>
+
+        <div class="flex items-center gap-1.5">
+          <svg class="h-4 w-4 text-[#999]" aria-hidden="true"><use href="#icon-clock"></use></svg>
+          <span>آخرین به‌روزرسانی:</span>
+          <b class="text-[#333]">۱۴۰۴/۰۴/۰۴</b>
+        </div>
+      </div>
+    </section>
+    <!-- تب‌ها -->
+    <nav class="no-scrollbar flex items-center overflow-x-auto border-b border-[#cfcfcf] mt-6">
+      <a href="StoreDashboard_ProductDetail_Info.html"
+        class="shrink-0 border-b-[3px] border-transparent px-5 py-3 text-[14px] text-[#333] hover:text-[#aa4938]">
+        مشخصات محصول
+      </a>
+      <a href="StoreDashboard_ProductDetail_Orders_List.html"
+        class="shrink-0 border-b-[3px] border-transparent px-5 py-3 text-[14px] text-[#333] hover:text-[#aa4938]">
+        سفارش‌ها
+      </a>
+      <a href="StoreDashboard_ProductDetail_Reviews_List.html"
+        class="shrink-0 border-b-[3px] border-transparent px-5 py-3 text-[14px] text-[#333] hover:text-[#aa4938]">
+        نظرات
+      </a>
+      <a href="StoreDashboard_ProductDetail_Messages_Chat.html"
+        class="shrink-0 border-b-[3px] border-[#aa4938] px-5 py-3 text-[14px] font-medium text-[#aa4938]">
+        پیام‌ها
+      </a>
+    </nav>
+
+    <!-- چت -->
+    <section class="mt-5 grid gap-4 lg:grid-cols-[280px_minmax(0,1fr)]" style="min-height: 560px;">
+
+      <!-- لیست گفتگوها -->
+      <aside class="hidden overflow-hidden rounded-[14px] bg-white shadow-card lg:flex lg:flex-col">
+        <div class="overflow-y-auto flex-1">
+          <div class="cursor-pointer border-b border-[#ececec] bg-[#fafafa] p-4">
+            <div class="flex items-start justify-between gap-2">
+              <div class="flex items-center gap-2">
+                <div class="grid h-9 w-9 place-items-center rounded-full bg-[#e6e6e6] text-[#555]">
+                  <svg class="h-5 w-5"><use href="#icon-user"></use></svg>
+                </div>
+                <div>
+                  <h4 class="text-[12px] font-bold">نام کاربر</h4>
+                  <div class="mt-1 inline-flex items-center gap-1 rounded border border-[#e5e5e5] bg-white px-2 py-0.5 text-[9px] text-[#888]">
+                    نام محصول
+                  </div>
+                </div>
+              </div>
+              <span class="text-[9px] text-[#999]">۱۲ دقیقه پیش</span>
+            </div>
+            <p class="mt-2 truncate text-[11px] text-[#777]">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم...</p>
+            <span class="absolute"></span>
+          </div>
+
+          <div class="cursor-pointer border-b border-[#ececec] p-4 hover:bg-[#fafafa]">
+            <div class="flex items-start justify-between gap-2">
+              <div class="flex items-center gap-2">
+                <div class="grid h-9 w-9 place-items-center rounded-full bg-[#e6e6e6] text-[#555]">
+                  <svg class="h-5 w-5"><use href="#icon-user"></use></svg>
+                </div>
+                <div>
+                  <h4 class="text-[12px] font-bold">نام کاربر</h4>
+                  <div class="mt-1 inline-flex items-center gap-1 rounded border border-[#e5e5e5] bg-white px-2 py-0.5 text-[9px] text-[#888]">
+                    نام محصول
+                  </div>
+                </div>
+              </div>
+              <span class="text-[9px] text-[#999]">۱ ساعت پیش</span>
+            </div>
+            <p class="mt-2 truncate text-[11px] text-[#777]">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم...</p>
+          </div>
+
+          <div class="cursor-pointer border-b border-[#ececec] p-4 hover:bg-[#fafafa]">
+            <div class="flex items-start justify-between gap-2">
+              <div class="flex items-center gap-2">
+                <div class="grid h-9 w-9 place-items-center rounded-full bg-[#e6e6e6] text-[#555]">
+                  <svg class="h-5 w-5"><use href="#icon-user"></use></svg>
+                </div>
+                <div>
+                  <h4 class="text-[12px] font-bold">نام کاربر</h4>
+                  <div class="mt-1 inline-flex items-center gap-1 rounded border border-[#e5e5e5] bg-white px-2 py-0.5 text-[9px] text-[#888]">
+                    نام محصول
+                  </div>
+                </div>
+              </div>
+              <span class="text-[9px] text-[#999]">دیروز</span>
+            </div>
+            <p class="mt-2 truncate text-[11px] text-[#777]">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم...</p>
+          </div>
+        </div>
+      </aside>
+
+      <!-- پنل چت -->
+      <div class="flex flex-col overflow-hidden rounded-[14px] bg-white shadow-card" style="min-height: 560px;">
+
+        <!-- هدر چت -->
+        <div class="flex h-[64px] shrink-0 items-center justify-between border-b border-[#e5e5e5] px-4">
+          <div class="flex items-center gap-3">
+            <div class="grid h-10 w-10 place-items-center rounded-full bg-[#f0f0f0] text-[#555]">
+              <svg class="h-5 w-5"><use href="#icon-user"></use></svg>
+            </div>
+            <div>
+              <h4 class="text-[13px] font-bold">نام کاربر</h4>
+              <div class="mt-0.5 inline-flex items-center gap-1 text-[10px] text-[#888]">
+                <span>نام محصول</span>
+              </div>
+            </div>
+          </div>
+          <button type="button" class="grid h-9 w-9 place-items-center rounded-md text-[#999] hover:bg-[#f5f5f5]">
+            ⋯
+          </button>
+        </div>
+
+        <!-- پیام‌ها -->
+        <div class="flex-1 space-y-4 overflow-y-auto bg-[#fdfdfd] p-5">
+          <div class="flex justify-start">
+            <div class="max-w-[75%] rounded-[14px] rounded-tr-none border border-[#e4c1bb] bg-[#f8efed] px-4 py-3">
+              <p class="text-[12px] leading-6 text-[#333]">لورم ایپسوم متن ساختگی با تولید سادگی</p>
+              <div class="mt-1 text-left text-[9px] text-[#999]">۱۳:۵۲</div>
+            </div>
+          </div>
+
+          <div class="flex justify-end">
+            <div class="max-w-[75%] rounded-[14px] rounded-tl-none border border-[#e5e5e5] bg-white px-4 py-3 shadow-sm">
+              <p class="text-[12px] leading-6 text-[#333]">لورم ایپسوم متن ساختگی با تولید سادگی</p>
+              <div class="mt-1 flex items-center justify-end gap-1 text-[9px] text-[#999]">
+                <span>۱۳:۵۲</span>
+                <svg class="h-3.5 w-3.5 text-blue-500"><use href="#icon-double-check"></use></svg>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- فرم ارسال -->
+        <form id="productChatForm" class="flex h-[88px] shrink-0 items-center gap-3 border-t border-[#cfcfcf] bg-white px-4" dir="ltr">
+          <button type="submit"
+            class="h-[44px] w-[70px] shrink-0 rounded-[7px] bg-[#aa4938] text-[13px] font-medium text-white hover:bg-[#934033]">
+            ارسال
+          </button>
+          <label class="flex h-[44px] min-w-0 flex-1 items-center rounded-[7px] border border-[#8f8f8f] bg-white px-4" dir="rtl">
+            <input id="productChatInput" type="text"
+              class="h-full min-w-0 flex-1 bg-transparent text-right text-[13px] outline-none placeholder:text-[#b2b2b2]"
+              placeholder="پیام خود را بنویسید..." />
+            <button type="button" class="grid h-9 w-9 shrink-0 place-items-center">
+              <svg class="h-5 w-5 text-[#233047]"><use href="#icon-attach"></use></svg>
+            </button>
+          </label>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <nav class="fixed bottom-0 left-0 right-0 z-40 border-t border-[#dedede] bg-white md:hidden">
+    <ul class="store-bottom-nav w-full flex items-center justify-between pb-3">
+      <li class="flex-1 flex flex-col items-center justify-center gap-1 pt-3 text-[#333]">
+        <img src="../../../images/ShopDashboard/botton/store.svg" alt="" class="h-6 w-6" />
+        <a href="../StoreDashboard.html" class="text-[11px]">فروشگاه من</a>
+      </li>
+      <li class="flex-1 flex flex-col items-center justify-center gap-1 pt-3 text-custom-brown active">
+        <img src="../../../images/ShopDashboard/botton/bag 01.svg" alt="" class="h-6 w-6" />
+        <a href="StoreDashboard_ProductsList.html" class="text-[11px]">محصولات</a>
+      </li>
+      <li class="flex-1 flex flex-col items-center justify-center gap-1 pt-3 text-[#333]">
+        <img src="../../../images/ShopDashboard/botton/cart 01.svg" alt="" class="h-6 w-6" />
+        <a href="../Orders/StoreDashboard_Orders_List.html" class="text-[11px]">سفارش‌ها</a>
+      </li>
+      <li class="flex-1 flex flex-col items-center justify-center gap-1 pt-3 text-[#333]">
+        <img src="../../../images/ShopDashboard/botton/mail.svg" alt="" class="h-6 w-6" />
+        <a href="../StoreDashboard_Messages.html" class="text-[11px]">پیام‌ها</a>
+      </li>
+      <li class="flex-1 flex flex-col items-center justify-center gap-1 pt-3 text-[#333]">
+        <img src="../../../images/ShopDashboard/botton/menu-line-horizontal.svg" alt="" class="h-6 w-6" />
+        <a href="../StoreDashboard_Profile_Filled.html" class="text-[11px]">سایر</a>
+      </li>
+    </ul>
+  </nav>
+
+  <div id="popupOverlay" class="fixed inset-0 z-[100] hidden bg-black/30"></div>
+  <div id="toast" class="pointer-events-none fixed bottom-24 left-1/2 z-[999] hidden -translate-x-1/2 rounded-[8px] bg-[#333] px-5 py-3 text-[13px] text-white shadow-lg md:bottom-6" role="status"></div>
+
+  <script src="../../scripts/StoreDashboard/store-common.js"></script>
+  <script src="../../scripts/StoreDashboard/store-product-detail.js"></script>
 </body>
 
 </html>

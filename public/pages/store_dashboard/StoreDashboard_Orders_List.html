@@ -1,0 +1,661 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>مدیریت سفارش‌ها | پنل فروشگاه جورک</title>
+  <link rel="stylesheet" href="../../styles/output.css" />
+  <link rel="stylesheet" href="../../styles/store-common.css" />
+
+  <style>
+    /* ===== Stepper ===== */
+    .order-stepper {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 3px;
+      padding: 12px 0;
+    }
+    .order-step-pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      height: 40px;
+      padding: 0 22px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 500;
+      white-space: nowrap;
+    }
+    .order-step-line {
+      flex: 0 0 28px;
+      height: 1px;
+      background: #d9d9d9;
+    }
+    .order-step-pill.active { background: #fde9e4; color: #aa4938; }
+    .order-step-pill.current { background: #dcecff; color: #2b78c5; }
+    .order-step-pill.done { background: #dcf6e8; color: #16864a; }
+    .order-step-pill.inactive { background: #f0f0f0; color: #999; }
+
+    @media (min-width: 768px) {
+      .order-stepper {
+        justify-content: flex-start;
+        padding: 12px 8px 12px 0;
+      }
+    }
+
+    @media (max-width: 400px) {
+      .order-step-pill { font-size: 11px; padding: 0 12px; height: 34px; }
+      .order-step-line { flex: 0 0 14px; }
+    }
+
+    .mobile-sticky-action {
+      position: fixed;
+      left: 0; right: 0;
+      bottom: 76px;
+      z-index: 30;
+      padding: 12px 16px;
+      background: #fff;
+      border-top: 1px solid #e5e5e5;
+    }
+
+    /* ===== Responsive ===== */
+    @media (max-width: 767px) {
+      .orders-table-wrap { display: none !important; }
+      .mobile-sticky-action { display: block !important; }
+    }
+    @media (min-width: 768px) {
+      #ordersMobileList { display: none !important; }
+      .mobile-sticky-action { display: none !important; }
+    }
+
+    /* ===== Pagination ===== */
+    .store-pagination {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+    }
+    .store-pagination button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      font-size: 13px;
+      color: #333;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      transition: background .15s ease;
+    }
+    .store-pagination button:hover:not(:disabled) { background: #f3f3f3; }
+    .store-pagination button.active { background: #aa4938; color: #fff; }
+    .store-pagination button:disabled { opacity: .35; cursor: not-allowed; }
+    .store-pagination button svg { width: 14px; height: 14px; color: #aa4938; }
+
+    /* ===== Filters row ===== */
+    .filter-chips-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      overflow-x: auto;
+      scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
+    }
+    .filter-chips-row::-webkit-scrollbar { display: none; }
+    .filter-chips-row > * { flex-shrink: 0; }
+    @media (min-width: 768px) {
+      .filter-chips-row { flex-wrap: wrap; overflow: visible; }
+    }
+
+    /* ===== Popup position fix ===== */
+    #ordersListView { overflow: visible; }
+    #ordersListView .filter-chips-row { position: relative; z-index: 5; }
+  </style>
+</head>
+
+<body class="store-dashboard-page min-h-screen bg-[#f3f3f3] text-[#252525] font-IRANSansXRegular antialiased">
+
+  <!-- SVG SPRITE -->
+  <svg class="hidden" aria-hidden="true" focusable="false">
+    <symbol id="icon-chevron-down" viewBox="0 0 24 24" fill="none">
+      <path d="m6 9 6 6 6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="icon-close" viewBox="0 0 24 24" fill="none">
+      <path d="M6 6l12 12M18 6 6 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="icon-search" viewBox="0 0 24 24" fill="none">
+      <circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="1.5"/>
+      <path d="m20 20-3.5-3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="icon-filter" width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path
+        d="M3 5H10M10 5C10 6.10457 10.8954 7 12 7C13.1046 7 14 6.10457 14 5M10 5C10 3.89543 10.8954 3 12 3C13.1046 3 14 3.89543 14 5M3 12H12M19 12H21M19 12C19 13.1046 18.1046 14 17 14C15.8954 14 15 13.1046 15 12C15 10.8954 15.8954 10 17 10C18.1046 10 19 10.8954 19 12ZM14 5H21M12 19H21M3 19H5M5 19C5 20.1046 5.89543 21 7 21C8.10457 21 9 20.1046 9 19C9 17.8954 8.10457 17 7 17C5.89543 17 5 17.8954 5 19Z"
+        stroke="#9C4639" stroke-width="1.5" stroke-linecap="round" />
+    </symbol>
+    <symbol id="icon-more" viewBox="0 0 24 24" fill="currentColor">
+      <circle cx="12" cy="5" r="1.6"/>
+      <circle cx="12" cy="12" r="1.6"/>
+      <circle cx="12" cy="19" r="1.6"/>
+    </symbol>
+    <symbol id="icon-arrow-left" viewBox="0 0 24 24" fill="none">
+      <path d="M14 7l-5 5 5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="icon-arrow-right" width="32" height="32" viewBox="0 0 28 28" fill="none"
+      xmlns="http://www.w3.org/2000/svg">
+      <path d="M16.3333 9.33464L21 14.0013L16.3333 18.668M21 14.0013L7 14.0013" stroke="#262626" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round" />
+    </symbol>
+  </svg>
+
+  <!-- HEADER -->
+  <header class="store-desktop-header hidden md:block mb-8" role="banner">
+    <div class="store-header-inner">
+      <div class="flex items-center gap-4">
+        <a href="../../../index.html"><img src="../../../images/logo/Logo.svg" alt="لوگو" /></a>
+        <span class="hidden h-10 w-px bg-[#d9d9d9] sm:block"></span>
+        <nav class="hidden items-center gap-8 md:flex">
+          <a href="../../../index.html" class="flex items-center gap-2 text-[15px] font-medium text-[#2b2b2b]">
+            <img src="../../../images/Header/home 04.svg" alt="" />صفحه اصلی سایت
+          </a>
+          <button class="flex items-center gap-2 text-[15px] font-medium text-[#2b2b2b]">
+            <img src="../../../images/Header/grid 02.svg" alt="" />صفحات فروشگاه
+            <img src="../../../images/Header/direction-down 01.svg" alt="" />
+          </button>
+        </nav>
+      </div>
+      <div class="flex items-center gap-3 sm:gap-7" dir="ltr">
+        <div class="flex items-center gap-3">
+          <div class="h-9 w-9 rounded-full bg-[#202020]"></div>
+          <div class="hidden leading-tight sm:block" dir="rtl">
+            <div class="text-[14px] font-medium">نام فروشگاه</div>
+            <div class="mt-1 text-[11px] text-[#777]">نام فروشنده</div>
+          </div>
+        </div>
+        <div class="hidden items-center gap-3 sm:flex lg:gap-5">
+          <a href="../StoreDashboard_Notifications.html" class="grid h-9 w-9 place-items-center rounded-lg hover:bg-[#f7f7f7]"><img src="../../../images/Header/notification.svg" alt="" /></a>
+          <a href="../StoreDashboard_Messages.html" class="grid h-9 w-9 place-items-center rounded-lg hover:bg-[#f7f7f7]"><img src="../../../images/Header/mail.svg" alt="" /></a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="store-shell mx-auto w-full max-w-[1200px] px-4 pb-32 pt-5 md:pb-16 md:pt-[54px] lg:px-0" role="main">
+
+    <section class="store-page-title-card mb-6 hidden md:flex">
+      <div class="flex items-center gap-3 w-full">
+        <a href="../../../index.html" class="grid h-8 w-8 place-items-center">
+          <svg class="h-6 w-6"><use href="#icon-arrow-right"></use></svg>
+        </a>
+        <h1 class="border-b-[3px] border-[#aa4938] pb-2 text-[18px] font-medium text-[#aa4938]">مدیریت سفارش‌ها</h1>
+      </div>
+    </section>
+
+    <!-- ==================== VIEW 1: LIST ==================== -->
+    <section id="ordersListView" class="rounded-[14px] bg-white p-4 shadow-card md:p-6">
+
+      <!-- جستجو + چیپ فیلتر -->
+      <div class="flex items-center gap-3">
+        
+
+        <label class="relative flex h-[46px] flex-1 items-center rounded-[8px] border border-[#d5d5d5] bg-white px-4">
+          <input id="ordersSearch" type="search" placeholder="جستجو"
+            class="h-full w-full min-w-0 bg-transparent text-[13px] outline-none placeholder:text-[#aaa]" />
+          <svg class="h-5 w-5 shrink-0 text-[#9b9b9b]"><use href="#icon-search"></use></svg>
+        </label>
+        <button type="button" data-open-filter
+          class="hidden h-[46px] shrink-0 items-center gap-2 rounded-[8px] border border-[#aa4938] bg-white px-4 text-[13px] font-medium text-[#aa4938] transition hover:bg-[#fbf2ef] md:flex">
+          <svg class="h-4 w-4"><use href="#icon-filter"></use></svg>
+           فیلتر
+        </button>
+      </div>
+
+      <!-- تب‌های وضعیت -->
+      <div class="no-scrollbar mt-5 flex items-center overflow-x-auto border-b border-[#e5e5e5]">
+        <button type="button" data-order-tab="all"
+          class="order-tab shrink-0 border-b-[3px] border-[#aa4938] px-4 pb-3 text-[13px] font-medium text-[#aa4938] md:text-[14px]">
+          تمام سفارش‌ها
+        </button>
+        <button type="button" data-order-tab="pending"
+          class="order-tab shrink-0 border-b-[3px] border-transparent px-4 pb-3 text-[13px] text-[#333] md:text-[14px]">
+          در انتظار بررسی
+        </button>
+        <button type="button" data-order-tab="preparing"
+          class="order-tab shrink-0 border-b-[3px] border-transparent px-4 pb-3 text-[13px] text-[#333] md:text-[14px]">
+          در حال آماده‌سازی
+        </button>
+        <button type="button" data-order-tab="completed"
+          class="order-tab shrink-0 border-b-[3px] border-transparent px-4 pb-3 text-[13px] text-[#333] md:text-[14px]">
+          تکمیل شده
+        </button>
+      </div>
+
+      <!-- فیلترها -->
+      <div class="mt-5 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+
+        <div class="filter-chips-row">
+          <button type="button" data-open-filter class="md:hidden px-4 border py-2 rounded-full border-custom-brown">
+            <svg class="h-4 w-4 text-custom-brown" aria-hidden="true">
+              <use href="#icon-filter"></use>
+            </svg>
+          </button>
+          <!-- Sort -->
+          <div class="relative" data-popup-wrap>
+            <button type="button" data-popup-trigger="popup-order-sort" class="store-chip">
+              <span class="text-[#777]">مرتب‌سازی:</span>
+              <span id="orderSortChipLabel" class="font-medium text-[#333]">جدیدترین فروش</span>
+              <svg class="h-4 w-4"><use href="#icon-chevron-down"></use></svg>
+            </button>
+            <div id="popup-order-sort" data-popup="order-sort"
+              class="store-popup absolute right-0 top-[46px] z-30 hidden w-[280px] md:w-[320px]">
+              <div class="drag-handle"></div>
+              <div class="store-popup-header">
+                <span>مرتب‌سازی</span>
+                <button type="button" data-close-popup><svg class="h-5 w-5"><use href="#icon-close"></use></svg></button>
+              </div>
+              <div class="space-y-4 px-6 py-5 text-[14px]">
+                <label class="flex cursor-pointer items-center justify-between"><span>جدیدترین</span><span class="flex"><input class="sr-only" type="radio" name="orderSort" value="latest" checked /><span class="store-radio-ui"></span></span></label>
+                <label class="flex cursor-pointer items-center justify-between"><span>قدیمی‌ترین</span><span class="flex"><input class="sr-only" type="radio" name="orderSort" value="oldest" /><span class="store-radio-ui"></span></span></label>
+                <label class="flex cursor-pointer items-center justify-between"><span>ارزان‌ترین</span><span class="flex"><input class="sr-only" type="radio" name="orderSort" value="cheap" /><span class="store-radio-ui"></span></span></label>
+                <label class="flex cursor-pointer items-center justify-between"><span>گران‌ترین</span><span class="flex"><input class="sr-only" type="radio" name="orderSort" value="expensive" /><span class="store-radio-ui"></span></span></label>
+                <label class="flex cursor-pointer items-center justify-between"><span>نیازمند اقدام</span><span class="flex"><input class="sr-only" type="radio" name="orderSort" value="action" /><span class="store-radio-ui"></span></span></label>
+              </div>
+              <div class="store-popup-footer flex items-center justify-between gap-2">
+                <button type="button" data-clear-order-sort class="rounded-[6px] border border-[#aa4938] px-4 py-2 text-[12px] text-[#aa4938] hover:bg-[#fbf2ef]">حذف فیلتر</button>
+                <button type="button" data-close-popup class="rounded-[6px] bg-[#aa4938] px-4 py-2 text-[12px] text-white hover:bg-[#934033]">تایید</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Range -->
+          <div class="relative" data-popup-wrap>
+            <button type="button" data-popup-trigger="popup-order-range" class="store-chip">
+              <span id="orderRangeChipLabel">بازه زمانی ثبت</span>
+              <svg class="h-4 w-4"><use href="#icon-chevron-down"></use></svg>
+            </button>
+            <div id="popup-order-range" data-popup="order-range"
+              class="store-popup absolute right-0 top-[46px] z-30 hidden w-[320px] md:w-[340px]">
+              <div class="drag-handle"></div>
+              <div class="store-popup-header">
+                <span>بازه زمانی ثبت</span>
+                <button type="button" data-close-popup><svg class="h-5 w-5"><use href="#icon-close"></use></svg></button>
+              </div>
+              <div class="space-y-4 px-6 py-5 text-[14px]">
+                <label class="flex cursor-pointer items-center justify-between"><span>۲۴ ساعت اخیر</span><span class="flex"><input class="sr-only" type="radio" name="orderRange" value="24h" /><span class="store-radio-ui"></span></span></label>
+                <label class="flex cursor-pointer items-center justify-between"><span>۷ روز اخیر</span><span class="flex"><input class="sr-only" type="radio" name="orderRange" value="7d" /><span class="store-radio-ui"></span></span></label>
+                <label class="flex cursor-pointer items-center justify-between"><span>۳۰ روز اخیر</span><span class="flex"><input class="sr-only" type="radio" name="orderRange" value="30d" /><span class="store-radio-ui"></span></span></label>
+                <label class="flex cursor-pointer items-center justify-between"><span>بازه دلخواه</span><span class="flex"><input class="sr-only" type="radio" name="orderRange" value="custom" /><span class="store-radio-ui"></span></span></label>
+                <div class="grid grid-cols-2 gap-3 pt-2">
+                  <label>
+                    <span class="mb-1 block text-[11px] text-[#777]">از تاریخ</span>
+                    <input id="orderRangeFrom" type="text" placeholder="۱۴۰۵/۰۱/۰۱"
+                      class="h-[38px] w-full rounded-[6px] border border-[#ccc] px-2 text-[12px] outline-none focus:border-[#aa4938]" />
+                  </label>
+                  <label>
+                    <span class="mb-1 block text-[11px] text-[#777]">تا تاریخ</span>
+                    <input id="orderRangeTo" type="text" placeholder="۱۴۰۵/۱۲/۲۹"
+                      class="h-[38px] w-full rounded-[6px] border border-[#ccc] px-2 text-[12px] outline-none focus:border-[#aa4938]" />
+                  </label>
+                </div>
+              </div>
+              <div class="flex items-center justify-between gap-2 border-t border-[#e5e5e5] px-6 py-4">
+                <button type="button" data-clear="range" class="rounded-[6px] border border-[#aa4938] px-4 py-2 text-[12px] text-[#aa4938] hover:bg-[#fbf2ef]">حذف فیلتر</button>
+                <button type="button" id="applyOrderRange" class="rounded-[6px] bg-[#aa4938] px-4 py-2 text-[12px] text-white hover:bg-[#934033]">تایید</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Delivery -->
+          <div class="relative" data-popup-wrap>
+            <button type="button" data-popup-trigger="popup-order-delivery" class="store-chip">
+              <span id="orderDeliveryChipLabel">روش تحویل</span>
+              <svg class="h-4 w-4"><use href="#icon-chevron-down"></use></svg>
+            </button>
+            <div id="popup-order-delivery" data-popup="order-delivery"
+              class="store-popup absolute right-0 top-[46px] z-30 hidden w-[280px] md:w-[320px]">
+              <div class="drag-handle"></div>
+              <div class="store-popup-header">
+                <span>روش تحویل</span>
+                <button type="button" data-close-popup><svg class="h-5 w-5"><use href="#icon-close"></use></svg></button>
+              </div>
+              <div class="space-y-4 px-6 py-5 text-[14px]">
+                <label class="flex cursor-pointer items-center justify-between"><span>ارسال توسط فروشنده</span><span class="flex"><input class="sr-only order-filter-checkbox" type="checkbox" data-filter="delivery" value="vendor" /><span class="store-check-ui"></span></span></label>
+                <label class="flex cursor-pointer items-center justify-between"><span>تحویل حضوری</span><span class="flex"><input class="sr-only order-filter-checkbox" type="checkbox" data-filter="delivery" value="pickup" /><span class="store-check-ui"></span></span></label>
+              </div>
+              <div class="store-popup-footer flex items-center justify-between gap-2">
+                <button type="button" data-clear="delivery" class="rounded-[6px] border border-[#aa4938] px-4 py-2 text-[12px] text-[#aa4938] hover:bg-[#fbf2ef]">حذف فیلتر</button>
+                <button type="button" data-close-popup class="rounded-[6px] bg-[#aa4938] px-4 py-2 text-[12px] text-white hover:bg-[#934033]">تایید</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Status -->
+          <div class="relative" data-popup-wrap>
+            <button type="button" data-popup-trigger="popup-order-status" class="store-chip">
+              <span id="orderStatusChipLabel">وضعیت سفارش</span>
+              <svg class="h-4 w-4"><use href="#icon-chevron-down"></use></svg>
+            </button>
+            <div id="popup-order-status" data-popup="order-status"
+              class="store-popup absolute right-0 top-[46px] z-30 hidden w-[280px] md:w-[320px]">
+              <div class="drag-handle"></div>
+              <div class="store-popup-header">
+                <span>وضعیت سفارش</span>
+                <button type="button" data-close-popup><svg class="h-5 w-5"><use href="#icon-close"></use></svg></button>
+              </div>
+              <div class="space-y-4 px-6 py-5 text-[14px]">
+                <label class="flex cursor-pointer items-center justify-between"><span>در انتظار بررسی</span><span class="flex"><input class="sr-only order-filter-checkbox" type="checkbox" data-filter="status" value="pending" /><span class="store-check-ui"></span></span></label>
+                <label class="flex cursor-pointer items-center justify-between"><span>در حال آماده‌سازی</span><span class="flex"><input class="sr-only order-filter-checkbox" type="checkbox" data-filter="status" value="preparing" /><span class="store-check-ui"></span></span></label>
+                <label class="flex cursor-pointer items-center justify-between"><span>ارسال شده</span><span class="flex"><input class="sr-only order-filter-checkbox" type="checkbox" data-filter="status" value="shipped" /><span class="store-check-ui"></span></span></label>
+                <label class="flex cursor-pointer items-center justify-between"><span>تکمیل شده</span><span class="flex"><input class="sr-only order-filter-checkbox" type="checkbox" data-filter="status" value="completed" /><span class="store-check-ui"></span></span></label>
+                <label class="flex cursor-pointer items-center justify-between"><span>لغو شده</span><span class="flex"><input class="sr-only order-filter-checkbox" type="checkbox" data-filter="status" value="cancelled" /><span class="store-check-ui"></span></span></label>
+              </div>
+              <div class="store-popup-footer flex items-center justify-between gap-2">
+                <button type="button" data-clear="status" class="rounded-[6px] border border-[#aa4938] px-4 py-2 text-[12px] text-[#aa4938] hover:bg-[#fbf2ef]">حذف فیلتر</button>
+                <button type="button" data-close-popup class="rounded-[6px] bg-[#aa4938] px-4 py-2 text-[12px] text-white hover:bg-[#934033]">تایید</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Category -->
+          <div class="relative" data-popup-wrap>
+            <button type="button" data-popup-trigger="popup-order-category" class="store-chip">
+              <span id="orderCategoryChipLabel">دسته</span>
+              <svg class="h-4 w-4"><use href="#icon-chevron-down"></use></svg>
+            </button>
+            <div id="popup-order-category" data-popup="order-category"
+              class="store-popup absolute right-0 top-[46px] z-30 hidden w-[280px] md:w-[320px]">
+              <div class="drag-handle"></div>
+              <div class="store-popup-header">
+                <span>دسته</span>
+                <button type="button" data-close-popup><svg class="h-5 w-5"><use href="#icon-close"></use></svg></button>
+              </div>
+              <div class="max-h-[320px] space-y-4 overflow-y-auto px-6 py-5 text-[14px]">
+                <label class="flex cursor-pointer items-center justify-between"><span>سیمان و ملات</span><span class="flex"><input class="sr-only order-filter-checkbox" type="checkbox" data-filter="category" value="cement" /><span class="store-check-ui"></span></span></label>
+                <label class="flex cursor-pointer items-center justify-between"><span>گچ و فرآورده‌های گچی</span><span class="flex"><input class="sr-only order-filter-checkbox" type="checkbox" data-filter="category" value="chalk" /><span class="store-check-ui"></span></span></label>
+                <label class="flex cursor-pointer items-center justify-between"><span>بتن و فرآورده‌های بتنی</span><span class="flex"><input class="sr-only order-filter-checkbox" type="checkbox" data-filter="category" value="concrete" /><span class="store-check-ui"></span></span></label>
+                <label class="flex cursor-pointer items-center justify-between"><span>فلزات ساختمانی</span><span class="flex"><input class="sr-only order-filter-checkbox" type="checkbox" data-filter="category" value="metal" /><span class="store-check-ui"></span></span></label>
+                <label class="flex cursor-pointer items-center justify-between"><span>آجر و بلوک</span><span class="flex"><input class="sr-only order-filter-checkbox" type="checkbox" data-filter="category" value="brick" /><span class="store-check-ui"></span></span></label>
+                <label class="flex cursor-pointer items-center justify-between"><span>عایق‌ها و ژئوستنیک</span><span class="flex"><input class="sr-only order-filter-checkbox" type="checkbox" data-filter="category" value="insulation" /><span class="store-check-ui"></span></span></label>
+                <label class="flex cursor-pointer items-center justify-between"><span>چسب‌ها و افزودنی‌ها</span><span class="flex"><input class="sr-only order-filter-checkbox" type="checkbox" data-filter="category" value="adhesive" /><span class="store-check-ui"></span></span></label>
+                <label class="flex cursor-pointer items-center justify-between"><span>پیش‌ساخته‌های بتنی</span><span class="flex"><input class="sr-only order-filter-checkbox" type="checkbox" data-filter="category" value="precast" /><span class="store-check-ui"></span></span></label>
+              </div>
+              <div class="store-popup-footer flex items-center justify-between gap-2">
+                <button type="button" data-clear="category" class="rounded-[6px] border border-[#aa4938] px-4 py-2 text-[12px] text-[#aa4938] hover:bg-[#fbf2ef]">حذف فیلتر</button>
+                <button type="button" data-close-popup class="rounded-[6px] bg-[#aa4938] px-4 py-2 text-[12px] text-white hover:bg-[#934033]">تایید</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-3 text-[12px] text-[#666] shrink-0">
+          <span>تعداد نمایش</span>
+          <select id="orderPageSize" class="h-8 rounded-[5px] border border-[#cfcfcf] bg-white px-2 text-[12px] outline-none">
+            <option value="5">۵</option>
+            <option value="10" selected>۱۰</option>
+            <option value="20">۲۰</option>
+          </select>
+          <span class="h-5 w-px bg-[#d7d7d7]"></span>
+          <span>تعداد نتایج: <b id="ordersResultCount" class="font-medium text-[#333]">۱۲۳</b></span>
+        </div>
+      </div>
+
+      <!-- جدول دسکتاپ -->
+      <div class="orders-table-wrap mt-5 overflow-x-auto">
+        <table class="w-full min-w-[980px] border-collapse">
+          <thead>
+            <tr class="h-[54px] border-b border-[#e5e5e5] bg-[#f9f9f9] text-[12px] font-medium text-[#444]">
+              <th class="w-[90px] px-4 text-right">تصویر</th>
+              <th class="px-4 text-right">عنوان محصول</th>
+              <th class="w-[140px] px-4 text-center">زمان ثبت سفارش</th>
+              <th class="w-[110px] px-4 text-center">شماره سفارش</th>
+              <th class="w-[130px] px-4 text-center">قیمت (تومان)</th>
+              <th class="w-[120px] px-4 text-center">مقدار سفارش</th>
+              <th class="w-[160px] px-4 text-center">وضعیت</th>
+            </tr>
+          </thead>
+          <tbody id="ordersBody"></tbody>
+        </table>
+      </div>
+
+      <!-- کارت موبایل -->
+      <div id="ordersMobileList" class="mt-5 space-y-4"></div>
+
+      <!-- Empty -->
+      <div id="ordersEmpty" class="store-empty hidden">
+        <img src="../../../images/StoreDashboard/Orders/empty-orders.svg" alt="بدون سفارش" />
+        <p>سفارشی با این مشخصات پیدا نشد.</p>
+      </div>
+
+      <!-- Pagination -->
+      <div id="ordersPagination" class="store-pagination mt-7" dir="ltr"></div>
+    </section>
+
+    <!-- ==================== VIEW 2: DETAIL ==================== -->
+    <section id="orderDetailView" class="hidden">
+
+      <article class="rounded-[14px] bg-white p-4 shadow-card md:p-5">
+
+        <!-- موبایل -->
+        <div class="md:hidden">
+          <div class="flex items-start justify-between gap-3">
+            <div>
+              <div class="text-[14px]">
+                شماره سفارش: <b id="detailOrderNumberMobile" class="font-medium">—</b>
+              </div>
+            </div>
+            <button id="moreActionBtnMobile" type="button"
+              class="grid h-8 w-8 place-items-center rounded-md hover:bg-[#f7f7f7]">
+              <svg class="h-5 w-5"><use href="#icon-more"></use></svg>
+            </button>
+          </div>
+
+          <div class="mt-3 flex items-center gap-2">
+            <span id="detailStatusMobile"></span>
+          </div>
+
+          <div class="mt-3 space-y-1.5 text-[12px]">
+            <div><span class="text-[#aa4938]">ارسال توسط فروشنده</span></div>
+            <div>زمان ثبت: <b id="detailCreatedAtMobile" class="font-medium">—</b></div>
+            <div>مبلغ کل: <b id="detailTotalMobile" class="font-medium">—</b></div>
+          </div>
+        </div>
+
+        <!-- دسکتاپ -->
+        <div class="hidden md:flex md:items-center md:justify-between md:gap-4">
+          <div class="flex items-center gap-4 flex-wrap">
+            <span id="detailStatusDesktop"></span>
+            <span class="text-[12px] text-[#aa4938]">ارسال توسط فروشنده</span>
+            <span class="text-[12px]">شماره سفارش:
+              <b id="detailOrderNumberDesktop" class="font-medium text-[#333]">—</b>
+            </span>
+            <span class="text-[12px]">زمان ثبت:
+              <b id="detailCreatedAtDesktop" class="font-medium text-[#333]">—</b>
+            </span>
+            <span class="text-[12px]">مبلغ کل:
+              <b id="detailTotalDesktop" class="font-medium text-[#333]">—</b>
+            </span>
+          </div>
+
+          <div class="flex items-center gap-2">
+            <button id="printInvoiceBtn" type="button"
+              class="rounded-[7px] bg-[#aa4938] px-4 py-2 text-[12px] font-medium text-white hover:bg-[#934033]">
+              چاپ فاکتور
+            </button>
+            <button id="moreActionBtn" type="button"
+              class="grid h-9 w-9 place-items-center rounded-lg hover:bg-[#f7f7f7]">
+              <svg class="h-5 w-5"><use href="#icon-more"></use></svg>
+            </button>
+          </div>
+        </div>
+
+        <div id="detailNotice" class="mt-4 hidden rounded-[6px] bg-[#f7efed] px-4 py-3 text-[12px] text-[#555]"></div>
+      </article>
+
+      <!-- Stepper -->
+      <div class="order-stepper my-5">
+        <span id="stepPending" class="order-step-pill">در انتظار بررسی</span>
+        <span class="order-step-line"></span>
+        <span id="stepPreparing" class="order-step-pill">در حال آماده‌سازی</span>
+        <span class="order-step-line"></span>
+        <span id="stepShipped" class="order-step-pill">ارسال شد</span>
+      </div>
+
+      <div class="grid gap-5 lg:grid-cols-[minmax(0,1fr)_340px]">
+
+        <div class="space-y-5">
+          <article class="rounded-[14px] bg-white p-5 shadow-card">
+            <div class="flex items-center justify-between border-b border-[#eee] pb-4">
+              <h2 class="text-[16px] font-medium">آیتم‌های سفارش</h2>
+              <span id="detailItemsCount" class="text-[12px] text-[#777]"></span>
+            </div>
+            <div id="detailItems" class="divide-y divide-[#f0f0f0]"></div>
+          </article>
+
+          <article class="rounded-[14px] bg-white p-5 shadow-card">
+            <h2 class="text-[16px] font-medium mb-4">خلاصه مالی</h2>
+            <div class="divide-y divide-[#f0f0f0] text-[13px]">
+              <div class="flex items-center justify-between py-3">
+                <span class="text-[#777]">جمع اقلام</span>
+                <b id="itemsTotal" class="font-medium">—</b>
+              </div>
+              <div class="flex items-center justify-between py-3">
+                <span class="text-[#777]">جمع کل پرداخت شده</span>
+                <b id="paidTotal" class="font-semibold">—</b>
+              </div>
+            </div>
+          </article>
+
+          <article class="rounded-[14px] bg-white p-5 shadow-card">
+            <h2 class="text-[16px] font-medium mb-4">تاریخچه رویداد</h2>
+            <div id="eventHistory" class="space-y-3 text-[12px]"></div>
+          </article>
+        </div>
+
+        <aside class="space-y-5">
+          <article class="rounded-[14px] bg-white p-5 shadow-card">
+            <h2 class="text-[16px] font-medium mb-4">اطلاعات خریدار</h2>
+            <div id="buyerInfo" class="text-[12px]"></div>
+          </article>
+
+          <article class="rounded-[14px] bg-white p-5 shadow-card">
+            <h2 class="text-[16px] font-medium">
+              ارسال/تحویل
+              <span class="text-[12px] font-normal text-[#777]">(اختیاری)</span>
+            </h2>
+            <label class="mt-4 block text-[12px]">
+              شرکت حمل
+              <input id="carrierInput" type="text" placeholder="شرکت حمل"
+                class="mt-2 h-[42px] w-full rounded-[7px] border border-[#ccc] px-3 text-[13px] outline-none placeholder:text-[#aaa] focus:border-[#aa4938]" />
+            </label>
+            <label class="mt-4 block text-[12px]">
+              کد رهگیری
+              <input id="trackingInput" type="text" placeholder="کد رهگیری"
+                class="mt-2 h-[42px] w-full rounded-[7px] border border-[#ccc] px-3 text-[13px] outline-none placeholder:text-[#aaa] focus:border-[#aa4938]" />
+            </label>
+          </article>
+
+          <article class="rounded-[14px] bg-white p-5 shadow-card">
+            <h2 class="text-[16px] font-medium mb-4">یادداشت‌ها و پیوست‌ها</h2>
+            <textarea id="noteInput" placeholder="یادداشت داخلی (فقط خود شما می‌بینید)"
+              class="h-[140px] w-full resize-none rounded-[7px] border border-[#ccc] p-3 text-[12px] outline-none placeholder:text-[#aaa] focus:border-[#aa4938]"></textarea>
+          </article>
+        </aside>
+      </div>
+
+      <div id="mobileStickyAction" class="mobile-sticky-action">
+        <button id="mobilePrimaryAction"
+          class="h-[52px] w-full rounded-[8px] bg-[#aa4938] text-[16px] font-medium text-white">
+          —
+        </button>
+      </div>
+    </section>
+  </main>
+
+  <!-- Bottom Nav -->
+  <nav class="fixed bottom-0 left-0 right-0 z-40 border-t border-[#dedede] bg-white md:hidden">
+    <ul class="store-bottom-nav w-full flex items-center justify-between pb-3">
+      <li class="flex-1 flex flex-col items-center justify-center gap-1 pt-3 text-[#333]">
+        <img src="../../../images/ShopDashboard/botton/store.svg" alt="" class="h-6 w-6" />
+        <a href="../StoreDashboard.html" class="text-[11px]">فروشگاه من</a>
+      </li>
+      <li class="flex-1 flex flex-col items-center justify-center gap-1 pt-3 text-[#333]">
+        <img src="../../../images/ShopDashboard/botton/bag 01.svg" alt="" class="h-6 w-6" />
+        <a href="StoreDashboard_ProductsList.html" class="text-[11px]">محصولات</a>
+      </li>
+      <li class="flex-1 flex flex-col items-center justify-center gap-1 pt-3 text-custom-brown active">
+        <img src="../../../images/ShopDashboard/botton/cart 01.svg" alt="" class="h-6 w-6" />
+        <a href="StoreDashboard_Orders_List.html" class="text-[11px]">سفارش‌ها</a>
+      </li>
+      <li class="flex-1 flex flex-col items-center justify-center gap-1 pt-3 text-[#333]">
+        <img src="../../../images/ShopDashboard/botton/mail.svg" alt="" class="h-6 w-6" />
+        <a href="../StoreDashboard_Messages.html" class="text-[11px]">پیام‌ها</a>
+      </li>
+      <li class="flex-1 flex flex-col items-center justify-center gap-1 pt-3 text-[#333]">
+        <img src="../../../images/ShopDashboard/botton/menu-line-horizontal.svg" alt="" class="h-6 w-6" />
+        <a href="../StoreDashboard_Profile_Filled.html" class="text-[11px]">سایر</a>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- More Menu -->
+  <div id="orderMoreMenu"
+    class="floating-menu fixed z-[9999] hidden w-[210px] overflow-hidden rounded-[8px] border border-[#ddd] bg-white">
+    <button type="button" data-order-action="message">پیام به خریدار</button>
+    <button type="button" data-order-action="shipping">افزودن/ویرایش اطلاعات ارسال</button>
+    <button type="button" data-order-action="report">گزارش ثبت اشتباه وضعیت</button>
+    <button type="button" data-order-action="cancel" class="danger">لغو سفارش</button>
+  </div>
+
+  <!-- Filter Drawer -->
+  <div id="filterBackdrop" class="fixed inset-0 z-40 hidden bg-black/25"></div>
+  <aside id="filterDrawer"
+    class="store-filter-drawer mobile-fullscreen fixed bottom-0 right-0 top-0 z-50 w-full max-w-[390px] translate-x-full bg-white shadow-2xl transition-transform duration-200"
+    role="dialog" aria-modal="true">
+    <div class="flex h-full flex-col">
+      <header class="flex h-[60px] items-center justify-between border-b border-[#e5e5e5] px-6">
+        <h2 class="text-[18px] font-semibold">فیلترها</h2>
+        <button type="button" id="closeDrawer" class="grid h-8 w-8 place-items-center">
+          <svg class="h-5 w-5"><use href="#icon-close"></use></svg>
+        </button>
+      </header>
+      <div class="flex-1 space-y-6 overflow-y-auto px-6 py-5">
+        <section>
+          <h3 class="mb-4 font-semibold">وضعیت سفارش</h3>
+          <div class="space-y-4 text-[14px]">
+            <label class="flex cursor-pointer items-center justify-between"><span>در انتظار بررسی</span><span class="flex"><input class="sr-only order-drawer-checkbox" type="checkbox" data-filter="status" value="pending" /><span class="store-check-ui"></span></span></label>
+            <label class="flex cursor-pointer items-center justify-between"><span>در حال آماده‌سازی</span><span class="flex"><input class="sr-only order-drawer-checkbox" type="checkbox" data-filter="status" value="preparing" /><span class="store-check-ui"></span></span></label>
+            <label class="flex cursor-pointer items-center justify-between"><span>ارسال شده</span><span class="flex"><input class="sr-only order-drawer-checkbox" type="checkbox" data-filter="status" value="shipped" /><span class="store-check-ui"></span></span></label>
+            <label class="flex cursor-pointer items-center justify-between"><span>تکمیل شده</span><span class="flex"><input class="sr-only order-drawer-checkbox" type="checkbox" data-filter="status" value="completed" /><span class="store-check-ui"></span></span></label>
+            <label class="flex cursor-pointer items-center justify-between"><span>لغو شده</span><span class="flex"><input class="sr-only order-drawer-checkbox" type="checkbox" data-filter="status" value="cancelled" /><span class="store-check-ui"></span></span></label>
+          </div>
+        </section>
+        <div class="h-px bg-[#e5e5e5]"></div>
+        <section>
+          <h3 class="mb-4 font-semibold">روش تحویل</h3>
+          <div class="space-y-4 text-[14px]">
+            <label class="flex cursor-pointer items-center justify-between"><span>ارسال توسط فروشنده</span><span class="flex"><input class="sr-only order-drawer-checkbox" type="checkbox" data-filter="delivery" value="vendor" /><span class="store-check-ui"></span></span></label>
+            <label class="flex cursor-pointer items-center justify-between"><span>تحویل حضوری</span><span class="flex"><input class="sr-only order-drawer-checkbox" type="checkbox" data-filter="delivery" value="pickup" /><span class="store-check-ui"></span></span></label>
+          </div>
+        </section>
+      </div>
+      <footer class="border-t border-[#e5e5e5] p-6">
+        <button type="button" id="applyOrderFilters"
+          class="h-[46px] w-full rounded-[7px] bg-[#aa4938] text-[15px] font-medium text-white hover:bg-[#934033]">
+          تایید
+        </button>
+      </footer>
+    </div>
+  </aside>
+
+  <div id="popupOverlay" class="fixed inset-0 z-[100] hidden bg-black/30"></div>
+  <div id="toast"
+    class="pointer-events-none fixed bottom-24 left-1/2 z-[999] hidden -translate-x-1/2 rounded-[8px] bg-[#333] px-5 py-3 text-[13px] text-white shadow-lg md:bottom-6"
+    role="status"></div>
+
+  <script src="../../scripts/StoreDashboard/store-common.js"></script>
+  <script src="../../scripts/StoreDashboard/store-orders.js"></script>
+</body>
+
+</html>

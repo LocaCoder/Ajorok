@@ -1,301 +1,397 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fa" dir="rtl">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>جزئیات محصول - سفارش‌ها | جورک</title>
-    <link rel="stylesheet" href="../../styles/output.css">
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: { sans: ['Vazirmatn', 'sans-serif'] },
-                    colors: { brand: { 700: '#944438', 50: '#fcf5f4' } }
-                }
-            }
-        }
-    </script>
-    <style>
-        body {
-            background-color: #f5f6f8;
-            font-family: 'Vazirmatn', sans-serif;
-        }
-
-        .custom-shadow {
-            box-shadow: 0 2px 12px -2px rgba(0, 0, 0, 0.05);
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>جزئیات محصول - سفارش‌ها | پنل فروشگاه جورک</title>
+  <link rel="stylesheet" href="../../styles/output.css" />
+  <link rel="stylesheet" href="../../styles/store-common.css" />
 </head>
 
-<body class="text-gray-800 text-sm">
+<body class="store-dashboard-page min-h-screen bg-[#f3f3f3] text-[#252525] font-IRANSansXRegular antialiased">
 
-    <!-- Header (Simple version as per images) -->
-    <header class="bg-white border-b px-8 py-3 flex items-center justify-between sticky top-0 z-40">
-        <div class="flex items-center gap-8">
-            <img src="logo.png" alt="Jorok" class="h-7">
-            <nav class="hidden md:flex gap-6 text-xs font-medium text-gray-500">
-                <span class="flex items-center gap-1">صفحه اصلی سایت <svg class="w-3 h-3" fill="none"
-                        stroke="currentColor" viewBox="0 0 24 24">
-                        <path d="M19 9l-7 7-7-7"></path>
-                    </svg></span>
-                <span class="flex items-center gap-1">صفحات فروشگاه <svg class="w-3 h-3" fill="none"
-                        stroke="currentColor" viewBox="0 0 24 24">
-                        <path d="M19 9l-7 7-7-7"></path>
-                    </svg></span>
-            </nav>
-        </div>
+  <svg class="hidden" aria-hidden="true" focusable="false">
+    <symbol id="icon-arrow-left" viewBox="0 0 24 24" fill="none">
+      <path d="M14 7l-5 5 5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+        stroke-linejoin="round" />
+    </symbol>
+    <symbol id="icon-arrow-right" width="20" height="20" viewBox="0 0 28 28" fill="none"
+      xmlns="http://www.w3.org/2000/svg">
+      <path d="M16.3333 9.33464L21 14.0013L16.3333 18.668M21 14.0013L7 14.0013" stroke="#262626" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round" />
+    </symbol>
+    <symbol id="icon-close" viewBox="0 0 24 24" fill="none">
+      <path d="M6 6l12 12M18 6 6 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+    </symbol>
+    <symbol id="icon-chevron-down" viewBox="0 0 24 24" fill="none">
+      <path d="m6 9 6 6 6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+    </symbol>
+    <symbol id="icon-box" viewBox="0 0 24 24" fill="none">
+      <path d="M20 7 12 3 4 7l8 4 8-4Zm-8 4v10m8-14v10l-8 4-8-4V7" stroke="currentColor" stroke-width="1.5"
+        stroke-linejoin="round" />
+    </symbol>
+    <symbol id="icon-shopping-bag" viewBox="0 0 24 24" fill="none">
+      <path d="M5 4h2l2 12h10l2-7H7m3 11a1 1 0 1 0 0 .01M17 20a1 1 0 1 0 0 .01" stroke="currentColor" stroke-width="1.5"
+        stroke-linecap="round" stroke-linejoin="round" />
+    </symbol>
+    <symbol id="icon-mail" viewBox="0 0 24 24" fill="none">
+      <rect x="4" y="5" width="16" height="14" rx="2" stroke="currentColor" stroke-width="1.5" />
+      <path d="m7 9 5 4 5-4" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" />
+    </symbol>
+    <symbol id="icon-star" viewBox="0 0 24 24" fill="none">
+      <path d="m12 3 2.7 5.5 6.1.9-4.4 4.3 1 6-5.4-2.8-5.4 2.8 1-6L3.2 9.4l6.1-.9L12 3Z" stroke="currentColor"
+        stroke-width="1.5" stroke-linejoin="round" />
+    </symbol>
+    <symbol id="icon-clock" viewBox="0 0 24 24" fill="none">
+      <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.5" />
+      <path d="M12 7v5l3 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+    </symbol>
+  </svg>
+
+  <header class="store-desktop-header hidden md:block mb-8" role="banner">
+    <div class="store-header-inner">
+      <div class="flex items-center gap-4">
+        <a href="../../../index.html"><img src="../../../images/logo/Logo.svg" alt="" /></a>
+        <span class="hidden h-10 w-px bg-[#d9d9d9] sm:block"></span>
+        <nav class="hidden items-center gap-8 md:flex">
+          <a href="../../../index.html" class="flex items-center gap-2 text-[15px] font-medium text-[#2b2b2b]">
+            <img src="../../../images/Header/home 04.svg" alt="" />صفحه اصلی سایت
+          </a>
+          <button class="flex items-center gap-2 text-[15px] font-medium text-[#2b2b2b]">
+            <img src="../../../images/Header/grid 02.svg" alt="" />صفحات فروشگاه
+            <img src="../../../images/Header/direction-down 01.svg" alt="" />
+          </button>
+        </nav>
+      </div>
+      <div class="flex items-center gap-3 sm:gap-7" dir="ltr">
         <div class="flex items-center gap-3">
-            <div class="text-left leading-tight">
-                <div class="text-[11px] font-bold">نام فروشگاه</div>
-                <div class="text-[10px] text-gray-400">نام فروشنده</div>
-            </div>
-            <div class="w-9 h-9 bg-gray-900 rounded-full flex items-center justify-center text-white text-xs font-bold">
-                ●</div>
+          <div class="h-9 w-9 rounded-full bg-[#202020]"></div>
+          <div class="hidden leading-tight sm:block" dir="rtl">
+            <div class="text-[14px] font-medium">نام فروشگاه</div>
+            <div class="mt-1 text-[11px] text-[#777]">نام فروشنده</div>
+          </div>
         </div>
-    </header>
-
-    <main class="max-w-6xl mx-auto p-6 space-y-5">
-
-        <!-- Breadcrumb -->
-        <div class="flex items-center justify-end gap-2 text-[11px] text-gray-400">
-            <div class="flex items-center gap-1 hover:text-gray-600 cursor-pointer">جزئیات محصول <svg
-                    class="w-3 h-3 rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path d="M9 5l7 7-7 7"></path>
-                </svg></div>
-            <div class="flex items-center gap-1 hover:text-gray-600 cursor-pointer">محصولات <svg
-                    class="w-3 h-3 rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path d="M9 5l7 7-7 7"></path>
-                </svg></div>
-            <div class="flex items-center gap-1 hover:text-gray-600 cursor-pointer">فروشگاه <svg
-                    class="w-3 h-3 rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path d="M9 5l7 7-7 7"></path>
-                </svg></div>
-            <svg class="w-4 h-4 text-gray-800 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3">
-                </path>
-            </svg>
+        <div class="hidden items-center gap-3 sm:flex lg:gap-5">
+          <a href="../StoreDashboard_Notifications.html"
+            class="grid h-9 w-9 place-items-center rounded-lg hover:bg-[#f7f7f7]"><img
+              src="../../../images/Header/notification.svg" alt="" /></a>
+          <a href="../StoreDashboard_Messages.html"
+            class="grid h-9 w-9 place-items-center rounded-lg hover:bg-[#f7f7f7]"><img
+              src="../../../images/Header/mail.svg" alt="" /></a>
         </div>
+      </div>
+    </div>
+  </header>
 
-        <!-- Product Stats Horizontal Bar -->
+  <main class="store-shell mx-auto w-full max-w-[1200px] px-4 pb-32 pt-5 md:pb-16 md:pt-[54px] lg:px-0" role="main">
+
+    <nav class="mb-4 hidden items-center gap-2 text-[13px] text-[#777] md:flex">
+      <a href="StoreDashboard.html">
+        <svg class="size-5">
+          <use href="#icon-arrow-right"></use>
+        </svg>
+      </a>
+      <a href="../StoreDashboard.html" class="hover:text-[#aa4938]">فروشگاه</a>
+      <span>‹</span>
+      <a href="StoreDashboard_ProductsList.html" class="hover:text-[#aa4938]">محصولات</a>
+      <span>‹</span>
+      <span class="font-medium text-[#333]">جزئیات محصول</span>
+    </nav>
+
+    <!-- نوار آمار -->
+    <section class="rounded-[14px] border border-[#ececec] bg-white p-4 shadow-card md:p-5">
+      <div class="flex flex-wrap items-center gap-x-5 gap-y-3 text-[12px] text-[#555]">
+        <div class="flex items-center gap-2">
+          <span class="rounded-[4px] bg-[#dcf6e8] px-3 py-1.5 text-[11px] font-medium text-[#16864a]">منتشر</span>
+          <span class="rounded-[4px] bg-[#dcf6e8] px-3 py-1.5 text-[11px] font-medium text-[#16864a]">موجود</span>
+        </div>
+        <span class="hidden h-4 w-px bg-[#ddd] md:block"></span>
+        <div class="flex items-center gap-1.5"><svg class="h-4 w-4 text-[#999]">
+            <use href="#icon-box"></use>
+          </svg><span>موجودی:</span><b class="text-[#333]">۱۲۳ واحد</b></div>
+        <div class="flex items-center gap-1.5"><svg class="h-4 w-4 text-[#999]">
+            <use href="#icon-shopping-bag"></use>
+          </svg><span>کل سفارش‌ها:</span><b class="text-[#333]">۱۲۳ واحد</b></div>
+        <div class="flex items-center gap-1.5"><svg class="h-4 w-4 text-[#999]">
+            <use href="#icon-mail"></use>
+          </svg><span>پیام‌ها:</span><b class="text-[#333]">۱۲۳</b></div>
+        <div class="flex items-center gap-1.5"><svg class="h-4 w-4 text-[#999]">
+            <use href="#icon-star"></use>
+          </svg><span>نظرات:</span><b class="text-[#333]">۱۲۳</b></div>
+        <div class="flex items-center gap-1.5"><svg class="h-4 w-4 text-[#999]">
+            <use href="#icon-clock"></use>
+          </svg><span>آخرین به‌روزرسانی:</span><b class="text-[#333]">۱۴۰۴/۰۴/۰۴</b></div>
+      </div>
+    </section>
+
+    <!-- تب‌ها -->
+    <nav class="no-scrollbar mt-5 flex items-center overflow-x-auto border-b border-[#cfcfcf]">
+      <a href="StoreDashboard_ProductDetail_Info.html"
+        class="shrink-0 border-b-[3px] border-transparent px-5 py-3 text-[14px] text-[#333] hover:text-[#aa4938]">
+        مشخصات محصول
+      </a>
+      <a href="StoreDashboard_ProductDetail_Orders_List.html"
+        class="shrink-0 border-b-[3px] border-[#aa4938] px-5 py-3 text-[14px] font-medium text-[#aa4938]">
+        سفارش‌ها
+      </a>
+      <a href="StoreDashboard_ProductDetail_Reviews_List.html"
+        class="shrink-0 border-b-[3px] border-transparent px-5 py-3 text-[14px] text-[#333] hover:text-[#aa4938]">
+        نظرات
+      </a>
+      <a href="StoreDashboard_ProductDetail_Messages_Chat.html"
+        class="shrink-0 border-b-[3px] border-transparent px-5 py-3 text-[14px] text-[#333] hover:text-[#aa4938]">
+        پیام‌ها
+      </a>
+    </nav>
+
+    <!-- کارت اصلی سفارش‌ها -->
+    <section class="mt-5 rounded-[14px] bg-white p-4 shadow-card md:p-6">
+      <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+        <h2 class="text-[16px] font-medium">سفارش‌ها</h2>
         <div
-            class="bg-white rounded-xl p-3 px-5 custom-shadow border border-gray-50 flex flex-wrap items-center justify-between gap-4 text-[11px] text-gray-500">
-            <div class="flex items-center gap-1.5">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+          class="flex items-center  gap-2 overflow-x-auto border-t border-[#f0f0f0] pt-4 no-scrollbar  md:overflow-visible">
+          <div class="flex items-center gap-2">
+            <button type="button" data-open-filter class="md:hidden px-4 border py-2 rounded-full border-custom-brown">
+              <svg class="h-4 w-4 text-custom-brown" aria-hidden="true">
+                <use href="#icon-filter"></use>
+              </svg>
+            </button>
+            <!-- Sort -->
+            <div class="relative shrink-0" data-popup-wrap>
+              <button type="button" data-popup-trigger="popup-sort" class="store-chip">
+                <span id="sortChipLabel">مرتب‌سازی: جدیدترین</span>
+                <svg class="h-4 w-4" aria-hidden="true">
+                  <use href="#icon-chevron-down"></use>
                 </svg>
-                آخرین به‌روز رسانی: <span class="text-gray-800 font-medium">۱۴۰۴/۰۴/۰۴</span>
+              </button>
+
+              <div id="popup-sort" data-popup="sort"
+                class="store-popup absolute right-0 top-[46px] z-30 hidden w-[280px] md:w-[320px]">
+                <div class="drag-handle"></div>
+                <div class="store-popup-header">
+                  <span>مرتب‌سازی</span>
+                  <button type="button" data-close-popup aria-label="بستن">
+                    <svg class="h-5 w-5" aria-hidden="true">
+                      <use href="#icon-close"></use>
+                    </svg>
+                  </button>
+                </div>
+                <div class="space-y-4 px-6 py-5 text-[14px]">
+                  <label class="flex cursor-pointer items-center justify-between">
+                    <span>جدیدترین</span>
+                    <span class="flex">
+                      <input class="sr-only" type="radio" name="sort" value="latest" checked />
+                      <span class="store-radio-ui"></span>
+                    </span>
+                  </label>
+                  <label class="flex cursor-pointer items-center justify-between">
+                    <span>آخرین به‌روزرسانی</span>
+                    <span class="flex">
+                      <input class="sr-only" type="radio" name="sort" value="updated" />
+                      <span class="store-radio-ui"></span>
+                    </span>
+                  </label>
+                  <label class="flex cursor-pointer items-center justify-between">
+                    <span>ارزان‌ترین</span>
+                    <span class="flex">
+                      <input class="sr-only" type="radio" name="sort" value="cheap" />
+                      <span class="store-radio-ui"></span>
+                    </span>
+                  </label>
+                  <label class="flex cursor-pointer items-center justify-between">
+                    <span>گران‌ترین</span>
+                    <span class="flex">
+                      <input class="sr-only" type="radio" name="sort" value="expensive" />
+                      <span class="store-radio-ui"></span>
+                    </span>
+                  </label>
+                  <label class="flex cursor-pointer items-center justify-between">
+                    <span>بیشترین سفارش</span>
+                    <span class="flex">
+                      <input class="sr-only" type="radio" name="sort" value="orders" />
+                      <span class="store-radio-ui"></span>
+                    </span>
+                  </label>
+                </div>
+                <div class="store-popup-footer text-right">
+                  <button type="button" data-clear-sort>حذف فیلتر</button>
+                </div>
+              </div>
             </div>
-            <div class="flex items-center gap-1.5">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+
+            <!-- Status -->
+            <div class="relative shrink-0" data-popup-wrap>
+              <button type="button" data-popup-trigger="popup-status" class="store-chip">
+                <span id="statusChipLabel">وضعیت انتشار</span>
+                <svg class="h-4 w-4" aria-hidden="true">
+                  <use href="#icon-chevron-down"></use>
                 </svg>
-                نظرات: <span class="text-gray-800 font-medium font-mono">۱۲۳</span>
+              </button>
+
+              <div id="popup-status" data-popup="status"
+                class="store-popup absolute right-0 top-[46px] z-30 hidden w-[280px] md:w-[320px]">
+                <div class="drag-handle"></div>
+                <div class="store-popup-header">
+                  <span>وضعیت انتشار</span>
+                  <button type="button" data-close-popup aria-label="بستن">
+                    <svg class="h-5 w-5" aria-hidden="true">
+                      <use href="#icon-close"></use>
+                    </svg>
+                  </button>
+                </div>
+                <div class="space-y-4 px-6 py-5 text-[14px]">
+                  <label class="flex cursor-pointer items-center justify-between">
+                    <span>منتشر شده</span>
+                    <span class="flex"><input class="sr-only store-filter-checkbox" type="checkbox" data-filter="status"
+                        value="published" /><span class="store-check-ui"></span></span>
+                  </label>
+                  <label class="flex cursor-pointer items-center justify-between">
+                    <span>در انتظار تأیید</span>
+                    <span class="flex"><input class="sr-only store-filter-checkbox" type="checkbox" data-filter="status"
+                        value="pending" /><span class="store-check-ui"></span></span>
+                  </label>
+                  <label class="flex cursor-pointer items-center justify-between">
+                    <span>پیش‌نویس</span>
+                    <span class="flex"><input class="sr-only store-filter-checkbox" type="checkbox" data-filter="status"
+                        value="draft" /><span class="store-check-ui"></span></span>
+                  </label>
+                  <label class="flex cursor-pointer items-center justify-between">
+                    <span>متوقف</span>
+                    <span class="flex"><input class="sr-only store-filter-checkbox" type="checkbox" data-filter="status"
+                        value="stopped" /><span class="store-check-ui"></span></span>
+                  </label>
+                  <label class="flex cursor-pointer items-center justify-between">
+                    <span>رد شده</span>
+                    <span class="flex"><input class="sr-only store-filter-checkbox" type="checkbox" data-filter="status"
+                        value="rejected" /><span class="store-check-ui"></span></span>
+                  </label>
+                </div>
+                <div class="store-popup-footer text-right">
+                  <button type="button" data-clear="status">حذف فیلتر</button>
+                </div>
+              </div>
             </div>
-            <div class="flex items-center gap-1.5">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path
-                        d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z">
-                    </path>
+
+            <!-- Stock -->
+            <div class="relative shrink-0" data-popup-wrap>
+              <button type="button" data-popup-trigger="popup-stock" class="store-chip">
+                <span id="stockChipLabel">موجودی</span>
+                <svg class="h-4 w-4" aria-hidden="true">
+                  <use href="#icon-chevron-down"></use>
                 </svg>
-                پیام‌ها: <span class="text-gray-800 font-medium font-mono">۱۲۳</span>
+              </button>
+
+              <div id="popup-stock" data-popup="stock"
+                class="store-popup absolute right-0 top-[46px] z-30 hidden w-[280px] md:w-[320px]">
+                <div class="drag-handle"></div>
+                <div class="store-popup-header">
+                  <span>موجودی</span>
+                  <button type="button" data-close-popup aria-label="بستن">
+                    <svg class="h-5 w-5" aria-hidden="true">
+                      <use href="#icon-close"></use>
+                    </svg>
+                  </button>
+                </div>
+                <div class="space-y-4 px-6 py-5 text-[14px]">
+                  <label class="flex cursor-pointer items-center justify-between">
+                    <span>موجود</span>
+                    <span class="flex"><input class="sr-only store-filter-checkbox" type="checkbox" data-filter="stock"
+                        value="available" /><span class="store-check-ui"></span></span>
+                  </label>
+                  <label class="flex cursor-pointer items-center justify-between">
+                    <span>موجودی محدود</span>
+                    <span class="flex"><input class="sr-only store-filter-checkbox" type="checkbox" data-filter="stock"
+                        value="limited" /><span class="store-check-ui"></span></span>
+                  </label>
+                  <label class="flex cursor-pointer items-center justify-between">
+                    <span>ناموجود</span>
+                    <span class="flex"><input class="sr-only store-filter-checkbox" type="checkbox" data-filter="stock"
+                        value="unavailable" /><span class="store-check-ui"></span></span>
+                  </label>
+                </div>
+                <div class="store-popup-footer text-right">
+                  <button type="button" data-clear="stock">حذف فیلتر</button>
+                </div>
+              </div>
             </div>
-            <div class="flex items-center gap-1.5">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path
-                        d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z">
-                    </path>
-                </svg>
-                کل سفارش‌ها: <span class="text-gray-800 font-medium font-mono">۱۲۳ واحد</span>
-            </div>
-            <div class="flex items-center gap-1.5">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
-                </svg>
-                موجودی: <span class="text-gray-800 font-medium font-mono">۱۲۳ واحد</span>
-            </div>
-            <div class="flex items-center gap-1.5">
-                <span class="bg-blue-100 text-blue-600 px-3 py-1 rounded font-bold">موجود</span>
-                <span
-                    class="bg-green-50 text-green-600 px-3 py-1 rounded font-bold border border-green-100">منتشر</span>
-            </div>
+          </div>
+          <div class="flex items-center gap-3 text-[12px] text-[#666]">
+          <span>تعداد نتایج: <b id="ordersCount" class="font-medium text-[#333]">۰</b></span>
+          <span class="h-5 w-px bg-[#ddd]"></span>
+          <span>تعداد نمایش</span>
+          <select id="ordersPageSize" class="h-8 rounded-[5px] border border-[#ccc] bg-white px-2 outline-none">
+            <option value="6">۶</option>
+            <option value="10" selected>۱۰</option>
+            <option value="20">۲۰</option>
+          </select>
         </div>
-
-        <!-- Main Card Section -->
-        <div class="bg-white rounded-2xl custom-shadow border border-gray-100 overflow-hidden min-h-[500px]">
-            <!-- Tabs Menu -->
-            <div class="flex border-b text-[13px] font-bold text-gray-400">
-                <button class="px-8 py-4 hover:text-gray-600">مشخصات محصول</button>
-                <button class="px-8 py-4 text-brand-700 border-b-4 border-brand-700">سفارش‌ها</button>
-                <button class="px-8 py-4 hover:text-gray-600">نظرات</button>
-                <button class="px-8 py-4 hover:text-gray-600">پیام‌ها</button>
-            </div>
-
-            <!-- Content Area -->
-            <div class="p-6">
-                <!-- Toolbar Area -->
-                <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
-                    <h2 class="text-lg font-bold">سفارش‌ها</h2>
-                    <div class="flex flex-wrap gap-2 items-center text-xs">
-                        <div class="flex items-center gap-2 text-gray-400 ml-4">
-                            <span>تعداد نتایج: <strong class="text-gray-700" id="resultsCount">۱۲۳</strong></span>
-                            <span class="mx-1">|</span>
-                            <span>تعداد نمایش:</span>
-                            <select class="bg-gray-50 border rounded px-1.5 py-0.5 outline-none font-bold">
-                                <option>۱۰</option>
-                            </select>
-                        </div>
-                        <!-- Filter Chips -->
-                        <div class="flex items-center gap-2">
-                            <button
-                                class="bg-gray-50 border border-gray-200 rounded-full px-4 py-1.5 flex items-center gap-2 hover:bg-gray-100">
-                                <span>مرتب‌سازی: جدیدترین</span>
-                                <svg class="w-3.5 h-3.5 text-gray-400" fill="none" stroke="currentColor"
-                                    viewBox="0 0 24 24">
-                                    <path d="M19 9l-7 7-7-7"></path>
-                                </svg>
-                            </button>
-                            <button
-                                class="bg-gray-50 border border-gray-200 rounded-full px-4 py-1.5 flex items-center gap-2">
-                                <span>وضعیت سفارش</span>
-                                <svg class="w-3.5 h-3.5 text-gray-400" fill="none" stroke="currentColor"
-                                    viewBox="0 0 24 24">
-                                    <path d="M19 9l-7 7-7-7"></path>
-                                </svg>
-                            </button>
-                            <button
-                                class="bg-gray-50 border border-gray-200 rounded-full px-4 py-1.5 flex items-center gap-2">
-                                <span>بازه زمانی ثبت</span>
-                                <svg class="w-3.5 h-3.5 text-gray-400" fill="none" stroke="currentColor"
-                                    viewBox="0 0 24 24">
-                                    <path d="M19 9l-7 7-7-7"></path>
-                                </svg>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- ORDERS LIST VIEW (تصویر ۲) -->
-                <div id="ordersList" class="">
-                    <table class="w-full text-center border-collapse">
-                        <thead>
-                            <tr class="text-gray-800 font-bold border-b">
-                                <th class="pb-4 font-bold">شماره سفارش</th>
-                                <th class="pb-4 font-bold">تاریخ</th>
-                                <th class="pb-4 font-bold">مبلغ (تومان)</th>
-                                <th class="pb-4 font-bold">مقدار (واحد)</th>
-                                <th class="pb-4 font-bold">وضعیت</th>
-                                <th class="pb-4 font-bold w-20"></th>
-                            </tr>
-                        </thead>
-                        <tbody class="text-[12px] text-gray-600">
-                            <!-- Row 1 -->
-                            <tr class="border-b border-gray-50 hover:bg-gray-50 transition-colors">
-                                <td class="py-4">۱۲۳۴۶۷</td>
-                                <td class="py-4">۱۴۰۴/۰۴/۰۴</td>
-                                <td class="py-4 font-medium text-gray-800 font-mono">۱۲۵.۰۰۰.۰۰۰</td>
-                                <td class="py-4 font-medium text-gray-800 font-mono">۱۲۵</td>
-                                <td class="py-4"><span
-                                        class="bg-red-50 text-red-700 px-3 py-1 rounded font-bold text-[10px]">در انتظار
-                                        بررسی</span></td>
-                                <td class="py-4"><button
-                                        class="text-gray-400 hover:text-gray-800 font-bold">جزئیات</button></td>
-                            </tr>
-                            <!-- Row 2 -->
-                            <tr class="border-b border-gray-50 hover:bg-gray-50 transition-colors">
-                                <td class="py-4">۱۲۳۴۶۷</td>
-                                <td class="py-4">۱۴۰۴/۰۴/۰۴</td>
-                                <td class="py-4 font-medium text-gray-800 font-mono">۱۲۵.۰۰۰.۰۰۰</td>
-                                <td class="py-4 font-medium text-gray-800 font-mono">۱۲۵</td>
-                                <td class="py-4"><span
-                                        class="bg-blue-50 text-blue-600 px-3 py-1 rounded font-bold text-[10px]">در حال
-                                        آماده‌سازی</span></td>
-                                <td class="py-4"><button
-                                        class="text-gray-400 hover:text-gray-800 font-bold">جزئیات</button></td>
-                            </tr>
-                            <!-- Row 3 (Success) -->
-                            <tr class="border-b border-gray-50 hover:bg-gray-50 transition-colors">
-                                <td class="py-4">۱۲۳۴۶۷</td>
-                                <td class="py-4">۱۴۰۴/۰۴/۰۴</td>
-                                <td class="py-4 font-medium text-gray-800 font-mono">۱۲۵.۰۰۰.۰۰۰</td>
-                                <td class="py-4 font-medium text-gray-800 font-mono">۱۲۵</td>
-                                <td class="py-4"><span
-                                        class="bg-green-50 text-green-600 px-3 py-1 rounded font-bold text-[10px]">ارسال
-                                        شد</span></td>
-                                <td class="py-4"><button
-                                        class="text-gray-400 hover:text-gray-800 font-bold">جزئیات</button></td>
-                            </tr>
-                            <!-- Row 4 (Canceled) -->
-                            <tr class="border-b border-gray-50 hover:bg-gray-50 transition-colors">
-                                <td class="py-4">۱۲۳۴۶۷</td>
-                                <td class="py-4">۱۴۰۴/۰۴/۰۴</td>
-                                <td class="py-4 font-medium text-gray-800 font-mono">۱۲۵.۰۰۰.۰۰۰</td>
-                                <td class="py-4 font-medium text-gray-800 font-mono">۱۲۵</td>
-                                <td class="py-4"><span
-                                        class="bg-rose-100 text-rose-700 px-3 py-1 rounded font-bold text-[10px]">لغو
-                                        شد</span></td>
-                                <td class="py-4"><button
-                                        class="text-gray-400 hover:text-gray-800 font-bold">جزئیات</button></td>
-                            </tr>
-                        </tbody>
-                    </table>
-
-                    <!-- Table Pagination -->
-                    <div class="flex justify-center mt-10 gap-2">
-                        <button
-                            class="w-7 h-7 rounded-full border border-gray-200 flex items-center justify-center text-gray-400 hover:bg-gray-50"><svg
-                                class="w-4 h-4 rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path d="M9 5l7 7-7 7"></path>
-                            </svg></button>
-                        <button
-                            class="w-7 h-7 rounded-full bg-brand-700 text-white flex items-center justify-center font-bold">۱</button>
-                        <button class="w-7 h-7 rounded-full text-gray-400 hover:bg-gray-50">۲</button>
-                        <button class="w-7 h-7 rounded-full text-gray-400 hover:bg-gray-50">۳</button>
-                        <button class="w-7 h-7 rounded-full text-gray-400 hover:bg-gray-50">۴</button>
-                        <button class="w-7 h-7 rounded-full text-gray-400 hover:bg-gray-50">۵</button>
-                        <button
-                            class="w-7 h-7 rounded-full border border-gray-200 flex items-center justify-center text-gray-400 hover:bg-gray-50"><svg
-                                class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path d="M9 5l7 7-7 7"></path>
-                            </svg></button>
-                    </div>
-                </div>
-
-                <!-- EMPTY STATE VIEW (تصویر ۱) -->
-                <!-- برای نمایش این بخش کلاس hidden را از والد پایین بردار و به والد بالا اضافه کن -->
-                <div id="emptyOrders" class="hidden flex flex-col items-center justify-center py-20 animate-fade-in">
-                    <div class="relative mb-6">
-                        <!-- Illustration Placeholder -->
-                        <div
-                            class="w-48 h-48 bg-gray-50 rounded-full flex items-center justify-center border border-dashed border-gray-200">
-                            <img src="empty-orders-vector.png" alt="No orders" class="opacity-60 scale-110">
-                        </div>
-                    </div>
-                    <p class="text-gray-500 font-bold text-center">برای این محصول تاکنون سفارشی ثبت نشده است.</p>
-                </div>
-
-            </div>
         </div>
-    </main>
+        
+      </div>
 
-    <script>
-        // Example logic for switching between empty and list states (for demonstration)
-        function toggleState(isEmpty) {
-            const list = document.getElementById('ordersList');
-            const empty = document.getElementById('emptyOrders');
-            const count = document.getElementById('resultsCount');
+      <!-- جدول دسکتاپ -->
+      <div class="mt-5 hidden overflow-x-auto rounded-[10px] border border-[#d8d8d8] md:block">
+        <table class="w-full min-w-[760px] border-collapse text-right">
+          <thead class="bg-[#f5f5f5] text-[12px] font-medium text-[#444]">
+            <tr class="h-[54px]">
+              <th class="px-5">شماره سفارش</th>
+              <th class="px-5">تاریخ</th>
+              <th class="px-5">مبلغ (تومان)</th>
+              <th class="px-5">مقدار (واحد)</th>
+              <th class="px-5">وضعیت</th>
+              <th class="px-5"></th>
+            </tr>
+          </thead>
+          <tbody id="ordersRows" class="text-[12px]"></tbody>
+        </table>
+      </div>
 
-            if (isEmpty) {
-                list.classList.add('hidden');
-                empty.classList.remove('hidden');
-                count.innerText = '۰';
-            } else {
-                list.classList.remove('hidden');
-                empty.classList.add('hidden');
-                count.innerText = '۱۲۳';
-            }
-        }
-    </script>
+      <!-- کارت موبایل -->
+      <div id="ordersCards" class="mt-5 space-y-3 md:hidden"></div>
+
+      <!-- Empty -->
+      <div id="ordersEmpty" class="store-empty hidden">
+        <img src="../../../images/StoreDashboard/Orders/empty-orders.svg" alt="بدون سفارش" />
+        <p>برای این محصول تاکنون سفارشی ثبت نشده است.</p>
+      </div>
+
+      <div id="ordersPagination" class="mt-6 flex items-center justify-center gap-2 text-[12px]" dir="ltr"></div>
+    </section>
+  </main>
+
+  <nav class="fixed bottom-0 left-0 right-0 z-40 border-t border-[#dedede] bg-white md:hidden">
+    <ul class="store-bottom-nav w-full flex items-center justify-between pb-3">
+      <li class="flex-1 flex flex-col items-center justify-center gap-1 pt-3 text-[#333]">
+        <img src="../../../images/ShopDashboard/botton/store.svg" alt="" class="h-6 w-6" />
+        <a href="../StoreDashboard.html" class="text-[11px]">فروشگاه من</a>
+      </li>
+      <li class="flex-1 flex flex-col items-center justify-center gap-1 pt-3 text-custom-brown active">
+        <img src="../../../images/ShopDashboard/botton/bag 01.svg" alt="" class="h-6 w-6" />
+        <a href="StoreDashboard_ProductsList.html" class="text-[11px]">محصولات</a>
+      </li>
+      <li class="flex-1 flex flex-col items-center justify-center gap-1 pt-3 text-[#333]">
+        <img src="../../../images/ShopDashboard/botton/cart 01.svg" alt="" class="h-6 w-6" />
+        <a href="../Orders/StoreDashboard_Orders_List.html" class="text-[11px]">سفارش‌ها</a>
+      </li>
+      <li class="flex-1 flex flex-col items-center justify-center gap-1 pt-3 text-[#333]">
+        <img src="../../../images/ShopDashboard/botton/mail.svg" alt="" class="h-6 w-6" />
+        <a href="../StoreDashboard_Messages.html" class="text-[11px]">پیام‌ها</a>
+      </li>
+      <li class="flex-1 flex flex-col items-center justify-center gap-1 pt-3 text-[#333]">
+        <img src="../../../images/ShopDashboard/botton/menu-line-horizontal.svg" alt="" class="h-6 w-6" />
+        <a href="../StoreDashboard_Profile_Filled.html" class="text-[11px]">سایر</a>
+      </li>
+    </ul>
+  </nav>
+
+  <div id="popupOverlay" class="fixed inset-0 z-[100] hidden bg-black/30"></div>
+  <div id="toast"
+    class="pointer-events-none fixed bottom-24 left-1/2 z-[999] hidden -translate-x-1/2 rounded-[8px] bg-[#333] px-5 py-3 text-[13px] text-white shadow-lg md:bottom-6"
+    role="status"></div>
+
+  <script src="../../scripts/StoreDashboard/store-common.js"></script>
+  <script src="../../scripts/StoreDashboard/store-product-detail.js"></script>
 </body>
 
 </html>

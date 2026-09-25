@@ -1,0 +1,449 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>وضعیت درخواست | پنل فروشگاه جورک</title>
+    <meta name="description" content="مشاهده وضعیت درخواست ثبت فروشگاه در پنل فروشنده." />
+    <link rel="stylesheet" href="../../styles/output.css" />
+    <link rel="stylesheet" href="../../styles/store-common.css" />
+
+    <style>
+        /* حالت‌های وضعیت */
+        .status-icon-wrap {
+            width: 96px;
+            height: 96px;
+            display: grid;
+            place-items: center;
+            border-radius: 50%;
+            background: #fff5f3;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .status-info-box {
+            background: #fbf2f0;
+            border-radius: 10px;
+            padding: 16px 20px;
+            font-size: 13px;
+            line-height: 2;
+            color: #4a4a4a;
+            text-align: justify;
+        }
+
+        .status-info-row {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            padding: 8px;
+        }
+
+        .status-info-row .label {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            color: #777;
+        }
+
+        .status-info-row .value {
+            font-size: 13px;
+            font-weight: 500;
+            color: #252525;
+        }
+
+        /* سایدبار دسکتاپ */
+        .status-sidebar {
+            position: sticky;
+            top: 16px;
+            border-radius: 12px;
+            background: #fff;
+            padding: 0;
+            height: fit-content;
+            overflow: hidden;
+            border: 1px solid #ececec;
+        }
+
+        .status-sidebar-header {
+            padding: 20px;
+            border-bottom: 1px solid #ececec;
+            text-align: center;
+        }
+
+        .status-sidebar-menu li {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 22px;
+            font-size: 14px;
+            color: #333;
+            cursor: pointer;
+            border-bottom: 1px solid #f4f4f4;
+            transition: background .15s;
+        }
+
+        .status-sidebar-menu li:hover {
+            background: #fafafa;
+        }
+
+        .status-sidebar-menu li.active {
+            background: #fbf2f0;
+            color: #aa4938;
+            border-right: 3px solid #aa4938;
+            font-weight: 500;
+        }
+
+        .status-sidebar-menu li svg,
+        .status-sidebar-menu li img {
+            width: 20px;
+            height: 20px;
+            flex-shrink: 0;
+        }
+
+        .status-sidebar-menu li .badge-count {
+            margin-right: auto;
+            width: 18px;
+            height: 18px;
+            display: grid;
+            place-items: center;
+            border-radius: 999px;
+            background: #d22121;
+            color: #fff;
+            font-size: 10px;
+        }
+
+        /* Drawer موبایل */
+        .mobile-side-drawer {
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            width: 280px;
+            max-width: 85vw;
+            background: #fff;
+            z-index: 60;
+            transform: translateX(100%);
+            transition: transform .25s ease;
+            box-shadow: -8px 0 30px rgba(0, 0, 0, .12);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .mobile-side-drawer.open {
+            transform: translateX(0);
+        }
+
+        .drawer-backdrop {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, .35);
+            z-index: 55;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity .25s ease;
+        }
+
+        .drawer-backdrop.open {
+            opacity: 1;
+            pointer-events: auto;
+        }
+    </style>
+</head>
+
+<body class="store-dashboard-page min-h-screen bg-[#f3f3f3] text-[#252525] font-IRANSansXRegular antialiased">
+
+    <!-- SVG SPRITE -->
+    <svg class="hidden" aria-hidden="true" focusable="false">
+        <symbol id="icon-menu" viewBox="0 0 24 24" fill="none">
+            <path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+        </symbol>
+        <symbol id="icon-close" viewBox="0 0 24 24" fill="none">
+            <path d="M6 6l12 12M18 6 6 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+        </symbol>
+        <symbol id="icon-bell" viewBox="0 0 24 24" fill="none">
+            <path
+                d="M15.5 7.5a5.5 5.5 0 0 0-11 0c0 1.4-.4 2.7-1 3.8a2.2 2.2 0 0 0 1 3.1c1.7.7 3.6 1 5.5 1s3.8-.3 5.5-1a2.2 2.2 0 0 0 1-3.1c-.6-1.1-1-2.4-1-3.8Zm-8 9.5a2.5 2.5 0 0 0 5 0"
+                stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+        </symbol>
+        <symbol id="icon-doc" viewBox="0 0 24 24" fill="none">
+            <path d="M6 2h9l4 4v16H6V2Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" />
+            <path d="M14 2v5h5M9 12h6M9 16h6M9 8h3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
+        </symbol>
+        <symbol id="icon-setting" viewBox="0 0 24 24" fill="none">
+            <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.6" />
+            <path
+                d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.9.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.9 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.9l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.9.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.9-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.9V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1Z"
+                stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" />
+        </symbol>
+        <symbol id="icon-headset" viewBox="0 0 24 24" fill="none">
+            <path d="M4 14v-2a8 8 0 0 1 16 0v2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
+            <rect x="2" y="14" width="4" height="6" rx="1.5" stroke="currentColor" stroke-width="1.6" />
+            <rect x="18" y="14" width="4" height="6" rx="1.5" stroke="currentColor" stroke-width="1.6" />
+        </symbol>
+        <symbol id="icon-logout" viewBox="0 0 24 24" fill="none">
+            <path d="M15 4h3a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-3" stroke="currentColor" stroke-width="1.6"
+                stroke-linecap="round" stroke-linejoin="round" />
+            <path d="m10 8-4 4 4 4M6 12h10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
+                stroke-linejoin="round" />
+        </symbol>
+        <symbol id="icon-chevron-left" viewBox="0 0 24 24" fill="none">
+            <path d="M15 6l-6 6 6 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
+                stroke-linejoin="round" />
+        </symbol>
+        <symbol id="icon-clock-circle" viewBox="0 0 24 24" fill="none">
+            <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6" />
+            <path d="M12 7v5l3 2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
+        </symbol>
+        <symbol id="icon-calendar" viewBox="0 0 24 24" fill="none">
+            <rect x="3" y="5" width="18" height="16" rx="2" stroke="currentColor" stroke-width="1.6" />
+            <path d="M8 3v4M16 3v4M3 10h18" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
+        </symbol>
+        <symbol id="icon-ticket" viewBox="0 0 24 24" fill="none">
+            <rect x="3" y="8" width="18" height="12" rx="2" stroke="currentColor" stroke-width="1.6" />
+            <path d="M3 12h18" stroke="currentColor" stroke-width="1.6" />
+            <circle cx="8" cy="16" r="1" fill="currentColor" />
+        </symbol>
+        <symbol id="icon-info-circle" viewBox="0 0 24 24" fill="none">
+            <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6" />
+            <path d="M12 11v5M12 8h.01" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+        </symbol>
+        <symbol id="icon-arrow-right" viewBox="0 0 24 24" fill="none">
+            <path d="m10 17 5-5-5-5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
+                stroke-linejoin="round" />
+        </symbol>
+    </svg>
+
+    <!-- ============ HEADER دسکتاپ ============ -->
+    <header class="store-desktop-header hidden md:block mb-8" role="banner">
+        <div class="store-header-inner">
+            <div class="flex items-center gap-4">
+                <a href="../../index.html"><img src="../../images/logo/Logo.svg" alt="لوگو" /></a>
+                <span class="hidden h-10 w-px bg-[#d9d9d9] sm:block"></span>
+                <nav class="hidden items-center gap-8 md:flex">
+                    <a href="../../index.html" class="flex items-center gap-2 text-[15px] font-medium text-[#2b2b2b]">
+                        <img src="../../images/Header/home 04.svg" alt="" />صفحه اصلی سایت
+                    </a>
+                    <button class="flex items-center gap-2 text-[15px] font-medium text-[#2b2b2b]">
+                        <img src="../../images/Header/grid 02.svg" alt="" />صفحات فروشگاه
+                        <img src="../../images/Header/direction-down 01.svg" alt="" />
+                    </button>
+                </nav>
+            </div>
+            <div class="flex items-center gap-3 sm:gap-7" dir="ltr">
+                <div class="flex items-center gap-3">
+                    <div class="h-9 w-9 rounded-full bg-[#202020]"></div>
+                    <div class="hidden leading-tight sm:block" dir="rtl">
+                        <div class="text-[14px] font-medium">نام فروشگاه</div>
+                        <div class="mt-1 text-[11px] text-[#777]">نام فروشنده</div>
+                    </div>
+                </div>
+                <div class="hidden items-center gap-3 sm:flex lg:gap-5">
+                    <a href="StoreDashboard_Notifications.html"
+                        class="grid h-9 w-9 place-items-center rounded-lg hover:bg-[#f7f7f7]"><img
+                            src="../../images/Header/notification.svg" alt="" /></a>
+                    <a href="StoreDashboard_Messages.html"
+                        class="grid h-9 w-9 place-items-center rounded-lg hover:bg-[#f7f7f7]"><img
+                            src="../../images/Header/mail.svg" alt="" /></a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+
+    <!-- ============ MAIN ============ -->
+    <main class="store-shell mx-auto w-full max-w-[1200px] px-4 pb-24 pt-5 md:pt-[54px] lg:px-0" role="main">
+
+
+
+        <div class="flex flex-col gap-0 md:mt-8 md:flex-row md:gap-x-6">
+
+            <!-- ============ SIDEBAR دسکتاپ ============ -->
+            <aside class="status-sidebar hidden w-[240px] shrink-0 lg:block" aria-label="منوی کناری">
+                <div class="status-sidebar-header">
+                    <div class="text-[16px] font-semibold text-[#252525]">نام فروشگاه</div>
+                    <div class="mt-1 text-[12px] text-[#999]" dir="ltr">۰۹۱۲۱۲۳۴۵۶۷</div>
+
+                    <a href="../user_dashboard/dashboard.html"
+                        class="mt-4 flex items-center justify-between rounded-full border border-[#dcdcdc] px-4 py-2 text-[12px] text-[#333] hover:border-[#aa4938] hover:text-[#aa4938] transition">
+                        <span>انتقال به حساب شخصی</span>
+                        <svg class="h-4 w-4">
+                            <use href="#icon-chevron-left"></use>
+                        </svg>
+                    </a>
+                </div>
+
+                <ul class="status-sidebar-menu">
+                    <li class="active">
+                        <svg aria-hidden="true">
+                            <use href="#icon-doc"></use>
+                        </svg>
+                        <a href="StoreDashboard_RequestStatus.html">وضعیت درخواست</a>
+                    </li>
+                    <li>
+                        <svg aria-hidden="true">
+                            <use href="#icon-bell"></use>
+                        </svg>
+                        <a href="StoreDashboard_Notifications.html">اعلان‌ها</a>
+                        <span class="badge-count">۱</span>
+                    </li>
+                    <li>
+                        <svg aria-hidden="true">
+                            <use href="#icon-doc"></use>
+                        </svg>
+                        <a href="StoreDashboard_Profile_Filled.html">اطلاعات فروشگاه</a>
+                    </li>
+                    <li>
+                        <svg aria-hidden="true">
+                            <use href="#icon-setting"></use>
+                        </svg>
+                        <a href="StoreDashboard_Profile_Filled.html">تنظیمات</a>
+                    </li>
+                    <li>
+                        <svg aria-hidden="true">
+                            <use href="#icon-headset"></use>
+                        </svg>
+                        <a href="#">تماس با پشتیبانی</a>
+                    </li>
+                    <li>
+                        <svg aria-hidden="true">
+                            <use href="#icon-logout"></use>
+                        </svg>
+                        <a href="../store_registration/login/login.html">خروج از حساب کاربری</a>
+                    </li>
+                </ul>
+            </aside>
+
+            <!-- ============ محتوای اصلی ============ -->
+            <div class="min-w-0 flex-1 space-y-5">
+                <!-- عنوان دسکتاپ -->
+                <section class="store-page-title-card mb-6 hidden md:flex">
+                    <h1 class="store-title font-IRANSansXMedium">وضعیت درخواست</h1>
+                </section>
+
+                <!-- ============ کارت وضعیت اصلی ============ -->
+                <section class="rounded-[14px] bg-white p-6 shadow-card md:p-10">
+                    <div id="statusContent"></div>
+                </section>
+
+                <!-- ============ توضیحات کارشناس آجرک ============ -->
+                <section id="expertBox" class="rounded-[14px] bg-white p-5 shadow-card md:p-7 hidden">
+                    <h2 class="mb-4 text-[16px] font-medium text-[#252525]">توضیحات کارشناس آجرک</h2>
+
+                    <div class="status-info-box" id="expertText"></div>
+
+                    <div class="mt-5 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+                        <!-- دکمه ویرایش -->
+                        <a href="StoreDashboard_Profile_Filled.html"
+                            class="inline-flex h-[44px] w-full items-center justify-center rounded-[8px] bg-[#aa4938] px-6 text-[13px] font-medium text-white transition hover:bg-[#934033] md:w-auto md:order-2">
+                            ویرایش اطلاعات
+                        </a>
+
+                        <!-- توضیح با آیکون -->
+                        <div class="flex items-start gap-2 text-[12px] leading-6 text-[#666] md:order-1 md:max-w-[60%]">
+                            <svg class="mt-1 h-5 w-5 shrink-0 text-[#aa4938]">
+                                <use href="#icon-info-circle"></use>
+                            </svg>
+                            <span>پس از اعمال تغییرات مورد نظر، می‌توانید درخواست خود را مجددا برای بررسی ارسال
+                                کنید.</span>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ============ نیاز به پیگیری؟ ============ -->
+                <section class="rounded-[14px] bg-white p-5 shadow-card md:p-7">
+                    <h2 class="mb-4 text-[16px] font-medium text-[#252525]">نیاز به پیگیری دارید؟</h2>
+
+                    <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+                        <a href="#"
+                            class="inline-flex h-[44px] w-full items-center justify-center rounded-[8px] border border-[#aa4938] bg-white px-6 text-[13px] font-medium text-[#aa4938] transition hover:bg-[#fbf2ef] md:w-auto md:order-2">
+                            تماس با پشتیبانی
+                        </a>
+
+                        <p class="text-[12px] leading-6 text-[#666] md:order-1 md:max-w-[60%]">
+                            اگر سوالی دارید یا نیاز به راهنمایی بیشتری دارید، تیم پشتیبانی آجرک آماده پاسخگویی به شماست.
+                        </p>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <!-- ============ Drawer موبایل ============ -->
+    <div id="drawerBackdrop" class="drawer-backdrop"></div>
+    <aside id="mobileDrawer" class="mobile-side-drawer" aria-label="منوی کناری">
+        <div class="flex items-center justify-between border-b border-[#ececec] px-5 py-4">
+            <div>
+                <div class="text-[15px] font-semibold">نام فروشگاه</div>
+                <div class="mt-1 text-[11px] text-[#999]" dir="ltr">۰۹۱۲۱۲۳۴۵۶۷</div>
+            </div>
+            <button type="button" id="closeDrawerBtn" class="grid h-9 w-9 place-items-center rounded-md"
+                aria-label="بستن">
+                <svg class="h-5 w-5">
+                    <use href="#icon-close"></use>
+                </svg>
+            </button>
+        </div>
+
+        <div class="px-5 py-4">
+            <a href="../user_dashboard/dashboard.html"
+                class="flex items-center justify-between rounded-full border border-[#dcdcdc] px-4 py-2 text-[12px] text-[#333]">
+                <span>انتقال به حساب شخصی</span>
+                <svg class="h-4 w-4">
+                    <use href="#icon-chevron-left"></use>
+                </svg>
+            </a>
+        </div>
+
+        <ul class="status-sidebar-menu flex-1 overflow-y-auto">
+            <li class="active">
+                <svg aria-hidden="true">
+                    <use href="#icon-doc"></use>
+                </svg>
+                <a href="StoreDashboard_RequestStatus.html">وضعیت درخواست</a>
+            </li>
+            <li>
+                <svg aria-hidden="true">
+                    <use href="#icon-bell"></use>
+                </svg>
+                <a href="StoreDashboard_Notifications.html">اعلان‌ها</a>
+                <span class="badge-count">۱</span>
+            </li>
+            <li>
+                <svg aria-hidden="true">
+                    <use href="#icon-doc"></use>
+                </svg>
+                <a href="StoreDashboard_Profile_Filled.html">اطلاعات فروشگاه</a>
+            </li>
+            <li>
+                <svg aria-hidden="true">
+                    <use href="#icon-setting"></use>
+                </svg>
+                <a href="StoreDashboard_Profile_Filled.html">تنظیمات</a>
+            </li>
+            <li>
+                <svg aria-hidden="true">
+                    <use href="#icon-headset"></use>
+                </svg>
+                <a href="#">تماس با پشتیبانی</a>
+            </li>
+            <li>
+                <svg aria-hidden="true">
+                    <use href="#icon-logout"></use>
+                </svg>
+                <a href="../store_registration/login/login.html">خروج از حساب کاربری</a>
+            </li>
+        </ul>
+    </aside>
+
+    <div id="popupOverlay" class="fixed inset-0 z-[100] hidden bg-black/30"></div>
+    <div id="toast"
+        class="pointer-events-none fixed bottom-6 left-1/2 z-[999] hidden -translate-x-1/2 rounded-[8px] bg-[#333] px-5 py-3 text-[13px] text-white shadow-lg"
+        role="status"></div>
+
+    <script src="../../scripts/StoreDashboard/store-common.js"></script>
+    <script src="../../scripts/StoreDashboard/store-request-status.js"></script>
+</body>
+
+</html>

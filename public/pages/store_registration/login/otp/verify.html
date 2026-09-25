@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>تأیید شماره موبایل</title>
+    <link rel="stylesheet" href="../../../../styles/output.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Vazirmatn', 'Tahoma', 'sans-serif'],
+                    },
+                    colors: {
+                        brick: {
+                            DEFAULT: '#a24f39',
+                            dark: '#8c3f2c',
+                            light: '#f6e3de',
+                            lighter: '#e0ab9e',
+                        },
+                        panel: '#eeeeee',
+                        idle: '#dedad6',
+                    },
+                },
+            },
+        };
+    </script>
+</head>
+
+<body class="font-sans bg-panel text-[#1c1b1a] min-h-screen flex items-center justify-center p-4 md:p-8">
+
+    <div
+        class="w-full max-w-[920px] min-h-[420px] bg-white rounded-2xl overflow-hidden shadow-sm flex flex-col md:flex-row">
+
+        <!-- ستون فرم -->
+        <div class="flex-none md:basis-[42%] w-full flex flex-col p-8 md:p-11">
+            <div class="flex items-center gap-2 mb-2.5">
+                <h1 class="text-xl font-bold">تأیید شماره موبایل</h1>
+                <span class="text-lg">→</span>
+            </div>
+
+            <p class="text-[13.5px] leading-[1.9] text-[#6f6b68] mb-6">
+                کد تایید به شماره
+                <b id="mobileShown" dir="ltr" class="text-[#1c1b1a] font-semibold inline-block">۰۹۱۲۱۲۳۴۵۶۷</b>
+                ارسال شده. کد را وارد نمایید.
+            </p>
+
+            <div id="otpRow" class="flex gap-3 mb-2" dir="ltr">
+                <input
+                    class="otp-box w-14 h-14 rounded-[10px] border-[1.5px] border-idle text-center text-xl outline-none transition-colors"
+                    type="tel" inputmode="numeric" maxlength="1" data-idx="0" />
+                <input
+                    class="otp-box w-14 h-14 rounded-[10px] border-[1.5px] border-idle text-center text-xl outline-none transition-colors"
+                    type="tel" inputmode="numeric" maxlength="1" data-idx="1" />
+                <input
+                    class="otp-box w-14 h-14 rounded-[10px] border-[1.5px] border-idle text-center text-xl outline-none transition-colors"
+                    type="tel" inputmode="numeric" maxlength="1" data-idx="2" />
+                <input
+                    class="otp-box w-14 h-14 rounded-[10px] border-[1.5px] border-idle text-center text-xl outline-none transition-colors"
+                    type="tel" inputmode="numeric" maxlength="1" data-idx="3" />
+            </div>
+
+            <div id="otpMsg" class="min-h-[18px] text-[12.5px] text-red-600 my-1.5"></div>
+
+            <div class="mb-1.5">
+                <a href="login.html" class="text-[13px] font-semibold text-brick-dark hover:underline">ویرایش شماره</a>
+            </div>
+
+            <div class="text-[12.5px] text-[#6f6b68] mb-5">
+                ارسال مجدد کد: <span id="resendTimer">۲:۲۸</span>
+                <a href="#" id="resendLink"
+                    class="font-semibold text-[#6f6b68] pointer-events-none cursor-default">ارسال مجدد کد</a>
+            </div>
+
+            <button type="button" id="verifyBtn" disabled
+                class="w-full h-12 rounded-[10px] text-[15px] font-semibold transition-colors bg-brick-light text-brick-lighter cursor-not-allowed mt-1">تایید</button>
+
+            <div class="mt-5 text-center text-[12.5px] text-brick-dark">
+                <a href="login.html" class="hover:underline">راهنمای ثبت نام</a>
+                <span class="text-[#d8d4d0] mx-2.5">|</span>
+                <a href="#" class="hover:underline">تماس با پشتیبانی</a>
+            </div>
+        </div>
+
+        <!-- ستون تصویر -->
+        <div class="flex-1 relative bg-[#121212] min-h-[200px] overflow-hidden">
+            <img src="../../../../images/" alt="">
+        </div>
+
+    </div>
+
+    <script src="validator.js"></script>
+    <script>
+        (function () {
+            const boxes = Array.from(document.querySelectorAll('.otp-box'));
+            const otpMsg = document.getElementById('otpMsg');
+            const verifyBtn = document.getElementById('verifyBtn');
+            const resendTimer = document.getElementById('resendTimer');
+            const resendLink = document.getElementById('resendLink');
+            const mobileShown = document.getElementById('mobileShown');
+
+            const params = new URLSearchParams(window.location.search);
+            const mobileFromQuery = params.get('mobile');
+            if (mobileFromQuery) {
+                mobileShown.textContent = Validator.toPersianDigits(mobileFromQuery);
+            }
+
+            const DEMO_CORRECT_CODE = '1234';
+
+            const BORDER_IDLE = 'border-idle';
+            const BORDER_TYPING = 'border-red-600';
+            const BORDER_SUCCESS = 'border-emerald-600';
+            const TEXT_SUCCESS = 'text-emerald-600';
+            const BORDER_ERROR = 'border-red-600';
+
+            function clearStates() {
+                boxes.forEach(b => {
+                    b.classList.remove(BORDER_TYPING, BORDER_SUCCESS, TEXT_SUCCESS, BORDER_ERROR);
+                    b.classList.add(BORDER_IDLE);
+                });
+            }
+
+            function getDigits() {
+                return boxes.map(b => Validator.digitsOnly(b.value));
+            }
+
+            function setVerifyBtnState(active) {
+                if (active) {
+                    verifyBtn.disabled = false;
+                    verifyBtn.classList.remove('bg-[#F5EDEB]', 'text-brick-lighter', 'cursor-not-allowed');
+                    verifyBtn.classList.add('bg-brick', 'text-white', 'cursor-pointer', 'hover:bg-brick-dark');
+                } else {
+                    verifyBtn.disabled = true;
+                    verifyBtn.classList.add('bg-[#F5EDEB]', 'text-brick-lighter', 'cursor-not-allowed');
+                    verifyBtn.classList.remove('bg-brick', 'text-white', 'cursor-pointer', 'hover:bg-brick-dark');
+                }
+            }
+
+            function evaluate() {
+                const digits = getDigits();
+                const result = Validator.validateOtp(digits, boxes.length);
+
+                clearStates();
+                otpMsg.textContent = '';
+                setVerifyBtnState(false);
+
+                if (!result.complete) {
+                    boxes.forEach((b) => {
+                        if (b.value) {
+                            b.classList.remove(BORDER_IDLE);
+                            b.classList.add(BORDER_TYPING);
+                        }
+                    });
+                    return result;
+                }
+
+                if (result.value === DEMO_CORRECT_CODE) {
+                    boxes.forEach(b => {
+                        b.classList.remove(BORDER_IDLE);
+                        b.classList.add(BORDER_SUCCESS, TEXT_SUCCESS);
+                    });
+                    setVerifyBtnState(true);
+                } else {
+                    boxes.forEach(b => {
+                        b.classList.remove(BORDER_IDLE);
+                        b.classList.add(BORDER_ERROR);
+                    });
+                    otpMsg.textContent = 'کد وارد شده صحیح نمی‌باشد.';
+                }
+                return result;
+            }
+
+            boxes.forEach((box, i) => {
+                box.addEventListener('input', () => {
+                    box.value = Validator.digitsOnly(box.value).slice(0, 1);
+                    if (box.value && i < boxes.length - 1) {
+                        boxes[i + 1].focus();
+                    }
+                    evaluate();
+                });
+
+                box.addEventListener('keydown', (e) => {
+                    if (e.key === 'Backspace' && !box.value && i > 0) {
+                        boxes[i - 1].focus();
+                    }
+                });
+
+                box.addEventListener('paste', (e) => {
+                    e.preventDefault();
+                    const pasted = Validator.digitsOnly((e.clipboardData || window.clipboardData).getData('text')).slice(0, boxes.length);
+                    pasted.split('').forEach((d, idx) => { if (boxes[idx]) boxes[idx].value = d; });
+                    const next = Math.min(pasted.length, boxes.length - 1);
+                    boxes[next].focus();
+                    evaluate();
+                });
+            });
+
+            verifyBtn.addEventListener('click', () => {
+                const result = evaluate();
+                if (!result.complete || result.value !== DEMO_CORRECT_CODE) return;
+
+                verifyBtn.textContent = 'در حال بررسی...';
+                verifyBtn.disabled = true;
+                setTimeout(() => {
+                    alert('ورود با موفقیت انجام شد.');
+                }, 500);
+            });
+
+            function startResendTimer() {
+                resendLink.classList.add('pointer-events-none', 'cursor-default', 'text-[#6f6b68]');
+                resendLink.classList.remove('text-custom-brown', 'cursor-pointer');
+                resendTimer.classList.remove('hidden');
+
+                const countdown = new Validator.Countdown(
+                    148, // 2:28
+                    (text) => { resendTimer.textContent = text; },
+                    () => {
+                        resendTimer.classList.add('hidden');
+                        resendLink.classList.remove('pointer-events-none', 'cursor-default', 'text-[#6f6b68]');
+                        resendLink.classList.add('text-custom-brown', 'cursor-pointer');
+                    }
+                );
+                countdown.start();
+                return countdown;
+            }
+
+            let activeCountdown = startResendTimer();
+
+            resendLink.addEventListener('click', (e) => {
+                e.preventDefault();
+                if (resendLink.classList.contains('pointer-events-none')) return;
+
+                boxes.forEach(b => { b.value = ''; });
+                clearStates();
+                otpMsg.textContent = '';
+                setVerifyBtnState(false);
+                boxes[0].focus();
+                activeCountdown.stop();
+                activeCountdown = startResendTimer();
+            });
+
+            boxes[0].focus();
+        })();
+    </script>
+</body>
+
+</html>

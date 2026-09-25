@@ -15,8 +15,7 @@
 
     @font-face {
         font-family: "IRANSansX-Black";
-        src: local("IRANSansX-Black"), url("../fonts/woff2/IRANSansX-Black.woff2"),
-        url("../fonts/woff/IRANSansX-Black.woff");
+        src: local("IRANSansX-Black"), url("../fonts/woff2/IRANSansX-Black.woff2");
         font-display: swap;
     }
 
@@ -40,8 +39,7 @@
 
     @font-face {
         font-family: "IRANSansX-Regular";
-        src: local("IRANSansX-Regular"), url("../fonts/woff2/IRANSansX-Regular.woff2"),
-        url("../fonts/woff/IRANSansX-Regular.woff");;
+        src: local("IRANSansX-Regular"), url("../fonts/woff2/IRANSansX-Regular.woff2");
         font-display: swap;
     }
 
@@ -64,7 +62,7 @@
     }
 
     body {
-        @apply font-IRANSansXRegular;
+        font-family: Vazirmatn, Tahoma, Arial, sans-serif;
     }
 
     button,

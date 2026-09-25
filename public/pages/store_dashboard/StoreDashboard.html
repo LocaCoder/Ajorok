@@ -1,0 +1,488 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>فروشگاه من | پنل فروشگاه جورک</title>
+  <meta name="description" content="داشبورد فروشگاه: مشاهده سفارش‌های اخیر، خلاصه تسویه، هشدار موجودی و پیام‌ها." />
+  <meta name="keywords" content="پنل فروشگاه, داشبورد فروشگاه, مدیریت فروشگاه" />
+  <link rel="canonical" href="https://example.com/store/dashboard" />
+
+  <link rel="stylesheet" href="../../styles/output.css" />
+  <link rel="stylesheet" href="../../styles/store-common.css" />
+</head>
+
+<body class="store-dashboard-page min-h-screen bg-[#f3f3f3] text-[#252525] font-IRANSansXRegular antialiased">
+
+  <!-- =========================================================
+       SVG SPRITE (آیکون‌های مشترک)
+  ========================================================== -->
+  <svg class="hidden" aria-hidden="true" focusable="false">
+    <!-- ایکون‌های سایدبار -->
+    <symbol id="icon-store" viewBox="0 0 20 20" fill="none">
+      <path d="M16.667 10V15c0 1.84-1.492 3.333-3.333 3.333H6.667c-1.84 0-3.333-1.492-3.333-3.333v-5" stroke="currentColor" stroke-width="1.5"/>
+      <path d="M13.973 1.668H6.025A4.167 4.167 0 0 0 2.586 4.287l-.631 1.777c-.191.537-.324 1.113-.184 1.666a3.198 3.198 0 0 0 2.673 2.271c1.534 0 2.777-1.399 2.777-3.125 0 1.726 1.244 3.125 2.778 3.125 1.534 0 2.778-1.399 2.778-3.125 0 1.726 1.244 3.125 2.778 3.125a3.198 3.198 0 0 0 2.673-2.271c.139-.553.007-1.129-.184-1.666l-.632-1.777a4.167 4.167 0 0 0-3.439-2.619Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+      <path d="M7.5 14.168c1.963 1.117 3.04 1.105 5 0" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+
+    <symbol id="icon-bag" viewBox="0 0 20 20" fill="none">
+      <path d="M13.333 5.001A3.333 3.333 0 1 0 6.666 5.001" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M3.801 7.92A3.333 3.333 0 0 1 7.109 5h5.781a3.333 3.333 0 0 1 3.308 2.92l.833 6.667A3.333 3.333 0 0 1 13.723 18.333H6.275A3.333 3.333 0 0 1 2.968 14.587L3.8 7.92Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+      <path d="M7.5 13.332c1.963 1.117 3.04 1.105 5 0" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+
+    <symbol id="icon-cart" viewBox="0 0 20 20" fill="none">
+      <path d="M5 3.335h10a3.333 3.333 0 0 1 3.333 3.333v4.167A3.333 3.333 0 0 1 15 14.168H8.333A3.333 3.333 0 0 1 5 10.835V3.335ZM5 3.335A1.667 1.667 0 0 0 3.333 1.668H1.666" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M9.166 17.082a1.25 1.25 0 1 1-2.5 0 1.25 1.25 0 0 1 2.5 0Zm7.5 0a1.25 1.25 0 1 1-2.5 0 1.25 1.25 0 0 1 2.5 0Z" stroke="currentColor" stroke-width="1.5"/>
+      <path d="M9.166 7.082h5M9.166 10.418h5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+    </symbol>
+
+    <symbol id="icon-chat" viewBox="0 0 20 20" fill="none">
+      <path d="m7.5 10 1.46 1.169a1 1 0 0 0 1.148.055L12.5 8.333M9.166 2.5h1.667A7.5 7.5 0 0 1 18.333 10a7.5 7.5 0 0 1-7.5 7.5H5A3.333 3.333 0 0 1 1.666 14.167V10A7.5 7.5 0 0 1 9.166 2.5Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+
+    <symbol id="icon-board" viewBox="0 0 20 20" fill="none">
+      <path d="M1.666 7.5a2.5 2.5 0 0 1 2.5-2.5h11.667a2.5 2.5 0 0 1 2.5 2.5v8.333a2.5 2.5 0 0 1-2.5 2.5H4.166a2.5 2.5 0 0 1-2.5-2.5V7.5Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+      <path d="M5.834 8.332h8.333M5.834 11.668h8.333M5.834 15H10M5 5.001 10 1.668l5 3.333" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+
+    <symbol id="icon-wallet" viewBox="0 0 20 20" fill="none">
+      <path d="M1.666 5h13.333a3.333 3.333 0 0 1 3.333 3.333V15A3.333 3.333 0 0 1 15 18.333H5A3.333 3.333 0 0 1 1.666 15V5Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+      <path d="M1.666 5.001A3.333 3.333 0 0 1 5 1.668h5a3.333 3.333 0 0 1 3.333 3.333H1.666Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+      <path d="M18.334 10v3.333h-3.333a1.667 1.667 0 0 1 0-3.333h3.333Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+    </symbol>
+
+    <symbol id="icon-notive" viewBox="0 0 20 20" fill="none">
+      <path d="M15.2 7.48a5.2 5.2 0 0 0-10.4 0c-.086.84-.314 1.65-.665 2.4a2.16 2.16 0 0 0 1.05 2.947c1.512.674 3.254 1.039 4.815 1.039s3.303-.365 4.815-1.039a2.16 2.16 0 0 0 1.05-2.948 6.098 6.098 0 0 1-.665-2.399ZM7.5 15.832a2.5 2.5 0 0 0 5 0" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M10 1.668v1.667" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+    </symbol>
+
+    <symbol id="icon-mail" viewBox="0 0 20 20" fill="none">
+      <path d="m5 6.667 3.15 2.1a3.333 3.333 0 0 0 3.699 0L15 6.667M5 17.5h10a3.333 3.333 0 0 0 3.333-3.333V5.833A3.333 3.333 0 0 0 15 2.5H5a3.333 3.333 0 0 0-3.334 3.333v8.334A3.333 3.333 0 0 0 5 17.5Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+
+    <symbol id="icon-setting" viewBox="0 0 20 20" fill="none">
+      <path d="M10 12.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+      <path d="M17.286 13.1a1.617 1.617 0 0 1 .322 1.782 16.34 16.34 0 0 1-2.288 2.288 1.617 1.617 0 0 1-1.783-.322l-.58-.386a1.617 1.617 0 0 0-1.441-.236 1.69 1.69 0 0 0-1.17 1.475v.73a1.617 1.617 0 0 1-1.159 1.563 16.87 16.87 0 0 1-3.23 0 1.617 1.617 0 0 1-1.158-1.563v-.73a1.69 1.69 0 0 0-1.17-1.475 1.617 1.617 0 0 0-1.44.236l-.582.386a1.617 1.617 0 0 1-1.782-.322 16.34 16.34 0 0 1-2.288-2.288A1.617 1.617 0 0 1 1.715 13.1l.386-.581a1.617 1.617 0 0 0 .236-1.441 1.69 1.69 0 0 0-1.475-1.17h-.73a1.617 1.617 0 0 1-1.563-1.159 16.87 16.87 0 0 1 0-3.23A1.617 1.617 0 0 1 .132 4.36h.73a1.69 1.69 0 0 0 1.475-1.17 1.617 1.617 0 0 0-.236-1.44l-.386-.582a1.617 1.617 0 0 1 .322-1.782 16.34 16.34 0 0 1 2.288-2.288 1.617 1.617 0 0 1 1.782.322l.581.386a1.617 1.617 0 0 0 1.441.236 1.69 1.69 0 0 0 1.17-1.475v-.73A1.617 1.617 0 0 1 10.868.132a16.87 16.87 0 0 1 3.23 0 1.617 1.617 0 0 1 1.159 1.563v.73a1.69 1.69 0 0 0 1.17 1.475 1.617 1.617 0 0 0 1.44-.236l.582-.386a1.617 1.617 0 0 1 1.782.322 16.34 16.34 0 0 1 2.288 2.288 1.617 1.617 0 0 1-.322 1.782l-.386.581a1.617 1.617 0 0 0-.236 1.441 1.69 1.69 0 0 0 1.475 1.17h.73a1.617 1.617 0 0 1 1.563 1.159 16.87 16.87 0 0 1 0 3.23 1.617 1.617 0 0 1-1.563 1.158h-.73a1.69 1.69 0 0 0-1.475 1.17Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+    </symbol>
+
+    <symbol id="icon-call" viewBox="0 0 20 20" fill="none">
+      <path d="M17.5 10.835V12.5a2.5 2.5 0 0 1-2.5 2.5 2.5 2.5 0 0 1-2.5-2.5v-1.666a2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5v-1.667a7.5 7.5 0 1 0-15 0v1.667m0 0V12.5a2.5 2.5 0 0 0 2.5 2.5 2.5 2.5 0 0 0 2.5-2.5v-1.666a2.5 2.5 0 0 0-2.5-2.5 2.5 2.5 0 0 0-2.5 2.5ZM17.5 11.668v1.667a5 5 0 0 1-5 5H10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+
+    <symbol id="icon-exit" viewBox="0 0 20 20" fill="none">
+      <path d="m15 7.5 2.5 2.5L15 12.5M17.5 10H7.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M12.5 6.25A3.75 3.75 0 0 0 8.75 2.5H6.5a4 4 0 0 0-4 4v7a4 4 0 0 0 4 4h2.25a3.75 3.75 0 0 0 3.75-3.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+
+    <!-- ایکون‌های عمومی -->
+    <symbol id="icon-arrow-left" viewBox="0 0 24 24" fill="none">
+      <path d="M14 7l-5 5 5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+
+    <symbol id="icon-arrow-right" viewBox="0 0 24 24" fill="none">
+      <path d="m10 17 5-5-5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+
+    <symbol id="icon-info" viewBox="0 0 24 24" fill="none">
+      <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/>
+      <path d="M12 11v5M12 8h.01" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+    </symbol>
+
+    <symbol id="icon-warning" viewBox="0 0 24 24" fill="none">
+      <path d="M12 4 2.5 20h19L12 4Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+      <path d="M12 10v4M12 17h.01" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+    </symbol>
+  </svg>
+
+  <!-- =========================================================
+       HEADER دسکتاپ
+  ========================================================== -->
+  <header class="store-desktop-header hidden md:block" role="banner">
+    <div class="store-header-inner">
+      <div class="flex items-center gap-4">
+        <a href="../../index.html" aria-label="صفحه اصلی">
+          <img src="../../images/logo/Logo.svg" alt="لوگوی جورک" />
+        </a>
+
+        <span class="hidden h-10 w-px bg-[#d9d9d9] sm:block" aria-hidden="true"></span>
+
+        <nav class="hidden items-center gap-8 md:flex" aria-label="منوی اصلی">
+          <a href="../../index.html" class="flex items-center gap-2 text-[15px] font-medium text-[#2b2b2b]">
+            <img src="../../images/Header/home 04.svg" alt="" aria-hidden="true" />
+            صفحه اصلی سایت
+          </a>
+          <button type="button" class="flex items-center gap-2 text-[15px] font-medium text-[#2b2b2b]" aria-expanded="false">
+            <img src="../../images/Header/grid 02.svg" alt="" aria-hidden="true" />
+            صفحات فروشگاه
+            <img src="../../images/Header/direction-down 01.svg" alt="" aria-hidden="true" />
+          </button>
+        </nav>
+      </div>
+
+      <div class="flex items-center gap-3 sm:gap-7" dir="ltr">
+        <div class="flex items-center gap-3">
+          <div class="h-9 w-9 rounded-full bg-[#202020]" role="img" aria-label="آواتار فروشنده"></div>
+          <div class="hidden leading-tight sm:block" dir="rtl">
+            <div class="text-[14px] font-medium text-[#222]">نام فروشگاه</div>
+            <div class="mt-1 text-[11px] font-light text-[#777]">نام فروشنده</div>
+          </div>
+        </div>
+
+        <div class="hidden items-center gap-3 sm:flex lg:gap-5">
+          <a href="StoreDashboard_Notifications.html" class="grid h-9 w-9 place-items-center rounded-lg hover:bg-[#f7f7f7]" aria-label="اعلان‌ها">
+            <img src="../../images/Header/notification.svg" alt="" aria-hidden="true" />
+          </a>
+          <a href="StoreDashboard_Messages.html" class="grid h-9 w-9 place-items-center rounded-lg hover:bg-[#f7f7f7]" aria-label="پیام‌ها">
+            <img src="../../images/Header/mail.svg" alt="" aria-hidden="true" />
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- =========================================================
+       HEADER موبایل
+  ========================================================== -->
+  <header class="store-mobile-header md:hidden" role="banner">
+    <button type="button" data-store-back class="grid h-10 w-10 place-items-center" aria-label="بازگشت">
+      <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" d="m15 5-7 7 7 7" />
+      </svg>
+    </button>
+    <h1 class="mr-2 text-[20px] font-medium">فروشگاه من</h1>
+  </header>
+
+  <!-- =========================================================
+       MAIN
+  ========================================================== -->
+  <main class="store-shell mx-auto w-full max-w-[1200px] px-4 pb-24 pt-5 md:pt-[54px] lg:px-0" role="main">
+
+    <!-- عنوان دسکتاپ -->
+    <section class="store-page-title-card mb-6 hidden md:flex">
+      <h1 class="store-title">فروشگاه من</h1>
+    </section>
+
+    <div class="flex flex-col gap-0 md:mt-10 md:gap-x-8 lg:flex-row">
+
+      <!-- =========================================================
+           SIDEBAR (دسکتاپ)
+      ========================================================== -->
+      <aside class="store-sidebar hidden lg:flex flex-col" aria-label="منوی کناری فروشگاه">
+
+        <!-- نام و آواتار -->
+        <div class="store-sidebar-header">
+          <div class="store-name">نام فروشگاه</div>
+          <div class="store-phone" dir="ltr">۰۹۱۰۰۰۰۰۰۰۱</div>
+
+          <a href="../user_dashboard/dashboard.html" class="store-sidebar-switch">
+            <span>انتقال به حساب شخصی</span>
+            <svg class="h-6 w-6" aria-hidden="true">
+              <use href="#icon-arrow-left"></use>
+            </svg>
+          </a>
+        </div>
+
+        <!-- منو -->
+        <ul class="store-sidebar-menu">
+          <li class="active">
+            <svg aria-hidden="true"><use href="#icon-store"></use></svg>
+            <a href="StoreDashboard.html">فروشگاه من</a>
+          </li>
+          <li>
+            <svg aria-hidden="true"><use href="#icon-bag"></use></svg>
+            <a href="Products/StoreDashboard_ProductsList.html">محصولات</a>
+          </li>
+          <li>
+            <svg aria-hidden="true"><use href="#icon-cart"></use></svg>
+            <a href="Orders/StoreDashboard_Orders_List.html">مدیریت سفارش‌ها</a>
+          </li>
+          <li>
+            <svg aria-hidden="true"><use href="#icon-wallet"></use></svg>
+            <a href="StoreDashboard_Finance.html">مالی و تسویه‌حساب</a>
+          </li>
+          <li>
+            <svg aria-hidden="true"><use href="#icon-chat"></use></svg>
+            <a href="StoreDashboard_Reviews.html">نظرات و امتیازها</a>
+          </li>
+          <li>
+            <svg aria-hidden="true"><use href="#icon-mail"></use></svg>
+            <a href="StoreDashboard_Messages.html">پیام‌ها</a>
+            <span class="badge-count">۲</span>
+          </li>
+          <li>
+            <svg aria-hidden="true"><use href="#icon-notive"></use></svg>
+            <a href="StoreDashboard_Notifications.html">اعلان‌ها</a>
+            <span class="badge-count">۲</span>
+          </li>
+          <li>
+            <svg aria-hidden="true"><use href="#icon-board"></use></svg>
+            <a href="StoreDashboard_Profile_Filled.html">اطلاعات فروشگاه</a>
+          </li>
+          <li class="border-t border-[#ccc] pt-3 mt-3">
+            <svg aria-hidden="true"><use href="#icon-setting"></use></svg>
+            <a href="StoreDashboard_Profile_Filled.html">تنظیمات</a>
+          </li>
+          <li>
+            <svg aria-hidden="true"><use href="#icon-call"></use></svg>
+            <a href="StoreDashboard_Profile_Filled.html">تماس با پشتیبانی</a>
+          </li>
+          <li>
+            <svg aria-hidden="true"><use href="#icon-exit"></use></svg>
+            <a href="../store_registration/login/login.html">خروج از حساب کاربری</a>
+          </li>
+        </ul>
+      </aside>
+
+      <!-- =========================================================
+           محتوای داشبورد
+      ========================================================== -->
+      <div class="w-full min-w-0 space-y-6 lg:flex-1">
+
+        <!-- عنوان بالا + انتقال به حساب شخصی (موبایل) -->
+        <div class="flex items-center justify-between rounded-[12px] bg-white px-6 py-3">
+          <div class="w-fit border-b-[3px] border-[#aa4938] pb-3">
+            <span class="px-4 py-2.5 font-medium text-[#aa4938]">فروشگاه من</span>
+          </div>
+          <div class="md:hidden">
+            <a href="../user_dashboard/dashboard.html"
+              class="rounded-md border border-[#aa4938] px-4 py-1.5 text-sm font-medium text-[#aa4938]">
+              انتقال به حساب شخصی
+            </a>
+          </div>
+        </div>
+
+        <!-- کارت‌های اطلاع‌رسانی -->
+        <div class="flex items-center gap-3 rounded-[12px] border border-[#d1aaa4] bg-[#f5edeb] py-3 pr-5 md:px-9">
+          <svg class="h-6 w-6 shrink-0 text-[#aa4938]" aria-hidden="true">
+            <use href="#icon-warning"></use>
+          </svg>
+
+          <div class="grid flex-1 grid-cols-2 items-center justify-between gap-x-12 gap-y-3 text-[12px] text-[#262626] md:flex md:gap-x-6 md:text-[14px]">
+            <a href="Orders/StoreDashboard_Orders_List.html" class="flex items-center gap-1 hover:text-[#aa4938]">
+              <span>سفارش‌های نیازمند اقدام: ۳</span>
+              <svg class="h-5 w-5" aria-hidden="true"><use href="#icon-arrow-left"></use></svg>
+            </a>
+            <a href="Products/StoreDashboard_ProductsList.html" class="flex items-center gap-1 hover:text-[#aa4938]">
+              <span>موجودی بحرانی: ۳</span>
+              <svg class="h-5 w-5" aria-hidden="true"><use href="#icon-arrow-left"></use></svg>
+            </a>
+            <a href="Products/StoreDashboard_ProductsList.html" class="flex items-center gap-1 hover:text-[#aa4938]">
+              <span>عدم موجودی: ۲</span>
+              <svg class="h-5 w-5" aria-hidden="true"><use href="#icon-arrow-left"></use></svg>
+            </a>
+            <a href="StoreDashboard_Finance.html" class="flex items-center gap-1 hover:text-[#aa4938]">
+              <span>تسویه ناموفق: ۱</span>
+              <svg class="h-5 w-5" aria-hidden="true"><use href="#icon-arrow-left"></use></svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- کارت‌های اقدام (تکمیل پروفایل) -->
+        <div class="grid grid-cols-2 gap-3 rounded-[12px] bg-white p-5 md:gap-4 md:p-6 lg:grid-cols-3">
+          <article class="rounded-[12px] border border-[#ccc] bg-white p-4">
+            <h3 class="text-sm font-medium md:text-base">تایید فروشگاه</h3>
+            <p class="mt-2 text-[10px] text-gray-500 lg:text-sm">مدارک هویتی و شماره شبا را ثبت کنید</p>
+            <a href="StoreDashboard_Profile_Filled.html"
+              class="mt-4 flex items-center gap-1 text-xs text-gray-600 hover:text-[#aa4938]">
+              <span>بارگذاری مدارک</span>
+              <svg class="h-5 w-5" aria-hidden="true"><use href="#icon-arrow-left"></use></svg>
+            </a>
+          </article>
+
+          <article class="rounded-[12px] border border-[#ccc] bg-white p-4">
+            <h3 class="text-sm font-medium md:text-base">تکمیل پروفایل فروشگاه</h3>
+            <p class="mt-2 text-[10px] text-gray-500 lg:text-sm">لوگو و اطلاعات فروشگاه را اضافه کنید</p>
+            <a href="StoreDashboard_Profile_Filled.html"
+              class="mt-4 flex items-center gap-1 text-xs text-gray-600 hover:text-[#aa4938]">
+              <span>ویرایش پروفایل</span>
+              <svg class="h-5 w-5" aria-hidden="true"><use href="#icon-arrow-left"></use></svg>
+            </a>
+          </article>
+
+          <article class="rounded-[12px] border border-[#ccc] bg-white p-4">
+            <h3 class="text-sm font-medium md:text-base">افزودن اولین محصول</h3>
+            <p class="mt-2 text-[10px] text-gray-500 lg:text-sm">یک محصول جدید ثبت کنید</p>
+            <a href="Products/StoreDashboard_ProductsList.html"
+              class="mt-4 flex items-center gap-1 text-xs text-gray-600 hover:text-[#aa4938]">
+              <span>مدیریت محصولات</span>
+              <svg class="h-5 w-5" aria-hidden="true"><use href="#icon-arrow-left"></use></svg>
+            </a>
+          </article>
+
+          <article class="rounded-[12px] border border-[#ccc] bg-white p-4">
+            <h3 class="text-sm font-medium md:text-base">ست کردن اطلاعات تسویه</h3>
+            <p class="mt-2 text-[10px] text-gray-500 lg:text-sm">هزینه و زمان ارسال را مشخص کنید</p>
+            <a href="StoreDashboard_Profile_Filled.html"
+              class="mt-4 flex items-center gap-1 text-xs text-gray-600 hover:text-[#aa4938]">
+              <span>حمل و نقل</span>
+              <svg class="h-5 w-5" aria-hidden="true"><use href="#icon-arrow-left"></use></svg>
+            </a>
+          </article>
+        </div>
+
+        <!-- آمار -->
+        <div class="grid grid-cols-2 gap-0 rounded-[12px] bg-white px-3 py-4 md:grid-cols-4">
+          <div class="bg-white p-2 md:p-4">
+            <div class="flex items-center gap-2 md:gap-3">
+              <div class="grid h-5 w-7 place-items-center rounded bg-[#f2f2f2] md:h-[34px] md:w-9">
+                <svg class="h-4 w-4 text-[#aa4938]" aria-hidden="true"><use href="#icon-info"></use></svg>
+              </div>
+              <p class="text-xs text-gray-500 md:text-sm">سفارش بررسی نشده</p>
+            </div>
+            <p class="ml-2 mt-4 text-end text-xs font-medium md:text-sm lg:text-base">۰</p>
+          </div>
+
+          <div class="border-r border-gray-300 bg-white p-2 text-center md:p-4">
+            <div class="flex items-center gap-2 md:gap-3">
+              <div class="grid h-5 w-7 place-items-center rounded bg-[#f2f2f2] md:h-[34px] md:w-9">
+                <svg class="h-4 w-4 text-[#aa4938]" aria-hidden="true"><use href="#icon-wallet"></use></svg>
+              </div>
+              <p class="text-xs text-gray-500 md:text-sm">درآمد در حال تسویه</p>
+            </div>
+            <p class="ml-2 mt-4 text-end text-xs font-medium md:text-sm lg:text-base">۰</p>
+          </div>
+
+          <div class="border-t border-gray-300 bg-white p-2 text-center md:border-t-0 md:border-r md:p-4">
+            <div class="flex items-center gap-2 md:gap-3">
+              <div class="grid h-5 w-7 place-items-center rounded bg-[#f2f2f2] md:h-[34px] md:w-9">
+                <svg class="h-4 w-4 text-[#aa4938]" aria-hidden="true"><use href="#icon-mail"></use></svg>
+              </div>
+              <p class="text-xs text-gray-500 md:text-sm">پیام‌های خوانده نشده</p>
+            </div>
+            <p class="ml-2 mt-4 text-end text-xs font-medium md:text-sm lg:text-base">۰</p>
+          </div>
+
+          <div class="border-t border-gray-300 bg-white p-2 text-center md:border-t-0 md:border-r md:p-4">
+            <div class="flex items-center gap-2 md:gap-3">
+              <div class="grid h-5 w-7 place-items-center rounded bg-[#f2f2f2] md:h-[34px] md:w-9">
+                <svg class="h-4 w-4 text-[#aa4938]" aria-hidden="true"><use href="#icon-wallet"></use></svg>
+              </div>
+              <p class="text-xs text-gray-500 md:text-sm">خالص ماه جاری</p>
+            </div>
+            <p class="ml-2 mt-4 text-end text-xs font-medium md:text-sm lg:text-base">۰</p>
+          </div>
+        </div>
+
+        <!-- سفارش‌های اخیر + خلاصه تسویه -->
+        <div class="grid grid-cols-1 gap-6 lg:grid-cols-3">
+
+          <!-- سفارش‌های اخیر -->
+          <article class="store-panel min-h-[288px] lg:col-span-2">
+            <div class="mb-10 flex items-center justify-between">
+              <h3 class="font-semibold">سفارش‌های اخیر</h3>
+              <a href="Orders/StoreDashboard_Orders_List.html" class="text-sm text-[#666] hover:text-[#aa4938]">
+                مشاهده همه
+              </a>
+            </div>
+
+            <div class="mt-10 flex flex-col items-center justify-center gap-3">
+              <img src="../../images/svg/OBJECT.svg" alt="" aria-hidden="true" />
+              <p class="text-xs font-medium text-[#262626]">تا کنون سفارشی برای شما ثبت نشده است.</p>
+            </div>
+          </article>
+
+          <!-- خلاصه تسویه -->
+          <article class="store-panel min-h-[288px] lg:col-span-1">
+            <h3 class="mb-6 font-semibold">
+              خلاصه تسویه حساب
+              <span class="text-xs text-[#262626]">(تومان)</span>
+            </h3>
+
+            <div class="space-y-3 text-sm text-gray-600">
+              <div class="flex justify-between rounded-lg border border-[#e0e0e0] px-3 py-2">
+                <span>تسویه شده (۳۰ روز)</span><span>۰</span>
+              </div>
+              <div class="flex justify-between rounded-lg border border-[#e0e0e0] px-3 py-2">
+                <span>در حال تسویه</span><span>۰</span>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <!-- هشدار موجودی + پیام‌ها -->
+        <div class="grid grid-cols-1 gap-6 md:grid-cols-3">
+
+          <!-- هشدار موجودی -->
+          <article class="store-panel min-h-[288px] md:col-span-2">
+            <div class="mb-10 flex items-center justify-between">
+              <h3 class="font-semibold">هشدار موجودی</h3>
+              <a href="Products/StoreDashboard_ProductsList.html" class="text-sm text-[#666] hover:text-[#aa4938]">
+                مشاهده همه
+              </a>
+            </div>
+
+            <div class="mt-10 flex flex-col items-center justify-center gap-3">
+              <img src="../../images/svg/OBJECT.svg" alt="" aria-hidden="true" />
+              <p class="text-xs font-medium text-[#262626]">تا کنون سفارشی ثبت نشده است</p>
+            </div>
+          </article>
+
+          <!-- پیام‌ها -->
+          <article class="store-panel min-h-[288px] md:col-span-1">
+            <div class="mb-10 flex items-center justify-between">
+              <h3 class="font-semibold">پیام‌ها</h3>
+              <a href="StoreDashboard_Messages.html" class="text-sm text-[#666] hover:text-[#aa4938]">
+                مشاهده همه
+              </a>
+            </div>
+
+            <div class="mt-10 flex flex-col items-center justify-center gap-3">
+              <img src="../../images/svg/OBJECT.svg" alt="" aria-hidden="true" />
+              <p class="text-xs font-medium text-[#262626]">تا کنون سفارشی ثبت نشده است</p>
+            </div>
+          </article>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- =========================================================
+       BOTTOM NAV موبایل (با StoreUI ساخته می‌شود)
+  ========================================================== -->
+  <div data-bottom-nav class="fixed bottom-0 left-0 right-0 z-40 border-t border-[#dedede] bg-white md:hidden"></div>
+
+  <!-- =========================================================
+       Overlay موبایل (برای popup ها)
+  ========================================================== -->
+  <div id="popupOverlay" class="fixed inset-0 z-[100] hidden bg-black/30" aria-hidden="true"></div>
+
+  <!-- =========================================================
+       Toast
+  ========================================================== -->
+  <div id="toast"
+    class="pointer-events-none fixed bottom-24 left-1/2 z-[999] hidden -translate-x-1/2 rounded-[8px] bg-[#333] px-5 py-3 text-[13px] text-white shadow-lg md:bottom-6"
+    role="status" aria-live="polite"></div>
+
+  <!-- =========================================================
+       Scripts
+  ========================================================== -->
+  <script src="../../scripts/StoreDashboard/store-common.js"></script>
+  <script>
+    (function () {
+      "use strict";
+
+      // راه‌اندازی StoreUI با bottom nav داشبورد
+      StoreUI.init({
+        bottomNav: "dashboard",
+        prefix: "",
+      });
+
+      // دکمه‌های بازگشت موبایل
+      document.querySelectorAll("[data-store-back]").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          if (window.history.length > 1) window.history.back();
+          else window.location.href = "StoreDashboard.html";
+        });
+      });
+
+      // نمایش پیام خوش‌آمد (اختیاری - برای تست)
+      // StoreUI.showToast("به داشبورد فروشگاه خوش آمدید", "success");
+    })();
+  </script>
+</body>
+
+</html>

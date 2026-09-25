@@ -1,0 +1,949 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>مالی و تسویه‌حساب | پنل فروشگاه جورک</title>
+  <meta name="description" content="مدیریت تراکنش‌ها، تسویه‌حساب‌ها و حساب‌های بانکی فروشگاه." />
+  <link rel="stylesheet" href="../../styles/output.css" />
+  <link rel="stylesheet" href="../../styles/store-common.css" />
+
+  <style>
+    .finance-tab-active {
+      color: #aa4938 !important;
+      border-bottom-color: #aa4938 !important;
+      font-weight: 500;
+    }
+
+    /* کارت بانکی مشکی */
+    .bank-card-dark {
+      background: linear-gradient(120deg, #2b2b2b 0%, #0f0f0f 60%, #050505 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    .bank-card-dark::before {
+      content: "";
+      position: absolute;
+      left: -60px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 220px;
+      height: 220px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,255,255,0.06) 0%, transparent 70%);
+    }
+
+    /* دارایی خلاصه در تراکنش‌ها */
+    .summary-stat-card {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      border: 1px solid #e5e5e5;
+      border-radius: 12px;
+      padding: 16px;
+      background: #fff;
+    }
+    .summary-stat-icon {
+      display: grid;
+      place-items: center;
+      width: 34px;
+      height: 34px;
+      flex: 0 0 34px;
+      border-radius: 6px;
+      background: #f7efed;
+      color: #aa4938;
+    }
+
+    /* اعداد انگلیسی برای مبالغ مالی */
+    .money-en {
+      font-variant-numeric: tabular-nums;
+      letter-spacing: 0.5px;
+    }
+  </style>
+</head>
+
+<body class="store-dashboard-page min-h-screen bg-[#f3f3f3] text-[#252525] font-IRANSansXRegular antialiased">
+
+  <!-- SVG SPRITE -->
+  <svg class="hidden" aria-hidden="true" focusable="false">
+    <symbol id="icon-store" viewBox="0 0 20 20" fill="none">
+      <path d="M16.667 10V15c0 1.84-1.492 3.333-3.333 3.333H6.667c-1.84 0-3.333-1.492-3.333-3.333v-5" stroke="currentColor" stroke-width="1.5"/>
+      <path d="M13.973 1.668H6.025A4.167 4.167 0 0 0 2.586 4.287l-.631 1.777c-.191.537-.324 1.113-.184 1.666a3.198 3.198 0 0 0 2.673 2.271c1.534 0 2.777-1.399 2.777-3.125 0 1.726 1.244 3.125 2.778 3.125 1.534 0 2.778-1.399 2.778-3.125 0 1.726 1.244 3.125 2.778 3.125a3.198 3.198 0 0 0 2.673-2.271c.139-.553.007-1.129-.184-1.666l-.632-1.777a4.167 4.167 0 0 0-3.439-2.619Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+      <path d="M7.5 14.168c1.963 1.117 3.04 1.105 5 0" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="icon-arrow-right" width="32" height="32" viewBox="0 0 28 28" fill="none"
+      xmlns="http://www.w3.org/2000/svg">
+      <path d="M16.3333 9.33464L21 14.0013L16.3333 18.668M21 14.0013L7 14.0013" stroke="#262626" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round" />
+    </symbol>
+    <symbol id="icon-bag" viewBox="0 0 20 20" fill="none">
+      <path d="M13.333 5.001A3.333 3.333 0 1 0 6.666 5.001" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M3.801 7.92A3.333 3.333 0 0 1 7.109 5h5.781a3.333 3.333 0 0 1 3.308 2.92l.833 6.667A3.333 3.333 0 0 1 13.723 18.333H6.275A3.333 3.333 0 0 1 2.968 14.587L3.8 7.92Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+      <path d="M7.5 13.332c1.963 1.117 3.04 1.105 5 0" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="icon-cart" viewBox="0 0 20 20" fill="none">
+      <path d="M5 3.335h10a3.333 3.333 0 0 1 3.333 3.333v4.167A3.333 3.333 0 0 1 15 14.168H8.333A3.333 3.333 0 0 1 5 10.835V3.335ZM5 3.335A1.667 1.667 0 0 0 3.333 1.668H1.666" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M9.166 17.082a1.25 1.25 0 1 1-2.5 0 1.25 1.25 0 0 1 2.5 0Zm7.5 0a1.25 1.25 0 1 1-2.5 0 1.25 1.25 0 0 1 2.5 0Z" stroke="currentColor" stroke-width="1.5"/>
+      <path d="M9.166 7.082h5M9.166 10.418h5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="icon-chat" viewBox="0 0 20 20" fill="none">
+      <path d="m7.5 10 1.46 1.169a1 1 0 0 0 1.148.055L12.5 8.333M9.166 2.5h1.667A7.5 7.5 0 0 1 18.333 10a7.5 7.5 0 0 1-7.5 7.5H5A3.333 3.333 0 0 1 1.666 14.167V10A7.5 7.5 0 0 1 9.166 2.5Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="icon-board" viewBox="0 0 20 20" fill="none">
+      <path d="M1.666 7.5a2.5 2.5 0 0 1 2.5-2.5h11.667a2.5 2.5 0 0 1 2.5 2.5v8.333a2.5 2.5 0 0 1-2.5 2.5H4.166a2.5 2.5 0 0 1-2.5-2.5V7.5Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+      <path d="M5.834 8.332h8.333M5.834 11.668h8.333M5.834 15H10M5 5.001 10 1.668l5 3.333" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="icon-wallet" viewBox="0 0 20 20" fill="none">
+      <path d="M1.666 5h13.333a3.333 3.333 0 0 1 3.333 3.333V15A3.333 3.333 0 0 1 15 18.333H5A3.333 3.333 0 0 1 1.666 15V5Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+      <path d="M1.666 5.001A3.333 3.333 0 0 1 5 1.668h5a3.333 3.333 0 0 1 3.333 3.333H1.666Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+      <path d="M18.334 10v3.333h-3.333a1.667 1.667 0 0 1 0-3.333h3.333Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="icon-notive" viewBox="0 0 20 20" fill="none">
+      <path d="M15.2 7.48a5.2 5.2 0 0 0-10.4 0c-.086.84-.314 1.65-.665 2.4a2.16 2.16 0 0 0 1.05 2.947c1.512.674 3.254 1.039 4.815 1.039s3.303-.365 4.815-1.039a2.16 2.16 0 0 0 1.05-2.948 6.098 6.098 0 0 1-.665-2.399ZM7.5 15.832a2.5 2.5 0 0 0 5 0" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M10 1.668v1.667" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="icon-mail" viewBox="0 0 20 20" fill="none">
+      <path d="m5 6.667 3.15 2.1a3.333 3.333 0 0 0 3.699 0L15 6.667M5 17.5h10a3.333 3.333 0 0 0 3.333-3.333V5.833A3.333 3.333 0 0 0 15 2.5H5a3.333 3.333 0 0 0-3.334 3.333v8.334A3.333 3.333 0 0 0 5 17.5Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="icon-setting" viewBox="0 0 20 20" fill="none">
+      <path d="M10 12.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+      <path d="M17.286 13.1a1.617 1.617 0 0 1 .322 1.782 16.34 16.34 0 0 1-2.288 2.288 1.617 1.617 0 0 1-1.783-.322l-.58-.386a1.617 1.617 0 0 0-1.441-.236 1.69 1.69 0 0 0-1.17 1.475v.73a1.617 1.617 0 0 1-1.159 1.563 16.87 16.87 0 0 1-3.23 0 1.617 1.617 0 0 1-1.158-1.563v-.73a1.69 1.69 0 0 0-1.17-1.475 1.617 1.617 0 0 0-1.44.236l-.582.386a1.617 1.617 0 0 1-1.782-.322 16.34 16.34 0 0 1-2.288-2.288A1.617 1.617 0 0 1 1.715 13.1l.386-.581a1.617 1.617 0 0 0 .236-1.441 1.69 1.69 0 0 0-1.475-1.17h-.73a1.617 1.617 0 0 1-1.563-1.159 16.87 16.87 0 0 1 0-3.23A1.617 1.617 0 0 1 .132 4.36h.73a1.69 1.69 0 0 0 1.475-1.17 1.617 1.617 0 0 0-.236-1.44l-.386-.582a1.617 1.617 0 0 1 .322-1.782 16.34 16.34 0 0 1 2.288-2.288 1.617 1.617 0 0 1 1.782.322l.581.386a1.617 1.617 0 0 0 1.441.236 1.69 1.69 0 0 0 1.17-1.475v-.73A1.617 1.617 0 0 1 10.868.132a16.87 16.87 0 0 1 3.23 0 1.617 1.617 0 0 1 1.159 1.563v.73a1.69 1.69 0 0 0 1.17 1.475 1.617 1.617 0 0 0 1.44-.236l.582-.386a1.617 1.617 0 0 1 1.782.322 16.34 16.34 0 0 1 2.288 2.288 1.617 1.617 0 0 1-.322 1.782l-.386.581a1.617 1.617 0 0 0-.236 1.441 1.69 1.69 0 0 0 1.475 1.17h.73a1.617 1.617 0 0 1 1.563 1.159 16.87 16.87 0 0 1 0 3.23 1.617 1.617 0 0 1-1.563 1.158h-.73a1.69 1.69 0 0 0-1.475 1.17Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="icon-call" viewBox="0 0 20 20" fill="none">
+      <path d="M17.5 10.835V12.5a2.5 2.5 0 0 1-2.5 2.5 2.5 2.5 0 0 1-2.5-2.5v-1.666a2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5v-1.667a7.5 7.5 0 1 0-15 0v1.667m0 0V12.5a2.5 2.5 0 0 0 2.5 2.5 2.5 2.5 0 0 0 2.5-2.5v-1.666a2.5 2.5 0 0 0-2.5-2.5 2.5 2.5 0 0 0-2.5 2.5ZM17.5 11.668v1.667a5 5 0 0 1-5 5H10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="icon-exit" viewBox="0 0 20 20" fill="none">
+      <path d="m15 7.5 2.5 2.5L15 12.5M17.5 10H7.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M12.5 6.25A3.75 3.75 0 0 0 8.75 2.5H6.5a4 4 0 0 0-4 4v7a4 4 0 0 0 4 4h2.25a3.75 3.75 0 0 0 3.75-3.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+
+    <symbol id="icon-chevron-down" viewBox="0 0 24 24" fill="none">
+      <path d="m6 9 6 6 6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="icon-close" viewBox="0 0 24 24" fill="none">
+      <path d="M6 6l12 12M18 6 6 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="icon-search" viewBox="0 0 24 24" fill="none">
+      <circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="1.5"/>
+      <path d="m20 20-3.5-3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="icon-filter" viewBox="0 0 24 24" fill="none">
+      <path d="M4 7h10M18 7h2M4 17h2M10 17h10M14 4v6M8 14v6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="icon-plus" viewBox="0 0 24 24" fill="none">
+      <path d="M12 4v16M4 12h16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="icon-edit" viewBox="0 0 24 24" fill="none">
+      <path d="m14 5 5 5M4 20l4.5-1 10-10a2.12 2.12 0 0 0-3-3l-10 10L4 20Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="icon-trash" viewBox="0 0 24 24" fill="none">
+      <path d="M4 7h16m-10 4v6m4-6v6M9 4h6l1 3H8l1-3Zm-2 3 1 13h8l1-13" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="icon-credit-card" viewBox="0 0 24 24" fill="none">
+      <rect x="3" y="6" width="18" height="13" rx="2" stroke="currentColor" stroke-width="1.5"/>
+      <path d="M3 11h18M7 16h3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="icon-check" viewBox="0 0 24 24" fill="none">
+      <path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="icon-check-circle" viewBox="0 0 24 24" fill="none">
+      <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/>
+      <path d="m8 12 3 3 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="icon-warning" viewBox="0 0 24 24" fill="none">
+      <path d="M12 4 2.5 20h19L12 4Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+      <path d="M12 10v4M12 17h.01" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="icon-calendar" viewBox="0 0 24 24" fill="none">
+      <rect x="4" y="5" width="16" height="15" rx="2" stroke="currentColor" stroke-width="1.5"/>
+      <path d="M8 3v4M16 3v4M4 10h16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="icon-bank" viewBox="0 0 24 24" fill="none">
+      <path d="M3 10h18M5 10v8M10 10v8M14 10v8M19 10v8M3 18h18M12 3l9 5H3l9-5Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="icon-arrow-left" viewBox="0 0 24 24" fill="none">
+      <path d="M14 7l-5 5 5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="icon-arrow-right" viewBox="0 0 24 24" fill="none">
+      <path d="m10 17 5-5-5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="icon-empty-finance" viewBox="0 0 200 160" fill="none">
+      <rect x="30" y="30" width="90" height="60" rx="6" fill="#f4dcd6" opacity="0.6"/>
+      <rect x="50" y="50" width="90" height="60" rx="6" fill="#e8c4bb" opacity="0.7"/>
+      <rect x="70" y="70" width="90" height="60" rx="6" fill="#dcb0a4"/>
+      <circle cx="140" cy="45" r="12" fill="#aa4938" opacity="0.25"/>
+      <path d="M133 45h14M140 38v14" stroke="#aa4938" stroke-width="1.5" stroke-linecap="round"/>
+    </symbol>
+  </svg>
+
+  <!-- HEADER دسکتاپ -->
+  <header class="store-desktop-header hidden md:block mb-8" role="banner">
+    <div class="store-header-inner">
+      <div class="flex items-center gap-4">
+        <a href="../../index.html" aria-label="صفحه اصلی"><img src="../../images/logo/Logo.svg" alt="لوگوی جورک" /></a>
+        <span class="hidden h-10 w-px bg-[#d9d9d9] sm:block" aria-hidden="true"></span>
+        <nav class="hidden items-center gap-8 md:flex" aria-label="منوی اصلی">
+          <a href="../../index.html" class="flex items-center gap-2 text-[15px] font-medium text-[#2b2b2b]">
+            <img src="../../images/Header/home 04.svg" alt="" />صفحه اصلی سایت
+          </a>
+          <button type="button" class="flex items-center gap-2 text-[15px] font-medium text-[#2b2b2b]">
+            <img src="../../images/Header/grid 02.svg" alt="" />صفحات فروشگاه
+            <img src="../../images/Header/direction-down 01.svg" alt="" />
+          </button>
+        </nav>
+      </div>
+      <div class="flex items-center gap-3 sm:gap-7" dir="ltr">
+        <div class="flex items-center gap-3">
+          <div class="h-9 w-9 rounded-full bg-[#202020]"></div>
+          <div class="hidden leading-tight sm:block" dir="rtl">
+            <div class="text-[14px] font-medium text-[#222]">نام فروشگاه</div>
+            <div class="mt-1 text-[11px] font-light text-[#777]">نام فروشنده</div>
+          </div>
+        </div>
+        <div class="hidden items-center gap-3 sm:flex lg:gap-5">
+          <a href="StoreDashboard_Notifications.html" class="grid h-9 w-9 place-items-center rounded-lg hover:bg-[#f7f7f7]"><img src="../../images/Header/notification.svg" alt="" /></a>
+          <a href="StoreDashboard_Messages.html" class="grid h-9 w-9 place-items-center rounded-lg hover:bg-[#f7f7f7]"><img src="../../images/Header/mail.svg" alt="" /></a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN -->
+  <main class="store-shell mx-auto w-full max-w-[1200px] px-4 pb-32 pt-5 md:pb-16 md:pt-[54px] lg:px-0" role="main">
+    <section class="store-page-title-card mb-6 hidden md:flex items-center gap-3">
+
+      <a href="StoreDashboard.html">
+        <svg class="size-8">
+          <use href="#icon-arrow-right"></use>
+        </svg>
+      </a>
+      <h1 class="font-IRANSansXMedium text-lg text-custom-brown px-4 border-b-[3px] border-custom-brown pb-2">
+        مالی و تسویه‌حساب
+      </h1>
+    </section>
+
+
+    <!-- تب‌ها -->
+    <nav id="financeTabs"
+      class="no-scrollbar flex overflow-x-auto border-b border-[#cfcfcf] px-2 md:justify-start md:px-0"
+      role="tablist" aria-label="بخش‌های مالی">
+
+      <button type="button" data-finance-tab="overview"
+        class="finance-tab shrink-0 border-b-[3px] border-transparent px-6 py-4 text-[14px] text-[#333] hover:text-[#aa4938] md:py-3">
+        نمای کلی
+      </button>
+      <button type="button" data-finance-tab="transactions"
+        class="finance-tab finance-tab-active shrink-0 border-b-[3px] border-[#aa4938] px-6 py-4 text-[14px] text-[#aa4938] md:py-3">
+        تراکنش‌ها
+      </button>
+      <button type="button" data-finance-tab="settlements"
+        class="finance-tab shrink-0 border-b-[3px] border-transparent px-6 py-4 text-[14px] text-[#333] hover:text-[#aa4938] md:py-3">
+        تسویه‌حساب‌ها
+      </button>
+      <button type="button" data-finance-tab="bank"
+        class="finance-tab shrink-0 border-b-[3px] border-transparent px-6 py-4 text-[14px] text-[#333] hover:text-[#aa4938] md:py-3">
+        حساب بانکی
+      </button>
+    </nav>
+
+    <!-- ==================================================
+         TAB 1: OVERVIEW
+    ================================================== -->
+    <section id="finance-overview" class="finance-panel hidden pt-5 md:pt-6">
+
+      <div class="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+        <article class="rounded-[12px] border border-[#dedede] bg-white p-5">
+          <p class="text-[13px] text-[#666]">فروش این ماه</p>
+          <strong class="money-en mt-4 block text-[22px] font-medium" dir="ltr">۱۲۰,۰۰۰,۰۰۰</strong>
+          <span class="mt-1 block text-[11px] text-[#999]">تومان</span>
+        </article>
+        <article class="rounded-[12px] border border-[#dedede] bg-white p-5">
+          <p class="text-[13px] text-[#666]">سهم خالص فروشگاه</p>
+          <strong class="money-en mt-4 block text-[22px] font-medium" dir="ltr">۱۰۸,۰۰۰,۰۰۰</strong>
+          <span class="mt-1 block text-[11px] text-[#999]">تومان</span>
+        </article>
+        <article class="rounded-[12px] border border-[#dedede] bg-white p-5">
+          <p class="text-[13px] text-[#666]">موجودی قابل تسویه</p>
+          <strong class="money-en mt-4 block text-[22px] font-medium" dir="ltr">۱۲۰,۰۰۰,۰۰۰</strong>
+          <span class="mt-1 block text-[11px] text-[#999]">تومان</span>
+        </article>
+        <article class="rounded-[12px] border border-[#dedede] bg-white p-5">
+          <p class="text-[13px] text-[#666]">تسویه‌های موفق</p>
+          <strong class="mt-4 block text-[22px] font-medium">۶ مورد</strong>
+        </article>
+      </div>
+
+      <div class="mt-5 grid gap-5 lg:grid-cols-2">
+        <article class="rounded-[14px] bg-white p-5 shadow-card">
+          <div class="flex items-center justify-between">
+            <h2 class="text-[16px] font-medium">آخرین تراکنش‌ها</h2>
+            <button type="button" data-switch-tab="transactions" class="text-[13px] text-[#aa4938]">مشاهده همه</button>
+          </div>
+          <div id="overviewTransactions" class="mt-4 space-y-3"></div>
+        </article>
+
+        <article class="rounded-[14px] bg-white p-5 shadow-card">
+          <div class="flex items-center justify-between">
+            <h2 class="text-[16px] font-medium">آخرین تسویه‌ها</h2>
+            <button type="button" data-switch-tab="settlements" class="text-[13px] text-[#aa4938]">مشاهده همه</button>
+          </div>
+          <div id="overviewSettlements" class="mt-4 space-y-3"></div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ==================================================
+         TAB 2: TRANSACTIONS
+    ================================================== -->
+    <section id="finance-transactions" class="finance-panel pt-5 md:pt-6">
+
+      <!-- کارت خلاصه تراکنش‌ها -->
+      <article class="rounded-[14px] bg-white p-4 shadow-card md:p-5">
+        <div class="flex flex-wrap items-center justify-between gap-4">
+          <h2 class="text-[16px] font-medium">خلاصه تراکنش‌ها</h2>
+          <button type="button" id="txMonthBtn"
+            class="flex h-9 items-center gap-2 rounded-[6px] border border-[#aa4938] px-3 text-[13px] text-[#aa4938]">
+            <svg class="h-4 w-4"><use href="#icon-calendar"></use></svg>
+            این ماه
+            <svg class="h-4 w-4"><use href="#icon-chevron-down"></use></svg>
+          </button>
+        </div>
+
+        <div class="mt-4 grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-4">
+          <div class="summary-stat-card">
+            <div>
+              <p class="text-[12px] text-[#666] md:text-[13px]">سهم خالص فروشگاه</p>
+              <strong class="money-en mt-3 block text-[15px] font-semibold md:text-[17px]" dir="ltr">۱۲۰,۰۰۰,۰۰۰</strong>
+              <span class="text-[11px] text-[#999]">تومان</span>
+            </div>
+            <div class="summary-stat-icon"><svg class="h-5 w-5"><use href="#icon-credit-card"></use></svg></div>
+          </div>
+          <div class="summary-stat-card">
+            <div>
+              <p class="text-[12px] text-[#666] md:text-[13px]">مبلغ فروش</p>
+              <strong class="money-en mt-3 block text-[15px] font-semibold md:text-[17px]" dir="ltr">۱۲۰,۰۰۰,۰۰۰</strong>
+              <span class="text-[11px] text-[#999]">تومان</span>
+            </div>
+            <div class="summary-stat-icon"><svg class="h-5 w-5"><use href="#icon-credit-card"></use></svg></div>
+          </div>
+          <div class="summary-stat-card">
+            <div>
+              <p class="text-[12px] text-[#666] md:text-[13px]">تعداد سفارش پرداخت‌شده</p>
+              <strong class="money-en mt-3 block text-[15px] font-semibold md:text-[17px]" dir="ltr">۱۲۰,۰۰۰,۰۰۰</strong>
+            </div>
+            <div class="summary-stat-icon"><svg class="h-5 w-5"><use href="#icon-credit-card"></use></svg></div>
+          </div>
+          <div class="summary-stat-card">
+            <div>
+              <p class="text-[12px] text-[#666] md:text-[13px]">میانگین مبلغ هر سفارش</p>
+              <strong class="money-en mt-3 block text-[15px] font-semibold md:text-[17px]" dir="ltr">۱۲۰,۰۰۰,۰۰۰</strong>
+              <span class="text-[11px] text-[#999]">تومان</span>
+            </div>
+            <div class="summary-stat-icon"><svg class="h-5 w-5"><use href="#icon-credit-card"></use></svg></div>
+          </div>
+        </div>
+      </article>
+
+      <!-- کارت اصلی لیست تراکنش‌ها -->
+      <article class="mt-5 rounded-[14px] bg-white p-4 shadow-card md:p-6">
+
+        <!-- نوار جستجو + فیلتر -->
+        <div class="flex items-center gap-3">
+          <button type="button" data-open-tx-filter
+            class="hidden h-[42px] shrink-0 items-center justify-center gap-2 rounded-[7px] border border-[#aa4938] px-4 text-[13px] font-medium text-[#aa4938] md:flex">
+            <svg class="h-5 w-5"><use href="#icon-filter"></use></svg>
+            فیلتر
+          </button>
+          <label class="flex h-[42px] min-w-0 flex-1 items-center rounded-[7px] border border-[#d5d5d5] bg-white px-4">
+            <input id="txSearch" type="search"
+              class="h-full min-w-0 flex-1 bg-transparent text-[13px] outline-none placeholder:text-[#aaa]"
+              placeholder="جستجو" />
+            <svg class="h-5 w-5 shrink-0 text-[#9a9a9a]"><use href="#icon-search"></use></svg>
+          </label>
+        </div>
+
+        <!-- فیلتر و مرتب‌سازی + تعداد نتایج -->
+        <div class="mt-5 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+          <div class="flex items-center gap-2 overflow-x-auto no-scrollbar">
+            <div class="relative shrink-0">
+              <button type="button" data-popup-trigger="popup-tx-sort" class="store-chip">
+                <span class="text-[#777]">مرتب‌سازی:</span>
+                <span id="txSortChipLabel" class="font-medium text-[#333]">جدیدترین</span>
+                <svg class="h-4 w-4"><use href="#icon-chevron-down"></use></svg>
+              </button>
+
+              <div id="popup-tx-sort" data-popup="tx-sort"
+                class="store-popup absolute right-0 top-[46px] z-30 hidden w-[280px] md:w-[320px]">
+                <div class="drag-handle"></div>
+                <div class="store-popup-header">
+                  <span>مرتب‌سازی</span>
+                  <button type="button" data-close-popup><svg class="h-5 w-5"><use href="#icon-close"></use></svg></button>
+                </div>
+                <div class="space-y-4 px-6 py-5 text-[14px]">
+                  <label class="flex cursor-pointer items-center justify-between">
+                    <span>جدیدترین فروش</span>
+                    <span class="flex"><input class="sr-only" type="radio" name="txSort" value="latest" checked /><span class="store-radio-ui"></span></span>
+                  </label>
+                  <label class="flex cursor-pointer items-center justify-between">
+                    <span>قدیمی‌ترین فروش</span>
+                    <span class="flex"><input class="sr-only" type="radio" name="txSort" value="oldest" /><span class="store-radio-ui"></span></span>
+                  </label>
+                  <label class="flex cursor-pointer items-center justify-between">
+                    <span>بیشترین مبلغ فروش</span>
+                    <span class="flex"><input class="sr-only" type="radio" name="txSort" value="highest" /><span class="store-radio-ui"></span></span>
+                  </label>
+                  <label class="flex cursor-pointer items-center justify-between">
+                    <span>کمترین مبلغ فروش</span>
+                    <span class="flex"><input class="sr-only" type="radio" name="txSort" value="lowest" /><span class="store-radio-ui"></span></span>
+                  </label>
+                  <label class="flex cursor-pointer items-center justify-between">
+                    <span>بیشترین سهم خالص فروشگاه</span>
+                    <span class="flex"><input class="sr-only" type="radio" name="txSort" value="netHighest" /><span class="store-radio-ui"></span></span>
+                  </label>
+                  <label class="flex cursor-pointer items-center justify-between">
+                    <span>کمترین سهم خالص فروشگاه</span>
+                    <span class="flex"><input class="sr-only" type="radio" name="txSort" value="netLowest" /><span class="store-radio-ui"></span></span>
+                  </label>
+                </div>
+                <div class="store-popup-footer text-right">
+                  <button type="button" data-clear-tx-sort>حذف فیلتر</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="relative shrink-0">
+              <button type="button" data-popup-trigger="popup-tx-range" class="store-chip">
+                <span class="text-[#777]">بازه زمانی</span>
+                <svg class="h-4 w-4"><use href="#icon-chevron-down"></use></svg>
+              </button>
+
+              <div id="popup-tx-range" data-popup="tx-range"
+                class="store-popup absolute right-0 top-[46px] z-30 hidden w-[280px] md:w-[320px]">
+                <div class="drag-handle"></div>
+                <div class="store-popup-header">
+                  <span>بازه زمانی</span>
+                  <button type="button" data-close-popup><svg class="h-5 w-5"><use href="#icon-close"></use></svg></button>
+                </div>
+                <div class="space-y-4 px-6 py-5 text-[14px]">
+                  <label class="flex cursor-pointer items-center justify-between">
+                    <span>امروز</span>
+                    <span class="flex"><input class="sr-only" type="checkbox" /><span class="store-check-ui"></span></span>
+                  </label>
+                  <label class="flex cursor-pointer items-center justify-between">
+                    <span>۷ روز اخیر</span>
+                    <span class="flex"><input class="sr-only" type="checkbox" /><span class="store-check-ui"></span></span>
+                  </label>
+                  <label class="flex cursor-pointer items-center justify-between">
+                    <span>این ماه</span>
+                    <span class="flex"><input class="sr-only" type="checkbox" /><span class="store-check-ui"></span></span>
+                  </label>
+                  <label class="flex cursor-pointer items-center justify-between">
+                    <span>ماه گذشته</span>
+                    <span class="flex"><input class="sr-only" type="checkbox" /><span class="store-check-ui"></span></span>
+                  </label>
+                  <label class="flex cursor-pointer items-center justify-between">
+                    <span>۳ ماه اخیر</span>
+                    <span class="flex"><input class="sr-only" type="checkbox" /><span class="store-check-ui"></span></span>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <button type="button" data-open-tx-filter class="store-chip shrink-0 md:hidden">
+              <svg class="h-4 w-4"><use href="#icon-filter"></use></svg>
+              فیلتر
+            </button>
+          </div>
+
+          <div class="flex items-center gap-3 text-[12px] text-[#666]">
+            <span>تعداد نتایج: <b id="txCount" class="font-medium text-[#333]">۱۲۳</b></span>
+            <span class="h-5 w-px bg-[#d7d7d7]"></span>
+            <span>تعداد نمایش</span>
+            <select id="txPageSize" class="h-8 rounded-[5px] border border-[#cfcfcf] bg-white px-2 outline-none">
+              <option value="6" selected>۱۰</option>
+              <option value="10">۲۰</option>
+              <option value="20">۵۰</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- جدول دسکتاپ -->
+        <div class="mt-5 hidden overflow-x-auto rounded-[10px] border border-[#e5e5e5] md:block">
+          <table class="w-full min-w-[920px] border-collapse text-right">
+            <thead class="bg-[#f9f9f9] text-[12px] font-medium text-[#444]">
+              <tr class="h-[52px]">
+                <th class="px-5">تراکنش</th>
+                <th class="px-5">تاریخ</th>
+                <th class="px-5">مبلغ فروش (تومان)</th>
+                <th class="px-5">مبلغ کسرشده (تومان)</th>
+                <th class="px-5">سهم خالص فروشگاه (تومان)</th>
+              </tr>
+            </thead>
+            <tbody id="txRows" class="text-[12px]"></tbody>
+          </table>
+        </div>
+
+        <!-- کارت موبایل -->
+        <div id="txCards" class="mt-5 space-y-3 md:hidden"></div>
+
+        <div id="txEmpty" class="store-empty hidden">
+          <svg viewBox="0 0 200 160" class="mx-auto w-[160px]"><use href="#icon-empty-finance"></use></svg>
+          <p class="mt-4 text-[15px] font-medium">هنوز تراکنشی ندارید.</p>
+          <p class="store-empty-hint">پس از ثبت اولین تراکنش مالی فروشگاه، جزئیات آن در این بخش نمایش داده می‌شود.</p>
+        </div>
+
+        <div id="txPagination" class="mt-6 flex items-center justify-center gap-1 text-[13px]" dir="ltr"></div>
+      </article>
+    </section>
+
+    <!-- ==================================================
+         TAB 3: SETTLEMENTS
+    ================================================== -->
+    <section id="finance-settlements" class="finance-panel hidden pt-5 md:pt-6">
+
+      <!-- کارت موجودی قابل تسویه -->
+      <article class="rounded-[14px] border border-[#e4bcb4] bg-gradient-to-l from-white to-[#fdf6f4] p-5 md:p-6">
+        <div class="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
+          <div class="text-center md:text-right">
+            <p class="text-[14px] text-[#666]">موجودی قابل تسویه</p>
+            <strong class="money-en mt-4 block text-[25px] font-medium" dir="ltr">۱۲۰,۰۰۰,۰۰۰ تومان</strong>
+            <p class="money-en mt-3 text-[12px] text-[#777]">موجودی فروشگاه: ۱۳۰,۰۰۰,۰۰۰ تومان</p>
+          </div>
+          <button type="button" id="openSettlementModal"
+            class="h-[42px] rounded-[7px] bg-[#aa4938] px-6 text-[13px] font-medium text-white hover:bg-[#934033]">
+            ثبت درخواست تسویه
+          </button>
+        </div>
+      </article>
+
+      <!-- تاریخچه تسویه‌حساب‌ها -->
+      <article class="mt-5 rounded-[14px] bg-white p-4 shadow-card md:p-6">
+        <h2 class="text-[16px] font-medium">تاریخچه تسویه‌حساب‌ها</h2>
+
+        <div class="mt-5 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+          <div class="flex items-center gap-2 overflow-x-auto no-scrollbar">
+            <div class="relative shrink-0">
+              <button type="button" data-popup-trigger="popup-st-sort" class="store-chip">
+                <span class="text-[#777]">مرتب‌سازی:</span>
+                <span id="stSortChipLabel" class="font-medium text-[#333]">جدیدترین فروش</span>
+                <svg class="h-4 w-4"><use href="#icon-chevron-down"></use></svg>
+              </button>
+
+              <div id="popup-st-sort" data-popup="st-sort"
+                class="store-popup absolute right-0 top-[46px] z-30 hidden w-[280px] md:w-[320px]">
+                <div class="drag-handle"></div>
+                <div class="store-popup-header">
+                  <span>مرتب‌سازی</span>
+                  <button type="button" data-close-popup><svg class="h-5 w-5"><use href="#icon-close"></use></svg></button>
+                </div>
+                <div class="space-y-4 px-6 py-5 text-[14px]">
+                  <label class="flex cursor-pointer items-center justify-between">
+                    <span>جدیدترین</span>
+                    <span class="flex"><input class="sr-only" type="radio" name="stSort" value="latest" checked /><span class="store-radio-ui"></span></span>
+                  </label>
+                  <label class="flex cursor-pointer items-center justify-between">
+                    <span>قدیمی‌ترین</span>
+                    <span class="flex"><input class="sr-only" type="radio" name="stSort" value="oldest" /><span class="store-radio-ui"></span></span>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <div class="relative shrink-0">
+              <button type="button" data-popup-trigger="popup-st-range" class="store-chip">
+                <span class="text-[#777]">بازه زمانی</span>
+                <svg class="h-4 w-4"><use href="#icon-chevron-down"></use></svg>
+              </button>
+              <div id="popup-st-range" data-popup="st-range"
+                class="store-popup absolute right-0 top-[46px] z-30 hidden w-[280px] md:w-[320px]">
+                <div class="drag-handle"></div>
+                <div class="store-popup-header">
+                  <span>بازه زمانی</span>
+                  <button type="button" data-close-popup><svg class="h-5 w-5"><use href="#icon-close"></use></svg></button>
+                </div>
+                <div class="space-y-4 px-6 py-5 text-[14px]">
+                  <label class="flex cursor-pointer items-center justify-between"><span>امروز</span><span class="flex"><input class="sr-only" type="checkbox" /><span class="store-check-ui"></span></span></label>
+                  <label class="flex cursor-pointer items-center justify-between"><span>۷ روز اخیر</span><span class="flex"><input class="sr-only" type="checkbox" /><span class="store-check-ui"></span></span></label>
+                  <label class="flex cursor-pointer items-center justify-between"><span>این ماه</span><span class="flex"><input class="sr-only" type="checkbox" /><span class="store-check-ui"></span></span></label>
+                  <label class="flex cursor-pointer items-center justify-between"><span>ماه گذشته</span><span class="flex"><input class="sr-only" type="checkbox" /><span class="store-check-ui"></span></span></label>
+                  <label class="flex cursor-pointer items-center justify-between"><span>۳ ماه اخیر</span><span class="flex"><input class="sr-only" type="checkbox" /><span class="store-check-ui"></span></span></label>
+                  <label class="flex cursor-pointer items-center justify-between"><span>انتخاب بازه دلخواه</span><span class="flex"><input class="sr-only" type="checkbox" /><span class="store-check-ui"></span></span></label>
+                </div>
+              </div>
+            </div>
+
+            <div class="relative shrink-0">
+              <button type="button" data-popup-trigger="popup-st-status" class="store-chip">
+                <span class="text-[#777]">وضعیت</span>
+                <svg class="h-4 w-4"><use href="#icon-chevron-down"></use></svg>
+              </button>
+              <div id="popup-st-status" data-popup="st-status"
+                class="store-popup absolute right-0 top-[46px] z-30 hidden w-[280px] md:w-[320px]">
+                <div class="drag-handle"></div>
+                <div class="store-popup-header">
+                  <span>وضعیت</span>
+                  <button type="button" data-close-popup><svg class="h-5 w-5"><use href="#icon-close"></use></svg></button>
+                </div>
+                <div class="space-y-4 px-6 py-5 text-[14px]">
+                  <label class="flex cursor-pointer items-center justify-between"><span>موفق</span><span class="flex"><input class="sr-only st-status-check" type="checkbox" value="paid" /><span class="store-check-ui"></span></span></label>
+                  <label class="flex cursor-pointer items-center justify-between"><span>در انتظار</span><span class="flex"><input class="sr-only st-status-check" type="checkbox" value="pending" /><span class="store-check-ui"></span></span></label>
+                  <label class="flex cursor-pointer items-center justify-between"><span>رد شده</span><span class="flex"><input class="sr-only st-status-check" type="checkbox" value="rejected" /><span class="store-check-ui"></span></span></label>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex items-center gap-3 text-[12px] text-[#666]">
+            <span>تعداد نتایج: <b id="stCount" class="font-medium text-[#333]">۱۲۳</b></span>
+            <span class="h-5 w-px bg-[#d7d7d7]"></span>
+            <span>تعداد نمایش</span>
+            <select id="stPageSize" class="h-8 rounded-[5px] border border-[#cfcfcf] bg-white px-2 outline-none">
+              <option value="5" selected>۱۰</option>
+              <option value="10">۲۰</option>
+              <option value="20">۵۰</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- جدول دسکتاپ -->
+        <div class="mt-5 hidden overflow-x-auto rounded-[10px] border border-[#e5e5e5] md:block">
+          <table class="w-full min-w-[900px] border-collapse text-right">
+            <thead class="bg-[#f9f9f9] text-[12px] font-medium text-[#444]">
+              <tr class="h-[52px]">
+                <th class="px-5">شناسه تسویه</th>
+                <th class="px-5">تاریخ درخواست</th>
+                <th class="px-5">مبلغ (تومان)</th>
+                <th class="px-5">حساب مقصد</th>
+                <th class="px-5">تاریخ واریز</th>
+                <th class="px-5">وضعیت</th>
+              </tr>
+            </thead>
+            <tbody id="stRows" class="text-[12px]"></tbody>
+          </table>
+        </div>
+
+        <!-- کارت موبایل -->
+        <div id="stCards" class="mt-5 space-y-3 md:hidden"></div>
+
+        <div id="stEmpty" class="store-empty hidden">
+          <svg viewBox="0 0 200 160" class="mx-auto w-[160px]"><use href="#icon-empty-finance"></use></svg>
+          <p class="mt-4 text-[15px] font-medium">هنوز درخواستی برای تسویه ثبت نکرده‌اید.</p>
+          <p class="store-empty-hint">پس از ثبت اولین درخواست تسویه، وضعیت و جزئیات واریز آن در این بخش نمایش داده می‌شود.</p>
+        </div>
+
+        <div id="stPagination" class="mt-6 flex items-center justify-center gap-1 text-[13px]" dir="ltr"></div>
+      </article>
+    </section>
+
+    <!-- ==================================================
+         TAB 4: BANK
+    ================================================== -->
+    <section id="finance-bank" class="finance-panel hidden pt-5 md:pt-6">
+      <article class="rounded-[14px] bg-white p-4 shadow-card md:p-6">
+        <div class="flex flex-wrap items-center justify-between gap-4">
+          <h2 class="text-[16px] font-medium">حساب بانکی تسویه</h2>
+          <button type="button" id="openBankModal"
+            class="flex h-[42px] items-center gap-2 rounded-[7px] bg-[#aa4938] px-6 text-[13px] font-medium text-white hover:bg-[#934033]">
+            <svg class="h-4 w-4"><use href="#icon-plus"></use></svg>
+            افزودن حساب بانکی
+          </button>
+        </div>
+
+        <div id="bankList" class="mt-5 space-y-4"></div>
+
+        <div id="bankEmpty" class="hidden py-12 text-center">
+          <div class="mx-auto grid h-16 w-16 place-items-center rounded-full bg-[#f7efed] text-[#aa4938]">
+            <svg class="h-9 w-9"><use href="#icon-bank"></use></svg>
+          </div>
+          <h3 class="mt-5 text-[15px] font-medium">هنوز حساب بانکی ثبت نکرده‌اید.</h3>
+          <p class="mt-2 text-[12px] text-[#777]">برای دریافت مبالغ تسویه، یک حساب بانکی به نام صاحب فروشگاه ثبت کنید.</p>
+          <button type="button" data-open-bank-modal
+            class="mt-6 h-[42px] min-w-[200px] rounded-[7px] bg-[#aa4938] px-6 text-[13px] font-medium text-white hover:bg-[#934033]">
+            افزودن حساب بانکی
+          </button>
+        </div>
+      </article>
+    </section>
+
+  </main>
+
+  <!-- Bottom Nav -->
+  <nav class="fixed bottom-0 left-0 right-0 z-40 border-t border-[#dedede] bg-white md:hidden">
+    <ul class="store-bottom-nav w-full flex items-center justify-between pb-3">
+      <li class="flex-1 flex flex-col items-center justify-center gap-1 pt-3 text-[#333]">
+        <img src="../../images/ShopDashboard/botton/store.svg" alt="" class="h-6 w-6" />
+        <a href="StoreDashboard.html" class="text-[11px]">فروشگاه من</a>
+      </li>
+      <li class="flex-1 flex flex-col items-center justify-center gap-1 pt-3 text-[#333]">
+        <img src="../../images/ShopDashboard/botton/bag 01.svg" alt="" class="h-6 w-6" />
+        <a href="Products/StoreDashboard_ProductsList.html" class="text-[11px]">محصولات</a>
+      </li>
+      <li class="flex-1 flex flex-col items-center justify-center gap-1 pt-3 text-[#333]">
+        <img src="../../images/ShopDashboard/botton/cart 01.svg" alt="" class="h-6 w-6" />
+        <a href="Orders/StoreDashboard_Orders_List.html" class="text-[11px]">سفارش‌ها</a>
+      </li>
+      <li class="flex-1 flex flex-col items-center justify-center gap-1 pt-3 text-[#333]">
+        <img src="../../images/ShopDashboard/botton/mail.svg" alt="" class="h-6 w-6" />
+        <a href="StoreDashboard_Messages.html" class="text-[11px]">پیام‌ها</a>
+      </li>
+      <li class="flex-1 flex flex-col items-center justify-center gap-1 pt-3 text-custom-brown active">
+        <img src="../../images/ShopDashboard/botton/menu-line-horizontal.svg" alt="" class="h-6 w-6" />
+        <a href="StoreDashboard_Profile_Filled.html" class="text-[11px]">سایر</a>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- ================================================
+       Filter Drawer (تراکنش‌ها)
+  ================================================ -->
+  <div id="txFilterBackdrop" class="fixed inset-0 z-40 hidden bg-black/25"></div>
+
+  <aside id="txFilterDrawer"
+    class="store-filter-drawer mobile-fullscreen fixed bottom-0 right-0 top-0 z-50 w-full max-w-[390px] translate-x-full bg-white shadow-2xl transition-transform duration-200"
+    role="dialog" aria-modal="true">
+
+    <div class="flex h-full flex-col">
+      <header class="flex h-[60px] items-center justify-between border-b border-[#e5e5e5] px-6">
+        <h2 class="text-[18px] font-semibold">فیلتر تراکنش‌ها</h2>
+        <div class="flex items-center gap-4">
+          <button type="button" id="clearTxFilters" class="text-[14px] text-[#aa4938]">حذف فیلترها</button>
+          <button type="button" id="closeTxFilterDrawer" class="grid h-8 w-8 place-items-center">
+            <svg class="h-5 w-5"><use href="#icon-close"></use></svg>
+          </button>
+        </div>
+      </header>
+
+      <div class="flex-1 space-y-6 overflow-y-auto px-6 py-5">
+        <section>
+          <h3 class="mb-4 font-semibold">نوع تراکنش</h3>
+          <div class="space-y-4 text-[14px]">
+            <label class="flex cursor-pointer items-center justify-between">
+              <span>فروش سفارش</span>
+              <span class="flex"><input class="sr-only tx-drawer-checkbox" type="checkbox" data-filter="type" value="sale" /><span class="store-check-ui"></span></span>
+            </label>
+            <label class="flex cursor-pointer items-center justify-between">
+              <span>بازگشت وجه</span>
+              <span class="flex"><input class="sr-only tx-drawer-checkbox" type="checkbox" data-filter="type" value="refund" /><span class="store-check-ui"></span></span>
+            </label>
+            <label class="flex cursor-pointer items-center justify-between">
+              <span>اصلاح مالی</span>
+              <span class="flex"><input class="sr-only tx-drawer-checkbox" type="checkbox" data-filter="type" value="adjustment" /><span class="store-check-ui"></span></span>
+            </label>
+          </div>
+        </section>
+
+        <div class="store-divider"></div>
+
+        <section>
+          <h3 class="mb-4 font-semibold">بازه مبلغ</h3>
+          <div class="grid grid-cols-2 gap-3">
+            <label>
+              <span class="mb-2 block text-[12px] text-[#777]">از مبلغ</span>
+              <input id="txMinAmount" inputmode="numeric" placeholder="۰"
+                class="h-[42px] w-full rounded-[7px] border border-[#aaa] px-3 text-[13px] outline-none" />
+            </label>
+            <label>
+              <span class="mb-2 block text-[12px] text-[#777]">تا مبلغ</span>
+              <input id="txMaxAmount" inputmode="numeric" placeholder="بدون محدودیت"
+                class="h-[42px] w-full rounded-[7px] border border-[#aaa] px-3 text-[13px] outline-none" />
+            </label>
+          </div>
+        </section>
+      </div>
+
+      <footer class="border-t border-[#e5e5e5] p-6">
+        <button type="button" id="applyTxFilters"
+          class="h-[46px] w-full rounded-[7px] bg-[#aa4938] text-[15px] font-medium text-white hover:bg-[#934033]">
+          اعمال فیلتر
+        </button>
+      </footer>
+    </div>
+  </aside>
+
+  <!-- ================================================
+       Modal: درخواست تسویه
+  ================================================ -->
+  <div id="settlementBackdrop" class="fixed inset-0 z-40 hidden bg-black/45"></div>
+
+  <section id="settlementModal" class="store-modal hidden" style="max-width: 520px;" role="dialog">
+    <header class="store-modal-header">
+      <h2 class="text-[17px] font-bold">درخواست تسویه</h2>
+      <button type="button" id="closeSettlementModal" class="grid h-8 w-8 place-items-center">
+        <svg class="h-5 w-5"><use href="#icon-close"></use></svg>
+      </button>
+    </header>
+
+    <form id="settlementForm" class="space-y-5 p-6">
+
+      <!-- کارت موجودی قابل تسویه -->
+      <div class="rounded-[10px] border border-[#e4bcb4] bg-[#fdf6f4] px-5 py-4">
+        <div class="flex items-center justify-between">
+          <span class="text-[13px] text-[#666]">موجودی قابل تسویه</span>
+          <strong class="money-en text-[16px] font-semibold text-[#aa4938]" dir="ltr">۱۲۰,۰۰۰,۰۰۰ تومان</strong>
+        </div>
+      </div>
+
+      <label class="block">
+        <span class="mb-2 block text-[13px]">مبلغ تسویه (تومان)</span>
+        <input id="settlementAmount" type="text" inputmode="numeric" placeholder="مبلغ مورد نظر خود برای تسویه را وارد نمایید"
+          class="h-[48px] w-full rounded-[7px] border border-[#ccc] px-3 text-[13px] outline-none focus:border-[#aa4938]" />
+        <button type="button" id="selectAllAmount"
+          class="mt-2 block text-[12px] font-medium text-[#aa4938] hover:underline">
+          انتخاب تمام موجودی
+        </button>
+      </label>
+
+      <label class="block">
+        <span class="mb-2 block text-[13px]">واریز به</span>
+        <div class="relative" id="bankSelectorWrap">
+          <button type="button" id="bankSelectorBtn"
+            class="flex w-full items-center justify-between rounded-[7px] border border-[#ccc] bg-white px-4 py-3 text-[13px] hover:border-[#aa4938]">
+            <span id="bankSelectorLabel" class="text-[#777]">انتخاب حساب بانکی</span>
+            <div class="flex items-center gap-3">
+              <span class="grid h-9 w-9 place-items-center rounded border border-[#e5e5e5] text-[#aa4938]">
+                <svg class="h-5 w-5"><use href="#icon-bank"></use></svg>
+              </span>
+              <svg class="h-4 w-4 text-[#999]"><use href="#icon-chevron-down"></use></svg>
+            </div>
+          </button>
+
+          <div id="bankSelectorDropdown"
+            class="absolute right-0 left-0 top-[54px] z-20 hidden overflow-hidden rounded-[10px] border border-[#e5e5e5] bg-white shadow-lg">
+            <div id="bankSelectorList" class="divide-y divide-[#f0f0f0]"></div>
+            <button type="button" data-open-bank-modal
+              class="flex w-full items-center justify-center gap-2 border-t border-[#f0f0f0] py-3 text-[12px] font-medium text-[#aa4938] hover:bg-[#fbf2ef]">
+              <svg class="h-4 w-4"><use href="#icon-plus"></use></svg>
+              افزودن حساب بانکی جدید
+            </button>
+          </div>
+        </div>
+      </label>
+
+      <!-- خلاصه -->
+      <div class="mt-2 space-y-3 border-t border-[#e5e5e5] pt-4 text-[13px]">
+        <div class="flex items-center justify-between">
+          <span class="text-[#777]">مبلغ درخواستی</span>
+          <strong class="money-en" id="summaryRequested" dir="ltr">۰ تومان</strong>
+        </div>
+        <div class="flex items-center justify-between">
+          <span class="text-[#777]">هزینه انتقال</span>
+          <strong class="money-en" id="summaryFee" dir="ltr">۰ تومان</strong>
+        </div>
+        <div class="flex items-center justify-between border-t border-[#f0f0f0] pt-3">
+          <span class="text-[#777]">مبلغ نهایی واریز</span>
+          <strong class="money-en text-[#aa4938]" id="summaryFinal" dir="ltr">۰ تومان</strong>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-2 gap-3 pt-2">
+        <button type="submit"
+          class="h-[46px] rounded-[7px] bg-[#aa4938] text-[14px] font-medium text-white hover:bg-[#934033]">
+          ثبت درخواست تسویه
+        </button>
+        <button type="button" id="cancelSettlementModal"
+          class="h-[46px] rounded-[7px] border border-red-500 text-[14px] font-medium text-red-500 hover:bg-red-50">
+          انصراف
+        </button>
+      </div>
+    </form>
+  </section>
+
+  <!-- ================================================
+       Modal: افزودن/ویرایش حساب بانکی
+  ================================================ -->
+  <div id="bankModalBackdrop" class="fixed inset-0 z-40 hidden bg-black/45"></div>
+
+  <section id="bankModal" class="store-modal hidden" style="max-width: 540px;" role="dialog">
+    <header class="store-modal-header">
+      <h2 id="bankModalTitle" class="text-[17px] font-bold">افزودن حساب بانکی</h2>
+      <button type="button" id="closeBankModal" class="grid h-8 w-8 place-items-center">
+        <svg class="h-5 w-5"><use href="#icon-close"></use></svg>
+      </button>
+    </header>
+
+    <form id="bankForm" class="grid gap-4 p-6 md:grid-cols-2">
+      <label class="block">
+        <span class="mb-2 block text-[12px]">نام بانک</span>
+        <input id="bankName" type="text" placeholder="مثلاً بانک ملی"
+          class="h-[42px] w-full rounded-[7px] border border-[#ccc] px-3 text-[13px] outline-none focus:border-[#aa4938]" />
+      </label>
+      <label class="block">
+        <span class="mb-2 block text-[12px]">نام صاحب حساب</span>
+        <input id="bankOwner" type="text" placeholder="نام و نام خانوادگی"
+          class="h-[42px] w-full rounded-[7px] border border-[#ccc] px-3 text-[13px] outline-none focus:border-[#aa4938]" />
+      </label>
+      <label class="block md:col-span-2">
+        <span class="mb-2 block text-[12px]">شماره شبا</span>
+        <input id="bankIban" type="text" dir="ltr" placeholder="IR000000000000000000000000"
+          class="h-[42px] w-full rounded-[7px] border border-[#ccc] px-3 text-left text-[13px] outline-none focus:border-[#aa4938]" />
+      </label>
+      <label class="block md:col-span-2">
+        <span class="mb-2 block text-[12px]">شماره کارت</span>
+        <input id="bankCard" type="text" dir="ltr" placeholder="0000 0000 0000 0000"
+          class="h-[42px] w-full rounded-[7px] border border-[#ccc] px-3 text-left text-[13px] outline-none focus:border-[#aa4938]" />
+      </label>
+      <button type="submit"
+        class="mt-2 h-[46px] rounded-[7px] bg-[#aa4938] text-[14px] font-medium text-white hover:bg-[#934033] md:col-span-2">
+        ذخیره حساب
+      </button>
+    </form>
+  </section>
+
+  <!-- ================================================
+       Modal: تأیید حذف بانک
+  ================================================ -->
+  <div id="deleteBankBackdrop" class="fixed inset-0 z-[150] hidden bg-black/45"></div>
+
+  <section id="deleteBankModal" class="store-modal hidden" style="max-width: 390px;" role="dialog">
+    <div class="p-6 text-center">
+      <div class="mx-auto grid h-16 w-16 place-items-center rounded-full bg-red-50 text-red-500">
+        <svg class="h-8 w-8"><use href="#icon-trash"></use></svg>
+      </div>
+      <h3 class="mt-4 text-[16px] font-medium">حذف حساب بانکی</h3>
+      <p class="mt-2 text-[12px] leading-7 text-[#777]">آیا از حذف این حساب بانکی مطمئن هستید؟ این عملیات قابل بازگشت نیست.</p>
+      <div class="mt-6 grid grid-cols-2 gap-3">
+        <button type="button" id="confirmDeleteBank"
+          class="h-[42px] rounded-[7px] bg-red-500 text-[13px] font-medium text-white hover:bg-red-600">حذف</button>
+        <button type="button" id="cancelDeleteBank"
+          class="h-[42px] rounded-[7px] border border-[#ccc] text-[13px] hover:bg-[#f7f7f7]">انصراف</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================================
+       Modal: Feedback
+  ================================================ -->
+  <div id="feedbackBackdrop" class="fixed inset-0 z-[160] hidden bg-black/45"></div>
+
+  <section id="feedbackModal" class="store-modal hidden" style="max-width: 420px;" role="dialog">
+    <div class="p-7 text-center">
+      <div id="feedbackIcon" class="mx-auto grid h-[70px] w-[70px] place-items-center text-green-600">
+        <svg class="h-[70px] w-[70px]"><use href="#icon-check-star"></use></svg>
+      </div>
+      <h3 id="feedbackTitle" class="mt-4 text-[17px] font-medium">—</h3>
+      <p id="feedbackText" class="mt-2 text-[12px] leading-7 text-[#777]">—</p>
+      <div class="mt-6 grid grid-cols-2 gap-3">
+        <button type="button" id="closeFeedback"
+          class="h-[44px] rounded-[7px] border border-[#aa4938] text-[14px] font-medium text-[#aa4938] hover:bg-[#fbf2ef]">
+          بستن
+        </button>
+        <button type="button" id="retryFeedback"
+          class="hidden h-[44px] rounded-[7px] bg-[#aa4938] text-[14px] font-medium text-white hover:bg-[#934033]">
+          تلاش دوباره
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Toast -->
+  <div id="toast"
+    class="pointer-events-none fixed bottom-24 left-1/2 z-[999] hidden -translate-x-1/2 rounded-[8px] bg-[#333] px-5 py-3 text-[13px] text-white shadow-lg md:bottom-6"
+    role="status"></div>
+
+  <script src="../../scripts/StoreDashboard/store-common.js"></script>
+  <script src="../../scripts/StoreDashboard/store-finance.js"></script>
+</body>
+
+</html>

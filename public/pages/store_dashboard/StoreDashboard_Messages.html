@@ -1,0 +1,492 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>گفت‌وگوها | پنل فروشگاه جورک</title>
+  <meta name="description" content="مشاهده و مدیریت گفت‌وگوهای فروشگاه با کاربران، ارسال پیام و گزارش گفت‌وگو." />
+  <meta name="keywords" content="گفتگو فروشگاه, پیام‌ها, پنل فروشگاه" />
+  <link rel="canonical" href="https://example.com/store/messages" />
+
+  <link rel="stylesheet" href="../../styles/output.css" />
+  <link rel="stylesheet" href="../../styles/store-common.css" />
+
+  <style>
+    .chat-scroll::-webkit-scrollbar {
+      width: 5px;
+    }
+
+    .chat-scroll::-webkit-scrollbar-thumb {
+      background: #d3d3d3;
+      border-radius: 999px;
+    }
+
+    .chat-scroll::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    .chat-bubble {
+      max-width: 82%;
+    }
+
+    @media (min-width: 768px) {
+      .chat-bubble {
+        max-width: 55%;
+      }
+
+      .desktop-chat-height {
+        height: 600px;
+      }
+    }
+  </style>
+</head>
+
+<body class="store-dashboard-page min-h-screen bg-[#f3f3f3] text-[#252525] font-IRANSansXRegular antialiased">
+
+  <!-- =========================================================
+       SVG SPRITE
+  ========================================================== -->
+  <svg class="hidden" aria-hidden="true" focusable="false">
+    <!-- سایدبار -->
+    <symbol id="icon-store" viewBox="0 0 20 20" fill="none">
+      <path d="M16.667 10V15c0 1.84-1.492 3.333-3.333 3.333H6.667c-1.84 0-3.333-1.492-3.333-3.333v-5"
+        stroke="currentColor" stroke-width="1.5" />
+      <path
+        d="M13.973 1.668H6.025A4.167 4.167 0 0 0 2.586 4.287l-.631 1.777c-.191.537-.324 1.113-.184 1.666a3.198 3.198 0 0 0 2.673 2.271c1.534 0 2.777-1.399 2.777-3.125 0 1.726 1.244 3.125 2.778 3.125 1.534 0 2.778-1.399 2.778-3.125 0 1.726 1.244 3.125 2.778 3.125a3.198 3.198 0 0 0 2.673-2.271c.139-.553.007-1.129-.184-1.666l-.632-1.777a4.167 4.167 0 0 0-3.439-2.619Z"
+        stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" />
+      <path d="M7.5 14.168c1.963 1.117 3.04 1.105 5 0" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+        stroke-linejoin="round" />
+    </symbol>
+    <symbol id="icon-bag" viewBox="0 0 20 20" fill="none">
+      <path d="M13.333 5.001A3.333 3.333 0 1 0 6.666 5.001" stroke="currentColor" stroke-width="1.5"
+        stroke-linecap="round" stroke-linejoin="round" />
+      <path
+        d="M3.801 7.92A3.333 3.333 0 0 1 7.109 5h5.781a3.333 3.333 0 0 1 3.308 2.92l.833 6.667A3.333 3.333 0 0 1 13.723 18.333H6.275A3.333 3.333 0 0 1 2.968 14.587L3.8 7.92Z"
+        stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" />
+      <path d="M7.5 13.332c1.963 1.117 3.04 1.105 5 0" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+        stroke-linejoin="round" />
+    </symbol>
+    <symbol id="icon-cart" viewBox="0 0 20 20" fill="none">
+      <path
+        d="M5 3.335h10a3.333 3.333 0 0 1 3.333 3.333v4.167A3.333 3.333 0 0 1 15 14.168H8.333A3.333 3.333 0 0 1 5 10.835V3.335ZM5 3.335A1.667 1.667 0 0 0 3.333 1.668H1.666"
+        stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+      <path
+        d="M9.166 17.082a1.25 1.25 0 1 1-2.5 0 1.25 1.25 0 0 1 2.5 0Zm7.5 0a1.25 1.25 0 1 1-2.5 0 1.25 1.25 0 0 1 2.5 0Z"
+        stroke="currentColor" stroke-width="1.5" />
+      <path d="M9.166 7.082h5M9.166 10.418h5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+    </symbol>
+    <symbol id="icon-chat" viewBox="0 0 20 20" fill="none">
+      <path
+        d="m7.5 10 1.46 1.169a1 1 0 0 0 1.148.055L12.5 8.333M9.166 2.5h1.667A7.5 7.5 0 0 1 18.333 10a7.5 7.5 0 0 1-7.5 7.5H5A3.333 3.333 0 0 1 1.666 14.167V10A7.5 7.5 0 0 1 9.166 2.5Z"
+        stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+    </symbol>
+    <symbol id="icon-board" viewBox="0 0 20 20" fill="none">
+      <path
+        d="M1.666 7.5a2.5 2.5 0 0 1 2.5-2.5h11.667a2.5 2.5 0 0 1 2.5 2.5v8.333a2.5 2.5 0 0 1-2.5 2.5H4.166a2.5 2.5 0 0 1-2.5-2.5V7.5Z"
+        stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" />
+      <path d="M5.834 8.332h8.333M5.834 11.668h8.333M5.834 15H10M5 5.001 10 1.668l5 3.333" stroke="currentColor"
+        stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+    </symbol>
+    <symbol id="icon-wallet" viewBox="0 0 20 20" fill="none">
+      <path
+        d="M1.666 5h13.333a3.333 3.333 0 0 1 3.333 3.333V15A3.333 3.333 0 0 1 15 18.333H5A3.333 3.333 0 0 1 1.666 15V5Z"
+        stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" />
+      <path d="M1.666 5.001A3.333 3.333 0 0 1 5 1.668h5a3.333 3.333 0 0 1 3.333 3.333H1.666Z" stroke="currentColor"
+        stroke-width="1.5" stroke-linejoin="round" />
+      <path d="M18.334 10v3.333h-3.333a1.667 1.667 0 0 1 0-3.333h3.333Z" stroke="currentColor" stroke-width="1.5"
+        stroke-linejoin="round" />
+    </symbol>
+    <symbol id="icon-notive" viewBox="0 0 20 20" fill="none">
+      <path
+        d="M15.2 7.48a5.2 5.2 0 0 0-10.4 0c-.086.84-.314 1.65-.665 2.4a2.16 2.16 0 0 0 1.05 2.947c1.512.674 3.254 1.039 4.815 1.039s3.303-.365 4.815-1.039a2.16 2.16 0 0 0 1.05-2.948 6.098 6.098 0 0 1-.665-2.399ZM7.5 15.832a2.5 2.5 0 0 0 5 0"
+        stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+      <path d="M10 1.668v1.667" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+    </symbol>
+    <symbol id="icon-mail" viewBox="0 0 20 20" fill="none">
+      <path
+        d="m5 6.667 3.15 2.1a3.333 3.333 0 0 0 3.699 0L15 6.667M5 17.5h10a3.333 3.333 0 0 0 3.333-3.333V5.833A3.333 3.333 0 0 0 15 2.5H5a3.333 3.333 0 0 0-3.334 3.333v8.334A3.333 3.333 0 0 0 5 17.5Z"
+        stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+    </symbol>
+    <symbol id="icon-setting" viewBox="0 0 20 20" fill="none">
+      <path d="M10 12.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z" stroke="currentColor" stroke-width="1.5"
+        stroke-linejoin="round" />
+      <path
+        d="M17.286 13.1a1.617 1.617 0 0 1 .322 1.782 16.34 16.34 0 0 1-2.288 2.288 1.617 1.617 0 0 1-1.783-.322l-.58-.386a1.617 1.617 0 0 0-1.441-.236 1.69 1.69 0 0 0-1.17 1.475v.73a1.617 1.617 0 0 1-1.159 1.563 16.87 16.87 0 0 1-3.23 0 1.617 1.617 0 0 1-1.158-1.563v-.73a1.69 1.69 0 0 0-1.17-1.475 1.617 1.617 0 0 0-1.44.236l-.582.386a1.617 1.617 0 0 1-1.782-.322 16.34 16.34 0 0 1-2.288-2.288A1.617 1.617 0 0 1 1.715 13.1l.386-.581a1.617 1.617 0 0 0 .236-1.441 1.69 1.69 0 0 0-1.475-1.17h-.73a1.617 1.617 0 0 1-1.563-1.159 16.87 16.87 0 0 1 0-3.23A1.617 1.617 0 0 1 .132 4.36h.73a1.69 1.69 0 0 0 1.475-1.17 1.617 1.617 0 0 0-.236-1.44l-.386-.582a1.617 1.617 0 0 1 .322-1.782 16.34 16.34 0 0 1 2.288-2.288 1.617 1.617 0 0 1 1.782.322l.581.386a1.617 1.617 0 0 0 1.441.236 1.69 1.69 0 0 0 1.17-1.475v-.73A1.617 1.617 0 0 1 10.868.132a16.87 16.87 0 0 1 3.23 0 1.617 1.617 0 0 1 1.159 1.563v.73a1.69 1.69 0 0 0 1.17 1.475 1.617 1.617 0 0 0 1.44-.236l.582-.386a1.617 1.617 0 0 1 1.782.322 16.34 16.34 0 0 1 2.288 2.288 1.617 1.617 0 0 1-.322 1.782l-.386.581a1.617 1.617 0 0 0-.236 1.441 1.69 1.69 0 0 0 1.475 1.17h.73a1.617 1.617 0 0 1 1.563 1.159 16.87 16.87 0 0 1 0 3.23 1.617 1.617 0 0 1-1.563 1.158h-.73a1.69 1.69 0 0 0-1.475 1.17Z"
+        stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" />
+    </symbol>
+    <symbol id="icon-call" viewBox="0 0 20 20" fill="none">
+      <path
+        d="M17.5 10.835V12.5a2.5 2.5 0 0 1-2.5 2.5 2.5 2.5 0 0 1-2.5-2.5v-1.666a2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5v-1.667a7.5 7.5 0 1 0-15 0v1.667m0 0V12.5a2.5 2.5 0 0 0 2.5 2.5 2.5 2.5 0 0 0 2.5-2.5v-1.666a2.5 2.5 0 0 0-2.5-2.5 2.5 2.5 0 0 0-2.5 2.5ZM17.5 11.668v1.667a5 5 0 0 1-5 5H10"
+        stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+    </symbol>
+    <symbol id="icon-exit" viewBox="0 0 20 20" fill="none">
+      <path d="m15 7.5 2.5 2.5L15 12.5M17.5 10H7.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+        stroke-linejoin="round" />
+      <path d="M12.5 6.25A3.75 3.75 0 0 0 8.75 2.5H6.5a4 4 0 0 0-4 4v7a4 4 0 0 0 4 4h2.25a3.75 3.75 0 0 0 3.75-3.75"
+        stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+    </symbol>
+
+    <!-- عمومی -->
+    <symbol id="icon-arrow-left" viewBox="0 0 24 24" fill="none">
+      <path d="M14 7l-5 5 5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+        stroke-linejoin="round" />
+    </symbol>
+    <symbol id="icon-arrow-right" width="32" height="32" viewBox="0 0 28 28" fill="none"
+      xmlns="http://www.w3.org/2000/svg">
+      <path d="M16.3333 9.33464L21 14.0013L16.3333 18.668M21 14.0013L7 14.0013" stroke="#262626" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round" />
+    </symbol>
+    <symbol id="icon-close" viewBox="0 0 24 24" fill="none">
+      <path d="M6 6l12 12M18 6 6 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+    </symbol>
+    <symbol id="icon-more" viewBox="0 0 24 24" fill="currentColor">
+      <circle cx="12" cy="5" r="1.7" />
+      <circle cx="12" cy="12" r="1.7" />
+      <circle cx="12" cy="19" r="1.7" />
+    </symbol>
+    <symbol id="icon-user" viewBox="0 0 24 24" fill="currentColor">
+      <circle cx="12" cy="7.2" r="3.5" />
+      <path d="M5.7 19c.8-4 3-6 6.3-6 3.4 0 5.6 2 6.3 6-1.8 1.4-3.9 2-6.3 2s-4.5-.6-6.3-2Z" />
+    </symbol>
+    <symbol id="icon-attach" viewBox="0 0 24 24" fill="none">
+      <path d="m8.5 12.7 6.9-6.9a3 3 0 1 1 4.2 4.2l-9.1 9.1a5 5 0 0 1-7.1-7.1l9-9" stroke="currentColor"
+        stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+    </symbol>
+    <symbol id="icon-double-check" viewBox="0 0 24 24" fill="none">
+      <path d="M5 13l4 4L19 7m-14 6l4 4L19 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+        stroke-linejoin="round" />
+    </symbol>
+    <symbol id="icon-warning" viewBox="0 0 24 24" fill="none">
+      <path d="M12 4 2.5 20h19L12 4Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" />
+      <path d="M12 10v4M12 17h.01" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" />
+    </symbol>
+    <symbol id="icon-check" viewBox="0 0 24 24" fill="none">
+      <path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+    </symbol>
+  </svg>
+
+  <!-- =========================================================
+       HEADER دسکتاپ
+  ========================================================== -->
+  <header class="store-desktop-header hidden md:block mb-8" role="banner">
+    <div class="store-header-inner">
+      <div class="flex items-center gap-4">
+        <a href="../../index.html" aria-label="صفحه اصلی">
+          <img src="../../images/logo/Logo.svg" alt="لوگوی جورک" />
+        </a>
+        <span class="hidden h-10 w-px bg-[#d9d9d9] sm:block" aria-hidden="true"></span>
+        <nav class="hidden items-center gap-8 md:flex" aria-label="منوی اصلی">
+          <a href="../../index.html" class="flex items-center gap-2 text-[15px] font-medium text-[#2b2b2b]">
+            <img src="../../images/Header/home 04.svg" alt="" aria-hidden="true" />
+            صفحه اصلی سایت
+          </a>
+          <button type="button" class="flex items-center gap-2 text-[15px] font-medium text-[#2b2b2b]"
+            aria-expanded="false">
+            <img src="../../images/Header/grid 02.svg" alt="" aria-hidden="true" />
+            صفحات فروشگاه
+            <img src="../../images/Header/direction-down 01.svg" alt="" aria-hidden="true" />
+          </button>
+        </nav>
+      </div>
+      <div class="flex items-center gap-3 sm:gap-7" dir="ltr">
+        <div class="flex items-center gap-3">
+          <div class="h-9 w-9 rounded-full bg-[#202020]" role="img" aria-label="آواتار"></div>
+          <div class="hidden leading-tight sm:block" dir="rtl">
+            <div class="text-[14px] font-medium text-[#222]">نام فروشگاه</div>
+            <div class="mt-1 text-[11px] font-light text-[#777]">نام فروشنده</div>
+          </div>
+        </div>
+        <div class="hidden items-center gap-3 sm:flex lg:gap-5">
+          <a href="StoreDashboard_Notifications.html"
+            class="grid h-9 w-9 place-items-center rounded-lg hover:bg-[#f7f7f7]" aria-label="اعلان‌ها">
+            <img src="../../images/Header/notification.svg" alt="" />
+          </a>
+          <a href="StoreDashboard_Messages.html" class="grid h-9 w-9 place-items-center rounded-lg hover:bg-[#f7f7f7]"
+            aria-label="پیام‌ها">
+            <img src="../../images/Header/mail.svg" alt="" />
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- =========================================================
+       MAIN
+  ========================================================== -->
+  <main class="store-shell mx-auto w-full max-w-[1200px] px-4 pb-32 pt-5 md:pb-16 md:pt-[54px] lg:px-0" role="main">
+    <section class="store-page-title-card mb-6 hidden md:flex items-center gap-3">
+
+      <a href="StoreDashboard.html">
+        <svg class="size-8">
+          <use href="#icon-arrow-right"></use>
+        </svg>
+      </a>
+      <h1 class="font-IRANSansXMedium text-lg text-custom-brown px-4 border-b-[3px] border-custom-brown pb-2">
+        گفت‌وگوها
+      </h1>
+    </section>
+
+    <!-- =========================================================
+         DESKTOP LAYOUT
+    ========================================================== -->
+    <section class="hidden grid-cols-[minmax(0,1fr)_380px] gap-5 md:grid">
+
+      <!-- CHAT PANEL (چپ) -->
+      <section class="desktop-chat-height flex min-w-0 flex-col overflow-hidden rounded-[12px] bg-white shadow-card"
+        aria-label="گفت‌وگوی انتخاب‌شده">
+
+        <!-- هدر چت -->
+        <div class="relative flex h-[64px] shrink-0 items-center border-b border-[#d6d6d6] px-4">
+          <button type="button" id="desktopMoreBtn"
+            class="grid h-10 w-10 place-items-center rounded-md hover:bg-[#f5f5f5]" aria-label="گزینه‌های گفت‌وگو"
+            aria-expanded="false">
+            <svg class="h-5 w-5" aria-hidden="true">
+              <use href="#icon-more"></use>
+            </svg>
+          </button>
+
+          <div id="desktopMoreMenu"
+            class="floating-menu absolute left-4 top-[56px] z-30 hidden w-[190px] overflow-hidden rounded-[8px] border border-[#dedede] bg-white">
+            <button type="button" data-open-report>گزارش گفتگو</button>
+          </div>
+
+          <div class="mr-auto flex items-center gap-3">
+            <span id="desktopChatName" class="text-[15px] font-medium">نام کاربر</span>
+            <div class="grid h-[42px] w-[42px] place-items-center rounded-full bg-[#e6e6e6] text-[#263247]">
+              <svg class="h-6 w-6" aria-hidden="true">
+                <use href="#icon-user"></use>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <!-- پیام‌ها -->
+        <div id="desktopChatMessages" class="chat-scroll flex-1 overflow-y-auto bg-[#fdfdfd] px-4 py-4 space-y-4">
+        </div>
+
+        <!-- فرم ارسال -->
+        <form id="desktopMessageForm"
+          class="flex h-[88px] shrink-0 items-center gap-3 border-t border-[#cfcfcf] bg-white px-4" dir="ltr">
+          <button type="submit"
+            class="h-[44px] w-[70px] shrink-0 rounded-[7px] bg-[#aa4938] text-[14px] font-medium text-white hover:bg-[#934033]">
+            ارسال
+          </button>
+          <label class="flex h-[44px] min-w-0 flex-1 items-center rounded-[7px] border border-[#8f8f8f] bg-white px-4"
+            dir="rtl">
+            <input id="desktopMessageInput" type="text"
+              class="h-full min-w-0 flex-1 bg-transparent text-right text-[14px] outline-none placeholder:text-[#b2b2b2]"
+              placeholder="پیام خود را بنویسید..." />
+            <button type="button" class="grid h-9 w-9 shrink-0 place-items-center" aria-label="افزودن پیوست">
+              <svg class="h-6 w-6 text-[#233047]" aria-hidden="true">
+                <use href="#icon-attach"></use>
+              </svg>
+            </button>
+          </label>
+        </form>
+      </section>
+
+      <!-- SIDEBAR (راست) -->
+      <aside class="rounded-[12px] bg-white px-4 pb-4 pt-5 shadow-card" aria-label="لیست گفت‌وگوها">
+        <div class="grid grid-cols-2 border-b border-[#cfcfcf]">
+          <button type="button" data-conv-tab="all"
+            class="conversation-tab h-[42px] border-b-[3px] border-[#aa4938] text-[14px] font-medium text-[#aa4938]">
+            همه
+          </button>
+          <button type="button" data-conv-tab="unread" class="conversation-tab h-[42px] text-[14px] text-[#333]">
+            خوانده نشده
+          </button>
+        </div>
+
+        <div id="desktopConversationList" class="chat-scroll mt-4 max-h-[550px] space-y-3 overflow-y-auto">
+        </div>
+      </aside>
+    </section>
+
+    <!-- =========================================================
+         MOBILE: VIEW 1 - لیست گفتگوها
+    ========================================================== -->
+    <section id="mobileConvView" class="md:hidden">
+      <div class="grid h-[60px] grid-cols-2 border-b border-[#d7d7d7] bg-white">
+        <button type="button" data-conv-tab-mobile="all"
+          class="conversation-tab-mobile border-b-[3px] border-[#aa4938] text-[15px] font-medium text-[#aa4938]">
+          همه
+        </button>
+        <button type="button" data-conv-tab-mobile="unread" class="conversation-tab-mobile text-[15px] text-[#333]">
+          خوانده نشده
+        </button>
+      </div>
+
+      <div id="mobileConversationList" class="mt-4 space-y-3">
+      </div>
+    </section>
+
+    <!-- =========================================================
+         MOBILE: VIEW 2 - صفحه چت
+    ========================================================== -->
+    <section id="mobileChatView" class="hidden md:hidden">
+
+      <!-- هدر چت موبایل -->
+      <div class="relative flex h-[76px] items-center gap-3 border-b border-[#d7d7d7] bg-white px-4">
+        <button type="button" id="mobileChatBack" class="grid h-10 w-10 place-items-center" aria-label="بازگشت">
+          <svg class="h-6 w-6" aria-hidden="true">
+            <use href="#icon-arrow-left"></use>
+          </svg>
+        </button>
+
+        <div class="grid h-[44px] w-[44px] place-items-center rounded-full bg-[#e5e5e5] text-[#263247]">
+          <svg class="h-6 w-6" aria-hidden="true">
+            <use href="#icon-user"></use>
+          </svg>
+        </div>
+
+        <span id="mobileChatName" class="text-[17px] font-medium">نام کاربر</span>
+
+        <button type="button" id="mobileMoreBtn"
+          class="mr-auto grid h-10 w-10 place-items-center rounded-md hover:bg-[#f5f5f5]" aria-label="گزینه‌های گفت‌وگو"
+          aria-expanded="false">
+          <svg class="h-5 w-5" aria-hidden="true">
+            <use href="#icon-more"></use>
+          </svg>
+        </button>
+
+        <div id="mobileMoreMenu"
+          class="floating-menu absolute left-4 top-[70px] z-30 hidden w-[190px] overflow-hidden rounded-[8px] border border-[#dedede] bg-white">
+          <button type="button" data-open-report>گزارش گفتگو</button>
+        </div>
+      </div>
+
+      <!-- پیام‌ها -->
+      <div id="mobileChatMessages"
+        class="chat-scroll h-[calc(100dvh-76px-76px-140px)] overflow-y-auto bg-[#fdfdfd] px-4 py-4 space-y-4">
+      </div>
+
+      <!-- فرم ارسال -->
+      <form id="mobileMessageForm"
+        class="fixed bottom-[76px] left-0 right-0 flex h-[70px] items-center gap-2 border-t border-[#c9c9c9] bg-white px-4"
+        dir="ltr">
+        <button type="submit"
+          class="h-[44px] w-[80px] shrink-0 rounded-[10px] bg-[#aa4938] text-[14px] font-medium text-white">
+          ارسال
+        </button>
+        <label class="flex h-[44px] min-w-0 flex-1 items-center rounded-[10px] border border-[#8e8e8e] px-3" dir="rtl">
+          <input id="mobileMessageInput" type="text"
+            class="h-full min-w-0 flex-1 bg-transparent text-right text-[13px] outline-none placeholder:text-[#b0b0b0]"
+            placeholder="پیام خود را بنویسید..." />
+          <button type="button" class="grid h-8 w-8 place-items-center" aria-label="پیوست">
+            <svg class="h-5 w-5 text-[#233047]" aria-hidden="true">
+              <use href="#icon-attach"></use>
+            </svg>
+          </button>
+        </label>
+      </form>
+    </section>
+
+  </main>
+
+  <!-- =========================================================
+       Bottom Nav (موبایل)
+  ========================================================== -->
+  <nav class="fixed bottom-0 left-0 right-0 z-40 border-t border-[#dedede] bg-white md:hidden" aria-label="منوی پایین">
+    <ul class="store-bottom-nav w-full flex items-center justify-between pb-3">
+      <li class="flex-1 flex flex-col items-center justify-center gap-1 pt-3 text-[#333]">
+        <img src="../../images/ShopDashboard/botton/store.svg" alt="فروشگاه من" class="h-6 w-6" />
+        <a href="StoreDashboard.html" class="text-[11px]">فروشگاه من</a>
+      </li>
+      <li class="flex-1 flex flex-col items-center justify-center gap-1 pt-3 text-[#333]">
+        <img src="../../images/ShopDashboard/botton/bag 01.svg" alt="محصولات" class="h-6 w-6" />
+        <a href="Products/StoreDashboard_ProductsList.html" class="text-[11px]">محصولات</a>
+      </li>
+      <li class="flex-1 flex flex-col items-center justify-center gap-1 pt-3 text-[#333]">
+        <img src="../../images/ShopDashboard/botton/cart 01.svg" alt="سفارش‌ها" class="h-6 w-6" />
+        <a href="Orders/StoreDashboard_Orders_List.html" class="text-[11px]">سفارش‌ها</a>
+      </li>
+      <li class="flex-1 flex flex-col items-center justify-center gap-1 pt-3 text-custom-brown active">
+        <img src="../../images/ShopDashboard/botton/mail.svg" alt="پیام‌ها" class="h-6 w-6" />
+        <a href="StoreDashboard_Messages.html" class="text-[11px]">پیام‌ها</a>
+      </li>
+      <li class="flex-1 flex flex-col items-center justify-center gap-1 pt-3 text-[#333]">
+        <img src="../../images/ShopDashboard/botton/menu-line-horizontal.svg" alt="سایر" class="h-6 w-6" />
+        <a href="StoreDashboard_Profile_Filled.html" class="text-[11px]">سایر</a>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- =========================================================
+       Modal: گزارش گفتگو (مرحله ۱ - انتخاب دلیل)
+  ========================================================== -->
+  <div id="reportBackdrop" class="fixed inset-0 z-[200] hidden bg-black/55"></div>
+
+  <section id="reportReasonModal" class="store-modal hidden" style="max-width: 500px;" role="dialog" aria-modal="true">
+    <header class="store-modal-header">
+      <h2 class="text-[17px] font-bold">گزارش تخلف در گفتگو</h2>
+      <button type="button" data-close-report class="grid h-8 w-8 place-items-center" aria-label="بستن">
+        <svg class="h-5 w-5" aria-hidden="true">
+          <use href="#icon-close"></use>
+        </svg>
+      </button>
+    </header>
+
+    <div id="reportReasonList" class="space-y-1 px-3 py-3"></div>
+  </section>
+
+  <!-- =========================================================
+       Modal: گزارش گفتگو (مرحله ۲ - توضیحات)
+  ========================================================== -->
+  <section id="reportDetailsModal" class="store-modal hidden" style="max-width: 500px;" role="dialog" aria-modal="true">
+    <div class="p-6">
+      <div class="mb-4 flex items-center justify-between">
+        <h2 class="text-[17px] font-bold">دلیل گزارش</h2>
+        <button type="button" data-close-report class="grid h-8 w-8 place-items-center" aria-label="بستن">
+          <svg class="h-5 w-5" aria-hidden="true">
+            <use href="#icon-close"></use>
+          </svg>
+        </button>
+      </div>
+
+      <p id="selectedReportReason" class="mb-5 rounded-[8px] bg-[#f6f6f6] px-4 py-3 text-[14px] text-[#555]"></p>
+
+      <label class="mb-2 block text-[13px] font-semibold">توضیحات بیشتر</label>
+      <textarea id="reportDetails" rows="3"
+        class="h-[90px] w-full resize-none rounded-[8px] border border-[#9d9d9d] p-3 text-[13px] outline-none placeholder:text-[#b4b4b4] focus:border-[#aa4938]"
+        placeholder="برای بررسی بهتر، می‌توانید جزئیات بیشتری بنویسید."></textarea>
+
+      <label class="mt-5 flex cursor-pointer items-start gap-3">
+        <input id="blockStoreCheckbox" type="checkbox" class="sr-only" />
+        <span class="mt-[2px] grid h-5 w-5 shrink-0 place-items-center rounded-[4px] border border-[#999] bg-white
+                     peer-checked:border-[#aa4938]">
+        </span>
+        <span>
+          <span class="block text-[14px] font-medium">این کاربر را مسدود کن</span>
+          <span class="mt-1 block text-[11px] text-[#777]">
+            پس از مسدودکردن، پیام جدیدی از این کاربر دریافت نمی‌کنید.
+          </span>
+        </span>
+      </label>
+
+      <div class="mt-6 grid grid-cols-2 gap-3" dir="ltr">
+        <button type="button" id="submitReport"
+          class="h-[46px] rounded-[8px] bg-[#aa4938] text-[14px] font-medium text-white hover:bg-[#934033]">
+          ثبت گزارش
+        </button>
+        <button type="button" data-close-report
+          class="h-[46px] rounded-[8px] border border-red-500 text-[14px] font-medium text-red-500 hover:bg-red-50">
+          انصراف
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Overlay + Toast -->
+  <div id="popupOverlay" class="fixed inset-0 z-[100] hidden bg-black/30" aria-hidden="true"></div>
+
+  <div id="toast"
+    class="pointer-events-none fixed bottom-24 left-1/2 z-[999] hidden -translate-x-1/2 rounded-[8px] bg-[#333] px-5 py-3 text-[13px] text-white shadow-lg md:bottom-6"
+    role="status" aria-live="polite"></div>
+
+  <script src="../../scripts/StoreDashboard/store-common.js"></script>
+  <script src="../../scripts/StoreDashboard/store-messages.js"></script>
+</body>
+
+</html>

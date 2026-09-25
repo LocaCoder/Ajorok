@@ -1,668 +1,333 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fa" dir="rtl">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>داشبورد فروشگاه | نظرات</title>
-    <link rel="stylesheet" href="../../styles/output.css" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>نظرات و امتیازها | پنل فروشگاه جورک</title>
+  <meta name="description" content="مدیریت نظرات، امتیازها و پاسخ‌های فروشگاه به نظرات محصولات." />
+  <link rel="stylesheet" href="../../styles/output.css" />
+  <link rel="stylesheet" href="../../styles/store-common.css" />
 
-    <style>
-        @font-face {
-            font-family: 'IRANSans';
-            src: url('../../fonts/IRANSansX-Regular.woff2') format('woff2');
-            font-weight: 400;
-            font-style: normal;
-            font-display: swap;
-        }
+  <style>
+    .star-filled { color: #ffa000; }
+    .star-empty { color: #d9d9d9; }
 
-        @font-face {
-            font-family: 'IRANSans';
-            src: url('../../fonts/IRANSansX-Medium.woff2') format('woff2');
-            font-weight: 500;
-            font-style: normal;
-            font-display: swap;
-        }
+    .reviews-filter-row {
+      overflow-x: auto;
+      overflow-y: hidden;
+      flex-wrap: nowrap !important;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    .reviews-filter-row::-webkit-scrollbar { display: none; }
+    .reviews-filter-row > * { flex-shrink: 0; }
 
-        @font-face {
-            font-family: 'IRANSans';
-            src: url('../../fonts/IRANSansX-Bold.woff2') format('woff2');
-            font-weight: 700;
-            font-style: normal;
-            font-display: swap;
-        }
+    @media (min-width: 768px) {
+      .reviews-filter-row {
+        flex-wrap: wrap !important;
+        overflow: visible !important;
+      }
+    }
 
-        :root {
-            --brand: #9C4639;
-            --brand-dark: #7D352B;
-            --brand-soft: rgba(156, 70, 57, 0.08);
-            --border: #E5E7EB;
-            --bg: #F5F5F5;
-            --success-bg: #EDF9F0;
-            --success-border: #D1EBD8;
-            --success-text: #2D6A4F;
-            --highlight-bg: #FFFDF5;
-            --highlight-border: #F0C36D;
-        }
+    /* کارت نظر */
+    .review-card {
+      border-radius: 12px;
+      overflow: hidden;
+      background: #fff;
+      border: 1px solid #e5e5e5;
+    }
 
-        html,
-        body {
-            min-height: 100%;
-        }
+    /* هدر خاکستری کارت */
+    .review-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 14px 18px;
+      background: #f2f2f2;
+      border-bottom: 1px solid #e5e5e5;
+    }
 
-        body {
-            font-family: 'IRANSans', sans-serif;
-            background: var(--bg);
-            color: #1F2937;
-        }
-
-        [hidden] {
-            display: none !important;
-        }
-
-        .flex-center {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .text-brand {
-            color: var(--brand);
-        }
-
-        .bg-brand {
-            background-color: var(--brand);
-        }
-
-        .border-brand {
-            border-color: var(--brand);
-        }
-
-        .chip-active {
-            background: var(--brand);
-            color: #fff;
-            border-color: var(--brand);
-            box-shadow: 0 8px 24px rgba(156, 70, 57, 0.12);
-        }
-
-        .card-highlight {
-            border: 1px solid var(--highlight-border) !important;
-            background-color: var(--highlight-bg);
-        }
-
-        .modal-overlay {
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.25s ease;
-        }
-
-        .modal-overlay.is-open {
-            opacity: 1;
-            pointer-events: auto;
-        }
-
-        .modal-panel {
-            transform: translateY(24px) scale(0.98);
-            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-        }
-
-        .modal-overlay.is-open .modal-panel {
-            transform: translateY(0) scale(1);
-        }
-
-        .modal-body-scroll {
-            max-height: min(60vh, 560px);
-            overflow: auto;
-        }
-
-        @media (max-width: 767px) {
-            .modal-panel {
-                transform: translateY(100%);
-            }
-
-            .modal-overlay.is-open .modal-panel {
-                transform: translateY(0);
-            }
-
-            .modal-body-scroll {
-                max-height: none;
-                overflow: visible;
-            }
-        }
-
-        .scrollbar-hide {
-            scrollbar-width: none;
-            -ms-overflow-style: none;
-        }
-
-        .scrollbar-hide::-webkit-scrollbar {
-            display: none;
-        }
-    </style>
+    /* بدنه کارت */
+    .review-card-body {
+      padding: 22px 26px 26px;
+    }
+  </style>
 </head>
 
-<body class="text-gray-800">
-    <!-- Header (kept close to the provided structure) -->
-    <header class="bg-white shadow-sm">
-        <div class="container mx-auto px-4 md:px-8 flex items-center justify-between min-h-20 gap-4">
-            <div class="flex items-center gap-6">
-                <div class="border-l border-gray-200 pl-6">
-                    <img src="../../images/ShopDashboard/top/Logo.svg" alt="Jorok" class="h-8" />
-                </div>
+<body class="store-dashboard-page min-h-screen bg-[#f3f3f3] text-[#252525] font-IRANSansXRegular antialiased">
 
-                <nav class="hidden lg:flex items-center gap-6 text-sm text-gray-600">
-                    <a href="#" class="hover:text-brand transition">صفحه اصلی سایت</a>
-                    <a href="#" class="hover:text-brand transition">صفحات فروشگاه</a>
-                </nav>
-            </div>
+  <!-- SVG SPRITE -->
+  <svg class="hidden" aria-hidden="true" focusable="false">
+    <symbol id="icon-store" viewBox="0 0 20 20" fill="none">
+      <path d="M16.667 10V15c0 1.84-1.492 3.333-3.333 3.333H6.667c-1.84 0-3.333-1.492-3.333-3.333v-5" stroke="currentColor" stroke-width="1.5"/>
+      <path d="M13.973 1.668H6.025A4.167 4.167 0 0 0 2.586 4.287l-.631 1.777c-.191.537-.324 1.113-.184 1.666a3.198 3.198 0 0 0 2.673 2.271c1.534 0 2.777-1.399 2.777-3.125 0 1.726 1.244 3.125 2.778 3.125 1.534 0 2.778-1.399 2.778-3.125 0 1.726 1.244 3.125 2.778 3.125a3.198 3.198 0 0 0 2.673-2.271c.139-.553.007-1.129-.184-1.666l-.632-1.777a4.167 4.167 0 0 0-3.439-2.619Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+      <path d="M7.5 14.168c1.963 1.117 3.04 1.105 5 0" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="icon-bag" viewBox="0 0 20 20" fill="none">
+      <path d="M13.333 5.001A3.333 3.333 0 1 0 6.666 5.001" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M3.801 7.92A3.333 3.333 0 0 1 7.109 5h5.781a3.333 3.333 0 0 1 3.308 2.92l.833 6.667A3.333 3.333 0 0 1 13.723 18.333H6.275A3.333 3.333 0 0 1 2.968 14.587L3.8 7.92Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+      <path d="M7.5 13.332c1.963 1.117 3.04 1.105 5 0" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="icon-cart" viewBox="0 0 20 20" fill="none">
+      <path d="M5 3.335h10a3.333 3.333 0 0 1 3.333 3.333v4.167A3.333 3.333 0 0 1 15 14.168H8.333A3.333 3.333 0 0 1 5 10.835V3.335ZM5 3.335A1.667 1.667 0 0 0 3.333 1.668H1.666" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M9.166 17.082a1.25 1.25 0 1 1-2.5 0 1.25 1.25 0 0 1 2.5 0Zm7.5 0a1.25 1.25 0 1 1-2.5 0 1.25 1.25 0 0 1 2.5 0Z" stroke="currentColor" stroke-width="1.5"/>
+      <path d="M9.166 7.082h5M9.166 10.418h5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="icon-chat" viewBox="0 0 20 20" fill="none">
+      <path d="m7.5 10 1.46 1.169a1 1 0 0 0 1.148.055L12.5 8.333M9.166 2.5h1.667A7.5 7.5 0 0 1 18.333 10a7.5 7.5 0 0 1-7.5 7.5H5A3.333 3.333 0 0 1 1.666 14.167V10A7.5 7.5 0 0 1 9.166 2.5Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="icon-board" viewBox="0 0 20 20" fill="none">
+      <path d="M1.666 7.5a2.5 2.5 0 0 1 2.5-2.5h11.667a2.5 2.5 0 0 1 2.5 2.5v8.333a2.5 2.5 0 0 1-2.5 2.5H4.166a2.5 2.5 0 0 1-2.5-2.5V7.5Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+      <path d="M5.834 8.332h8.333M5.834 11.668h8.333M5.834 15H10M5 5.001 10 1.668l5 3.333" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="icon-wallet" viewBox="0 0 20 20" fill="none">
+      <path d="M1.666 5h13.333a3.333 3.333 0 0 1 3.333 3.333V15A3.333 3.333 0 0 1 15 18.333H5A3.333 3.333 0 0 1 1.666 15V5Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+      <path d="M1.666 5.001A3.333 3.333 0 0 1 5 1.668h5a3.333 3.333 0 0 1 3.333 3.333H1.666Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+      <path d="M18.334 10v3.333h-3.333a1.667 1.667 0 0 1 0-3.333h3.333Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="icon-notive" viewBox="0 0 20 20" fill="none">
+      <path d="M15.2 7.48a5.2 5.2 0 0 0-10.4 0c-.086.84-.314 1.65-.665 2.4a2.16 2.16 0 0 0 1.05 2.947c1.512.674 3.254 1.039 4.815 1.039s3.303-.365 4.815-1.039a2.16 2.16 0 0 0 1.05-2.948 6.098 6.098 0 0 1-.665-2.399ZM7.5 15.832a2.5 2.5 0 0 0 5 0" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M10 1.668v1.667" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="icon-mail" viewBox="0 0 20 20" fill="none">
+      <path d="m5 6.667 3.15 2.1a3.333 3.333 0 0 0 3.699 0L15 6.667M5 17.5h10a3.333 3.333 0 0 0 3.333-3.333V5.833A3.333 3.333 0 0 0 15 2.5H5a3.333 3.333 0 0 0-3.334 3.333v8.334A3.333 3.333 0 0 0 5 17.5Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="icon-setting" viewBox="0 0 20 20" fill="none">
+      <path d="M10 12.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+      <path d="M17.286 13.1a1.617 1.617 0 0 1 .322 1.782 16.34 16.34 0 0 1-2.288 2.288 1.617 1.617 0 0 1-1.783-.322l-.58-.386a1.617 1.617 0 0 0-1.441-.236 1.69 1.69 0 0 0-1.17 1.475v.73a1.617 1.617 0 0 1-1.159 1.563 16.87 16.87 0 0 1-3.23 0 1.617 1.617 0 0 1-1.158-1.563v-.73a1.69 1.69 0 0 0-1.17-1.475 1.617 1.617 0 0 0-1.44.236l-.582.386a1.617 1.617 0 0 1-1.782-.322 16.34 16.34 0 0 1-2.288-2.288A1.617 1.617 0 0 1 1.715 13.1l.386-.581a1.617 1.617 0 0 0 .236-1.441 1.69 1.69 0 0 0-1.475-1.17h-.73a1.617 1.617 0 0 1-1.563-1.159 16.87 16.87 0 0 1 0-3.23A1.617 1.617 0 0 1 .132 4.36h.73a1.69 1.69 0 0 0 1.475-1.17 1.617 1.617 0 0 0-.236-1.44l-.386-.582a1.617 1.617 0 0 1 .322-1.782 16.34 16.34 0 0 1 2.288-2.288 1.617 1.617 0 0 1 1.782.322l.581.386a1.617 1.617 0 0 0 1.441.236 1.69 1.69 0 0 0 1.17-1.475v-.73A1.617 1.617 0 0 1 10.868.132a16.87 16.87 0 0 1 3.23 0 1.617 1.617 0 0 1 1.159 1.563v.73a1.69 1.69 0 0 0 1.17 1.475 1.617 1.617 0 0 0 1.44-.236l.582-.386a1.617 1.617 0 0 1 1.782.322 16.34 16.34 0 0 1 2.288 2.288 1.617 1.617 0 0 1-.322 1.782l-.386.581a1.617 1.617 0 0 0-.236 1.441 1.69 1.69 0 0 0 1.475 1.17h.73a1.617 1.617 0 0 1 1.563 1.159 16.87 16.87 0 0 1 0 3.23 1.617 1.617 0 0 1-1.563 1.158h-.73a1.69 1.69 0 0 0-1.475 1.17Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="icon-call" viewBox="0 0 20 20" fill="none">
+      <path d="M17.5 10.835V12.5a2.5 2.5 0 0 1-2.5 2.5 2.5 2.5 0 0 1-2.5-2.5v-1.666a2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5v-1.667a7.5 7.5 0 1 0-15 0v1.667m0 0V12.5a2.5 2.5 0 0 0 2.5 2.5 2.5 2.5 0 0 0 2.5-2.5v-1.666a2.5 2.5 0 0 0-2.5-2.5 2.5 2.5 0 0 0-2.5 2.5ZM17.5 11.668v1.667a5 5 0 0 1-5 5H10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="icon-exit" viewBox="0 0 20 20" fill="none">
+      <path d="m15 7.5 2.5 2.5L15 12.5M17.5 10H7.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M12.5 6.25A3.75 3.75 0 0 0 8.75 2.5H6.5a4 4 0 0 0-4 4v7a4 4 0 0 0 4 4h2.25a3.75 3.75 0 0 0 3.75-3.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
 
-            <div class="flex items-center gap-4 md:gap-6">
-                <button class="hidden md:flex items-center gap-2 text-gray-600 hover:text-brand transition">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M15 17h5l-1.4-1.4a2 2 0 00-.6-1.4V11a6 6 0 10-12 0v3.2a2 2 0 00-.6 1.4L4 17h5" />
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17a3 3 0 006 0" />
-                    </svg>
-                    <span>اعلان‌ها</span>
-                </button>
+    <symbol id="icon-close" viewBox="0 0 24 24" fill="none">
+      <path d="M6 6l12 12M18 6 6 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="icon-search" viewBox="0 0 24 24" fill="none">
+      <circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="1.5"/>
+      <path d="m20 20-3.5-3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="icon-chevron-down" viewBox="0 0 24 24" fill="none">
+      <path d="m6 9 6 6 6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="icon-user" viewBox="0 0 24 24" fill="currentColor">
+      <circle cx="12" cy="7.2" r="3.5"/>
+      <path d="M5.7 19c.8-4 3-6 6.3-6 3.4 0 5.6 2 6.3 6-1.8 1.4-3.9 2-6.3 2s-4.5-.6-6.3-2Z"/>
+    </symbol>
+    <symbol id="icon-reply" viewBox="0 0 24 24" fill="none">
+      <path d="M3 10h10a8 8 0 0 1 8 8v2M3 10l6 6m-6-6 6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="icon-chat-dots" viewBox="0 0 24 24" fill="none">
+      <path d="M21 11.5a8.5 8.5 0 0 1-8.5 8.5 9 9 0 0 1-4-.9L3 21l1.9-5.5a9 9 0 0 1-.9-4A8.5 8.5 0 0 1 12.5 3a8.5 8.5 0 0 1 8.5 8.5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="icon-more-h" viewBox="0 0 24 24" fill="currentColor">
+      <circle cx="5" cy="12" r="1.7"/>
+      <circle cx="12" cy="12" r="1.7"/>
+      <circle cx="19" cy="12" r="1.7"/>
+    </symbol>
+  </svg>
 
-                <button class="hidden md:flex items-center gap-2 text-gray-600 hover:text-brand transition">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M7 8h10M7 12h7m-7 4h5" />
-                    </svg>
-                    <span>پیام‌ها</span>
-                </button>
-
-                <div class="flex items-center gap-2 text-gray-700">
-                    <div class="w-10 h-10 rounded-full bg-gray-100 flex-center border border-gray-200">
-                        <svg class="w-5 h-5 text-gray-500" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
-                                clip-rule="evenodd"></path>
-                        </svg>
-                    </div>
-                    <div class="hidden sm:block leading-tight">
-                        <p class="text-sm font-semibold">نام فروشگاه</p>
-                        <p class="text-[11px] text-gray-400">حساب فروشگاه</p>
-                    </div>
-                </div>
-            </div>
+  <!-- HEADER دسکتاپ -->
+  <header class="store-desktop-header hidden md:block mb-8" role="banner">
+    <div class="store-header-inner">
+      <div class="flex items-center gap-4">
+        <a href="../../index.html"><img src="../../images/logo/Logo.svg" alt="لوگو" /></a>
+        <span class="hidden h-10 w-px bg-[#d9d9d9] sm:block"></span>
+        <nav class="hidden items-center gap-8 md:flex">
+          <a href="../../index.html" class="flex items-center gap-2 text-[15px] font-medium text-[#2b2b2b]">
+            <img src="../../images/Header/home 04.svg" alt="" />صفحه اصلی سایت
+          </a>
+          <button class="flex items-center gap-2 text-[15px] font-medium text-[#2b2b2b]">
+            <img src="../../images/Header/grid 02.svg" alt="" />صفحات فروشگاه
+            <img src="../../images/Header/direction-down 01.svg" alt="" />
+          </button>
+        </nav>
+      </div>
+      <div class="flex items-center gap-3 sm:gap-7" dir="ltr">
+        <div class="flex items-center gap-3">
+          <div class="h-9 w-9 rounded-full bg-[#202020]"></div>
+          <div class="hidden leading-tight sm:block" dir="rtl">
+            <div class="text-[14px] font-medium">نام فروشگاه</div>
+            <div class="mt-1 text-[11px] text-[#777]">نام فروشنده</div>
+          </div>
         </div>
-    </header>
-
-    <main class="container mx-auto px-4 md:px-8 py-6 md:py-8">
-        <!-- Page title -->
-        <section class="bg-white rounded-2xl p-4 md:p-6 mb-4 md:mb-6 flex items-center justify-between shadow-sm">
-            <div class="flex items-center gap-3 md:gap-4">
-                <button class="w-10 h-10 rounded-xl border border-gray-200 flex-center hover:bg-gray-50 transition">
-                    <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-                    </svg>
-                </button>
-                <div>
-                    <h1 class="text-lg md:text-xl font-bold text-gray-800 border-b-2 border-brand pb-1 inline-block">
-                        نظرات و امتیازها</h1>
-                    <p class="text-xs md:text-sm text-gray-400 mt-1">مدیریت پاسخ‌ها، امتیازها و گزارش‌های کاربران</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Toolbar -->
-        <section class="flex flex-col gap-4 mb-6 md:mb-8">
-            <div class="flex flex-col lg:flex-row gap-4 lg:items-center lg:justify-between">
-                <div class="relative w-full lg:max-w-[22rem]">
-                    <input type="text" placeholder="جست‌وجو: سفارش/فاکتور/تراکنش"
-                        class="w-full h-12 pr-12 pl-4 bg-white border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brand/10 focus:border-brand" />
-                    <svg class="absolute right-4 top-3.5 w-5 h-5 text-gray-400" fill="none" stroke="currentColor"
-                        viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                    </svg>
-                </div>
-
-                <div class="flex flex-wrap items-center gap-2 justify-start lg:justify-end">
-                    <span class="text-sm text-gray-500 ml-1 md:ml-2 whitespace-nowrap">مرتب‌سازی:</span>
-
-                    <button
-                        class="h-10 px-4 rounded-xl border border-gray-200 bg-white text-sm hover:bg-gray-50 flex items-center gap-2 whitespace-nowrap"
-                        data-modal-open="sort">
-                        جدیدترین
-                        <span class="text-[10px]">▼</span>
-                    </button>
-
-                    <div class="hidden md:block h-6 w-px bg-gray-200 mx-1 md:mx-2"></div>
-
-                    <div class="flex flex-wrap gap-2">
-                        <button
-                            class="h-10 px-5 rounded-xl bg-brand text-white text-sm font-medium whitespace-nowrap chip-active"
-                            data-chip="all">همه</button>
-                        <button
-                            class="h-10 px-5 rounded-xl border border-gray-200 bg-white text-sm text-gray-600 hover:bg-gray-50 whitespace-nowrap"
-                            data-chip="unanswered">بدون پاسخ</button>
-                        <button
-                            class="h-10 px-5 rounded-xl border border-gray-200 bg-white text-sm text-gray-600 hover:bg-gray-50 whitespace-nowrap"
-                            data-chip="negative">منفی</button>
-                        <button
-                            class="h-10 px-5 rounded-xl border border-gray-200 bg-white text-sm text-gray-600 hover:bg-gray-50 whitespace-nowrap"
-                            data-chip="reported">گزارش شده‌ها</button>
-                        <button
-                            class="h-10 px-4 rounded-xl border border-gray-200 bg-white text-sm text-gray-600 hover:bg-gray-50 flex items-center gap-2 whitespace-nowrap"
-                            data-modal-open="product">
-                            همه محصولات
-                            <span class="text-[10px]">▼</span>
-                        </button>
-                        <button
-                            class="h-10 px-4 rounded-xl border border-gray-200 bg-white text-sm text-gray-600 hover:bg-gray-50 flex items-center gap-2 whitespace-nowrap"
-                            data-modal-open="rating">
-                            امتیاز
-                            <span class="text-[10px]">▼</span>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Content -->
-        <div id="reviewsSection" class="space-y-6 md:space-y-8">
-            <!-- Product Group 1 -->
-            <section class="group">
-                <div class="bg-[#EDEDED] rounded-t-2xl p-4 md:p-5 flex items-center justify-between gap-4">
-                    <div class="flex items-center gap-3 md:gap-4 min-w-0">
-                        <img src="https://via.placeholder.com/56"
-                            class="w-12 h-12 md:w-14 md:h-14 rounded-xl border border-white shrink-0" alt="Product" />
-                        <div class="min-w-0">
-                            <h3 class="font-bold text-gray-800 text-sm md:text-base truncate">عنوان محصول</h3>
-                            <p class="text-[11px] md:text-xs text-gray-500 mt-0.5">۱۲۳۴۵۶</p>
-                        </div>
-                    </div>
-
-                    <div class="flex items-center gap-3 md:gap-5 text-xs md:text-sm font-medium text-gray-700 shrink-0">
-                        <span>۲ نظر</span>
-                        <span class="flex items-center gap-1">
-                            میانگین: ۳
-                            <svg class="w-4 h-4 text-amber-400 fill-current" viewBox="0 0 20 20" aria-hidden="true">
-                                <path
-                                    d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                            </svg>
-                        </span>
-                    </div>
-                </div>
-
-                <article
-                    class="bg-white rounded-b-2xl p-4 md:p-6 border-x border-b border-gray-100 shadow-sm card-highlight">
-                    <div class="flex items-start justify-between gap-4 mb-4">
-                        <div class="flex items-center gap-3">
-                            <div class="w-10 h-10 rounded-full bg-gray-100 flex-center shrink-0">
-                                <svg class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
-                                        clip-rule="evenodd"></path>
-                                </svg>
-                            </div>
-                            <div>
-                                <h4 class="font-bold text-gray-800 text-sm md:text-base">نام کاربر</h4>
-                                <p class="text-[11px] md:text-xs text-gray-400 mt-0.5">۱۴۰۴/۰۴/۰۴</p>
-                            </div>
-                        </div>
-
-                        <div class="flex items-center gap-0.5 text-amber-400 shrink-0" aria-label="rating 3 of 5">
-                            <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20">
-                                <path
-                                    d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                            </svg>
-                            <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20">
-                                <path
-                                    d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                            </svg>
-                            <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20">
-                                <path
-                                    d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                            </svg>
-                            <svg class="w-4 h-4 text-gray-200 fill-current" viewBox="0 0 20 20">
-                                <path
-                                    d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                            </svg>
-                            <svg class="w-4 h-4 text-gray-200 fill-current" viewBox="0 0 20 20">
-                                <path
-                                    d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                            </svg>
-                        </div>
-                    </div>
-
-                    <p class="text-sm md:text-[15px] text-gray-600 leading-7 text-justify">
-                        لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است
-                        چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است.
-                    </p>
-
-                    <div class="mt-5 md:mt-6 flex flex-wrap items-center gap-4 md:gap-6 border-t border-gray-50 pt-4">
-                        <button class="flex items-center gap-1.5 text-xs text-gray-500 hover:text-brand transition">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6" />
-                            </svg>
-                            پاسخ
-                        </button>
-
-                        <button class="flex items-center gap-1.5 text-xs text-gray-500 hover:text-brand transition">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-                            </svg>
-                            پیام خصوصی
-                        </button>
-
-                        <button
-                            class="flex items-center gap-1.5 text-xs text-gray-400 hover:text-gray-600 transition">•••
-                            بیشتر</button>
-                    </div>
-
-                    <div
-                        class="mt-5 md:mt-6 bg-[var(--success-bg)] border border-[var(--success-border)] rounded-xl p-4">
-                        <div class="flex items-center justify-between gap-3 mb-2">
-                            <span class="text-xs font-bold text-[var(--success-text)]">پاسخ فروشگاه</span>
-                            <span class="text-[10px] md:text-xs text-[#52796F]">۱۴۰۴/۰۴/۰۴ ۱۳:۴۵</span>
-                        </div>
-                        <p class="text-[13px] md:text-sm text-[var(--success-text)] leading-6">
-                            ممنون از اعتماد شما. خوشحالیم که از محصول رضایت داشتید.
-                        </p>
-                    </div>
-                </article>
-            </section>
-
-            <!-- Product Group 2 -->
-            <section class="group">
-                <div class="bg-[#EDEDED] rounded-t-2xl p-4 md:p-5 flex items-center justify-between gap-4 opacity-95">
-                    <div class="flex items-center gap-3 md:gap-4 min-w-0">
-                        <img src="https://via.placeholder.com/56"
-                            class="w-12 h-12 md:w-14 md:h-14 rounded-xl grayscale border border-white shrink-0"
-                            alt="Product" />
-                        <div class="min-w-0">
-                            <h3 class="font-bold text-gray-800 text-sm md:text-base truncate">عنوان محصول</h3>
-                            <p class="text-[11px] md:text-xs text-gray-500 mt-0.5">۱۲۳۴۵۶</p>
-                        </div>
-                    </div>
-
-                    <div class="flex items-center gap-3 md:gap-5 text-xs md:text-sm font-medium text-gray-700 shrink-0">
-                        <span>۲ نظر</span>
-                        <span class="flex items-center gap-1">
-                            میانگین: ۳
-                            <svg class="w-4 h-4 text-amber-400 fill-current" viewBox="0 0 20 20" aria-hidden="true">
-                                <path
-                                    d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                            </svg>
-                        </span>
-                    </div>
-                </div>
-
-                <article class="bg-white rounded-b-2xl p-4 md:p-6 border-x border-b border-gray-100 shadow-sm">
-                    <div class="flex items-start justify-between gap-4 mb-4">
-                        <div class="flex items-center gap-3">
-                            <div class="w-10 h-10 rounded-full bg-gray-100 flex-center shrink-0">
-                                <svg class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
-                                        clip-rule="evenodd"></path>
-                                </svg>
-                            </div>
-                            <div>
-                                <h4 class="font-bold text-gray-800 text-sm md:text-base">کاربر دیگر</h4>
-                                <p class="text-[11px] md:text-xs text-gray-400 mt-0.5">۱۴۰۴/۰۳/۲۲</p>
-                            </div>
-                        </div>
-
-                        <div class="flex items-center gap-0.5 text-amber-400 shrink-0" aria-label="rating 4 of 5">
-                            <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20">
-                                <path
-                                    d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                            </svg>
-                            <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20">
-                                <path
-                                    d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                            </svg>
-                            <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20">
-                                <path
-                                    d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                            </svg>
-                            <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20">
-                                <path
-                                    d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                            </svg>
-                            <svg class="w-4 h-4 text-gray-200 fill-current" viewBox="0 0 20 20">
-                                <path
-                                    d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                            </svg>
-                        </div>
-                    </div>
-
-                    <p class="text-sm md:text-[15px] text-gray-600 leading-7 text-justify">
-                        تجربه‌ی خرید خوب بود و ارسال سریع انجام شد، فقط بسته‌بندی می‌توانست بهتر باشد.
-                    </p>
-
-                    <div class="mt-5 md:mt-6 flex flex-wrap items-center gap-4 md:gap-6 border-t border-gray-50 pt-4">
-                        <button class="flex items-center gap-1.5 text-xs text-gray-500 hover:text-brand transition">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6" />
-                            </svg>
-                            پاسخ
-                        </button>
-                        <button class="flex items-center gap-1.5 text-xs text-gray-500 hover:text-brand transition">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-                            </svg>
-                            پیام خصوصی
-                        </button>
-                        <button
-                            class="flex items-center gap-1.5 text-xs text-gray-400 hover:text-gray-600 transition">•••
-                            بیشتر</button>
-                    </div>
-                </article>
-            </section>
-
-            <!-- Optional: empty state block to use when there are no reviews -->
-            <section id="emptyState" hidden class="bg-white rounded-2xl border border-gray-100 shadow-sm p-8 md:p-14">
-                <div class="max-w-md mx-auto text-center">
-                    <div class="w-28 h-28 md:w-36 md:h-36 mx-auto mb-5 flex-center">
-                        <svg viewBox="0 0 120 120" class="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg"
-                            aria-hidden="true">
-                            <circle cx="60" cy="60" r="48" fill="#F7F7F7" />
-                            <path
-                                d="M42 44c0-5.523 4.477-10 10-10h16c5.523 0 10 4.477 10 10v18c0 5.523-4.477 10-10 10H55l-12 10v-10c-2.762 0-5-2.238-5-5V44z"
-                                fill="#FFFFFF" stroke="#E5E7EB" stroke-width="2" />
-                            <circle cx="51" cy="54" r="2.5" fill="#9C4639" />
-                            <circle cx="60" cy="54" r="2.5" fill="#9C4639" />
-                            <circle cx="69" cy="54" r="2.5" fill="#9C4639" />
-                            <path d="M82 30l2.2 4.6 4.8.7-3.5 3.4.8 4.8L82 41.2 77.7 43.5l.8-4.8L75 35.3l4.8-.7L82 30z"
-                                fill="#F6C95D" />
-                            <circle cx="81" cy="34" r="14" fill="#FFFDF5" stroke="#F0C36D" />
-                            <text x="81" y="38" text-anchor="middle" font-size="12" font-family="IRANSans, sans-serif"
-                                fill="#9C4639" font-weight="700">0</text>
-                        </svg>
-                    </div>
-                    <h2 class="text-base md:text-lg font-bold text-gray-800 mb-2">هنوز نظری برای محصولات شما ثبت نشده
-                        است</h2>
-                    <p class="text-sm md:text-base text-gray-500 leading-7">
-                        وقتی مشتریان نظر ثبت کنند، این بخش به‌صورت خودکار لیست نظرات و امتیازها را نشان می‌دهد.
-                    </p>
-                </div>
-            </section>
+        <div class="hidden items-center gap-3 sm:flex lg:gap-5">
+          <a href="StoreDashboard_Notifications.html" class="grid h-9 w-9 place-items-center rounded-lg hover:bg-[#f7f7f7]"><img src="../../images/Header/notification.svg" alt="" /></a>
+          <a href="StoreDashboard_Messages.html" class="grid h-9 w-9 place-items-center rounded-lg hover:bg-[#f7f7f7]"><img src="../../images/Header/mail.svg" alt="" /></a>
         </div>
-    </main>
-
-    <!-- Smart reusable modal -->
-    <div id="globalModal" class="modal-overlay fixed inset-0 z-[100]">
-        <div class="absolute inset-0 bg-black/40 backdrop-blur-sm" data-modal-close></div>
-
-        <div class="absolute inset-x-0 bottom-0 md:inset-0 md:flex md:items-center md:justify-center p-0 md:p-4">
-            <div
-                class="modal-panel relative bg-white w-full md:max-w-md md:rounded-3xl rounded-t-3xl shadow-2xl overflow-hidden">
-                <!-- Handle on mobile -->
-                <div class="md:hidden pt-3">
-                    <div class="mx-auto w-12 h-1.5 rounded-full bg-gray-200"></div>
-                </div>
-
-                <div class="p-5 md:p-6 border-b border-gray-100 flex items-center justify-between gap-4">
-                    <div>
-                        <h3 id="modalTitle" class="font-bold text-lg text-gray-800">امتیاز</h3>
-                        <p id="modalSubtitle" class="text-xs text-gray-400 mt-1">فیلترها را انتخاب کنید</p>
-                    </div>
-
-                    <button type="button"
-                        class="w-9 h-9 rounded-xl hover:bg-gray-100 flex-center transition text-gray-400"
-                        data-modal-close aria-label="بستن">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M6 18L18 6M6 6l12 12" />
-                        </svg>
-                    </button>
-                </div>
-
-                <div id="modalItems" class="p-5 md:p-6 space-y-3 modal-body-scroll"></div>
-
-                <div class="p-4 md:p-5 bg-gray-50 border-t border-gray-100 flex flex-col-reverse md:flex-row gap-3">
-                    <button id="modalClearBtn" type="button"
-                        class="h-12 md:flex-1 rounded-xl border border-brand text-brand font-bold hover:bg-brand/5 transition">
-                        حذف فیلتر
-                    </button>
-                    <button id="modalApplyBtn" type="button"
-                        class="h-12 md:flex-1 rounded-xl bg-brand text-white font-bold hover:shadow-lg hover:shadow-brand/20 transition">
-                        تایید
-                    </button>
-                </div>
-            </div>
-        </div>
+      </div>
     </div>
+  </header>
 
-    <script>
-        const modal = document.getElementById('globalModal');
-        const modalTitle = document.getElementById('modalTitle');
-        const modalSubtitle = document.getElementById('modalSubtitle');
-        const modalItems = document.getElementById('modalItems');
-        const modalClearBtn = document.getElementById('modalClearBtn');
-        const modalApplyBtn = document.getElementById('modalApplyBtn');
+  <main class="store-shell mx-auto w-full max-w-[1200px] px-4 pb-32 pt-5 md:pb-16 md:pt-[54px] lg:px-0" role="main">
 
-        const modalConfigs = {
-            rating: {
-                title: 'امتیاز',
-                subtitle: 'فقط امتیازهای موردنظر را انتخاب کنید',
-                type: 'checkbox',
-                options: [
-                    { id: 'rating-5', label: '۵ ستاره' },
-                    { id: 'rating-4', label: '۴ ستاره' },
-                    { id: 'rating-3', label: '۳ ستاره' },
-                    { id: 'rating-2', label: '۲ ستاره' },
-                    { id: 'rating-1', label: '۱ ستاره' },
-                ],
-            },
-            product: {
-                title: 'همه محصولات',
-                subtitle: 'محصولی را برای فیلتر کردن نظرات انتخاب کنید',
-                type: 'checkbox',
-                options: [
-                    { id: 'product-all', label: 'همه محصولات' },
-                    { id: 'product-1', label: 'عنوان محصول' },
-                    { id: 'product-2', label: 'کفش ورزشی مردانه' },
-                    { id: 'product-3', label: 'ست لباس خانگی' },
-                ],
-            },
-            sort: {
-                title: 'مرتب‌سازی',
-                subtitle: 'ترتیب نمایش نظرات را تغییر دهید',
-                type: 'radio',
-                options: [
-                    { id: 'sort-newest', label: 'جدیدترین' },
-                    { id: 'sort-oldest', label: 'قدیمی‌ترین' },
-                    { id: 'sort-highest', label: 'بالاترین امتیاز' },
-                    { id: 'sort-lowest', label: 'پایین‌ترین امتیاز' },
-                ],
-            },
-        };
+    <section class="store-page-title-card mb-6 hidden md:flex">
+      <h1 class="store-title">نظرات و امتیازها</h1>
+    </section>
 
-        let currentModalType = null;
+    <!-- نوار ابزار -->
+    <section class="rounded-[14px] bg-white p-4 shadow-card md:p-5">
+      <div class="flex flex-col-reverse gap-3 md:flex-row md:items-center md:justify-between">
 
-        function renderModal(type) {
-            const config = modalConfigs[type];
-            if (!config) return;
+        <!-- چیپ‌ها (در موبایل اسکرول افقی، در دسکتاپ wrap) -->
+        <div id="filterBar" class="reviews-filter-row flex items-center gap-2">
+          <div class="relative shrink-0">
+            <button type="button" data-popup-trigger="popup-rv-sort" class="store-chip">
+              <span class="text-[#777]">مرتب‌سازی:</span>
+              <span id="rvSortChipLabel" class="text-[#333] font-medium">جدیدترین</span>
+              <svg class="h-4 w-4"><use href="#icon-chevron-down"></use></svg>
+            </button>
+            <div id="popup-rv-sort" data-popup="rv-sort"
+              class="store-popup absolute right-0 top-[46px] z-30 hidden w-[260px]">
+              <div class="drag-handle"></div>
+              <div class="store-popup-header">
+                <span>مرتب‌سازی</span>
+                <button type="button" data-close-popup><svg class="h-5 w-5"><use href="#icon-close"></use></svg></button>
+              </div>
+              <div class="space-y-4 px-6 py-5 text-[14px]">
+                <label class="flex cursor-pointer items-center justify-between">
+                  <span>جدیدترین</span>
+                  <span class="flex"><input class="sr-only" type="radio" name="rvSort" value="newest" checked /><span class="store-radio-ui"></span></span>
+                </label>
+                <label class="flex cursor-pointer items-center justify-between">
+                  <span>قدیمی‌ترین</span>
+                  <span class="flex"><input class="sr-only" type="radio" name="rvSort" value="oldest" /><span class="store-radio-ui"></span></span>
+                </label>
+                <label class="flex cursor-pointer items-center justify-between">
+                  <span>بالاترین امتیاز</span>
+                  <span class="flex"><input class="sr-only" type="radio" name="rvSort" value="rating" /><span class="store-radio-ui"></span></span>
+                </label>
+              </div>
+              <div class="store-popup-footer text-right">
+                <button type="button" data-clear-rv-sort>حذف فیلتر</button>
+              </div>
+            </div>
+          </div>
 
-            currentModalType = type;
-            modalTitle.textContent = config.title;
-            modalSubtitle.textContent = config.subtitle;
+          <button type="button" data-rv-quick="all"
+            class="rv-quick-chip h-9 shrink-0 rounded-full border border-[#aa4938] bg-[#fff8f6] px-4 text-[12px] font-medium text-[#aa4938]">
+            همه
+          </button>
+          <button type="button" data-rv-quick="unanswered"
+            class="rv-quick-chip h-9 shrink-0 rounded-full border border-[#ccc] bg-white px-4 text-[12px] text-[#434343]">
+            بدون پاسخ
+          </button>
+          <button type="button" data-rv-quick="negative"
+            class="rv-quick-chip h-9 shrink-0 rounded-full border border-[#ccc] bg-white px-4 text-[12px] text-[#434343]">
+            منفی
+          </button>
+          <button type="button" data-rv-quick="reported"
+            class="rv-quick-chip h-9 shrink-0 rounded-full border border-[#ccc] bg-white px-4 text-[12px] text-[#434343]">
+            گزارش شده‌ها
+          </button>
 
-            modalItems.innerHTML = config.options.map((option, index) => {
-                const inputId = option.id || `${type}-${index}`;
-                const inputType = config.type === 'radio' ? 'radio' : 'checkbox';
-                const nameAttr = config.type === 'radio' ? `name="${type}-group"` : '';
+          <div class="relative shrink-0">
+            <button type="button" data-popup-trigger="popup-rv-rating" class="store-chip">
+              <span id="rvRatingChipLabel" class="text-[#333]">امتیاز</span>
+              <svg class="h-4 w-4"><use href="#icon-chevron-down"></use></svg>
+            </button>
+            <div id="popup-rv-rating" data-popup="rv-rating"
+              class="store-popup absolute right-0 top-[46px] z-30 hidden w-[280px]">
+              <div class="drag-handle"></div>
+              <div class="store-popup-header">
+                <span>امتیاز</span>
+                <button type="button" data-close-popup><svg class="h-5 w-5"><use href="#icon-close"></use></svg></button>
+              </div>
+              <div id="rvRatingList" class="space-y-4 px-6 py-5 text-[14px]"></div>
+              <div class="store-popup-footer text-right">
+                <button type="button" data-clear-rv-rating>حذف فیلتر</button>
+              </div>
+            </div>
+          </div>
+        </div>
 
-                return `
-          <label for="${inputId}" class="flex items-center justify-between gap-4 p-4 rounded-2xl border border-gray-100 hover:border-brand/30 hover:bg-brand/5 cursor-pointer transition">
-            <span class="text-sm md:text-[15px] font-medium text-gray-700">${option.label}</span>
-            <input
-              id="${inputId}"
-              type="${inputType}"
-              ${nameAttr}
-              class="w-5 h-5 rounded-lg border-gray-300 text-brand focus:ring-brand accent-brand cursor-pointer"
-            />
-          </label>
-        `;
-            }).join('');
+        <!-- جستجو -->
+        <label class="flex h-[40px] w-full items-center rounded-[8px] border border-[#9d9d9d] bg-white px-3 md:w-[320px] shrink-0">
+          <input id="reviewSearch" type="text"
+            class="h-full min-w-0 w-full flex-1 bg-transparent px-1 text-right text-[13px] outline-none placeholder:text-[#a4a4a4] focus:border-none focus:outline-none"
+            placeholder="جستجو در نظرات و محصولات" />
+          <svg class="h-5 w-5 shrink-0 text-[#9d9d9d]"><use href="#icon-search"></use></svg>
+        </label>
+      </div>
+    </section>
 
-            modalClearBtn.textContent = type === 'sort' ? 'بازنشانی' : 'حذف فیلتر';
-            modalApplyBtn.textContent = type === 'sort' ? 'اعمال' : 'تایید';
-        }
+    <!-- لیست نظرات -->
+    <section id="reviewsList" class="mt-5 space-y-5"></section>
 
-        function openModal(type) {
-            renderModal(type);
-            modal.classList.add('is-open');
-            document.body.style.overflow = 'hidden';
-        }
+    <!-- Empty -->
+    <section id="reviewsEmpty" class="store-empty hidden">
+      <img src="../../images/StoreDashboard/Reviews/empty-reviews.svg" alt="بدون نظر" />
+      <p>نظری با این مشخصات پیدا نشد.</p>
+    </section>
+  </main>
 
-        function closeModal() {
-            modal.classList.remove('is-open');
-            document.body.style.overflow = '';
-        }
+  <!-- Bottom Nav -->
+  <nav class="fixed bottom-0 left-0 right-0 z-40 border-t border-[#dedede] bg-white md:hidden">
+    <ul class="store-bottom-nav w-full flex items-center justify-between pb-3">
+      <li class="flex-1 flex flex-col items-center justify-center gap-1 pt-3 text-[#333]">
+        <img src="../../images/ShopDashboard/botton/store.svg" alt="" class="h-6 w-6" />
+        <a href="StoreDashboard.html" class="text-[11px]">فروشگاه من</a>
+      </li>
+      <li class="flex-1 flex flex-col items-center justify-center gap-1 pt-3 text-[#333]">
+        <img src="../../images/ShopDashboard/botton/bag 01.svg" alt="" class="h-6 w-6" />
+        <a href="Products/StoreDashboard_ProductsList.html" class="text-[11px]">محصولات</a>
+      </li>
+      <li class="flex-1 flex flex-col items-center justify-center gap-1 pt-3 text-[#333]">
+        <img src="../../images/ShopDashboard/botton/cart 01.svg" alt="" class="h-6 w-6" />
+        <a href="Orders/StoreDashboard_Orders_List.html" class="text-[11px]">سفارش‌ها</a>
+      </li>
+      <li class="flex-1 flex flex-col items-center justify-center gap-1 pt-3 text-[#333]">
+        <img src="../../images/ShopDashboard/botton/mail.svg" alt="" class="h-6 w-6" />
+        <a href="StoreDashboard_Messages.html" class="text-[11px]">پیام‌ها</a>
+      </li>
+      <li class="flex-1 flex flex-col items-center justify-center gap-1 pt-3 text-custom-brown active">
+        <img src="../../images/ShopDashboard/botton/menu-line-horizontal.svg" alt="" class="h-6 w-6" />
+        <a href="StoreDashboard_Profile_Filled.html" class="text-[11px]">سایر</a>
+      </li>
+    </ul>
+  </nav>
 
-        document.querySelectorAll('[data-modal-open]').forEach((btn) => {
-            btn.addEventListener('click', () => openModal(btn.dataset.modalOpen));
-        });
+  <!-- Modal: پاسخ به نظر -->
+  <div id="replyModalBackdrop" class="fixed inset-0 z-40 hidden bg-black/45"></div>
+  <section id="replyModal" class="store-modal hidden" style="max-width: 500px;" role="dialog">
+    <header class="store-modal-header">
+      <h2 class="text-[17px] font-bold">پاسخ به نظر</h2>
+      <button type="button" data-close-modal class="grid h-8 w-8 place-items-center">
+        <svg class="h-5 w-5"><use href="#icon-close"></use></svg>
+      </button>
+    </header>
+    <form id="replyForm" class="space-y-4 p-6">
+      <div id="replyOriginalReview" class="rounded-[8px] bg-[#f6f6f6] p-4 text-[12px] text-[#555] leading-6"></div>
+      <label class="block">
+        <span class="mb-2 block text-[13px] font-medium">پاسخ شما</span>
+        <textarea id="replyText" r  ows="4" placeholder="پاسخ خود را بنویسید..."
+          class="w-full resize-none rounded-[8px] border border-[#aaa] p-3 text-[13px] outline-none focus:border-[#aa4938]"></textarea>
+      </label>
+      <div class="grid grid-cols-2 gap-3 pt-2">
+        <button type="submit"
+          class="h-[44px] rounded-[8px] bg-[#aa4938] text-[14px] font-medium text-white hover:bg-[#934033]">
+          ارسال پاسخ
+        </button>
+        <button type="button" data-close-modal class="h-[44px] rounded-[8px] border border-[#ccc] text-[14px]">
+          انصراف
+        </button>
+      </div>
+    </form>
+  </section>
 
-        document.querySelectorAll('[data-modal-close]').forEach((el) => {
-            el.addEventListener('click', closeModal);
-        });
+  <div id="popupOverlay" class="fixed inset-0 z-[100] hidden bg-black/30"></div>
+  <div id="toast"
+    class="pointer-events-none fixed bottom-24 left-1/2 z-[999] hidden -translate-x-1/2 rounded-[8px] bg-[#333] px-5 py-3 text-[13px] text-white shadow-lg md:bottom-6"
+    role="status"></div>
 
-        modalClearBtn.addEventListener('click', () => {
-            if (!currentModalType) return;
-            modalItems.querySelectorAll('input').forEach((input) => {
-                input.checked = false;
-            });
-        });
-
-        modalApplyBtn.addEventListener('click', () => {
-            // Hook your filter action here
-            closeModal();
-        });
-
-        document.addEventListener('keydown', (event) => {
-            if (event.key === 'Escape' && modal.classList.contains('is-open')) {
-                closeModal();
-            }
-        });
-
-        // Chip active state
-        document.querySelectorAll('[data-chip]').forEach((chip) => {
-            chip.addEventListener('click', () => {
-                document.querySelectorAll('[data-chip]').forEach((item) => {
-                    item.classList.remove('chip-active', 'bg-brand', 'text-white', 'border-brand');
-                    item.classList.add('border-gray-200', 'bg-white', 'text-gray-600');
-                });
-
-                chip.classList.add('chip-active');
-                chip.classList.remove('border-gray-200', 'bg-white', 'text-gray-600');
-            });
-        });
-
-        // Demo: switch empty state by uncommenting if needed
-        // document.getElementById('reviewsSection').hidden = true;
-        // document.getElementById('emptyState').hidden = false;
-    </script>
+  <script src="../../scripts/StoreDashboard/store-common.js"></script>
+  <script src="../../scripts/StoreDashboard/store-reviews.js"></script>
 </body>
 
 </html>

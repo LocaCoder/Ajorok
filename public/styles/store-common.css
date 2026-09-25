@@ -1,0 +1,1123 @@
+/* ============================================================
+   store-common.css - استایل‌های مشترک پنل فروشگاه
+   ============================================================ */
+
+/* ============================================================
+   1. متغیرهای رنگی و توکن‌های طراحی
+   ============================================================ */
+:root {
+  /* برند اصلی */
+  --store-brown: #aa4938;
+  --store-brown-dark: #934033;
+  --store-brown-soft: #fbf2ef;
+  --store-brown-light: #f5ede b;
+
+  /* رنگ‌های صفحه */
+  --store-page: #f3f3f3;
+  --store-white: #ffffff;
+  --store-ink: #252525;
+  --store-muted: #6d6d6d;
+  --store-line: #dedede;
+  --store-line-soft: #ececec;
+
+  /* رنگ‌های وضعیت */
+  --store-success-bg: #dcf6e8;
+  --store-success-text: #16864a;
+  --store-info-bg: #dcecff;
+  --store-info-text: #2b78c5;
+  --store-warning-bg: #fff2d7;
+  --store-warning-text: #d98b15;
+  --store-danger-bg: #fde3e3;
+  --store-danger-text: #c53a3a;
+  --store-purple-bg: #eee8ff;
+  --store-purple-text: #7142d6;
+
+  /* سایه‌ها */
+  --store-shadow-soft: 0 1px 2px rgba(0, 0, 0, 0.025);
+  --store-shadow-card: 0 1px 4px rgba(0, 0, 0, 0.06);
+  --store-shadow-popup: 0 12px 34px rgba(0, 0, 0, 0.12);
+  --store-shadow-menu: 0 12px 32px rgba(0, 0, 0, 0.12);
+
+  /* شعاع */
+  --store-radius-sm: 6px;
+  --store-radius: 8px;
+  --store-radius-md: 12px;
+  --store-radius-lg: 14px;
+  --store-radius-xl: 16px;
+}
+
+/* ============================================================
+   2. پایه
+   ============================================================ */
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid rgba(170, 73, 56, 0.25);
+  outline-offset: 2px;
+}
+
+/* ============================================================
+   3. اسکرول بار و مخفی کردن
+   ============================================================ */
+.no-scrollbar,
+.store-hide-scroll {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.no-scrollbar::-webkit-scrollbar,
+.store-hide-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.store-scrollbar-thin {
+  scrollbar-width: thin;
+  scrollbar-color: #d3d3d3 transparent;
+}
+
+.store-scrollbar-thin::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+.store-scrollbar-thin::-webkit-scrollbar-thumb {
+  background: #d3d3d3;
+  border-radius: 999px;
+}
+
+.store-scrollbar-thin::-webkit-scrollbar-thumb:hover {
+  background: #b5b5b5;
+}
+
+.store-scrollbar-thin::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* ============================================================
+   4. تیترها و کارت‌ها
+   ============================================================ */
+.store-page-title-card {
+  display: flex;
+  align-items: center;
+  min-height: 76px;
+  border-radius: var(--store-radius-lg);
+  background: var(--store-white);
+  padding: 0 24px;
+  box-shadow: var(--store-shadow-card);
+}
+
+.store-page-title-card .store-title {
+  display: inline-flex;
+  align-items: center;
+  padding-right: 16px;
+  padding-left: 16px;
+  padding-bottom: 10px;
+  border-bottom: 3px solid var(--store-brown);
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--store-brown);
+}
+
+.store-panel {
+  border-radius: var(--store-radius-lg);
+  background: var(--store-white);
+  padding: 20px;
+  box-shadow: var(--store-shadow-card);
+}
+
+.store-panel-shadow {
+  box-shadow: var(--store-shadow-card);
+}
+
+/* ============================================================
+   5. هدر دسکتاپ
+   ============================================================ */
+.store-desktop-header {
+  height: 72px;
+  border-bottom: 1px solid var(--store-line-soft);
+  background: var(--store-white);
+}
+
+.store-desktop-header .store-header-inner {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1536px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+@media (min-width: 1024px) {
+  .store-desktop-header .store-header-inner {
+    padding: 0 60px;
+  }
+}
+
+/* ============================================================
+   6. هدر موبایل
+   ============================================================ */
+.store-mobile-header {
+  display: flex;
+  align-items: center;
+  height: 76px;
+  padding: 0 20px;
+  border-bottom: 1px solid var(--store-line);
+  background: var(--store-white);
+}
+
+.store-mobile-header h1 {
+  margin-right: 8px;
+  font-size: 20px;
+  font-weight: 500;
+}
+
+/* ============================================================
+   7. Bottom Nav موبایل
+   ============================================================ */
+.store-bottom-nav {
+  display: flex;
+  align-items: stretch;
+  justify-content: space-between;
+  height: 76px;
+  padding: 0 8px;
+  background: var(--store-white);
+}
+
+.store-bottom-nav li {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 4px;
+  padding-top: 12px;
+  cursor: pointer;
+  transition: color 0.2s ease;
+  font-size: 11px;
+}
+
+.store-bottom-nav li.active,
+.store-bottom-nav li.text-custom-brown {
+  color: var(--store-brown);
+}
+
+.store-bottom-nav li img {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+}
+
+/* ============================================================
+   8. Tabs (تب‌های افقی)
+   ============================================================ */
+.store-tabs,
+.store-tabs-mobile-scroll {
+  display: flex;
+  overflow-x: auto;
+  border-bottom: 1px solid #cfcfcf;
+  scrollbar-width: none;
+}
+
+.store-tabs::-webkit-scrollbar,
+.store-tabs-mobile-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.store-tab {
+  flex-shrink: 0;
+  padding: 12px 20px;
+  font-size: 14px;
+  color: #333;
+  white-space: nowrap;
+  cursor: pointer;
+  border-bottom: 3px solid transparent;
+  background: transparent;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+.store-tab:hover {
+  color: var(--store-brown);
+}
+
+.store-tab.active {
+  color: var(--store-brown);
+  border-bottom-color: var(--store-brown);
+  font-weight: 600;
+}
+
+/* تب‌های زیرمجموعه (مثلاً finance tabs) */
+.store-subtabs {
+  display: flex;
+  overflow-x: auto;
+  border-bottom: 1px solid #cfcfcf;
+  background: var(--store-white);
+  scrollbar-width: none;
+}
+
+.store-subtabs::-webkit-scrollbar {
+  display: none;
+}
+
+.store-subtab {
+  flex-shrink: 0;
+  padding: 14px 24px;
+  font-size: 14px;
+  color: #333;
+  white-space: nowrap;
+  cursor: pointer;
+  border-bottom: 3px solid transparent;
+  background: transparent;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+.store-subtab:hover {
+  color: var(--store-brown);
+}
+
+.store-subtab.active {
+  color: var(--store-brown);
+  border-bottom-color: var(--store-brown);
+  font-weight: 600;
+}
+
+/* ============================================================
+   9. Chips (چیپ‌های فیلتر)
+   ============================================================ */
+.store-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 36px;
+  padding: 0 14px;
+  border: 1px solid #ccc;
+  border-radius: 999px;
+  background: var(--store-white);
+  font-size: 13px;
+  color: #434343;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: border-color 0.15s ease, background 0.15s ease,
+    color 0.15s ease;
+}
+
+.store-chip:hover {
+  border-color: var(--store-brown);
+  color: var(--store-brown);
+}
+
+.store-chip.active,
+.store-chip[data-active="true"] {
+  border-color: #d7b1aa;
+  background: #fff7f4;
+  color: var(--store-brown);
+}
+
+.store-chip svg,
+.store-chip img {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+/* ============================================================
+   10. Popup / Bottom Sheet
+   ============================================================ */
+.store-popup,
+.dropdown-menu {
+  border-radius: 9px;
+  border: 1px solid #d0d0d0;
+  background: var(--store-white);
+  box-shadow: var(--store-shadow-popup);
+  overflow: hidden;
+}
+
+.store-popup-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 56px;
+  padding: 0 24px;
+  border-bottom: 1px solid #e5e5e5;
+  font-size: 17px;
+  font-weight: 500;
+}
+
+.store-popup-body {
+  padding: 20px 24px;
+}
+
+.store-popup-footer {
+  padding: 16px 24px;
+  border-top: 1px solid #e5e5e5;
+}
+
+.store-popup-footer button {
+  font-size: 14px;
+  color: var(--store-brown);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+/* drag handle */
+.drag-handle {
+  display: none;
+}
+
+/* موبایل: Bottom Sheet */
+@media (max-width: 767px) {
+  .store-popup.mobile-bottom,
+  .dropdown-menu.mobile-bottom {
+    position: fixed !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    top: auto !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    max-height: 82vh !important;
+    border-radius: 16px 16px 0 0 !important;
+    border: none !important;
+    border-top: 1px solid #e5e5e5 !important;
+    box-shadow: 0 -8px 30px rgba(0, 0, 0, 0.12) !important;
+    transform: translateY(100%);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 110 !important;
+    overflow-y: auto;
+  }
+
+  .store-popup.mobile-bottom.open,
+  .dropdown-menu.mobile-bottom.open {
+    transform: translateY(0);
+  }
+
+  .store-popup.mobile-bottom .drag-handle,
+  .dropdown-menu.mobile-bottom .drag-handle {
+    display: block !important;
+    width: 40px;
+    height: 4px;
+    margin: 10px auto 6px;
+    border-radius: 999px;
+    background: #d1d1d1;
+  }
+
+  .store-popup.mobile-bottom .close-dropdown,
+  .dropdown-menu.mobile-bottom .close-dropdown {
+    display: none !important;
+  }
+}
+
+/* ============================================================
+   11. Overlay / Backdrop
+   ============================================================ */
+#popupOverlay,
+#mobileOverlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 100;
+  transition: opacity 0.3s ease;
+}
+
+#popupOverlay.show,
+#mobileOverlay.show {
+  display: block;
+}
+
+/* ============================================================
+   12. Floating Menu (منوهای شناور جدول)
+   ============================================================ */
+.floating-menu {
+  box-shadow: var(--store-shadow-menu);
+}
+
+.floating-menu button,
+.floating-menu a {
+  display: block;
+  width: 100%;
+  padding: 10px 16px;
+  text-align: right;
+  font-size: 13px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.floating-menu button:hover,
+.floating-menu a:hover {
+  background: #f7f7f7;
+}
+
+.floating-menu .danger,
+.floating-menu button.danger {
+  color: #c93434;
+}
+
+.floating-menu .danger:hover {
+  background: #fff4f4;
+}
+
+/* ============================================================
+   13. Modal
+   ============================================================ */
+.store-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  z-index: 120;
+  width: calc(100% - 32px);
+  max-width: 520px;
+  max-height: 90dvh;
+  transform: translate(-50%, -50%) scale(0.95);
+  opacity: 0;
+  pointer-events: none;
+  border-radius: var(--store-radius-lg);
+  background: var(--store-white);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  overflow-y: auto;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.store-modal.modal-open {
+  transform: translate(-50%, -50%) scale(1);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.store-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 24px;
+  border-bottom: 1px solid #dedede;
+  font-size: 17px;
+  font-weight: 600;
+}
+
+.store-modal-body {
+  padding: 24px;
+}
+
+.store-modal-footer {
+  padding: 16px 24px;
+  border-top: 1px solid #dedede;
+  display: flex;
+  gap: 12px;
+}
+
+/* ============================================================
+   14. Filter Drawer
+   ============================================================ */
+.store-filter-drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 110;
+  width: 100%;
+  max-width: 390px;
+  background: var(--store-white);
+  box-shadow: -8px 0 30px rgba(0, 0, 0, 0.12);
+  transform: translateX(100%);
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.store-filter-drawer:not(.translate-x-full) {
+  transform: translateX(0);
+}
+
+@media (max-width: 767px) {
+  .store-filter-drawer.mobile-fullscreen {
+    max-width: 100% !important;
+    width: 100% !important;
+  }
+}
+
+/* ============================================================
+   15. Checkbox & Radio (سفارشی)
+   ============================================================ */
+.store-check-ui,
+.store-radio-ui {
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+  width: 21px;
+  height: 21px;
+  flex: 0 0 21px;
+  border: 1px solid #aaa;
+  background: white;
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+.store-check-ui {
+  border-radius: 5px;
+}
+
+.store-radio-ui {
+  border-radius: 999px;
+}
+
+input:checked + .store-check-ui,
+input:checked + .check-ui {
+  border-color: var(--store-brown);
+  background: var(--store-brown);
+}
+
+input:checked + .store-check-ui::after,
+input:checked + .check-ui::after {
+  content: "";
+  width: 8px;
+  height: 4px;
+  border-left: 2px solid white;
+  border-bottom: 2px solid white;
+  transform: rotate(-45deg) translateY(-1px);
+}
+
+input:checked + .store-radio-ui,
+input:checked + .radio-ui {
+  border-color: var(--store-brown);
+}
+
+input:checked + .store-radio-ui::after,
+input:checked + .radio-ui::after {
+  content: "";
+  width: 11px;
+  height: 11px;
+  border-radius: 999px;
+  background: var(--store-brown);
+}
+
+/* سازگاری با کلاس‌های قدیمی */
+.check-ui,
+.radio-ui {
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+  width: 21px;
+  height: 21px;
+  flex: 0 0 21px;
+  border: 1px solid #aaa;
+  background: white;
+}
+
+.check-ui {
+  border-radius: 5px;
+}
+
+.radio-ui {
+  border-radius: 999px;
+}
+
+/* ============================================================
+   16. Status Badges
+   ============================================================ */
+.store-status {
+  display: inline-flex;
+  align-items: center;
+  min-height: 30px;
+  border-radius: 5px;
+  padding: 0 12px;
+  font-size: 12px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.store-status.success,
+.store-status-published,
+.store-status-available,
+.store-status-paid,
+.store-status-completed {
+  background: var(--store-success-bg);
+  color: var(--store-success-text);
+}
+
+.store-status.info,
+.store-status-preparing,
+.store-status-pending-info {
+  background: var(--store-info-bg);
+  color: var(--store-info-text);
+}
+
+.store-status.warning,
+.store-status-pending,
+.store-status-limited {
+  background: var(--store-warning-bg);
+  color: var(--store-warning-text);
+}
+
+.store-status.danger,
+.store-status-rejected,
+.store-status-cancelled,
+.store-status-canceled,
+.store-status-unavailable,
+.store-status-out {
+  background: var(--store-danger-bg);
+  color: var(--store-danger-text);
+}
+
+.store-status.draft,
+.store-status-stopped,
+.store-status-archived {
+  background: #eeeeee;
+  color: #666;
+}
+
+.store-status.purple {
+  background: var(--store-purple-bg);
+  color: var(--store-purple-text);
+}
+
+/* ============================================================
+   17. Pagination
+   ============================================================ */
+.store-page-btn,
+.store-page-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 999px;
+  font-size: 13px;
+  color: #333;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.store-page-btn:hover,
+.store-page-num:hover {
+  background: #f3f3f3;
+}
+
+.store-page-num.bg-brand-700 {
+  background: var(--store-brown);
+  color: #fff;
+}
+
+.store-page-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* ============================================================
+   18. Empty State
+   ============================================================ */
+.store-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 64px 24px;
+  text-align: center;
+}
+
+.store-empty img,
+.store-empty svg {
+  max-width: 200px;
+  margin-bottom: 20px;
+  opacity: 0.9;
+}
+
+.store-empty p {
+  font-size: 14px;
+  color: #333;
+}
+
+.store-empty .store-empty-hint {
+  margin-top: 8px;
+  font-size: 12px;
+  color: #777;
+}
+
+/* ============================================================
+   19. Skeletons / Loading
+   ============================================================ */
+.store-spinner {
+  display: inline-block;
+  width: 32px;
+  height: 32px;
+  border: 4px solid var(--store-brown);
+  border-top-color: transparent;
+  border-radius: 999px;
+  animation: storeSpin 0.8s linear infinite;
+}
+
+@keyframes storeSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ============================================================
+   20. Utilities
+   ============================================================ */
+.store-divider {
+  height: 1px;
+  background: #e5e5e5;
+  margin: 20px 0;
+}
+
+.store-text-muted {
+  color: var(--store-muted);
+}
+
+.store-text-brown {
+  color: var(--store-brown);
+}
+
+.store-bg-brown {
+  background: var(--store-brown);
+}
+
+.store-border-brown {
+  border-color: var(--store-brown);
+}
+
+/* Fade In */
+.fade-in,
+.store-fade-in {
+  animation: storeFadeIn 0.16s ease-out;
+}
+
+@keyframes storeFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Fade Up (برای empty state ها) */
+.fade-up {
+  animation: storeFadeUp 0.25s ease-out;
+}
+
+@keyframes storeFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ============================================================
+   21. Mobile Fixes
+   ============================================================ */
+@media (max-width: 767px) {
+  /* جدول‌های دسکتاپ مخفی */
+  .desktop-only,
+  .desktop-orders,
+  .desktop-table,
+  .store-desktop-only {
+    display: none !important;
+  }
+
+  /* کارت‌های موبایل نمایان */
+  .mobile-only,
+  .mobile-order-card,
+  .store-mobile-only {
+    display: block !important;
+  }
+
+  /* Filter scroll افقی */
+  .filter-scroll-wrapper,
+  .orders-filter-scroll,
+  .reviews-filter-row,
+  .store-filter-scroll {
+    display: flex;
+    overflow-x: auto;
+    overflow-y: hidden;
+    flex-wrap: nowrap !important;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding-bottom: 4px;
+  }
+
+  .filter-scroll-wrapper::-webkit-scrollbar,
+  .orders-filter-scroll::-webkit-scrollbar,
+  .reviews-filter-row::-webkit-scrollbar,
+  .store-filter-scroll::-webkit-scrollbar {
+    display: none;
+  }
+
+  .filter-scroll-wrapper > *,
+  .orders-filter-scroll > *,
+  .reviews-filter-row > *,
+  .store-filter-scroll > * {
+    flex-shrink: 0;
+  }
+}
+
+@media (min-width: 768px) {
+  .mobile-only,
+  .mobile-order-card,
+  .store-mobile-only {
+    display: none !important;
+  }
+
+  .desktop-only,
+  .store-desktop-only {
+    display: block;
+  }
+
+  /* فیلترها می‌توانند wrap شوند */
+  .filter-scroll-wrapper,
+  .orders-filter-scroll,
+  .reviews-filter-row,
+  .store-filter-scroll {
+    display: flex;
+    flex-wrap: wrap !important;
+    overflow: visible !important;
+  }
+}
+
+/* ============================================================
+   22. Store Sidebar (سایدبار داشبورد)
+   ============================================================ */
+.store-sidebar {
+  width: 260px;
+  flex-shrink: 0;
+  border-radius: var(--store-radius-md);
+  background: var(--store-white);
+  padding: 12px 0;
+  position: sticky;
+  top: 16px;
+  height: fit-content;
+}
+
+.store-sidebar-header {
+  padding: 16px 24px;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.store-sidebar-header .store-name {
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--store-ink);
+}
+
+.store-sidebar-header .store-phone {
+  margin-top: 4px;
+  font-size: 14px;
+  color: #999;
+}
+
+.store-sidebar-switch {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 16px;
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 999px;
+  font-size: 13px;
+  color: #333;
+  transition: border-color 0.15s ease;
+}
+
+.store-sidebar-switch:hover {
+  border-color: var(--store-brown);
+  color: var(--store-brown);
+}
+
+.store-sidebar-menu {
+  padding-top: 12px;
+  border-top: 1px solid #e5e5e5;
+}
+
+.store-sidebar-menu li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 24px;
+  font-size: 15px;
+  color: var(--store-ink);
+  cursor: pointer;
+  transition: color 0.2s ease, background 0.2s ease;
+}
+
+.store-sidebar-menu li:hover {
+  color: var(--store-brown);
+}
+
+.store-sidebar-menu li.active {
+  background: #f5edeb;
+  color: var(--store-brown);
+}
+
+.store-sidebar-menu li svg,
+.store-sidebar-menu li img {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+.store-sidebar-menu .badge-count {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  margin-right: auto;
+  border-radius: 999px;
+  background: #d22121;
+  color: white;
+  font-size: 10px;
+  font-weight: bold;
+}
+
+/* ============================================================
+   23. Store Shell (کانتینر اصلی)
+   ============================================================ */
+.store-shell {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+@media (min-width: 1024px) {
+  .store-shell {
+    padding: 0;
+  }
+}
+
+/* ============================================================
+   24. Store Breadcrumb
+   ============================================================ */
+.store-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: #777;
+}
+
+.store-breadcrumb a {
+  color: #777;
+  transition: color 0.15s ease;
+}
+
+.store-breadcrumb a:hover {
+  color: var(--store-brown);
+}
+
+.store-breadcrumb svg,
+.store-breadcrumb img {
+  width: 16px;
+  height: 16px;
+  opacity: 0.6;
+}
+
+/* ============================================================
+   25. Print
+   ============================================================ */
+@media print {
+  .store-desktop-header,
+  .store-mobile-header,
+  .store-bottom-nav,
+  .store-filter-drawer,
+  .store-modal,
+  .floating-menu {
+    display: none !important;
+  }
+}
+/* ============================================================
+   FIX: Popup position & z-index
+   ============================================================ */
+
+/* والد popup باید relative و بدون overflow باشه */
+[data-popup-wrap] {
+  position: relative !important;
+  overflow: visible !important;
+}
+
+/* خود popup باید بالاتر از همه باشه */
+.store-popup,
+[data-popup] {
+  z-index: 9999 !important;
+}
+
+/* کارت‌ها و section های والد نباید popup رو ببرن */
+section, article, .store-panel, .store-page-title-card {
+  overflow: visible !important;
+}
+
+/* ردیف چیپ‌های فیلتر — در دسکتاپ overflow visible */
+@media (min-width: 768px) {
+  .no-scrollbar,
+  .filter-row,
+  .chip-row {
+    overflow: visible !important;
+    flex-wrap: wrap !important;
+  }
+}
+
+/* در موبایل اسکرول افقی حفظ بشه */
+@media (max-width: 767px) {
+  .no-scrollbar {
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+  }
+}
+
+/* جدول ها استثنا — اینا باید overflow داشته باشن */
+.desktop-table,
+table {
+  /* استثنا */
+}
+/* ============================================================
+   FIX: Modals always above their backdrops
+   ============================================================ */
+.store-modal {
+  z-index: 200 !important;
+}
+
+/* Backdrops */
+#modalBackdrop,
+#deleteBankBackdrop,
+#feedbackBackdrop,
+#bankModalBackdrop,
+#settlementBackdrop,
+#cancelBackdrop,
+#productModalBackdrop,
+#modalOverlay {
+  z-index: 150 !important;
+}
+
+/* دکمه بستن و محتوای مودال همیشه قابل کلیک */
+.store-modal > * {
+  position: relative;
+  z-index: 1;
+}
