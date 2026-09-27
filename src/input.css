@@ -82,6 +82,1492 @@
 }
 
 @layer components {
+    .shell {
+        @apply mx-auto;
+        width: 83.333333%;
+        max-width: 1708px;
+        padding-top: 120px;
+        padding-bottom: 80px
+    }
+
+    .page-heading {
+        @apply flex items-center gap-4 font-bold;
+        font-size: 20px;
+        margin-bottom: 28px
+    }
+
+    .page-heading .back-icon {
+        display: none
+    }
+
+    .checkout-layout {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, .5155fr);
+        gap: 24px;
+        align-items: start
+    }
+
+    .content-column {
+        min-width: 0
+    }
+
+    .panel {
+        @apply rounded-lg;
+        border: 1px solid #d1d1d1;
+        padding: 22px 24px
+    }
+
+    .panel-header {
+        @apply flex items-center justify-between gap-3;
+        padding-bottom: 20px;
+        border-bottom: 1px solid #ddd
+    }
+
+    .panel h2,
+    .panel h3 {
+        font-size: 17px;
+        font-weight: 400
+    }
+
+    .panel-header h2 {
+        font-size: 18px
+    }
+
+    .text-link {
+        color: #287fff;
+        font-size: 14px;
+        white-space: nowrap
+    }
+
+    .store-card+.store-card {
+        margin-top: 24px
+    }
+
+    .product {
+        display: grid;
+        grid-template-columns: 74px minmax(0, 1fr) minmax(170px, 1fr);
+        grid-template-rows: auto auto;
+        gap: 12px 16px;
+        padding: 16px 0 20px;
+        position: relative
+    }
+
+    .product+.product {
+        border-top: 1px solid #ddd;
+        padding-top: 16px
+    }
+
+    .product:last-child {
+        padding-bottom: 4px
+    }
+
+    .product-image {
+        width: 74px;
+        height: 74px;
+        object-fit: cover;
+        border-radius: 8px;
+        grid-column: 1;
+        grid-row: 1/3
+    }
+
+    .product .product-title {
+        grid-column: 2;
+        grid-row: 1;
+        font-size: 17px;
+        line-height: 1.6;
+        align-self: start
+    }
+
+    .title-long {
+        display: none
+    }
+
+    .quantity-area {
+        grid-column: 2;
+        grid-row: 2;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        align-self: end;
+        white-space: nowrap
+    }
+
+    .quantity {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        height: 32px;
+        min-width: 105px
+    }
+
+    .quantity button {
+        color: #bc7268;
+        width: 32px;
+        height: 30px;
+        font-size: 22px;
+        line-height: 1
+    }
+
+    .quantity output {
+        font-size: 15px
+    }
+
+    .unit {
+        color: #808080;
+        font-size: 13px
+    }
+
+    .product-prices {
+        grid-column: 3;
+        grid-row: 1/3;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 8px;
+        color: #808080;
+        font-size: 13px;
+        text-align: left;
+        line-height: 1.5
+    }
+
+    .money {
+        white-space: nowrap;
+        display: inline-flex;
+        align-items: baseline;
+        gap: 5px;
+        color: #303030
+    }
+
+    .money small {
+        font-size: 11px;
+        font-weight: 400
+    }
+
+    .money b {
+        font-weight: 700
+    }
+
+    .unit-price .money {
+        color: inherit;
+        font-size: 12px
+    }
+
+    .line-total {
+        font-size: 16px
+    }
+
+    .line-total .money {
+        font-size: 15px
+    }
+
+    .remove {
+        color: #ff3636;
+        margin-top: 1px;
+        padding: 0
+    }
+
+    .summary .summary-row {
+        @apply flex justify-between items-center gap-3;
+        color: #808080;
+        font-size: 16px;
+        padding: 4px 0 17px
+    }
+
+    .summary .summary-row+.summary-row {
+        border-top: 1px solid #e1e1e1;
+        padding-top: 15px
+    }
+
+    .summary .summary-total {
+        border-top: 1px solid #aaa !important;
+        margin-top: 12px;
+        padding: 23px 0 30px !important
+    }
+
+    .summary .money {
+        font-size: 16px
+    }
+
+    .primary,
+    .btn-outline {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        border-radius: 7px;
+        width: 100%;
+        min-height: 48px;
+        padding: 9px 12px;
+        font-size: 18px;
+        font-weight: 400
+    }
+
+    .primary {
+        background: #9f4537;
+        color: #fff
+    }
+
+    .primary:hover {
+        background: #8e3c31
+    }
+
+    .btn-outline {
+        border: 1.5px solid #b75646;
+        color: #b04c3c
+    }
+
+    .btn-outline:hover {
+        background: #fbf3f1
+    }
+
+    .summary .btn-outline {
+        margin-top: 16px
+    }
+
+    .shipping-note {
+        display: flex;
+        gap: 8px;
+        align-items: flex-start;
+        color: #808080;
+        font-size: 14px;
+        line-height: 1.6;
+        margin-top: 24px
+    }
+
+    .shipping-note svg {
+        margin-top: 3px
+    }
+
+    .mobile-note,
+    .mobile-actions,
+    .mobile-nav {
+        display: none
+    }
+
+    .save-later {
+        color: #b75442;
+        margin: 18px 0 0;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-size: 15px;
+        margin-right: auto
+    }
+
+    body[data-page=delivery] .shell {
+        padding-top: 80px
+    }
+
+    body[data-page=payment] .shell {
+        padding-top: 110px
+    }
+
+    .address-row {
+        padding: 24px 0;
+        border-bottom: 1px solid #ddd
+    }
+
+    .address-row:last-child {
+        padding-bottom: 0;
+        border: 0
+    }
+
+    .address-top {
+        display: flex;
+        align-items: center;
+        gap: 8px
+    }
+
+    .address-top label {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        cursor: pointer;
+        min-width: 0;
+        font-size: 16px
+    }
+
+    .address-top .text-link {
+        margin-right: auto
+    }
+
+    .badge {
+        font-size: 10px;
+        background: #dceaff;
+        color: #287fff;
+        border-radius: 20px;
+        padding: 5px 8px;
+        white-space: nowrap
+    }
+
+    .address-body {
+        color: #808080;
+        line-height: 1.9;
+        margin-top: 10px;
+        font-size: 14px;
+        overflow-wrap: anywhere
+    }
+
+    .address-body p+p {
+        margin-top: 3px
+    }
+
+    .pickup-section {
+        margin-top: 48px
+    }
+
+    .pickup-intro {
+        display: flex;
+        gap: 5px;
+        align-items: flex-start;
+        font-size: 14px;
+        margin-bottom: 16px;
+        line-height: 1.6
+    }
+
+    .pickup-intro svg {
+        color: #b35b4d;
+        margin-top: 3px
+    }
+
+    .pickup-card {
+        margin-bottom: 16px
+    }
+
+    .pickup-card .store-description {
+        font-size: 13px;
+        color: #808080;
+        line-height: 1.7;
+        margin-top: 10px;
+        padding-bottom: 16px;
+        border-bottom: 1px solid #ddd
+    }
+
+    .pickup-label {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: 16px;
+        cursor: pointer;
+        font-size: 15px
+    }
+
+    .pickup-help {
+        color: #808080;
+        font-size: 13px;
+        line-height: 1.65;
+        margin: 8px 28px 0 0
+    }
+
+    .payment-panel+.payment-panel {
+        margin-top: 24px
+    }
+
+    .payment-panel>h2 {
+        margin-bottom: 20px;
+        font-size: 16px
+    }
+
+    .order-line {
+        display: flex;
+        justify-content: space-between;
+        gap: 28px;
+        margin-top: 12px;
+        color: #808080;
+        font-size: 13px
+    }
+
+    .order-line .money {
+        color: inherit;
+        font-size: 12px
+    }
+
+    .order-sum {
+        border-top: 1px solid #ccc;
+        padding-top: 16px;
+        margin-top: 20px;
+        color: #303030
+    }
+
+    .order-sum .money {
+        color: #303030
+    }
+
+    .discount-layout {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 22px
+    }
+
+    .discount-layout>p {
+        font-size: 13px;
+        color: #808080
+    }
+
+    .discount-form {
+        display: flex;
+        gap: 8px;
+        flex: 0 0 235px
+    }
+
+    .field {
+        border: 1px solid #aaa;
+        border-radius: 8px;
+        width: 100%;
+        height: 44px;
+        padding: 10px 14px;
+        background: transparent;
+        color: #303030
+    }
+
+    .field::placeholder {
+        color: #a2a2a2
+    }
+
+    .discount-form .field {
+        width: 180px;
+        font-size: 13px
+    }
+
+    .discount-form button {
+        background: #9f4537;
+        color: white;
+        border-radius: 6px;
+        padding: 8px 15px
+    }
+
+    .discount-form button:disabled {
+        background: #f0e5e2;
+        color: #aaa
+    }
+
+    .discount-message {
+        font-size: 12px;
+        margin-top: 12px;
+        color: #35734c
+    }
+
+    .discount-message.error {
+        color: #ba352c
+    }
+
+    .fulfillment {
+        padding: 12px;
+        border: 1px solid #d1d1d1;
+        background: #f7f7f7;
+        border-radius: 6px;
+        font-size: 13px
+    }
+
+    .fulfillment+.fulfillment {
+        margin-top: 16px
+    }
+
+    .fulfillment ul {
+        color: #808080;
+        list-style: disc;
+        padding-right: 16px;
+        margin: 8px 0;
+        line-height: 2
+    }
+
+    .fulfillment p span {
+        color: #808080
+    }
+
+    .empty-state {
+        text-align: center;
+        padding: 40px 20px;
+        color: #808080;
+        line-height: 2
+    }
+
+    .empty-state .btn-outline {
+        max-width: 220px;
+        margin: 20px auto 0
+    }
+
+    .desktop-back {
+        font-size: 13px;
+        color: #b04c3c;
+        display: block;
+        margin: 20px auto 0
+    }
+
+    dialog {
+        border: 0;
+        color: #303030;
+        background: #fcfcfc;
+        padding: 0;
+        border-radius: 16px;
+        width: min(920px, calc(100% - 48px));
+        max-height: calc(100dvh - 48px)
+    }
+
+    dialog::backdrop {
+        background: rgba(0, 0, 0, .38)
+    }
+
+    body:has(dialog[open]) {
+        overflow: hidden
+    }
+
+    .dialog-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 24px;
+        border-bottom: 1px solid #ccc;
+        margin: 0 24px;
+        padding-left: 0;
+        padding-right: 0
+    }
+
+    .dialog-header h2 {
+        font-size: 20px
+    }
+
+    .icon-button {
+        width: 32px;
+        height: 32px;
+        display: grid;
+        place-items: center
+    }
+
+    .mobile-only {
+        display: none
+    }
+
+    .address-form {
+        padding: 16px 24px 24px
+    }
+
+    .form-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px 32px
+    }
+
+    .form-field {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        font-size: 13px
+    }
+
+    .form-field.full {
+        grid-column: 1/-1
+    }
+
+    .form-field textarea {
+        height: 166px;
+        resize: vertical;
+        line-height: 1.7
+    }
+
+    .form-field select {
+        appearance: none;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' fill='none' stroke='%23333' stroke-width='1.5'%3E%3Cpath d='m5 8 5 5 5-5'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: 14px center;
+        padding-left: 40px
+    }
+
+    .form-note {
+        display: none
+    }
+
+    .map-label {
+        margin-top: 16px;
+        font-size: 14px
+    }
+
+    .map-view {
+        width: 100%;
+        height: 118px;
+        background: #edf1f1 url('map.png') center/cover;
+        border: 1px solid #ccc;
+        border-radius: 18px;
+        margin-top: 10px;
+        position: relative;
+        overflow: hidden
+    }
+
+    .map-pin {
+        position: absolute;
+        color: #a34535;
+        transform: translate(50%, -100%);
+        filter: drop-shadow(0 2px 2px #fff)
+    }
+
+    .form-actions {
+        display: flex;
+        flex-direction: row-reverse;
+        gap: 24px;
+        margin-top: 16px
+    }
+
+    .form-actions>* {
+        flex: 1;
+        font-size: 14px;
+        min-height: 40px;
+        font-weight: 400
+    }
+
+    .form-actions .btn-outline {
+        color: red;
+        border-color: red
+    }
+
+    .form-error {
+        color: #bc352c;
+        font-size: 13px;
+        margin-top: 12px
+    }
+
+    .info-body {
+        padding: 28px;
+        line-height: 1.9
+    }
+
+    .info-body .primary {
+        margin-top: 24px
+    }
+
+    .info-body h2 {
+        font-size: 20px;
+        margin-bottom: 16px
+    }
+
+    #toast {
+        position: fixed;
+        bottom: 24px;
+        left: 50%;
+        transform: translate(-50%, 20px);
+        background: #303030;
+        color: white;
+        border-radius: 8px;
+        padding: 12px 20px;
+        max-width: calc(100% - 40px);
+        z-index: 100;
+        opacity: 0;
+        pointer-events: none;
+        transition: .2s;
+        font-size: 13px
+    }
+
+    #toast.show {
+        opacity: 1;
+        transform: translate(-50%, 0)
+    }
+
+
+    @media(min-width:1800px) {
+        body {
+            font-size: 18px
+        }
+
+        .shell {
+            padding-top: 180px
+        }
+
+        .page-heading {
+            font-size: 26px;
+            margin-bottom: 38px
+        }
+
+        .checkout-layout {
+            gap: 34px
+        }
+
+        .panel {
+            padding: 28px 32px
+        }
+
+        .panel-header {
+            padding-bottom: 26px
+        }
+
+        .panel-header h2 {
+            font-size: 24px
+        }
+
+        .text-link {
+            font-size: 18px
+        }
+
+        .product {
+            grid-template-columns: 104px minmax(0, 1fr) minmax(240px, 1fr);
+            padding-top: 22px;
+            padding-bottom: 30px
+        }
+
+        .product+.product {
+            padding-top: 22px
+        }
+
+        .product-image {
+            width: 104px;
+            height: 104px
+        }
+
+        .product .product-title {
+            font-size: 23px
+        }
+
+        .quantity {
+            height: 44px;
+            min-width: 148px
+        }
+
+        .quantity button {
+            width: 44px;
+            height: 42px
+        }
+
+        .quantity output,
+        .unit {
+            font-size: 18px
+        }
+
+        .product-prices {
+            font-size: 18px;
+            gap: 14px
+        }
+
+        .unit-price .money {
+            font-size: 16px
+        }
+
+        .line-total,
+        .line-total .money {
+            font-size: 22px
+        }
+
+        .summary .summary-row,
+        .summary .money {
+            font-size: 22px
+        }
+
+        .primary,
+        .btn-outline {
+            font-size: 24px;
+            min-height: 68px
+        }
+
+        .shipping-note {
+            font-size: 18px
+        }
+
+        .store-card+.store-card {
+            margin-top: 34px
+        }
+
+        body[data-page=delivery] .shell {
+            padding-top: 116px
+        }
+
+        .address-top label {
+            font-size: 22px
+        }
+
+        .address-body {
+            font-size: 20px
+        }
+
+        .badge {
+            font-size: 13px
+        }
+
+        .address-row {
+            padding: 32px 0
+        }
+
+        .pickup-intro {
+            font-size: 20px
+        }
+
+        .pickup-label {
+            font-size: 20px
+        }
+
+        .pickup-help,
+        .pickup-card .store-description {
+            font-size: 18px
+        }
+
+        .pickup-section {
+            margin-top: 64px
+        }
+
+        .panel h3 {
+            font-size: 23px
+        }
+    }
+
+    @media(max-width:900px) and (min-width:768px) {
+        .shell {
+            width: 92%
+        }
+
+        .checkout-layout {
+            grid-template-columns: minmax(0, 1fr) 280px;
+            gap: 16px
+        }
+
+        .panel {
+            padding: 16px
+        }
+
+        .product {
+            grid-template-columns: 64px 1fr
+        }
+
+        .product-prices {
+            grid-column: 1/-1;
+            grid-row: 3;
+            align-items: flex-start
+        }
+
+        .primary,
+        .btn-outline {
+            font-size: 15px
+        }
+
+        .discount-layout {
+            flex-direction: column;
+            align-items: stretch
+        }
+
+        .discount-form {
+            flex-basis: auto
+        }
+
+        .discount-form .field {
+            width: 100%
+        }
+    }
+
+    @media(max-width:767px) {
+        body {
+            font-size: 14px
+        }
+
+        .shell,
+        body[data-page=delivery] .shell,
+        body[data-page=payment] .shell {
+            width: 100%;
+            padding: 0 20px 180px;
+            max-width: none
+        }
+
+        .page-heading {
+            height: 64px;
+            margin: 0 -20px 24px;
+            padding: 0 24px;
+            border-bottom: 1px solid #ddd;
+            font-size: 18px;
+            gap: 14px
+        }
+
+        .page-heading .back-icon {
+            display: flex
+        }
+
+        .checkout-layout {
+            display: block
+        }
+
+        .desktop-summary {
+            display: none
+        }
+
+        .panel {
+            padding: 12px 11px;
+            border-radius: 8px
+        }
+
+        .panel-header {
+            padding: 0 0 20px;
+            min-height: 43px
+        }
+
+        .panel-header h2 {
+            font-size: 15px
+        }
+
+        .text-link {
+            font-size: 12px
+        }
+
+        .store-card {
+            padding: 16px 11px
+        }
+
+        .store-card .panel-header h2 {
+            font-size: 18px
+        }
+
+        .store-card .text-link {
+            font-size: 14px
+        }
+
+        .store-card+.store-card {
+            margin-top: 24px
+        }
+
+        .product {
+            grid-template-columns: 118px minmax(0, 1fr);
+            grid-template-rows: 118px auto;
+            gap: 12px 8px;
+            padding: 16px 0 24px
+        }
+
+        .product+.product {
+            padding-top: 24px
+        }
+
+        .product:last-child {
+            padding-bottom: 0
+        }
+
+        .product-image {
+            width: 118px;
+            height: 118px;
+            grid-row: 1;
+            grid-column: 1
+        }
+
+        .product .product-title {
+            font-size: 17px;
+            grid-column: 2;
+            grid-row: 1;
+            line-height: 1.65
+        }
+
+        .title-long {
+            display: inline
+        }
+
+        .title-short {
+            display: none
+        }
+
+        .quantity-area {
+            grid-column: 1;
+            grid-row: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+            gap: 5px
+        }
+
+        .quantity {
+            height: 44px;
+            min-width: 0
+        }
+
+        .quantity button {
+            font-size: 29px;
+            height: 42px;
+            width: 35px
+        }
+
+        .quantity output {
+            font-size: 17px
+        }
+
+        .unit {
+            font-size: 12px
+        }
+
+        .product-prices {
+            grid-column: 2;
+            grid-row: 2;
+            gap: 9px;
+            align-self: start;
+            font-size: 12px;
+            padding-top: 0;
+            position: relative
+        }
+
+        .remove {
+            position: absolute;
+            top: -40px;
+            left: 0
+        }
+
+        .line-total {
+            font-size: 13px
+        }
+
+        .line-total .money {
+            font-size: 14px
+        }
+
+        .unit-price .money {
+            font-size: 11px
+        }
+
+        .money {
+            gap: 3px
+        }
+
+        .money small {
+            font-size: 10px
+        }
+
+        .mobile-note {
+            display: flex;
+            margin-top: 28px;
+            font-size: 14px
+        }
+
+        .save-later {
+            font-size: 14px;
+            margin-top: 22px
+        }
+
+        .mobile-actions {
+            display: block;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            border-top: 1px solid #ddd;
+            background: #fff;
+            z-index: 20;
+            padding: 14px 20px max(20px, env(safe-area-inset-bottom))
+        }
+
+        .mobile-total {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 16px;
+            margin-bottom: 16px
+        }
+
+        .mobile-total .money {
+            font-size: 18px
+        }
+
+        .mobile-total .money small {
+            font-size: 12px
+        }
+
+        .mobile-actions .primary {
+            font-size: 16px;
+            min-height: 48px;
+            font-weight: 400
+        }
+
+        body[data-page=cart] .mobile-actions {
+            bottom: 70px
+        }
+
+        body[data-page=cart] .shell {
+            padding-bottom: 255px
+        }
+
+        .mobile-nav {
+            display: flex;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 21;
+            background: #fcfcfc;
+            border-top: 1px solid #ddd;
+            height: 70px;
+            padding-bottom: env(safe-area-inset-bottom);
+            justify-content: space-around
+        }
+
+        .mobile-nav button {
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            justify-content: center;
+            gap: 6px;
+            font-size: 11px;
+            min-width: 58px;
+            border-top: 1px solid transparent
+        }
+
+        .mobile-nav .active {
+            color: #aa4132;
+            border-top-color: #aa4132
+        }
+
+        .mobile-nav svg {
+            width: 22px;
+            height: 22px
+        }
+
+        .address-row {
+            padding: 16px 0 22px
+        }
+
+        .address-top {
+            gap: 6px
+        }
+
+        .address-top label {
+            font-size: 14px;
+            gap: 7px
+        }
+
+        .badge {
+            font-size: 9px;
+            padding: 5px 7px
+        }
+
+        .address-body {
+            font-size: 13px;
+            margin-top: 10px;
+            line-height: 1.65
+        }
+
+        .address-body p+p {
+            margin-top: 6px
+        }
+
+        .address-top input {
+            width: 20px;
+            height: 20px
+        }
+
+        .pickup-section {
+            margin-top: 32px
+        }
+
+        .pickup-intro {
+            font-size: 13px;
+            line-height: 1.6;
+            margin-bottom: 16px
+        }
+
+        .pickup-card {
+            padding: 12px 11px;
+            margin-bottom: 16px
+        }
+
+        .panel h3 {
+            font-size: 14px
+        }
+
+        .pickup-card .store-description {
+            font-size: 12px;
+            margin-top: 10px;
+            padding-bottom: 16px
+        }
+
+        .pickup-label {
+            font-size: 14px;
+            margin-top: 15px
+        }
+
+        .pickup-help {
+            font-size: 12px;
+            line-height: 1.6;
+            margin: 8px 28px 0 0
+        }
+
+        .pickup-card:last-child {
+            margin-bottom: 0
+        }
+
+        .payment-panel {
+            padding: 14px 11px
+        }
+
+        .payment-panel>h2 {
+            font-size: 15px;
+            margin-bottom: 22px
+        }
+
+        .payment-panel+.payment-panel {
+            margin-top: 24px
+        }
+
+        .order-line {
+            font-size: 13px;
+            gap: 28px;
+            margin-top: 18px
+        }
+
+        .order-line .money {
+            font-size: 12px;
+            align-self: flex-start
+        }
+
+        .order-sum {
+            margin-top: 20px;
+            padding-top: 16px;
+            font-size: 14px
+        }
+
+        .order-sum .money {
+            font-size: 14px
+        }
+
+        .discount-layout {
+            display: block
+        }
+
+        .discount-layout>p {
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 18px
+        }
+
+        .discount-form {
+            display: flex;
+            gap: 8px
+        }
+
+        .discount-form .field {
+            flex: 1;
+            width: 0;
+            height: 40px;
+            font-size: 14px
+        }
+
+        .discount-form button {
+            padding: 8px 16px
+        }
+
+        .fulfillment {
+            padding: 12px 10px;
+            font-size: 14px
+        }
+
+        .fulfillment+.fulfillment {
+            margin-top: 16px
+        }
+
+        .fulfillment ul {
+            font-size: 13px
+        }
+
+        .fulfillment p {
+            line-height: 1.8
+        }
+
+        .payment-note {
+            display: none
+        }
+
+        dialog#address-dialog {
+            width: 100%;
+            height: 100dvh;
+            max-width: none;
+            max-height: none;
+            border-radius: 0;
+            margin: 0;
+            background: #f2f2f2
+        }
+
+        #address-dialog .dialog-header {
+            height: 64px;
+            background: #fcfcfc;
+            margin: 0;
+            padding: 0 24px;
+            justify-content: flex-start;
+            gap: 16px;
+            flex-direction: row-reverse
+        }
+
+        #address-dialog .dialog-header h2 {
+            font-size: 18px;
+            margin-left: auto
+        }
+
+        #address-dialog .dialog-header .desktop-only {
+            display: none
+        }
+
+        .mobile-only {
+            display: block
+        }
+
+        .address-form {
+            margin-top: 48px;
+            padding: 24px 20px;
+            background: #fcfcfc
+        }
+
+        .form-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 24px
+        }
+
+        .form-field {
+            font-size: 14px;
+            gap: 10px
+        }
+
+        .form-field .field {
+            height: 44px;
+            font-size: 14px
+        }
+
+        .form-field textarea.field {
+            height: 165px
+        }
+
+        .form-note {
+            display: flex
+        }
+
+        .map-label {
+            margin-top: 24px
+        }
+
+        .map-view {
+            height: 94px
+        }
+
+        .form-actions {
+            gap: 12px;
+            margin-top: 24px
+        }
+
+        .form-actions>* {
+            font-size: 15px;
+            min-height: 42px
+        }
+
+        .form-error {
+            line-height: 1.7
+        }
+
+        #toast {
+            bottom: 210px;
+            width: max-content
+        }
+
+        dialog#info-dialog {
+            width: calc(100% - 40px)
+        }
+    }
+
+    @media(max-width:360px) {
+        .shell {
+            padding-left: 12px !important;
+            padding-right: 12px !important
+        }
+
+        .page-heading {
+            margin-left: -12px;
+            margin-right: -12px
+        }
+
+        .product {
+            grid-template-columns: 98px minmax(0, 1fr);
+            grid-template-rows: 98px auto
+        }
+
+        .product-image {
+            width: 98px;
+            height: 98px
+        }
+
+        .product .product-title {
+            font-size: 14px
+        }
+
+        .line-total {
+            font-size: 11px
+        }
+
+        .line-total .money {
+            font-size: 12px
+        }
+
+        .unit-price {
+            font-size: 10px
+        }
+
+        .address-top {
+            flex-wrap: wrap
+        }
+
+        .badge {
+            font-size: 8px;
+            padding: 4px
+        }
+
+        .address-top label {
+            font-size: 12px
+        }
+
+        .mobile-actions {
+            padding-right: 12px;
+            padding-left: 12px
+        }
+
+        .order-line {
+            gap: 12px
+        }
+    }
+
+    @media(prefers-reduced-motion:reduce) {
+        * {
+            scroll-behavior: auto !important;
+            transition: none !important
+        }
+    }
+
+    .discount-message:empty {
+        display: none
+    }
+
+    @media(min-width:1800px) {
+        .summary .summary-row {
+            padding-top: 8px;
+            padding-bottom: 25px
+        }
+
+        .summary .summary-row+.summary-row {
+            padding-top: 22px
+        }
+
+        .summary .summary-total {
+            margin-top: 20px;
+            padding: 30px 0 42px !important
+        }
+
+        .money small {
+            font-size: 15px
+        }
+
+        .save-later {
+            font-size: 20px
+        }
+
+        .shipping-note svg {
+            width: 25px;
+            height: 25px
+        }
+
+        .product .remove svg {
+            width: 22px;
+            height: 22px
+        }
+    }
+
+    @media(max-width:767px) {
+        .map-view {
+            background-image: url('map-mobile.png')
+        }
+    }
+
 
     /* ===== checkbox / radio ===== */
     .check-ui,
